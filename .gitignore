@@ -37,8 +37,12 @@ Thumbs.db
 *.bak
 
 # ======================================
+# CodeTogether
+.codetogether.ignore
+
+# ======================================
 # Application-specific
-/factorypath
+.factorypath
 /hs_err_pid*.log
 /lombok.config
 

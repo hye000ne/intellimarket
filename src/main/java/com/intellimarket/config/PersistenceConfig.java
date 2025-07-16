@@ -9,6 +9,7 @@ import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 
@@ -18,6 +19,7 @@ import org.springframework.jdbc.datasource.DriverManagerDataSource;
  */
 @Configuration
 @MapperScan("com.intellimarket.**.dao")
+@PropertySource("classpath:application.properties")
 public class PersistenceConfig {
 	@Value("${db.url}") private String url;
 	@Value("${db.username}") private String username;
