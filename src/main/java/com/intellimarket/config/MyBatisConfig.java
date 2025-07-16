@@ -11,16 +11,20 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
+import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
+import org.springframework.transaction.PlatformTransactionManager;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 /**
  * DB, DataSource, MyBatis 설정
  * @author 혜원
  */
 @Configuration
+@EnableTransactionManagement
 @MapperScan("com.intellimarket.**.dao")
 @PropertySource("classpath:application.properties")
-public class PersistenceConfig {
+public class MyBatisConfig {
 	@Value("${db.url}") private String url;
 	@Value("${db.username}") private String username;
 	@Value("${db.password}") private String password;
@@ -53,4 +57,9 @@ public class PersistenceConfig {
 	public SqlSessionTemplate sqlSessionTemplate(SqlSessionFactory sqlSessionFactory) {
 		return new SqlSessionTemplate(sqlSessionFactory);
 	}
+	
+	@Bean
+    public PlatformTransactionManager transactionManager(DataSource dataSource) {
+        return new DataSourceTransactionManager(dataSource);
+    }
 }
