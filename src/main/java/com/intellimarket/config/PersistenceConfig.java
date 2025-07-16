@@ -1,0 +1,54 @@
+package com.intellimarket.config;
+
+import javax.sql.DataSource;
+
+import org.apache.ibatis.session.SqlSessionFactory;
+import org.mybatis.spring.SqlSessionFactoryBean;
+import org.mybatis.spring.SqlSessionTemplate;
+import org.mybatis.spring.annotation.MapperScan;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
+import org.springframework.jdbc.datasource.DriverManagerDataSource;
+
+/**
+ * DB, DataSource, MyBatis 설정
+ * @author 혜원
+ */
+@Configuration
+@MapperScan("com.intellimarket.**.dao")
+public class PersistenceConfig {
+	@Value("${db.url}") private String url;
+	@Value("${db.username}") private String username;
+	@Value("${db.password}") private String password;
+	
+	@Bean
+	public DataSource dataSource() {
+		DriverManagerDataSource ds = new DriverManagerDataSource();
+		ds.setDriverClassName("com.mysql.cj.jdbc.Driver");
+		ds.setUrl(url);
+		ds.setUsername(username);
+		ds.setPassword(password);
+		return ds;
+	}
+	
+	@Bean
+	public SqlSessionFactory sqlSessionFactory(DataSource dataSource) throws Exception {
+		SqlSessionFactoryBean factory = new SqlSessionFactoryBean();
+		factory.setDataSource(dataSource);
+		factory.setMapperLocations(new PathMatchingResourcePatternResolver().getResources("classpath:/mapper/**/*.xml"));
+		factory.setTypeAliasesPackage(
+			  "com.intellimarket.admin.domain,"
+			+ "com.intellimarket.shop.domain,"
+			+ "com.intellimarket.seller.domain"
+		);
+		
+		return factory.getObject();
+	}
+	
+	@Bean
+	public SqlSessionTemplate sqlSessionTemplate(SqlSessionFactory sqlSessionFactory) {
+		return new SqlSessionTemplate(sqlSessionFactory);
+	}
+}
