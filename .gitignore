@@ -1,0 +1,71 @@
+# ======================================
+# Maven build output
+/target/
+!.mvn/wrapper/maven-wrapper.jar
+
+# Maven wrapper
+.mvn/
+pom.xml.tag
+pom.xml.releaseBackup
+pom.xml.versionsBackup
+pom.xml.next
+release.properties
+
+# ======================================
+# IntelliJ IDEA
+.idea/
+*.iml
+*.iws
+
+# ======================================
+# Eclipse
+.project
+.classpath
+.settings/
+
+# ======================================
+# VS Code
+.vscode/
+
+# ======================================
+# OS temporary files
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+*.tmp
+*.bak
+
+# ======================================
+# Application-specific
+/factorypath
+/hs_err_pid*.log
+/lombok.config
+
+# ======================================
+# Logs
+*.log
+
+# ======================================
+# Spring Boot & Spring Framework config files (secret config)
+/src/main/resources/application.properties
+/src/main/resources/application-*.properties
+/src/main/resources/*.yml
+/src/main/resources/*.yaml
+
+# ======================================
+# Database & uploads (optional)
+*.db
+*.sqlite*
+*.mv.db
+/uploads/
+/data/
+/storage/
+
+# ======================================
+# Build artifacts
+/build/
+/dist/
+/coverage/
+/out/
+/node_modules/
