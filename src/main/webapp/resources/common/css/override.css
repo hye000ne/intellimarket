@@ -1,0 +1,100 @@
+/* ===================== 상단바 (header-top) ===================== */
+.top-bg {
+  background-color: #e0f5f5 !important;
+}
+
+.header-area .header-top .header-info-right ul {
+  display: flex;
+  justify-content: flex-end;
+  gap: 20px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.header-area .header-top .header-info-right ul li a {
+  font-size: 16px;
+  color: #333 !important;
+  text-decoration: none;
+}
+.header-area .header-top .header-info-right ul li a:hover {
+  color: #46b5a7 !important;
+}
+
+/* ===================== 로고 ===================== */
+.logo img {
+  max-height: 50px;
+}
+
+/* ===================== 메인 메뉴 (header-bottom) ===================== */
+.header-area a,
+.header-area li {
+  font-size: 17px !important;
+}
+
+
+/* ===================== 아이콘 영역 (장바구니) ===================== */
+/* 장바구니 기본 뱃지 숨기고, 직접 만든 숫자 표시만 사용 */
+.header-bottom .header-right .shopping-card::before {
+  display: none !important;
+}
+
+/* 장바구니 숫자 위치 보정 */
+.cart-count {
+  position: absolute;
+  top: 0px;
+  right: 7px;
+  width: 18px;
+  height: 18px;
+  font-size: 11px;
+  line-height: 18px;
+  background: #00b1ff;
+  color: #fff;
+  text-align: center;
+  border-radius: 50%;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+/* ===================== 로그인 페이지 ===================== */
+/* 로그인 왼쪽 배경 민트 계열로 수정 */
+.login_part_text {
+  background-image: linear-gradient(90deg, #b2f0e8 0%, #8de0d5 64%, #b2f0e8 100%) !important;
+}
+
+.login_part_text_iner h2,
+.login_part_text_iner p,
+.login_part_text_iner {
+  color: #222 !important;
+}
+
+.login_part_text_iner .btn_3 {
+  color: #222 !important;
+  border: 1px solid #222 !important;
+}
+
+/* ===================== 회원가입 페이지 ===================== */
+.email-check-group {
+  display: flex;
+  gap: 8px;
+  align-items: flex-end;
+}
+
+.email-check-group .form-control {
+  flex: 1;
+}
+
+.email-check-group .btn-check {
+  padding: 8px 16px;
+  font-size: 14px;
+  height: 42px;
+  border: 1px solid #333;
+  background: white;
+  color: #333;
+  transition: 0.2s;
+}
+
+.email-check-group .btn-check:hover {
+  background-color: #f3f3f3;
+  cursor: pointer;
+}
+

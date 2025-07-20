@@ -11,32 +11,29 @@ import org.springframework.web.filter.CharacterEncodingFilter;
 import org.springframework.web.servlet.DispatcherServlet;
 
 /**
- * Web 설정 : 영역별 Config/DispatcherServlet
+ * Web 설정 초기화 클래스
+ * - 인코딩 필터 등록 (UTF-8)
+ * - Root Context (AppConfig, MyBatisConfig)
+ * - Servlet Context (WebMvcConfig → DispatcherServlet)
  * @author 혜원
  */
 public class WebAppInitializer implements WebApplicationInitializer {
 	@Override
     public void onStartup(ServletContext servletContext) {
-		// 공통 인코딩
-		CharacterEncodingFilter enc = new CharacterEncodingFilter("UTF-8", true);
-		servletContext.addFilter("encodingFilter", enc).addMappingForUrlPatterns(null, false, "/*");
-		
-		// Root context
-		AnnotationConfigWebApplicationContext root = new AnnotationConfigWebApplicationContext();
-		root.register(AppConfig.class, MyBatisConfig.class); // 공통 구성
-	    servletContext.addListener(new ContextLoaderListener(root));
-	    
-		// Admin context
-		AnnotationConfigWebApplicationContext admin = new AnnotationConfigWebApplicationContext();
-		admin.register(AdminWebConfig.class);
-		ServletRegistration.Dynamic adminDispatcher = servletContext.addServlet("adminDispatcher", new DispatcherServlet(admin));
-		adminDispatcher.setLoadOnStartup(1);
-		adminDispatcher.addMapping("/admin/*");
-		
-		// Shop
-		
-		// Seller
-		
-	}
+		// 인코딩 필터
+        CharacterEncodingFilter enc = new CharacterEncodingFilter("UTF-8", true);
+        servletContext.addFilter("encodingFilter", enc).addMappingForUrlPatterns(null, false, "/*");
 
+        // Root Context
+        AnnotationConfigWebApplicationContext root = new AnnotationConfigWebApplicationContext();
+        root.register(AppConfig.class, MyBatisConfig.class);
+        servletContext.addListener(new ContextLoaderListener(root));
+	    
+        // Web(MVC) Context
+        AnnotationConfigWebApplicationContext web = new AnnotationConfigWebApplicationContext();
+        web.register(WebMvcConfig.class);
+        ServletRegistration.Dynamic dispatcher = servletContext.addServlet("dispatcher", new DispatcherServlet(web));
+        dispatcher.setLoadOnStartup(1);
+        dispatcher.addMapping("/"); // 전체 요청 처리
+	}
 }

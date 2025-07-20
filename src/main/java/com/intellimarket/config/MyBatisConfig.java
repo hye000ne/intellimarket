@@ -17,7 +17,7 @@ import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 /**
- * DB, DataSource, MyBatis 설정
+ * 데이터베이스 설정 + MyBatis 연동 설정 클래스
  * @author 혜원
  */
 @Configuration
