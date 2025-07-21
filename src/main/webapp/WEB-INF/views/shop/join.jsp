@@ -21,7 +21,7 @@
 			<div class="col-lg-8 col-md-10">
 				<div class="login_part_form">
                     <div class="login_part_form_iner">
-						<form class="row contact_form" action="${ctx}/member/join" method="post" novalidate="novalidate">
+						<form class="row contact_form" action="${ctx}/shop/member/join" method="post" novalidate="novalidate">
 							<!-- 이메일 (아이디) -->
 							<div class="col-md-12 form-group">
 							  	<label for="email">이메일 (아이디)</label>
@@ -30,7 +30,6 @@
 							    	<button type="button" class="btn-check">중복확인</button>
 							  	</div>
 							</div>
-
 			
 			              	<!-- 비밀번호 -->
 						    <div class="col-md-6 form-group">
