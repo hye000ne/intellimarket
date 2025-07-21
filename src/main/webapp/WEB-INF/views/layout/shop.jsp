@@ -23,12 +23,12 @@
 
         <link rel="stylesheet" href="${ctx}/resources/common/css/override.css">
         
+        <script src="${ctx}/resources/shop/assets/js/vendor/jquery-1.12.4.min.js"></script>
+        
 	</head>
 	<body>
 		<jsp:include page="/WEB-INF/views/shop/include/header.jsp" />
 		<jsp:include page="/WEB-INF/views/${contentPage}" />
-		<jsp:include page="/WEB-INF/views/shop/include/footer.jsp" />
-		
 		<!-- scripts -->
         <script src="${ctx}/resources/shop/assets/js/vendor/modernizr-3.5.0.min.js"></script>
 		<!-- Jquery, Popper, Bootstrap -->
@@ -62,5 +62,12 @@
 		<!-- Jquery Plugins, main Jquery -->	
         <script src="${ctx}/resources/shop/assets/js/plugins.js"></script>
 		<script src="${ctx}/resources/shop/assets/js/main.js"></script>
+		<jsp:include page="/WEB-INF/views/shop/include/footer.jsp" />
+		
 	</body>
+	
+	<!-- 페이지 개별 스크립트 -->
+  	<c:if test="${not empty pageScript}">
+    	<jsp:include page="${pageScript}"/>
+	</c:if>
 </html>
