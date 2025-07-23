@@ -22,7 +22,7 @@
 			<div class="col-lg-8 col-md-10">
 				<div class="login_part_form">
                     <div class="login_part_form_iner">
-						<form class="row contact_form" id="joinForm" novalidate="novalidate">
+						<form class="row contact_form" id="joinForm">
 							<!-- 이메일 -->
 							<div class="col-md-12 form-group">
 							  	<label for="email">이메일</label>

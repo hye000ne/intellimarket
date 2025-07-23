@@ -50,7 +50,7 @@
                                     <label for="remember">이메일 저장</label>
                                 </div>
                                 <button type="button" class="btn_3" onclick="submitLoginForm()">로그인</button>
-                                <a class="lost_pass" href="#">비밀번호 찾기</a>
+                                <a class="lost_pass" href="${ctx}/shop/findPw">비밀번호 찾기</a>
                             </div>
                         </form>
                     </div>
