@@ -18,12 +18,23 @@
 			<div class="header-top top-bg d-none d-lg-block">
               	<div class="container-fluid">
                   	<div class="col-xl-12">
-						<div class="d-flex justify-content-end align-items-center">
+						<div class="row d-flex justify-content-between align-items-center">
+							<div class="header-info-left d-flex">
+                              	<c:if test="${not empty sessionScope.loginMember}">
+                              		<span>${sessionScope.loginMember.name}님, 환영합니다!</span>
+								</c:if>							
+							</div>
                            	<div class="header-info-right">
-                              	<ul>                                          
-                                  	<li><a href="${ctx}/shop/login">로그인</a></li>
-                                  	<li><a href="${ctx}/shop/join">회원가입</a></li>
-								</ul>
+	                           	<ul>
+	                              	<c:if test="${not empty sessionScope.loginMember}">
+										<li><a href="${ctx}/shop/member/logout">로그아웃</a></li>
+										<li><a href="${ctx}/shop/mypage">마이페이지</a></li>
+									</c:if>
+									<c:if test="${empty sessionScope.loginMember}">
+										<li><a href="${ctx}/shop/login">로그인</a></li>
+										<li><a href="${ctx}/shop/join">회원가입</a></li>
+									</c:if>
+	                           	</ul>
                            	</div>
                        	</div>
                   	</div>
@@ -66,18 +77,22 @@
                                 <!-- 마이 페이지 -->
 								<li>
 									<div class="favorit-items">
-                                       	<a href="${ctx}/shop/login">
-											<i class="far fa-user"></i>
-										</a>
+										<c:if test="${not empty sessionScope.loginMember}">
+                                       		<a href="${ctx}/shop/mypage"><i class="far fa-user"></i></a>
+                                     	</c:if>
+										<c:if test="${empty sessionScope.loginMember}">
+                                       		<a href="${ctx}/shop/login"><i class="far fa-user"></i></a>
+                                     	</c:if>
 									</div>
 								</li>
                                	<!-- 장바구니 -->
                                	<li>
                                    	<div class="shopping-card">
-                                       	<a href="#">
-                                       		<i class="fas fa-shopping-cart"></i>
-   											<span class="cart-count">3</span><!-- 숫자 표시 -->
-                                       	</a>
+                                   		<c:if test="${not empty sessionScope.loginMember}">
+                                       		<a href="${ctx}/shop/cart"><i class="fas fa-shopping-cart"></i><span class="cart-count">3</span></a>
+                                     	</c:if>
+										<c:if test="${empty sessionScope.loginMember}">
+                                     	</c:if>
                                    	</div>
                                	</li>
                            	</ul>

@@ -15,20 +15,20 @@
     </div>
 </div>
 
-<section class="login_part">
+<section class="login_part section_padding">
     <div class="container">
         <div class="row justify-content-center">
         	<!-- 회원가입 폼 -->
 			<div class="col-lg-8 col-md-10">
 				<div class="login_part_form">
                     <div class="login_part_form_iner">
-						<form class="row contact_form" action="${ctx}/shop/member/join" method="post" novalidate="novalidate">
+						<form class="row contact_form" id="joinForm" novalidate="novalidate">
 							<!-- 이메일 -->
 							<div class="col-md-12 form-group">
 							  	<label for="email">이메일</label>
 							  	<div class="email-check-group">
 							    	<input type="email" id="email" name="email" class="form-control" required />
-							    	<button type="button" class="btn-check">중복확인</button>
+							    	<button type="button" id="btnCheckEmail" class="btn-check">중복확인</button>
 							  	</div>
 							</div>
 			
@@ -105,7 +105,7 @@
 						
 						    <!-- 버튼 -->
 						    <div class="col-md-12 form-group">
-						      	<button type="submit" class="btn_3 w-100">회원가입</button>
+						      	<button type="button" class="btn_3 w-100" onclick="submitJoinForm()">회원가입</button>
 						    </div>
 						</form>
 					</div>
@@ -117,18 +117,153 @@
 <!-- 도로명 주소 API -->
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script>
+	let isEmailChecked = false; // 중복확인 여부 체크
+	
+	// 중복확인 Ajax
+	function checkEmailDuplicate() {
+		const email = $('#email').val();
+		if (!email) {
+			alert('이메일을 입력하세요.');
+		    return;
+		}
+		  
+		$.ajax({
+			type: 'POST',
+			url: '/shop/member/checkEmail',
+			data : {email},
+			success : function(){
+				alert('사용 가능한 이메일입니다.');
+				isEmailChecked = true;
+				$('#email').prop('readonly', true);
+				$("#btnCheckEmail").text('재입력');
+			}, 
+			error : function(xhr) {
+				alert('이미 사용 중인 이메일입니다.');
+				isEmailChecked = false;
+			}
+		});
+	}
+	
+	function handleEmailBtnClick() {
+		const isReadonly = $('#email').prop('readonly');
+		
+		// 재입력 버튼일 때
+		if(isReadonly) {
+			if(confirm('이메일을 재입력 하시겠습니까?')) {
+				isEmailChecked = false;
+				$('#email').prop('readonly', false).val('');
+				$('#btnCheckEmail').text('중복확인');
+			}
+			return;
+		}
+		
+		// 중복확인 버튼일 때
+		checkEmailDuplicate();
+	}
+	
+	// 회원가입 Ajax
+	function submitJoinForm() {
+		if (!validateJoinForm()) return;
+		
+		$.ajax({
+			type: 'POST',
+			url: '/shop/member/join',
+			data: $('#joinForm').serialize(),
+			success: function(res) {
+				if(res.status === 'ok') {
+					alert(res.msg);
+					location.href= '/shop/login';
+				}
+			}, 
+			error : function(xhr) {
+				alert(xhr.responseText);
+			}
+		});
+	}
+	
+	// 회원가입 폼 유효성 검사
+	function validateJoinForm() {
+		const email = $('#email').val();
+		const pw = $('#password').val();
+		const pwConfirm = $('#passwordConfirm').val();
+		const name = $('#name').val();
+		const birth = $('#birth').val();
+		const phone = $('#phone').val();
+		const zipCode = $('#zipCode').val();
+		const address = $('#address').val();
+		const detailAddress = $('#detailAddress').val();
+		
+		if (!email) {
+		  	alert('이메일을 입력하세요.');
+		  	return false;
+		}
+		
+		const emailReg = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-z]{2,}$/;
+		if (!emailReg.test(email)) {
+		  	alert('이메일 형식이 올바르지 않습니다.');
+		  	return false;
+		}
+		
+		if (!isEmailChecked) {
+		  	alert('이메일 중복확인을 해주세요.');
+		  	return false;
+		}
+		
+		if (!pw || !pwConfirm) {
+		  	alert('비밀번호를 입력하세요.');
+		 	return false;
+		}
+		
+		if (pw !== pwConfirm) {
+		  	alert('비밀번호가 일치하지 않습니다.');
+		  	return false;
+		}
+		
+		if (!name || !/^[가-힣]{2,}$/.test(name)) {
+		  	alert('이름을 한글 2자 이상으로 입력하세요.');
+		  	return false;
+		}
+		
+		if (!birth) {
+		  	alert('생년월일을 입력하세요.');
+		  	return false;
+		}
+		
+		if (!phone || !/^\d{10,11}$/.test(phone)) {
+		  	alert('휴대폰 번호를 숫자만 입력하세요.');
+		  	return false;
+		}
+		
+		if (!zipCode || !address || !detailAddress) {
+		  	alert('주소를 모두 입력해주세요.');
+		 	return false;
+		}
+		
+		if (!$('[name="gender"]').is(':checked')) {
+		  	alert('성별을 선택해주세요.');
+		  	return false;
+		}
+		
+		if (!$('#agree').is(':checked')) {
+		  	alert('약관에 동의해주세요.');
+		  	return false;
+		}
+		
+		return true;
+	}
+	
 	function findZipCode() {
 	    new daum.Postcode({
 	        oncomplete: function(data) {
-				$("#zipCode").val(data.zonecode);
-				$("#address").val(data.roadAddress);
-				$("#detailAddress").focus();
+				$('#zipCode').val(data.zonecode);
+				$('#address').val(data.roadAddress);
+				$('#detailAddress').focus();
 	        }
 	    }).open();
 	}
 	
 	$(function(){
-	    $("#zipCode").click(findZipCode);
+		$('#btnCheckEmail').on('click', handleEmailBtnClick);
+	    $('#zipCode').click(findZipCode);
 	});
-
 </script>

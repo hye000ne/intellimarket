@@ -3,11 +3,13 @@ package com.intellimarket.shop.domain;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
+import org.apache.ibatis.type.Alias;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import lombok.Data;
 
 @Data
+@Alias("Member")
 public class Member {
 	private int memberId;
 	private String email;
