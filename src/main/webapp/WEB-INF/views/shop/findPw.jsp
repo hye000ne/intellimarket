@@ -22,14 +22,13 @@
             <div class="col-lg-6 col-md-8">
                 <div class="login_part_form">
                     <div class="login_part_form_iner">
-                        <h3>가입 시 등록한 정보를 입력해주세요</h3>
                         <form class="row contact_form" id="findPwForm">
                             <!-- 이메일 -->
                             <div class="col-md-12 form-group">
                                 <label for="email">이메일</label>
                                 <div class="email-check-group">
-                                    <input type="email" id="email" name="email" class="form-control" required />
-                                    <button type="button" class="btn-check" id="btnSendCode">인증 요청</button>
+                                    <input type="email" id="email" name="email" class="form-control" placeholder="가입 시 등록한 이메일을 입력하세요." required />
+                                    <button type="button" class="btn-check" id="btnSendCode" onClick="sendAuthCode()">인증 요청</button>
                                 </div>
                             </div>
 
@@ -41,7 +40,7 @@
 
                             <!-- 버튼 -->
                             <div class="col-md-12 form-group">
-                                <button type="button" class="btn_3 w-100" onclick="submitFindPwForm()">비밀번호 찾기</button>
+                                <button type="button" class="btn_3 w-100" onclick="submitFindPwForm()">임시 비밀번호 발급</button>
                             </div>
                         </form>
                     </div>
@@ -50,3 +49,26 @@
         </div>
     </div>
 </section>
+
+<script>
+	// 인증코드 요청 처리 
+	function sendAuthCode() {
+		const email = $('#email').val(); 
+		if(!email) {
+			alert('이메일을 입력하세요.');
+			return;
+		}
+		
+		$.ajax({
+			type: 'POST',
+			url: '/sendAuthEmail',
+			data : {"email" : email},
+			success : function(res) {
+				if(res.status === 'ok') alert(res.msg);
+			},
+			error : function(xhr) {
+				alert(xhr.responseText);
+			}
+		});
+	}
+</script>

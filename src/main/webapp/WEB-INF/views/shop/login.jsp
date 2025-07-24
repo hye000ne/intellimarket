@@ -62,7 +62,7 @@
 <script>
 	function submitLoginForm() {
 		if (!validateLoginForm()) return;
-		console.log( $('#loginForm').serialize());
+
 		$.ajax({
 			type: 'POST',
 			url: '/shop/member/login',

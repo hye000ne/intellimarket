@@ -37,8 +37,8 @@ public class MemberController {
 	@PostMapping("/join")
 	@ResponseBody
 	public Map<String, Object> join(@ModelAttribute Member member) {
-		Map<String, Object> res = new HashMap<>();
 		memberService.insert(member);
+		Map<String, Object> res = new HashMap<>();
 		res.put("status", "ok");
 		res.put("msg", "회원가입이 완료되었습니다.");
 		return res;
