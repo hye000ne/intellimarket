@@ -129,8 +129,8 @@
 		  
 		$.ajax({
 			type: 'POST',
-			url: '/shop/member/checkEmail',
-			data : {email},
+			url: '/shop/member/checkEmailDuplicate',
+			data : {email : email},
 			success : function(){
 				alert('사용 가능한 이메일입니다.');
 				isEmailChecked = true;
