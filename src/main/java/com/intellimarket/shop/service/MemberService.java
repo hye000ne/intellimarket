@@ -26,6 +26,6 @@ public interface MemberService {
 	// 비밀번호 확인
 	boolean matchPassword(int memberId, String password);
 	
-	// 이메일 중복확인
-	void existByEmail(String email);
+	// 회원 존재 여부 (이메일 기반)
+	boolean isEmailExists(String email);
 }

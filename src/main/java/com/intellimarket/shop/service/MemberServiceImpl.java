@@ -64,10 +64,9 @@ public class MemberServiceImpl implements MemberService {
 		
 		return memberDAO.matchPassword(member) > 0;
 	}
-
-	// 이메일 중복확인
-	@Override
-	public void existByEmail(String email) {
-		if(memberDAO.existByEmail(email) > 0) throw new ShopException("이미 사용 중인 이메일입니다.");
+	
+	// 회원 존재 여부 (이메일 기반)
+	public boolean isEmailExists(String email) {
+		return memberDAO.existByEmail(email) > 0;
 	}
 }

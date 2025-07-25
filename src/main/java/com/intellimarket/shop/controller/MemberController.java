@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.intellimarket.shop.domain.Member;
+import com.intellimarket.shop.exception.ShopException;
 import com.intellimarket.shop.service.MemberService;
 
 import lombok.extern.slf4j.Slf4j;
@@ -89,10 +90,23 @@ public class MemberController {
 	 * @param email
 	 * @return
 	 */
-	@PostMapping("/checkEmail")
+	@PostMapping("/checkEmailDuplicate")
 	@ResponseBody
-	public boolean checkEmailDuplicate(@RequestParam String email) {
-		memberService.existByEmail(email);
-		return true;
+	public void checkEmailDuplicate(@RequestParam String email) {
+		if(memberService.isEmailExists(email)) {
+			throw new ShopException("이미 사용 중인 이메일입니다.");
+		} 
+	}
+	
+	/**
+	 * 회원 존재 여부 체크
+	 * - 비밀번호 찾기 시 회원 유무 검증
+	 * @param email
+	 * @return
+	 */
+	@PostMapping("/isEmailExists")
+	@ResponseBody
+	public boolean isEmailExists(@RequestParam String email) {
+		return memberService.isEmailExists(email);
 	}
 }
