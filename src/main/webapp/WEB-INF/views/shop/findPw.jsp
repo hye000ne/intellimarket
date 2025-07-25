@@ -51,24 +51,51 @@
 </section>
 
 <script>
-	// 인증코드 요청 처리 
-	function sendAuthCode() {
-		const email = $('#email').val(); 
+	//이메일 유효성 검사
+	function validateEmail(callback) {
+		const email = $('#email').val();
+		
 		if(!email) {
 			alert('이메일을 입력하세요.');
+			callback(false);
 			return;
 		}
 		
 		$.ajax({
 			type: 'POST',
-			url: '/sendAuthEmail',
-			data : {"email" : email},
+			url: '/shop/member/isEmailExists',
+			data: { email: email },
 			success : function(res) {
-				if(res.status === 'ok') alert(res.msg);
+				if(res) {
+					callback(res);
+				} else {
+					alert("해당 이메일로 가입된 회원이 없습니다.")
+					callback(res);
+				}
 			},
-			error : function(xhr) {
-				alert(xhr.responseText);
+			error: function() {
+				alert('이메일 검사에 실패했습니다.');
+				callback(false);
 			}
+		})
+	}
+
+	// 인증코드 요청 처리 
+	function sendAuthCode() {
+		validateEmail(function(isValid) {
+			if(!isValid) return;
+			
+			$.ajax({
+				type: 'POST',
+				url: '/sendAuthEmail',
+				data: { email: $('#email').val() },
+				success : function(res) {
+					if(res.status === 'ok') alert(res.msg);
+				},
+				error : function(xhr) {
+					alert('인증 메일 전송에 실패했습니다.');
+				}
+			});
 		});
 	}
 </script>
