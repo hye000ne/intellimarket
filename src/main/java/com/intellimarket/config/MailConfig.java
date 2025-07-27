@@ -2,14 +2,22 @@ package com.intellimarket.config;
 
 import java.util.Properties;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 
+
+/**
+ * 메일 전송 관련 설정 (Gmail SMTP)
+ * @author 혜원
+ */
 @Configuration
 public class MailConfig {
-
+	@Value("${mail.username}") String username;
+	@Value("${mail.password}") String password;
+	
     @Bean
     public JavaMailSender javaMailSender() {
         JavaMailSenderImpl mailSender = new JavaMailSenderImpl();
@@ -19,8 +27,8 @@ public class MailConfig {
         mailSender.setPort(587); // TLS용 포트
 
         // 2) 메일 계정 정보: '발신용 계정' 아이디(이메일 주소)와 비밀번호
-        mailSender.setUsername("");  // 구글 계정 이메일 주소
-        mailSender.setPassword("");     // 구글 앱 비밀번호
+        mailSender.setUsername(username);  // 구글 계정 이메일 주소
+        mailSender.setPassword(password);     // 구글 앱 비밀번호
 
         // 3) SMTP 서버로 보낼 프로퍼티 세팅
         Properties props = mailSender.getJavaMailProperties();
