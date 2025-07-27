@@ -23,9 +23,15 @@ public interface MemberService {
 	// 로그인
 	Member loginMember(String email, String password);
 	
+	// 비밀번호 수정
+	boolean updatePassword(String email, String password);
+	
 	// 비밀번호 확인
 	boolean matchPassword(int memberId, String password);
 	
 	// 회원 존재 여부 (이메일 기반)
 	boolean isEmailExists(String email);
+	
+	// 임시 비밀번호 생성
+	String generateTempPassword();
 }

@@ -28,7 +28,7 @@
                                 <label for="email">이메일</label>
                                 <div class="email-check-group">
                                     <input type="email" id="email" name="email" class="form-control" placeholder="가입 시 등록한 이메일을 입력하세요." required />
-                                    <button type="button" class="btn-check" id="btnSendCode" onClick="sendAuthCode()">인증 요청</button>
+                                    <button type="button" class="btn-check" onClick="sendAuthCode()">인증 요청</button>
                                 </div>
                             </div>
 
@@ -63,7 +63,7 @@
 		
 		$.ajax({
 			type: 'POST',
-			url: '/shop/member/isEmailExists',
+			url: '/shop/member/checkEmailExist',
 			data: { email: email },
 			success : function(res) {
 				if(res) {
@@ -77,7 +77,7 @@
 				alert('이메일 검사에 실패했습니다.');
 				callback(false);
 			}
-		})
+		});
 	}
 
 	// 인증코드 요청 처리 
@@ -94,6 +94,62 @@
 				},
 				error : function(xhr) {
 					alert('인증 메일 전송에 실패했습니다.');
+				}
+			});
+		});
+	}
+
+	// 인증번호 유효성 검사
+	function validateAuthCode(callback) {
+		const authCode = $('#authCode').val();
+		if(!authCode) {
+			alert('인증코드를 입력하세요.');
+			callback(false);
+			return;
+		}
+		
+		$.ajax({
+			type: 'POST',
+			url: '/shop/member/verifyAuthCode',
+			data: {
+				email: $('#email').val(),
+				authCode : authCode
+			},
+			success: function(res) {
+				if(res.status === 'ok') {
+					callback(true);
+				} else {
+					alert(res.msg);
+					callback(false);
+				}
+			},
+			error: function(xhr) {
+				alert('인증번호 유효성 검사에 실패했습니다.');
+				callback(false);
+			}
+		});
+		
+	}
+	
+	// 임시 비밀번호 요청 처리
+	function submitFindPwForm() {
+		validateAuthCode(function(isValid){
+			if(!isValid) return;
+			
+			$.ajax({
+				type: 'POST',
+				url: '/sendTempPasswordEmail',
+				data: {email: $('#email').val()},
+				success: function(res) {
+					if(res.status === 'ok') {
+						alert(res.msg);
+						location.href('/shop/login');
+					} else {
+						alert(res.msg);
+					}
+				},
+				error : function(xhr) {
+					alert('알 수 없는 오류가 발생했습니다.');
 				}
 			});
 		});

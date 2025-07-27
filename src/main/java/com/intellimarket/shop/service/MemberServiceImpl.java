@@ -1,6 +1,8 @@
 package com.intellimarket.shop.service;
 
+import java.security.SecureRandom;
 import java.util.List;
+import java.util.Random;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -29,7 +31,7 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	public void insert(Member member){
 		if(memberDAO.existByEmail(member.getEmail()) > 0) throw new ShopException("이미 사용 중인 이메일입니다.");
-		// TODO 비밀번호 암호화 로직
+		// TODO 비밀번호 암호화 로직 예정
 		memberDAO.insert(member);
 	}
 	
@@ -66,7 +68,34 @@ public class MemberServiceImpl implements MemberService {
 	}
 	
 	// 회원 존재 여부 (이메일 기반)
+	@Override
 	public boolean isEmailExists(String email) {
 		return memberDAO.existByEmail(email) > 0;
+	}
+	
+	// 비밀번호 수정
+	@Override
+	public boolean updatePassword(String email, String password) {
+		Member member = new Member();
+		member.setEmail(email);
+		member.setPassword(password);
+		
+		return memberDAO.updatePassword(member) > 0;
+	}
+	
+	/** 
+	 * 임시 비밀번호 생성 메서드 
+	 * - 영문 대소문자 + 숫자 조합 10자리
+	 */
+	@Override
+	public String generateTempPassword() {
+		int len = 10;
+		String chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+		StringBuilder sb = new StringBuilder(); // 문자열 누적용
+		Random rnd = new SecureRandom(); // 보안용 난수 생성기
+		
+	    for (int i = 0; i < len; i++) sb.append(chars.charAt(rnd.nextInt(chars.length())));
+    	
+	    return sb.toString();
 	}
 }
