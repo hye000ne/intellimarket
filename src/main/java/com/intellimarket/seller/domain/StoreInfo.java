@@ -1,4 +1,4 @@
-package com.intellimarket.storeadmin.domain;
+package com.intellimarket.seller.domain;
 
 import org.apache.ibatis.type.Alias;
 
@@ -11,4 +11,5 @@ public class StoreInfo {
 	private String storeName;
 	private String storeTel;
 	private String logoPath;
+	private Seller seller;
 }
