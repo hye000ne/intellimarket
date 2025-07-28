@@ -219,6 +219,12 @@
 		  	return false;
 		}
 		
+		const pwReg = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[!@#$%^&*()_+=\-{}\[\]:;"'<>,.?/~`|\\]).{8,16}$/;
+		if (!pwReg.test(pw)) {
+			alert('비밀번호는 영문, 숫자, 특수문자를 포함해 8~16자로 입력하세요.');
+		  	return false;
+		}
+		
 		if (!name || !/^[가-힣]{2,}$/.test(name)) {
 		  	alert('이름을 한글 2자 이상으로 입력하세요.');
 		  	return false;
