@@ -1,9 +1,13 @@
 package com.intellimarket.shop.controller;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import com.intellimarket.common.util.CookieUtil;
 
 /**
  * 쇼핑몰 메인/화면 이동 진입 처리
@@ -29,7 +33,9 @@ public class ShopMainController {
 	 * @return
 	 */
 	@GetMapping("/login")
-	public String loginForm(Model model) {
+	public String loginForm(Model model, HttpServletRequest request) {
+		String rememberedEmail = CookieUtil.getCookie(request, "rememberEmail");
+		model.addAttribute("email", rememberedEmail);
 		model.addAttribute("contentPage", "shop/login.jsp");
 		return "layout/shop";
 	}

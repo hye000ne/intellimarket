@@ -39,15 +39,17 @@
                         </h3>
                         <form class="row contact_form" id="loginForm">
                             <div class="col-md-12 form-group p_star">
-                                <input type="text" class="form-control" id="email" name="email" value="" placeholder="이메일" />
+                                <input type="text" class="form-control" id="email" name="email" value="${email}" placeholder="이메일" />
                             </div>
                             <div class="col-md-12 form-group p_star">
                                 <input type="password" class="form-control" id="password" name="password" value="" placeholder="비밀번호" />
                             </div>
                             <div class="col-md-12 form-group">
                                 <div class="creat_account d-flex align-items-center">
-                                    <input type="checkbox" id="remember" name="remember" />
-                                    <label for="remember">이메일 저장</label>
+                                   	<input type="checkbox" id="rememberEmail" name="rememberEmail" 
+                                   		<c:if test="${ not empty email }">checked</c:if>
+                                   	 />
+                                    <label for="rememberEmail">이메일 저장</label>
                                 </div>
                                 <button type="button" class="btn_3" onclick="submitLoginForm()">로그인</button>
                                 <a class="lost_pass" href="${ctx}/shop/findPw">비밀번호 찾기</a>
@@ -70,7 +72,7 @@
 			success: function(res){
 				if(res.status === 'ok') {
 					alert(res.msg);
-					location.href= '/shop/main';
+					location.href = '/shop/main';
 				} else {
 					alert(res.msg);
 				}

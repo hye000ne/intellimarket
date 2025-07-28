@@ -3,6 +3,7 @@ package com.intellimarket.shop.controller;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.intellimarket.common.util.CookieUtil;
 import com.intellimarket.shop.domain.Member;
 import com.intellimarket.shop.exception.ShopException;
 import com.intellimarket.shop.service.MemberService;
@@ -50,11 +52,22 @@ public class MemberController {
 	 */
 	@PostMapping("/login")
 	@ResponseBody
-	public Map<String, Object> login(@RequestParam String email, @RequestParam String password, HttpSession session) {
+	public Map<String, Object> login(@RequestParam String email, @RequestParam String password
+			, @RequestParam(value="rememberEmail", required = false) String rememberEmail
+			, HttpServletResponse response 
+			, HttpSession session) {
 		Map<String, Object> res = new HashMap<>();
 		Member loginMember = memberService.loginMember(email, password);
 		
 		if(loginMember != null) {
+			// 이메일 저장하기 체크 시
+			if(rememberEmail != null) {
+				// 쿠키에 저장 (만료시간 7일)
+				CookieUtil.setCookie(response, "rememberEmail", email, 60*60*24*7); 
+			} else {
+				// 쿠키 삭제
+				CookieUtil.deleteCookie(response, "rememberEmail");
+			}
 			session.setAttribute("loginMember", loginMember);
 			res.put("status", "ok");
 			res.put("msg", loginMember.getName()+"님, 안녕하세요.");
