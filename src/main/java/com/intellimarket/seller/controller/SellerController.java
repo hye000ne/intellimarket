@@ -1,4 +1,4 @@
-package com.intellimarket.storeadmin.controller;
+package com.intellimarket.seller.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

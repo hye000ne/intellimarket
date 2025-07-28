@@ -1,8 +1,8 @@
-package com.intellimarket.storeadmin.service;
+package com.intellimarket.seller.service;
 
 import java.util.List;
 
-import com.intellimarket.storeadmin.domain.Seller;
+import com.intellimarket.seller.domain.Seller;
 
 public interface SellerService {
 	// 전체 목록 조회

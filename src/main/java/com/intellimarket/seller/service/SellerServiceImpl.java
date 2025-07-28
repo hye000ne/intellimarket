@@ -1,4 +1,4 @@
-package com.intellimarket.storeadmin.service;
+package com.intellimarket.seller.service;
 
 import org.springframework.stereotype.Service;
 
