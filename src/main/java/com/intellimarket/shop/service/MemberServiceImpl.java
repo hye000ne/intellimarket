@@ -7,6 +7,7 @@ import java.util.Random;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.intellimarket.common.util.PasswordEncryptor;
 import com.intellimarket.shop.dao.MemberDAO;
 import com.intellimarket.shop.domain.Member;
 import com.intellimarket.shop.exception.ShopException;
@@ -27,11 +28,21 @@ public class MemberServiceImpl implements MemberService {
 		return memberDAO.selectById(memberId);
 	}
 	
+	// 회원 단 건 조회 (ID 기반)
+	@Override
+	public Member selectByEmail(String email){
+		return memberDAO.selectByEmail(email);
+	}
+	
 	// 회원가입
 	@Override
 	public void insert(Member member){
 		if(memberDAO.existByEmail(member.getEmail()) > 0) throw new ShopException("이미 사용 중인 이메일입니다.");
-		// TODO 비밀번호 암호화 로직 예정
+		if(member.getPassword() == null || member.getPassword().isEmpty()) throw new ShopException("비밀번호는 필수 입력값입니다.");
+		
+		String encodedPassword = PasswordEncryptor.encode(member.getPassword());
+		member.setPassword(encodedPassword);
+		
 		memberDAO.insert(member);
 	}
 	
@@ -50,21 +61,18 @@ public class MemberServiceImpl implements MemberService {
 	// 로그인
 	@Override
 	public Member loginMember(String email, String password){
-		Member member = new Member();
-		member.setEmail(email);
-		member.setPassword(password);
+		Member member = selectByEmail(email);
+		if(member == null) throw new ShopException("가입되지 않은 이메일입니다.");
+		if(!PasswordEncryptor.matches(password, member.getPassword())) throw new ShopException("비밀번호가 일치하지 않습니다.");
 		
-		return memberDAO.loginMember(member);
+		return member;
 	}
 
 	// 비밀번호 확인
 	@Override
 	public boolean matchPassword(int memberId, String password){
-		Member member = new Member();
-		member.setMemberId(memberId);
-		member.setPassword(password);
-		
-		return memberDAO.matchPassword(member) > 0;
+		Member member = selectById(memberId);
+		return PasswordEncryptor.matches(password, member.getPassword());
 	}
 	
 	// 회원 존재 여부 (이메일 기반)
@@ -78,7 +86,10 @@ public class MemberServiceImpl implements MemberService {
 	public boolean updatePassword(String email, String password) {
 		Member member = new Member();
 		member.setEmail(email);
-		member.setPassword(password);
+		
+		// 비밀번호 암호화
+		String encodedPassword = PasswordEncryptor.encode(password);
+		member.setPassword(encodedPassword);
 		
 		return memberDAO.updatePassword(member) > 0;
 	}
