@@ -94,6 +94,12 @@
 		    <artifactId>spring-context-support</artifactId>
 		    <version>4.3.30.RELEASE</version>
 		</dependency>
+		<!-- spring security core -->
+		<dependency>
+		    <groupId>org.springframework.security</groupId>
+		    <artifactId>spring-security-core</artifactId>
+		    <version>4.2.13.RELEASE</version>
+	</dependency>
 	</dependencies>
 	
 	<build>

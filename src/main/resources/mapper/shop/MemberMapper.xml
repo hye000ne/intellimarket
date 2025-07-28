@@ -12,6 +12,12 @@
 		where member_id = #{memberId}
 	</select>
 	
+	<!-- 회원 단 건 조회 (이메일 기반) -->
+	<select id="selectByEmail" parameterType="String" resultType="Member">
+		select * from members 
+		where email = #{email}
+	</select>
+	
 	<!-- 회원 가입 -->
 	<insert id="insert" parameterType="Member">
 		insert into members (
@@ -42,12 +48,6 @@
 		delete from members
 		where member_id = #{memberId}
 	</delete>
-	
-	<!-- 로그인 -->
-	<select id="loginMember" parameterType="Member" resultType="Member">
-		select * from members
-		where email = #{email} and password = #{password} 
-	</select>
 	
 	<!-- 비밀번호 변경 -->
 	<update id="updatePassword" parameterType="Member">

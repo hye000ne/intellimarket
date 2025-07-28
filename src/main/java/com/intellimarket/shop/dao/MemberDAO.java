@@ -14,6 +14,9 @@ public interface MemberDAO {
 	// 회원 단 건 조회 (ID 기반)
 	Member selectById(int memberId);
 	
+	// 회원 단 건 조회 (이메일 기반)
+	Member selectByEmail(String email);
+	
 	// 회원가입
 	void insert(Member member);
 	
@@ -22,9 +25,6 @@ public interface MemberDAO {
 	
 	// 회원 탈퇴
 	int delete(int memberId);
-	
-	// 로그인
-	Member loginMember(Member member);
 	
 	// 비밀번호 수정
 	int updatePassword(Member member);
