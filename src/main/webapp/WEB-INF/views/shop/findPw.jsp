@@ -143,7 +143,7 @@
 				success: function(res) {
 					if(res.status === 'ok') {
 						alert(res.msg);
-						location.href('/shop/login');
+						location.href = '/shop/login';
 					} else {
 						alert(res.msg);
 					}
