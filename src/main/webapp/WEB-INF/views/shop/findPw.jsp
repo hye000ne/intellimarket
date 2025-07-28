@@ -22,14 +22,13 @@
             <div class="col-lg-6 col-md-8">
                 <div class="login_part_form">
                     <div class="login_part_form_iner">
-                        <h3>가입 시 등록한 정보를 입력해주세요</h3>
                         <form class="row contact_form" id="findPwForm">
                             <!-- 이메일 -->
                             <div class="col-md-12 form-group">
                                 <label for="email">이메일</label>
                                 <div class="email-check-group">
-                                    <input type="email" id="email" name="email" class="form-control" required />
-                                    <button type="button" class="btn-check" id="btnSendCode">인증 요청</button>
+                                    <input type="email" id="email" name="email" class="form-control" placeholder="가입 시 등록한 이메일을 입력하세요." required />
+                                    <button type="button" class="btn-check" onClick="sendAuthCode()">인증 요청</button>
                                 </div>
                             </div>
 
@@ -41,7 +40,7 @@
 
                             <!-- 버튼 -->
                             <div class="col-md-12 form-group">
-                                <button type="button" class="btn_3 w-100" onclick="submitFindPwForm()">비밀번호 찾기</button>
+                                <button type="button" class="btn_3 w-100" onclick="submitFindPwForm()">임시 비밀번호 발급</button>
                             </div>
                         </form>
                     </div>
@@ -50,3 +49,109 @@
         </div>
     </div>
 </section>
+
+<script>
+	//이메일 유효성 검사
+	function validateEmail(callback) {
+		const email = $('#email').val();
+		
+		if(!email) {
+			alert('이메일을 입력하세요.');
+			callback(false);
+			return;
+		}
+		
+		$.ajax({
+			type: 'POST',
+			url: '/shop/member/checkEmailExist',
+			data: { email: email },
+			success : function(res) {
+				if(res) {
+					callback(res);
+				} else {
+					alert("해당 이메일로 가입된 회원이 없습니다.")
+					callback(res);
+				}
+			},
+			error: function() {
+				alert('이메일 검사에 실패했습니다.');
+				callback(false);
+			}
+		});
+	}
+
+	// 인증코드 요청 처리 
+	function sendAuthCode() {
+		validateEmail(function(isValid) {
+			if(!isValid) return;
+			
+			$.ajax({
+				type: 'POST',
+				url: '/sendAuthEmail',
+				data: { email: $('#email').val() },
+				success : function(res) {
+					if(res.status === 'ok') alert(res.msg);
+				},
+				error : function(xhr) {
+					alert('인증 메일 전송에 실패했습니다.');
+				}
+			});
+		});
+	}
+
+	// 인증번호 유효성 검사
+	function validateAuthCode(callback) {
+		const authCode = $('#authCode').val();
+		if(!authCode) {
+			alert('인증코드를 입력하세요.');
+			callback(false);
+			return;
+		}
+		
+		$.ajax({
+			type: 'POST',
+			url: '/shop/member/verifyAuthCode',
+			data: {
+				email: $('#email').val(),
+				authCode : authCode
+			},
+			success: function(res) {
+				if(res.status === 'ok') {
+					callback(true);
+				} else {
+					alert(res.msg);
+					callback(false);
+				}
+			},
+			error: function(xhr) {
+				alert('인증번호 유효성 검사에 실패했습니다.');
+				callback(false);
+			}
+		});
+		
+	}
+	
+	// 임시 비밀번호 요청 처리
+	function submitFindPwForm() {
+		validateAuthCode(function(isValid){
+			if(!isValid) return;
+			
+			$.ajax({
+				type: 'POST',
+				url: '/sendTempPasswordEmail',
+				data: {email: $('#email').val()},
+				success: function(res) {
+					if(res.status === 'ok') {
+						alert(res.msg);
+						location.href = '/shop/login';
+					} else {
+						alert(res.msg);
+					}
+				},
+				error : function(xhr) {
+					alert('알 수 없는 오류가 발생했습니다.');
+				}
+			});
+		});
+	}
+</script>

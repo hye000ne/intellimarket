@@ -26,6 +26,9 @@ public interface MemberDAO {
 	// 로그인
 	Member loginMember(Member member);
 	
+	// 비밀번호 수정
+	int updatePassword(Member member);
+	
 	// 비밀번호 확인
 	int matchPassword(Member member);
 

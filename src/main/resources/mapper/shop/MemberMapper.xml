@@ -14,7 +14,9 @@
 	
 	<!-- 회원 가입 -->
 	<insert id="insert" parameterType="Member">
-		insert into members (email, password, name, birth, phone, zip_code, address, detail_address, gender)
+		insert into members (
+			email, password, name, birth, phone, zip_code, address, detail_address, gender
+		)
 		values (
 			#{email}, #{password}, #{name}, #{birth}, #{phone}, #{zipCode}, #{address}, #{detailAddress}, #{gender}
 		)
@@ -47,13 +49,20 @@
 		where email = #{email} and password = #{password} 
 	</select>
 	
+	<!-- 비밀번호 변경 -->
+	<update id="updatePassword" parameterType="Member">
+		update members
+		set password = #{password}
+		where email = #{email}
+	</update>
+	
 	<!-- 비밀번호 확인 -->
 	<select id="matchPassword" parameterType="Member" resultType="int">
 		select count(*) from members
 		where member_id = #{memberId} and password = #{password}
 	</select>
 	
-	<!-- 이메일 중복 확인 -->
+	<!-- 이메일 존재 여부 확인 -->
 	<select id="existByEmail" parameterType="String" resultType="int" >
 		select count(*) from members 
 		where email = #{email}
