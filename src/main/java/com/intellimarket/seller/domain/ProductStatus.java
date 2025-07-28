@@ -1,4 +1,4 @@
-package com.intellimarket.storeadmin.domain;
+package com.intellimarket.seller.domain;
 
 enum ProductStatus {
 	ACTIVATE,

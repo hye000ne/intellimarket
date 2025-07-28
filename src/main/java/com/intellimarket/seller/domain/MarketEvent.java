@@ -1,4 +1,4 @@
-package com.intellimarket.storeadmin.domain;
+package com.intellimarket.seller.domain;
 
 import org.apache.ibatis.type.Alias;
 

@@ -1,4 +1,4 @@
-package com.intellimarket.storeadmin.domain;
+package com.intellimarket.seller.domain;
 
 import java.time.LocalDateTime;
 import java.util.List;
