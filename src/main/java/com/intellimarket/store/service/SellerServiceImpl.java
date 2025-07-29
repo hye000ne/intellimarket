@@ -8,10 +8,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.intellimarket.common.util.PasswordEncryptor;
-import com.intellimarket.seller.dao.SellerDAO;
-import com.intellimarket.seller.exception.SellerException;
 import com.intellimarket.shop.exception.ShopException;
+import com.intellimarket.store.dao.SellerDAO;
 import com.intellimarket.store.domain.Seller;
+import com.intellimarket.store.exception.SellerException; 
 
 @Service
 public class SellerServiceImpl implements SellerService {

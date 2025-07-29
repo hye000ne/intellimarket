@@ -1,11 +1,10 @@
-package com.intellimarket.seller.controller;
+package com.intellimarket.store.controller;
 
 import java.util.HashMap;
 import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
-import org.apache.ibatis.session.SqlSessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -13,9 +12,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.intellimarket.seller.domain.Seller;
-import com.intellimarket.seller.domain.StoreInfo;
-import com.intellimarket.seller.service.StoreInfoService;
+import com.intellimarket.store.domain.Seller;
+import com.intellimarket.store.domain.StoreInfo;
+import com.intellimarket.store.service.StoreInfoService;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -28,15 +27,8 @@ import lombok.extern.slf4j.Slf4j;
 @RequestMapping("/seller/storeinfo")
 public class StoreInfoController {
 
-    private final SqlSessionFactory sqlSessionFactory;
 	@Autowired
 	StoreInfoService storeInfoService;
-
-
-    StoreInfoController(SqlSessionFactory sqlSessionFactory) {
-        this.sqlSessionFactory = sqlSessionFactory;
-    }
-	
 	
 	/**
 	 * 스토어 정보 입력 처리
@@ -47,7 +39,9 @@ public class StoreInfoController {
 	@ResponseBody
 	public Map<String, Object> join(@ModelAttribute StoreInfo storeInfo, HttpSession session){
 	    // 세션에서 로그인한 판매자 정보 꺼내기
-	    Seller loginSeller = (Seller) session.getAttribute("loginMember");
+	    Seller loginSeller = (Seller) session.getAttribute("loginSeller");
+	    log.debug("login seller ==========: " + loginSeller.getSellerId());
+	    
 	    if (loginSeller == null) {
 	        Map<String, Object> res = new HashMap<>();
 	        res.put("status", "fail");
