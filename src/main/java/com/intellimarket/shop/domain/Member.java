@@ -20,12 +20,18 @@ public class Member {
 	private LocalDate birth;
 	
 	private String phone;
+	private Status staus;
 	private int zipCode;
 	private String address;
 	private String detailAddress;
-	private String gender;
+	private Gender gender;
 	
-	private String status;
+	private Role role;
 	private LocalDateTime createdDate;
 	private LocalDateTime updatedDate;
+	
+	// ENUM 정의
+    public enum Gender { M, F }
+    public enum Status { ACTIVE, INACTIVE}
+    public enum Role { USER, ADMIN }
 }

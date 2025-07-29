@@ -1,5 +1,6 @@
 package com.intellimarket.seller.controller;
 
+<<<<<<< HEAD
 import java.util.HashMap;
 import java.util.Map;
 
@@ -19,6 +20,9 @@ import com.intellimarket.common.util.CookieUtil;
 import com.intellimarket.seller.domain.Seller;
 import com.intellimarket.seller.service.SellerService;
 import com.intellimarket.shop.exception.ShopException;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -136,5 +140,4 @@ public class SellerController {
 		
 		return res;
 	}
-	
 }

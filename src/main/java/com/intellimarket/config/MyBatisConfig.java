@@ -44,6 +44,7 @@ public class MyBatisConfig {
 		SqlSessionFactoryBean factory = new SqlSessionFactoryBean();
 		factory.setDataSource(dataSource);
 		factory.setMapperLocations(new PathMatchingResourcePatternResolver().getResources("classpath:/mapper/**/*.xml"));
+		factory.setTypeHandlersPackage("com.intellimarket.config.typehandler");
 		factory.setTypeAliasesPackage(
 			  "com.intellimarket.admin.domain,"
 			+ "com.intellimarket.shop.domain,"

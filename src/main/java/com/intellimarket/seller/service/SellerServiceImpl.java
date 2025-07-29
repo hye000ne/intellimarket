@@ -118,6 +118,4 @@ public class SellerServiceImpl implements SellerService {
 		return sellerDAO.existByBusinessNum(businessNum) > 0;
 	}
 
-
-
 }
