@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.intellimarket.store.dao.SubCategoryDAO">
+
+	<resultMap type="SubCategory" id="topCategoryMap">
+		
+		<id column="sub_category_id" 	property="subCategoryId"/>
+		<result column="category_name" 	property="categoryName"/>
+		
+		<association 
+			column="top_category_id"
+			property="topCategory" 
+			javaType="TopCategory" 	
+			select="com.intellimarket.seller.dao.TopCategoryDAO.select"
+		/>
+		
+	</resultMap>
+	
+	<!-- 하위 카테고리 단 건 조회 -->
+	<select id="select" parameterType="int" resultMap="topCategoryMap">
+		select sub_category_id, category_name, top_category_id 
+		from sub_categories
+		where sub_category_id = #{subCategoryId}
+	</select>
+	
+	<!-- 상위 카테고리에 따른 하위 카테고리 조회 -->
+	<select id="selectByTopCategoryId" parameterType="int" resultType="SubCategory">
+		select sub_category_id, category_name, top_category_id 
+		from sub_categories
+		where top_category_id = #{topCategoryId}
+	</select>
+	
+</mapper>

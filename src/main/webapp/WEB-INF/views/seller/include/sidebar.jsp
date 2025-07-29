@@ -26,8 +26,8 @@
 						<p>상품 관리<i class="right fas fa-angle-left"></i></p>
 					</a>
 					<ul class="nav nav-treeview">
-						<li class="nav-item"><a href="${ctx}/seller/admin/product/list" class="nav-link"><p>상품 목록</p></a></li>
-						<li class="nav-item"><a href="${ctx}/seller/admin/product/regist" class="nav-link"><p>상품 등록</p></a></li>
+						<li class="nav-item"><a href="${ctx}/store/admin/product/list" class="nav-link"><p>상품 목록</p></a></li>
+						<li class="nav-item"><a href="${ctx}/store/admin/product/regist" class="nav-link"><p>상품 등록</p></a></li>
 					</ul>
 				</li>
 				<!-- 주문 관리 -->
