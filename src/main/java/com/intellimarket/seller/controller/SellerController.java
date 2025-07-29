@@ -1,6 +1,5 @@
 package com.intellimarket.seller.controller;
 
-<<<<<<< HEAD
 import java.util.HashMap;
 import java.util.Map;
 
@@ -22,18 +21,21 @@ import com.intellimarket.seller.service.SellerService;
 import com.intellimarket.shop.exception.ShopException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import lombok.extern.slf4j.Slf4j;
 
 /**
  * 판매자 기능 관련 컨트롤러
- * @author 재환
+ * @author 지훈
  */
 @Slf4j
 @Controller
-@RequestMapping("/seller/member")
+@RequestMapping("/seller")
 public class SellerController {
+
 	@Autowired
 	SellerService sellerService;
 	
@@ -43,7 +45,7 @@ public class SellerController {
 	 * - 이메일, 사업자번호 중복 검증 후 DB 등록
 	 */
 	
-	@PostMapping("/join")
+	@PostMapping("member/join")
 	@ResponseBody
 	public Map<String, Object> join(@ModelAttribute Seller seller){
 		sellerService.insert(seller);
@@ -57,7 +59,7 @@ public class SellerController {
 	 * 로그인 처리
 	 * - 성공 시 세션에 loginMember 저장
 	 */
-	@PostMapping("/login")
+	@PostMapping("member/login")
 	@ResponseBody
 	public Map<String, Object> login(@RequestParam String email, @RequestParam String password
 			, @RequestParam(value="rememberEmail", required = false) String rememberEmail
@@ -90,7 +92,7 @@ public class SellerController {
 	 * 로그아웃 처리
 	 * - 세션 만료
 	 */
-	@GetMapping("/logout")
+	@GetMapping("member/logout")
 	public String logout(HttpSession session) {
 		session.invalidate();
 		return "redirect:/seller/main";
@@ -101,7 +103,7 @@ public class SellerController {
 	 * - 회원가입 시 사용
 	 * - 이미 사용 중인 이메일이면 예외 발생
 	 */
-	@PostMapping("/checkEmailDuplicate")
+	@PostMapping("member/checkEmailDuplicate")
 	@ResponseBody
 	public void checkEmailDuplicate(@RequestParam String email) {
 		if(sellerService.isEmailExists(email)) {
@@ -113,7 +115,7 @@ public class SellerController {
 	 * 이메일 존재 여부 확인
 	 * - 비밀번호 찾기 시 사용
 	 */
-	@PostMapping("/checkEmailExist")
+	@PostMapping("member/checkEmailExist")
 	@ResponseBody
 	public boolean checkEmailExist(@RequestParam String email) {
 		return sellerService.isEmailExists(email);
@@ -124,7 +126,7 @@ public class SellerController {
 	 * - 비밀번호 찾기 시 전송된 인증코드 검증
 	 * - 세션에 저장된 코드와 비교 후 삭제
 	 */
-	@PostMapping("/verifyAuthCode")
+	@PostMapping("member/verifyAuthCode")
 	@ResponseBody
 	public Map<String, Object> verifyAuthCode(@RequestParam String email, @RequestParam("authCode") String inputCode, HttpSession session) {
 		String sessionCode = (String)session.getAttribute("authCode_" + email);
@@ -140,4 +142,33 @@ public class SellerController {
 		
 		return res;
 	}
+	
+	/**
+	 * 판매자 관리 메인 페이지
+	 * */
+	@GetMapping("/admin/main")
+	public String adminMain(Model model) {
+		model.addAttribute("contentPage", "seller/main.jsp");
+		return "layout/seller";
+	}
+	
+	/**
+	 * 판매자 상품 리스트 페이지
+	 */
+	@GetMapping("/admin/product/list")
+	public String adminProductList(Model model) {
+		model.addAttribute("contentPage","seller/productList.jsp");
+		return "layout/seller";
+	}
+	
+	/**
+	 * 판매자 상품 등록 페이지
+	 */
+	@GetMapping("/admin/product/regist")
+	public String adminProductRegist(Model model) {
+		model.addAttribute("contentPage","seller/productRegist.jsp");
+		return "layout/seller";
+	}
 }
+
+
