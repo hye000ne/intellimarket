@@ -142,33 +142,6 @@ public class SellerController {
 		
 		return res;
 	}
-	
-	/**
-	 * 판매자 관리 메인 페이지
-	 * */
-	@GetMapping("/admin/main")
-	public String adminMain(Model model) {
-		model.addAttribute("contentPage", "seller/main.jsp");
-		return "layout/seller";
-	}
-	
-	/**
-	 * 판매자 상품 리스트 페이지
-	 */
-	@GetMapping("/admin/product/list")
-	public String adminProductList(Model model) {
-		model.addAttribute("contentPage","seller/productList.jsp");
-		return "layout/seller";
-	}
-	
-	/**
-	 * 판매자 상품 등록 페이지
-	 */
-	@GetMapping("/admin/product/regist")
-	public String adminProductRegist(Model model) {
-		model.addAttribute("contentPage","seller/productRegist.jsp");
-		return "layout/seller";
-	}
 }
 
 

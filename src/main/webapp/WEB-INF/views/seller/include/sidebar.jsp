@@ -59,7 +59,6 @@
 						<p>스토어 관리<i class="right fas fa-angle-left"></i></p>
 					</a>
 					<ul class="nav nav-treeview">
-						<li class="nav-item"><a href="#" class="nav-link"><p>배너 관리</p></a></li>
 						<li class="nav-item"><a href="#" class="nav-link"><p>카테고리 관리</p></a></li>
 						<li class="nav-item"><a href="#" class="nav-link"><p>로고&슬로건 관리</p></a></li>
 					</ul>
