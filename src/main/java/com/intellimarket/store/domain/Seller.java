@@ -12,13 +12,13 @@ public class Seller {
 	private int sellerId;
 	private String email;
 	private String password;
+	private String name;
 	private int zipCode;
 	private String address;
 	private String detailAddress;
 	private String tel;
 	private String businessNum;
 	private SellerStatus status;
-	private StoreInfo storeInfo;
 	
 	private LocalDateTime createDate;
 	private LocalDateTime updatedDate;

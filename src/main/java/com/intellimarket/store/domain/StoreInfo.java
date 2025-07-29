@@ -11,4 +11,7 @@ public class StoreInfo {
 	private String storeName;
 	private String storeTel;
 	private String logoPath;
+	
+	private Seller seller;
 }
+	
