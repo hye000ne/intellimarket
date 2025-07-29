@@ -51,6 +51,10 @@ public class MyBatisConfig {
 			+ "com.intellimarket.seller.domain"
 		);
 		
+		org.apache.ibatis.session.Configuration config = new org.apache.ibatis.session.Configuration();
+		config.setMapUnderscoreToCamelCase(true);
+		factory.setConfiguration(config);
+		
 		return factory.getObject();
 	}
 	
