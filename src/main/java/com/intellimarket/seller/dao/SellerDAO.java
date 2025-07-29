@@ -4,14 +4,14 @@ import java.util.List;
 
 import org.springframework.stereotype.Repository;
 
-import com.intellimarket.seller.domain.Seller;
+import com.intellimarket.store.domain.Seller;
 
 @Repository
 public interface SellerDAO {
 	// 전체 목록 조회
 	List<Seller> selectAll();
 	
-	// 판매자 한 건 조회 (ID 기반)
+	// 판매자 한 건 조회 (ID 기반) 
 	Seller selectById(int sellerId);
 	
 	// 판매자 한 건 조회 (이메일 기반)
