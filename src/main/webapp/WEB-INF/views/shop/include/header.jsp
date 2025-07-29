@@ -11,7 +11,7 @@
         </div>
     </div>
 </div>
-
+<!-- Header -->
 <header>
 	<div class="header-area">
 		<div class="main-header">

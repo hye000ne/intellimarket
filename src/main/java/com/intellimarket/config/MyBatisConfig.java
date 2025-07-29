@@ -44,11 +44,16 @@ public class MyBatisConfig {
 		SqlSessionFactoryBean factory = new SqlSessionFactoryBean();
 		factory.setDataSource(dataSource);
 		factory.setMapperLocations(new PathMatchingResourcePatternResolver().getResources("classpath:/mapper/**/*.xml"));
+		factory.setTypeHandlersPackage("com.intellimarket.config.typehandler");
 		factory.setTypeAliasesPackage(
 			  "com.intellimarket.admin.domain,"
 			+ "com.intellimarket.shop.domain,"
 			+ "com.intellimarket.seller.domain"
 		);
+		
+		org.apache.ibatis.session.Configuration config = new org.apache.ibatis.session.Configuration();
+		config.setMapUnderscoreToCamelCase(true);
+		factory.setConfiguration(config);
 		
 		return factory.getObject();
 	}

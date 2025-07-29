@@ -11,6 +11,9 @@ public interface MemberService {
 	// 회원 단 건 조회 (ID 기반)
 	Member selectById(int memberId);
 	
+	// 회원 단 건 조회 (이메일 기반)
+	Member selectByEmail(String email);
+	
 	// 회원가입
 	void insert(Member member);
 	

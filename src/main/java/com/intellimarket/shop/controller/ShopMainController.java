@@ -18,8 +18,6 @@ import com.intellimarket.common.util.CookieUtil;
 public class ShopMainController {
 	/**
 	 * 쇼핑몰 메인 페이지
-	 * @param model
-	 * @return
 	 */
 	@GetMapping("/main")
 	public String main(Model model) {
@@ -29,8 +27,6 @@ public class ShopMainController {
 	
 	/**
 	 * 로그인 폼 페이지
-	 * @param model
-	 * @return
 	 */
 	@GetMapping("/login")
 	public String loginForm(Model model, HttpServletRequest request) {
@@ -42,8 +38,6 @@ public class ShopMainController {
 	
 	/**
 	 * 회원가입 폼 페이지
-	 * @param model
-	 * @return
 	 */
 	@GetMapping("/join")
 	public String joinForm(Model model) {
@@ -53,8 +47,6 @@ public class ShopMainController {
 	
 	/**
 	 * 비밀번호 찾기 폼 페이지
-	 * @param model
-	 * @return
 	 */
 	@GetMapping("/findPw")
 	public String findPwForm(Model model) {
