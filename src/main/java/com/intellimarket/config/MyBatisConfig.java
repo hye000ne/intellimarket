@@ -48,7 +48,7 @@ public class MyBatisConfig {
 		factory.setTypeAliasesPackage(
 			  "com.intellimarket.admin.domain,"
 			+ "com.intellimarket.shop.domain,"
-			+ "com.intellimarket.seller.domain"
+			+ "com.intellimarket.store.domain"
 		);
 		
 		org.apache.ibatis.session.Configuration config = new org.apache.ibatis.session.Configuration();

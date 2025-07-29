@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.intellimarket.store.dao.ProductDAO">
+
+	<resultMap type="Product" id="joinMap">
+		<id column="product_id"				property="productId"/>
+		
+		<result column="product_name" 		property="productName"/>
+		<result column="brand_name" 		property="brandName"/>
+		<result column="price" 				property="price"/>
+		<result column="discount" 			property="discount"/>
+		<result column="product_stock" 		property="productStock"/>
+		<result column="introduce" 			property="introduce"/>
+		<result column="product_detail" 	property="productDetail"/>
+		<result column="model_code" 		property="modelCode"/>
+		<result column="origin" 			property="origin"/>
+		<result column="sales_count" 		property="salesCount"/>
+		<result column="product_status" 	property="status"/>
+		
+		<result column="created_date" 		property="createdDate"/>
+		<result column="updated_date" 		property="updatedDate"/>
+		
+		<association 
+			column = "sub_category_id" 
+			property = "subCategory" 
+			javaType = "SubCategory"
+			select = "com.intellimarket.store.dao.SubCategoryDAO.select"
+		/>
+		
+		<association 
+			column = "market_event_id" 
+			property = "marketEvent" 
+			javaType = "MarketEvent"
+			select = "com.intellimarket.store.dao.MarketEventDAO.select"
+		/>
+		
+		<association 
+			column = "seller_id" 
+			property = "seller" 
+			javaType = "Seller"
+			select = "com.intellimarket.store.dao.SellerDAO.select"
+		/>
+		
+		<collection 
+			column = "product_id" 
+			property = "imgList"
+			javaType = "java.util.List"
+			ofType = "ProductImage"
+			select = "com.intellimarket.store.dao.ProductImageDAO.selectByProductId"
+		/>
+	</resultMap>
+
+	<!-- 전체 목록 조회 -->
+	<select id="selectAll" resultMap="joinMap">
+		select *from products
+	</select>
+	
+	<!-- 상품 단 건 조회 -->
+	<select id="select" parameterType="int" resultMap="joinMap">
+		select *from products
+		where product_id = #{productId}
+	</select>
+	
+	<!-- 상품 등록 -->
+	<insert id="insert" parameterType="Product">
+		insert into products(
+			product_name, brand_name, price, discount, product_stock, introduce, product_detail, model_code, origin, sub_category_id, seller_id
+		)
+		values (
+			#{productName}, #{brandName}, #{price}, #{discount}, #{productStock}, #{introduce}, #{productDetail}, #{modelCode}, #{origin}, #{subCategoryId}, #{sellerId}
+		)
+	</insert>
+	
+	<!-- 상품 정보 수정 -->
+	<update id="updateProduct" parameterType="Product">
+		update products
+		set
+			product_name = #{productName}
+			, brand_name = #{brandName}
+			, price = #{price}
+			, discount = #{discount}
+			, product_stock = #{productStock}
+			, introduce = #{introduce}
+			, product_detail = #{productDetail}
+			, model_code = #{modelCode}
+			, origin = #{origin}
+			, sub_category_id = #{subCategoryId}
+			, updated_date = NOW()
+		where product_id = #{productId}
+	</update>
+	
+	<!-- 상품 삭제 -->
+	<delete id="delete" parameterType="int">
+		delete from products
+		where product_id = #{productId}
+	</delete>
+
+</mapper>
+
