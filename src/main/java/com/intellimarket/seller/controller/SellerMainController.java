@@ -14,7 +14,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @Controller
 @RequestMapping("/seller")
-public class SellerController {
+public class SellerMainController {
 	/**
 	 * 판매자 관리 메인 페이지
 	 * */

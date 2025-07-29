@@ -5,9 +5,8 @@ import org.apache.ibatis.type.Alias;
 import lombok.Data;
 
 @Data
-@Alias("TopCategory")
-public class TopCategory {
-	private int topCategoryId;
+@Alias("RootCategory")
+public class RootCategory {
+	private int rootCategoryId;
 	private String categoryName;
-	private RootCategory rootCategory;
 }

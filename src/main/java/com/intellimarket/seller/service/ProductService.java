@@ -1,13 +1,10 @@
-package com.intellimarket.seller.dao;
+package com.intellimarket.seller.service;
 
 import java.util.List;
 
-import org.springframework.stereotype.Repository;
-
 import com.intellimarket.seller.domain.Product;
 
-@Repository
-public interface ProductDAO {
+public interface ProductService {
 	// 전체 목록 조회
 	List<Product> selectAll();
 	

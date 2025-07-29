@@ -26,9 +26,9 @@ public class Product {
 	private LocalDateTime createdDate;
 	private LocalDateTime updatedDate;
 	
-	private TopCategory topCategory;
 	private SubCategory subCategory;
 	private MarketEvent marketEvent;
+	private Seller seller;
 	
 	private List<ProductImage> imgList;
 }
