@@ -31,8 +31,9 @@ public class AdminMemberController {
 	 * 회원 상세 페이지 
 	 */
 	@GetMapping("/detail")
-	public String memberDetailPage(@RequestParam int memberId, Model model) {
+	public String memberDetailPage(@RequestParam int memberId, @RequestParam(required = false, defaultValue = "detail") String mode, Model model) {
 		model.addAttribute("member", memberService.selectById(memberId));
+		model.addAttribute("mode", mode); // detail, edit
 		model.addAttribute("contentPage", "admin/member/detail.jsp");
 		return "layout/admin";
 	}

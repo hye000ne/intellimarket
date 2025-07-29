@@ -32,8 +32,7 @@
 	<update id="updateMember" parameterType="Member">
 		update members
 		set 
-			password = #{password}
-			, name = #{name}
+			name = #{name}
 			, birth = #{birth}
 			, phone = #{phone}
 			, zip_code = #{zipCode}

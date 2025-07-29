@@ -48,8 +48,9 @@ public class MemberServiceImpl implements MemberService {
 	
 	// 회원 정보 수정
 	@Override
-	public int updateMember(Member member){
-		return memberDAO.updateMember(member);
+	public void updateMember(Member member){
+		int result = memberDAO.updateMember(member); 
+		if(result <= 0) throw new ShopException("회원 정보 수정에 실패했습니다.");
 	}
 	
 	// 회원 탈퇴

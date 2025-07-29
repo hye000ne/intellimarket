@@ -86,6 +86,19 @@ public class MemberController {
 	}
 	
 	/**
+	 * 회원 정보 수정
+	 */
+	@PostMapping("/update")
+	@ResponseBody
+	public Map<String, Object> update(@ModelAttribute Member member) {
+		Map<String, Object> res = new HashMap<>();
+		memberService.updateMember(member);
+		res.put("status", "ok");
+		res.put("msg", "회원 정보 수정이 완료되었습니다.");
+		return res;
+	}
+	
+	/**
 	 * 로그아웃 처리
 	 * - 세션 만료
 	 */
@@ -139,6 +152,5 @@ public class MemberController {
 		
 		return res;
 	}
-	
 	
 }

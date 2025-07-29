@@ -40,7 +40,6 @@
 					                    <th>가입일</th>
 					                    <th>수정일</th>
 					                    <th>상세</th>
-					                    <th>수정</th>
 					                    <th>탈퇴</th>
 			                  		</tr>
 			                  	</thead>
@@ -50,12 +49,11 @@
 				                    		<td>${member.email}</td>
 				                    		<td>${member.name}</td>
 				                    		<td>${member.phone}</td>
-				                    		<td>${member.status}</td>
-				                    		<td>${member.gender}</td>
+				                    		<td>${member.status eq 'ACTIVE' ? '활성':'탈퇴'}</td>
+				                    		<td>${member.gender eq 'M' ? '남자':'여자'}</td>
 				                    		<td>${member.createdDate}</td>
 				                    		<td>${member.updatedDate}</td>
 				                    		<td><button type="button" class="btn btn-block btn-primary btn-sm" onclick="goToDetail(${member.memberId})">상세</button></td>
-				                    		<td><button type="button" class="btn btn-block btn-info btn-sm" onclick="goToUpdate(${member.memberId})">수정</button></td>
 				                    		<td><button type="button" class="btn btn-block btn-danger btn-sm" onclick="changeStatus(${member.memberId})">탈퇴</button></td>
 				                  		</tr>
 									</c:forEach>
