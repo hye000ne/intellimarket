@@ -28,7 +28,7 @@ import lombok.extern.slf4j.Slf4j;
  */
 @Slf4j
 @Controller
-@RequestMapping("/store/seller")
+@RequestMapping("/store/auth")
 public class SellerController {
 	@Autowired
 	SellerService sellerService;
