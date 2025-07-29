@@ -21,6 +21,7 @@
         <link rel="stylesheet" href="${ctx}/resources/shop/assets/css/style.css">
 
         <link rel="stylesheet" href="${ctx}/resources/common/css/override.css">
+		<script src="${ctx}/resources/shop/assets/js/vendor/jquery-1.12.4.min.js"></script>
 	</head>
 	<body>
 		<jsp:include page="/WEB-INF/views/shop/include/header.jsp" />
@@ -29,7 +30,6 @@
 		<!-- ====================== Scripts ====================== -->
 		<!-- Core JS -->
         <script src="${ctx}/resources/shop/assets/js/vendor/modernizr-3.5.0.min.js"></script>
-		<script src="${ctx}/resources/shop/assets/js/vendor/jquery-1.12.4.min.js"></script>
         <script src="${ctx}/resources/shop/assets/js/popper.min.js"></script>
         <script src="${ctx}/resources/shop/assets/js/bootstrap.min.js"></script>
 		<!-- UI Plugins -->	    
@@ -51,6 +51,8 @@
 		<!-- Etc -->	
         <script src="${ctx}/resources/shop/assets/js/plugins.js"></script>
 		<script src="${ctx}/resources/shop/assets/js/main.js"></script>
+		<!-- intellimarket 공용 js -->
+		<script src="${ctx}/resources/common/js/common.js"></script>
 		<!-- ===================================================== -->
 		
 		<jsp:include page="/WEB-INF/views/shop/include/footer.jsp" />
