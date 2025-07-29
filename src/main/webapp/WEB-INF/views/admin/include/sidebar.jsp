@@ -30,6 +30,18 @@
 						<li class="nav-item"><a href="#" class="nav-link"><p>회원 등록</p></a></li>
 					</ul>
 				</li>
+				<!-- 판매자 관리 -->
+				<li class="nav-item has-treeview">
+					<a href="#" class="nav-link">
+						<i class="nav-icon fas fa-users-cog"></i>
+						<p>판매자 관리<i class="right fas fa-angle-left"></i></p>
+					</a>
+					<ul class="nav nav-treeview">
+						<li class="nav-item"><a href="#" class="nav-link"><p>가입 승인</p></a></li>
+						<li class="nav-item"><a href="${ctx}/admin/seller/list" class="nav-link"><p>판매자 목록</p></a></li>
+						<li class="nav-item"><a href="#" class="nav-link"><p>정산 관리</p></a></li>
+					</ul>
+				</li>
 				<!-- 스토어 관리 -->
 				<li class="nav-item has-treeview">
 					<a href="#" class="nav-link">
@@ -38,18 +50,6 @@
 					</a>
 					<ul class="nav nav-treeview">
 						<li class="nav-item"><a href="${ctx}/admin/store/list" class="nav-link"><p>스토어 목록</p></a></li>
-					</ul>
-				</li>
-				<!-- 판매자 관리 -->
-				<li class="nav-item has-treeview">
-					<a href="#" class="nav-link">
-						<i class="nav-icon fas fa-users-cog"></i>
-						<p>판매자 관리<i class="right fas fa-angle-left"></i></p>
-					</a>
-					<ul class="nav nav-treeview">
-						<li class="nav-item"><a href="${ctx}/admin/seller/list" class="nav-link"><p>판매자 목록</p></a></li>
-						<li class="nav-item"><a href="#" class="nav-link"><p>정산 관리</p></a></li>
-						<li class="nav-item"><a href="#" class="nav-link"><p>가입 승인</p></a></li>
 					</ul>
 				</li>
 				<!-- 마켓 관리 -->
@@ -69,6 +69,9 @@
 						<i class="nav-icon fas fa-bullhorn"></i>
 						<p>시스템 공지</p>
 					</a>
+					<ul class="nav nav-treeview">
+						<li class="nav-item"><a href="#" class="nav-link"><p>공지 등록/관리</p></a></li>
+					</ul>
 				</li>
 			</ul>
 		</nav>

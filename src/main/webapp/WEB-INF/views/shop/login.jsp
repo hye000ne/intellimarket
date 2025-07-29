@@ -72,7 +72,7 @@
 			success: function(res){
 				if(res.status === 'ok') {
 					alert(res.msg);
-					location.href = '/shop/main';
+					location.href = res.url;
 				} else {
 					alert(res.msg);
 				}

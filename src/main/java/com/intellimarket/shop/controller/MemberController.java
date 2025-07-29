@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.intellimarket.common.util.CookieUtil;
 import com.intellimarket.shop.domain.Member;
+import com.intellimarket.shop.domain.Member.Role;
 import com.intellimarket.shop.exception.ShopException;
 import com.intellimarket.shop.service.MemberService;
 
@@ -71,6 +72,11 @@ public class MemberController {
 			session.setAttribute("loginMember", loginMember);
 			res.put("status", "ok");
 			res.put("msg", loginMember.getName()+"님, 안녕하세요.");
+			if(loginMember.getRole() == Role.ADMIN) {
+				res.put("url", "/admin/main");
+			} else {
+				res.put("url", "/shop/main");
+			}
 		} else {
 			res.put("status", "fail");
 			res.put("msg", "이메일과 비밀번호를 확인해주세요.");
