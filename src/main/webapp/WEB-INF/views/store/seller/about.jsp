@@ -6,9 +6,6 @@
         <h1>판매를 시작하는<br>가장 스마트한 방법</h1>
         <p>IntelliMarket는 쉽고 빠른 상품 등록, 안전한 결제, 빠른 정산, 많은 이벤트를 지원하여<br>
            여러분의 온라인 비즈니스를 한 단계 성장시켜 드립니다.</p>
-        <a href="/store/seller/join" class="btn-primary">가입하기</a>
-        <a href="/store/seller/login" class="btn-primary">로그인</a>
-    </div>
     <div class="hero-img">
         <!-- 고객 메인과 톤을 맞춘 일러스트/PNG (임시 이미지) -->
         <img src="https://images.unsplash.com/photo-1542831371-29b0f74f9713?auto=format&fit=crop&w=600&q=80"
