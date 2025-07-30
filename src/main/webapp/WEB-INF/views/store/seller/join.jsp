@@ -60,6 +60,11 @@
 						      	<input type="text" id="tel" name="tel" class="form-control" required />
 						    </div>
 						    
+						    <div class="col-md-12 form-group">
+						      	<label for="accountNum">정산 계좌번호 (숫자만 입력)</label>
+						      	<input type="text" id="accountNum" name="accountNum" class="form-control" required />
+						    </div>
+						    
 						    <!-- 주소 -->
 							<div class="col-md-12 form-group">
 							  	<label for="address" class="form-label">사무실 주소</label>
@@ -176,6 +181,7 @@
 		const name = $('#name').val();
 		const businessNum = $('#businessNum').val();
 		const tel = $('#tel').val();
+		const accountNumber = $('#accountNumber').val();
 		const zipCode = $('#zipCode').val();
 		const address = $('#address').val();
 		const detailAddress = $('#detailAddress').val();
@@ -224,6 +230,11 @@
 		
 		if (!tel || !/^\d{10,11}$/.test(tel)) {
 		  	alert('휴대폰 번호를 숫자만 입력하세요.');
+		  	return false;
+		}
+		
+		if (!accountNum || !/^\d{10,11}$/.test(tel)) {
+		  	alert('계좌번호를 숫자만 입력하세요.');
 		  	return false;
 		}
 		
