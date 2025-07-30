@@ -23,27 +23,11 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @Controller
-@RequestMapping("/store/seller/product")
+@RequestMapping("/store/seller/manage/product")
 public class ProductController {
 	@Autowired ProductService productService;
 	@Autowired StoreCategoryService storeCategoryService;
 	@Autowired Paging paging;
-	
-	/**
-	 * seller가 보유한 상품 조회
-	 */
-	@GetMapping("/getList")
-	public ModelAndView getProductListBySellerId(int sellerId,HttpServletRequest request) {
-		List productList = productService.selectBySellerId(sellerId);
-		paging.init(productList,request);
-		
-		ModelAndView mav = new ModelAndView();
-		mav.addObject("productList",productList);
-		mav.addObject("paging",paging);
-		
-		mav.setViewName("store/admin/productList");
-		return mav;
-	}
 	
 	/**
 	 * seller가 보유한 상위 카테고리 조회
@@ -55,7 +39,7 @@ public class ProductController {
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("topList",topList);
 		
-		mav.setViewName("store/admin/productList");
+		mav.setViewName("store/seller/productList");
 		return mav;
 	}
 	
@@ -69,7 +53,7 @@ public class ProductController {
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("subList",subList);
 		
-		mav.setViewName("store/admin/productList");
+		mav.setViewName("store/seller/productList");
 		return mav;
 	}
 }

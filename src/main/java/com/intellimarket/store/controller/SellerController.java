@@ -3,11 +3,13 @@ package com.intellimarket.store.controller;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -28,10 +30,31 @@ import lombok.extern.slf4j.Slf4j;
  */
 @Slf4j
 @Controller
-@RequestMapping("/store/auth")
+@RequestMapping("/store/seller")
 public class SellerController {
 	@Autowired
 	SellerService sellerService;
+	
+	/**
+	 * 회원가입 폼 페이지
+	 */
+	@GetMapping("/join")
+	public String joinForm(Model model) {
+		model.addAttribute("contentPage", "store/seller/join.jsp");
+		return "layout/about";
+	}
+	
+	/**
+	 * 로그인 폼 페이지
+	 */
+	@GetMapping("/login")
+	public String loginForm(Model model, HttpServletRequest request) {
+		String rememberedEmail = CookieUtil.getCookie(request, "rememberEmail");
+		model.addAttribute("email", rememberedEmail);
+		model.addAttribute("contentPage", "store/seller/login.jsp");
+		return "layout/about";
+	}
+
 
 	/**
 	 * 회원 가입 처리 - 이메일, 사업자번호 중복 검증 후 DB 등록

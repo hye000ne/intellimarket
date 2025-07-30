@@ -19,6 +19,7 @@ public class Seller {
 	private String tel;
 	private String businessNum;
 	private SellerStatus status;
+	private String message;
 	
 	private LocalDateTime createDate;
 	private LocalDateTime updatedDate;
