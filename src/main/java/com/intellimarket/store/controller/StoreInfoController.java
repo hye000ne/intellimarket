@@ -40,7 +40,6 @@ public class StoreInfoController {
 	public Map<String, Object> join(@ModelAttribute StoreInfo storeInfo, HttpSession session){
 	    // 세션에서 로그인한 판매자 정보 꺼내기
 	    Seller loginSeller = (Seller) session.getAttribute("loginSeller");
-	    log.debug("login seller ==========: " + loginSeller.getSellerId());
 	    
 	    if (loginSeller == null) {
 	        Map<String, Object> res = new HashMap<>();
