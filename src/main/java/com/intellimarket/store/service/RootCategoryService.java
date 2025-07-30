@@ -1,13 +1,10 @@
-package com.intellimarket.store.dao;
+package com.intellimarket.store.service;
 
 import java.util.List;
 
-import org.springframework.stereotype.Repository;
-
 import com.intellimarket.store.domain.RootCategory;
 
-@Repository
-public interface RootCategoryDAO {
+public interface RootCategoryService {
 	public List selectAll();
 	public RootCategory select(int rootCategoryId);
 }

@@ -17,10 +17,10 @@
 	</head>
 	<body class="hold-transition sidebar-mini">
 		<div class="wrapper">
-			<jsp:include page="/WEB-INF/views/store/include/header.jsp"/>
-		    <jsp:include page="/WEB-INF/views/store/include/sidebar.jsp"/>
+			<jsp:include page="/WEB-INF/views/store/admin/include/header.jsp"/>
+		    <jsp:include page="/WEB-INF/views/store//admin/include/sidebar.jsp"/>
 		    <jsp:include page="/WEB-INF/views/${contentPage}" />
-		    <jsp:include page="/WEB-INF/views/store/include/footer.jsp"/>
+		    <jsp:include page="/WEB-INF/views/store//admin/include/footer.jsp"/>
 	  	</div>
 	  		<!-- jQuery / jQuery UI -->
 			<script src="${ctx}/resources/admin/assets/plugins/jquery-ui/jquery-ui.min.js"></script>

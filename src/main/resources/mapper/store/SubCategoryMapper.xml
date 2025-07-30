@@ -4,17 +4,22 @@
 
 	<resultMap type="SubCategory" id="topCategoryMap">
 		
-		<id column="sub_category_id" 	property="subCategoryId"/>
-		<result column="category_name" 	property="categoryName"/>
+		<id 	column="sub_category_id" 	property="subCategoryId"/>
+		<result column="category_name" 		property="categoryName"/>
 		
 		<association 
 			column="top_category_id"
 			property="topCategory" 
 			javaType="TopCategory" 	
-			select="com.intellimarket.seller.dao.TopCategoryDAO.select"
+			select="com.intellimarket.store.dao.TopCategoryDAO.select"
 		/>
 		
 	</resultMap>
+	
+	<!-- 모든 하위 카테고리 조회 -->
+	<select id="selectAll" resultMap="topCategoryMap">
+		select *from sub_categories
+	</select>
 	
 	<!-- 하위 카테고리 단 건 조회 -->
 	<select id="select" parameterType="int" resultMap="topCategoryMap">

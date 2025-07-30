@@ -8,10 +8,30 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 @RequestMapping("/store")
 public class StoreMainController {
-	
-	@GetMapping("/main")
+	/**
+	 * 판매자 메인 페이지
+	 * */
+	@GetMapping("/seller/main")
 	public String main(Model model) {
-		model.addAttribute("contentPage", "store/main.jsp");
+		model.addAttribute("contentPage", "store/admin/adminMain.jsp");
+		return "layout/store";
+	}
+	
+	/**
+	 * 판매자 상품 리스트 페이지
+	 */
+	@GetMapping("/seller/product/list")
+	public String adminProductList(Model model) {
+		model.addAttribute("contentPage","store/admin/productList.jsp");
+		return "layout/store";
+	}
+	
+	/**
+	 * 판매자 상품 등록 페이지
+	 */
+	@GetMapping("/seller/product/regist")
+	public String adminProductRegist(Model model) {
+		model.addAttribute("contentPage","store/admin/productRegist.jsp");
 		return "layout/store";
 	}
 }
