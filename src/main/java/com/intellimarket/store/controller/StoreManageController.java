@@ -12,7 +12,7 @@ public class StoreManageController {
 	/**
 	 * 판매자 메인 페이지
 	 */
-	@GetMapping("/")
+	@GetMapping("")
 	public String manage(Model model) {
 		model.addAttribute("contentPage", "store/seller/adminMain.jsp");
 		return "layout/store";
