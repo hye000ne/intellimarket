@@ -1,12 +1,22 @@
+<%@page import="java.util.Map"%>
+<%@page import="com.intellimarket.store.domain.TopCategory"%>
 <%@page import="com.intellimarket.store.domain.Product"%>
 <%@page import="java.util.List"%>
 <%@page import="com.intellimarket.common.util.Paging"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/views/common/init.jsp" %>
 <% 
-	List<Product> productList = (List)request.getAttribute("productList");
-	Paging paging = (Paging)request.getAttribute("paging");
+	Map<TopCategory, List<Product>> productMap = (Map<TopCategory, List<Product>>) request.getAttribute("productMap");
 %>
+<%
+    System.out.println("productMap = " + productMap);
+    if (productMap != null) {
+        System.out.println("productMap size = " + productMap.size());
+    } else {
+        System.out.println("productMap is null");
+    }
+%>
+
 <!-- Content -->
 <div class="content-wrapper">
 
@@ -30,10 +40,13 @@
 	  
 	<section class="content">
 	    <!-- 상위 카테고리 카드 반복 시작 -->
-	    <% for (int i = 1; i < 5; i++) { %>
+		<% for (Map.Entry<TopCategory, List<Product>> entry : productMap.entrySet()) { 
+			TopCategory top = entry.getKey();
+	    	List<Product> list = entry.getValue();
+		%>
 	        <div class="card">
 	            <div class="card-header">
-	                <h3 class="card-title">전자제품</h3>
+	                <h3 class="card-title"><%= top.getCategoryName() %></h3>
 	                <div class="card-tools">
 	                    <div class="input-group input-group-sm" style="width: 300px;">
 	                        <input
@@ -78,19 +91,19 @@
 	
 	                    <!-- 레코드 반복 시작 -->
 	                    <tbody>
-	                        <% for (int a = 1; a < 6; a++) { %>
+	                        <% for (Product p : list) { %>
 	                            <tr>
-	                                <td><%= i %></td>
+	                                <td><%= p.getProductId() %></td>
 	                                <td>
-	                                    <a href="#">써큘레이터</a><br />
+	                                    <a href="#"><%= p.getProductName()%> </a><br/>
 	                                </td>
-	                                <td>가전제품</td>
-	                                <td>삼성</td>
-	                                <td>18,000</td>
-	                                <td>19</td>
-	                                <td>150</td>
+	                                <td><%= p.getSubCategory().getCategoryName() %></td>
+	                                <td><%= p.getBrandName() %></td>
+	                                <td><%= p.getPrice() %></td>
+	                                <td><%= p.getSalesCount() %></td>
+	                                <td><%= p.getProductStock() %></td>
 	                                <td class="project-state">
-	                                    <span class="badge badge-success">활성화</span>
+										<span class="badge badge-success">활성화</span>
 	                                </td>
 	                                <td class="project-actions text-right">
 	                                    <a class="btn btn-primary btn-sm" href="#">

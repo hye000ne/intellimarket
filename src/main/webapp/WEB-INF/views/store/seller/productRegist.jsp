@@ -41,11 +41,11 @@
 	      <div class="form-row mb-4">
 	        <div class="form-group col-md-6">
 	          <label>상위 카테고리</label>
-	          <select class="form-control" id="topcategory"></select>
+	          <select class="form-control" id="topCategory"></select>
 	        </div>
 	        <div class="form-group col-md-6">
 	          <label>하위 카테고리</label>
-	          <select class="form-control" id="subcategory"></select>
+	          <select class="form-control" id="subCategory"></select>
 	        </div>
 	      </div>
 	
@@ -54,11 +54,11 @@
 	      <div class="form-row mb-4">
 	        <div class="form-group col-md-6">
 	          <label>상품명</label>
-	          <input type="text" class="form-control" name="product_name" placeholder="상품명을 입력하세요">
+	          <input type="text" class="form-control" name="productName" placeholder="상품명을 입력하세요">
 	        </div>
 	        <div class="form-group col-md-6">
 	          <label>브랜드</label>
-	          <input type="text" class="form-control" name="brand" placeholder="브랜드명">
+	          <input type="text" class="form-control" name="brandName" placeholder="브랜드명">
 	        </div>
 	      </div>
 	
@@ -75,7 +75,7 @@
 	        </div>
 	        <div class="form-group col-md-4">
 	          <label>재고</label>
-	          <input type="text" class="form-control" name="quantity" placeholder="수량">
+	          <input type="text" class="form-control" name="productStock" placeholder="수량">
 	        </div>
 	      </div>
 	
@@ -85,7 +85,7 @@
 		<div class="form-row mb-4">
 		  <div class="form-group col-md-6">
 		    <label><i class="fas fa-barcode text-secondary mr-1"></i> 모델명</label>
-		    <input type="text" class="form-control" name="model_code" placeholder="모델명을 입력하세요">
+		    <input type="text" class="form-control" name="modelCode" placeholder="모델명을 입력하세요">
 		  </div>
 		  <div class="form-group col-md-6">
 		    <label><i class="fas fa-globe-asia text-secondary mr-1"></i> 원산지</label>

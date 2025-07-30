@@ -22,7 +22,7 @@
 	</select>
 	
 	<!-- 하위 카테고리 단 건 조회 -->
-	<select id="select" parameterType="int" resultMap="topCategoryMap">
+	<select id="select" parameterType="int" resultType="SubCategory">
 		select sub_category_id, category_name, top_category_id 
 		from sub_categories
 		where sub_category_id = #{subCategoryId}
