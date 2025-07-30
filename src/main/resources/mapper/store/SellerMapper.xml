@@ -32,11 +32,11 @@
 	<insert id="insert" parameterType="Seller">
 		insert into sellers (
 		email,
-		password, name, tel, business_num, account_num, zip_code, address,
+		password, name, tel, business_num, account_num, bank, zip_code, address,
 		detail_address
 		)
 		values (
-		#{email},#{password},#{name},#{tel},#{businessNum}, #{accountNum},
+		#{email},#{password},#{name},#{tel},#{businessNum}, #{accountNum}, #{bank},
 		#{zipCode}, #{address}, #{detailAddress}
 		)
 	</insert>
@@ -53,6 +53,7 @@
 		, detail_address = #{detailAddress}
 		, business_num = #{businessNum}
 		, account_num = #{accountNum}
+		, bank = #{bank}
 		where seller_id = #{sellerId}
 	</update>
 
