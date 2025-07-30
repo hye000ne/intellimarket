@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.intellimarket.admin.service.AdminSellerService;
 
 /**
  * 관리자 판매자 기능 관련 컨트롤러
@@ -17,7 +16,6 @@ import com.intellimarket.admin.service.AdminSellerService;
 @Controller
 @RequestMapping("/admin/seller")
 public class AdminSellerController {
-	@Autowired AdminSellerService adminSellerService;
 	/**
 	 * 판매자 가입 승인 페이지
 	 */
@@ -28,14 +26,17 @@ public class AdminSellerController {
 	}
 	
 	/**
-	 * 판매자 승인상태 변경
+	 * 판매자 상태 변경
 	 */
-	@PostMapping("/changeApprovalStatus")
-	public String changeApprovalStatus(@RequestParam int sellerId, @RequestParam String status, @RequestParam(required = false) String msg) {
-		//ApprovalStatus approvalStatus = ApprovalStatus.valueOf(status);
-		adminSellerService.changeApprovalStatus(sellerId, status, msg);
+	@PostMapping("/changeSellerStatus")
+	public String changeSellerStatus(@RequestParam int sellerId, @RequestParam String status, @RequestParam(required = false) String msg) {
+		//SellerStatus sellerStatus;
+		try {
+		    //sellerStatus = SellerStatus.valueOf(status);
+		} catch (IllegalArgumentException e) {
+		    throw new IllegalArgumentException("유효하지 않은 상태 값입니다.");
+		}
 		return "redirect:/admin/seller/approval";
-		
 	}
 	
 	/**

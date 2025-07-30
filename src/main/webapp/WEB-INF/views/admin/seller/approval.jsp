@@ -59,7 +59,10 @@
 		</div>
     </div>
 </div>
-
+<form id="sellerApproveForm" name="sellerApproveForm" method="post" action="/admin/seller/changeSellerStatus">
+	<input type="hidden" id="approveSellerId" name="sellerId"/>
+	<input type="hidden" id="status" name="status" value="APPROVED"/>
+</form>
 <!-- DataTables  & Plugins -->
 <script src="${ctx}/resources/admin/assets/plugins/datatables/jquery.dataTables.min.js"></script>
 <script src="${ctx}/resources/admin/assets/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
@@ -75,10 +78,11 @@
 <script src="${ctx}/resources/admin/assets/plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
 
 <script>
-	// 승인
+	// 승인 처리
 	function approve(sellerId) {
 		if(confirm("정말 승인하시겠습니까?")) {
-			location.href='/admin/seller/approve?sellerId='+sellerId;
+			$("#approveSellerId").val(sellerId);
+			$("#sellerApproveForm").submit();
 		}
 	}
 	
@@ -89,7 +93,6 @@
 	}
 	
 	// 반려
-
 	$(function() {
 		$("#approvalListTable").DataTable({
 			responsive: true,
