@@ -27,7 +27,7 @@
 					</a>
 					<ul class="nav nav-treeview">
 						<li class="nav-item"><a href="${ctx}/admin/member/list" class="nav-link"><p>회원 목록</p></a></li>
-						<li class="nav-item"><a href="#" class="nav-link"><p>회원 등록</p></a></li>
+						<li class="nav-item"><a href="${ctx}/admin/member/join" class="nav-link"><p>회원 등록</p></a></li>
 					</ul>
 				</li>
 				<!-- 판매자 관리 -->
@@ -37,7 +37,7 @@
 						<p>판매자 관리<i class="right fas fa-angle-left"></i></p>
 					</a>
 					<ul class="nav nav-treeview">
-						<li class="nav-item"><a href="#" class="nav-link"><p>가입 승인</p></a></li>
+						<li class="nav-item"><a href="${ctx}/admin/seller/approval" class="nav-link"><p>가입 승인</p></a></li>
 						<li class="nav-item"><a href="${ctx}/admin/seller/list" class="nav-link"><p>판매자 목록</p></a></li>
 						<li class="nav-item"><a href="#" class="nav-link"><p>정산 관리</p></a></li>
 					</ul>

@@ -47,7 +47,7 @@
 							</div>
 						</div>
 						<div class="form-group row">
-							<label class="col-sm-3 col-form-label">연락처</label>
+							<label class="col-sm-3 col-form-label">휴대폰 번호 (숫자만 입력)</label>
 							<div class="col-sm-9">
 								<input type="text" class="form-control" id="phone" name="phone" value="${member.phone}" readonly>
 							</div>

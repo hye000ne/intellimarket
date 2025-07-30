@@ -10,10 +10,7 @@
 	<div class="content-header">
       	<div class="container-fluid">
 	        <div class="row mb-2">
-	          	<div class="col-sm-6">
-	            	<h1 class="m-0">회원목록</h1>
-	          	</div>
-	          	<div class="col-sm-6">
+	          	<div class="col-sm-12">
 	            	<ol class="breadcrumb float-sm-right">
 	              		<li class="breadcrumb-item">회원 관리</li>
 	              		<li class="breadcrumb-item active">회원 목록</li>
@@ -29,7 +26,7 @@
 		        <div class="col-lg-12">
 		            <div class="card">
 		              	<div class="card-body">
-		                	<table id="memberList" class="table table-bordered table-hover text-center">
+		                	<table id="memberListTable" class="table table-bordered table-hover text-center">
 		                  		<thead class="align-middle">
 			                  		<tr>
 					                    <th>이메일</th>
@@ -87,7 +84,7 @@
 	}
 
 	$(function() {
-		$("#memberList").DataTable({
+		$("#memberListTable").DataTable({
 			responsive: true,
 			lengthChange: false,
 			autoWidth: false,
@@ -114,6 +111,6 @@
 					colvis: "컬럼"
 				}
 			}
-		}).buttons().container().appendTo('#memberList_wrapper .col-md-6:eq(0)');
+		}).buttons().container().appendTo('#memberListTable_wrapper .col-md-6:eq(0)');
 	});
 </script>

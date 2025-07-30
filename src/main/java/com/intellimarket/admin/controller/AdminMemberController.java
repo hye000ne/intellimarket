@@ -37,4 +37,14 @@ public class AdminMemberController {
 		model.addAttribute("contentPage", "admin/member/detail.jsp");
 		return "layout/admin";
 	}
+	
+	/**
+	 * 회원 등록 페이지 
+	 */
+	@GetMapping("/join")
+	public String memberJoinForm(Model model) {
+		model.addAttribute("contentPage", "admin/member/join.jsp");
+		return "layout/admin";
+	}
+	
 }

@@ -21,10 +21,10 @@
 	<!-- 회원 가입 -->
 	<insert id="insert" parameterType="Member">
 		insert into members (
-			email, password, name, birth, phone, zip_code, address, detail_address, gender
+			email, password, name, birth, phone, zip_code, address, detail_address, gender, role
 		)
 		values (
-			#{email}, #{password}, #{name}, #{birth}, #{phone}, #{zipCode}, #{address}, #{detailAddress}, #{gender}
+			#{email}, #{password}, #{name}, #{birth}, #{phone}, #{zipCode}, #{address}, #{detailAddress}, #{gender}, #{role}
 		)
 	</insert>
 	
