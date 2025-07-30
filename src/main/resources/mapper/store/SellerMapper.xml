@@ -36,7 +36,7 @@
 		detail_address
 		)
 		values (
-		#{email},#{password},#{name},#{tel},#{businessNum}, #{businessNum},
+		#{email},#{password},#{name},#{tel},#{businessNum}, #{accountNum},
 		#{zipCode}, #{address}, #{detailAddress}
 		)
 	</insert>
