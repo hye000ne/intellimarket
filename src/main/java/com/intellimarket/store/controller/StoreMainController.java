@@ -11,7 +11,7 @@ public class StoreMainController {
 	/**
 	 * 판매자 메인 페이지
 	 * */
-	@GetMapping("/admin/main")
+	@GetMapping("/seller/main")
 	public String main(Model model) {
 		model.addAttribute("contentPage", "store/admin/adminMain.jsp");
 		return "layout/store";
@@ -20,7 +20,7 @@ public class StoreMainController {
 	/**
 	 * 판매자 상품 리스트 페이지
 	 */
-	@GetMapping("/admin/product/list")
+	@GetMapping("/seller/product/list")
 	public String adminProductList(Model model) {
 		model.addAttribute("contentPage","store/admin/productList.jsp");
 		return "layout/store";
@@ -29,7 +29,7 @@ public class StoreMainController {
 	/**
 	 * 판매자 상품 등록 페이지
 	 */
-	@GetMapping("/admin/product/regist")
+	@GetMapping("/seller/product/regist")
 	public String adminProductRegist(Model model) {
 		model.addAttribute("contentPage","store/admin/productRegist.jsp");
 		return "layout/store";
