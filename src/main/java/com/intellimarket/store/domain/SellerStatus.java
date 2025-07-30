@@ -1,6 +1,6 @@
 package com.intellimarket.store.domain;
 
-enum SellerStatus {
-	ACTIVATE,
-	INACTIVATE
+public enum SellerStatus {
+	//대기, 승인, 반려, 정지
+	PENDING, APPROVED, REJECTED, SUSPENDED
 }
