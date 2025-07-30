@@ -11,6 +11,5 @@ import lombok.Data;
 public class TopCategory {
 	private int topCategoryId;
 	private String categoryName;
-	private List<SubCategory> subList;
 	private RootCategory rootCategory;
 }
