@@ -1,9 +1,11 @@
+<%@page import="com.intellimarket.store.domain.TopCategory"%>
 <%@page import="com.intellimarket.store.domain.Product"%>
 <%@page import="java.util.List"%>
 <%@page import="com.intellimarket.common.util.Paging"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/views/common/init.jsp" %>
 <% 
+	List<TopCategory> topList = (List)request.getAttribute("topList");
 	List<Product> productList = (List)request.getAttribute("productList");
 	Paging paging = (Paging)request.getAttribute("paging");
 %>

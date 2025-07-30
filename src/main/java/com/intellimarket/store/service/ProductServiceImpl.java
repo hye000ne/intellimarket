@@ -20,8 +20,8 @@ public class ProductServiceImpl implements ProductService{
 	
 	// 판매자별 상품 목록 조회
 	@Override
-	public List<Product> selectBySellerId() {
-		return productDAO.selectBySellerId();
+	public List<Product> selectBySellerId(int sellerId) {
+		return productDAO.selectBySellerId(sellerId);
 	}
 	
 	// 상품 단 건 조회

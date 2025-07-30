@@ -56,7 +56,7 @@
 	</select>
 	
 	<!-- 판매자별 상품 목록 조회 -->
-	<select id="selectBySellerId" resultMap="joinMap">
+	<select id="selectBySellerId" parameterType = "int" resultMap="joinMap">
 		select *from products 
 		where seller_id = #{sellerId}
 	</select>

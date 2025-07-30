@@ -9,7 +9,7 @@ public interface ProductService {
 	List<Product> selectAll();
 	
 	// 판매자별 상품 목록 조회
-	List<Product> selectBySellerId();
+	List<Product> selectBySellerId(int sellerId);
 	
 	// 상품 단 건 조회
 	Product select(int productId);
