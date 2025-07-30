@@ -4,11 +4,13 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.intellimarket.store.dao.StoreCategoryDAO;
 import com.intellimarket.store.domain.StoreCategory;
 import com.intellimarket.store.domain.TopCategory;
 
+@Service
 public class StoreCategoryServiceImpl implements StoreCategoryService{
 	@Autowired StoreCategoryDAO storeCategoryDAO;
 	
