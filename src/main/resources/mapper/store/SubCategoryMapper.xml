@@ -16,6 +16,11 @@
 		
 	</resultMap>
 	
+	<!-- 모든 하위 카테고리 조회 -->
+	<select id="selectAll" resultMap="topCategoryMap">
+		select *from sub_categories
+	</select>
+	
 	<!-- 하위 카테고리 단 건 조회 -->
 	<select id="select" parameterType="int" resultMap="topCategoryMap">
 		select sub_category_id, category_name, top_category_id 

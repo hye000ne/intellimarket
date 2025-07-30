@@ -24,4 +24,5 @@
 	<select id="select" resultType="RootCategory" parameterType="int">
 		select * from root_categories where root_category_id = #{rootCategoryId} 
 	</select>
+	
 </mapper>
