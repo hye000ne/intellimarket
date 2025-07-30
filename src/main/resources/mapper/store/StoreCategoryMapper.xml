@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.intellimarket.store.dao.StoreCategoryDAO">
+
+	 <resultMap id="storeCategoryMap" type="StoreCategory">
+	 
+        <id column="store_category_id" property="storeCategoryId"/>
+        <result column="store_info_id" property="storeInfoId"/>
+        
+        <association 
+            property="subCategory" 
+            column="sub_category_id"
+            javaType="SubCategory"
+            select="com.intellimarket.store.dao.SubCategoryDAO.select"
+        />
+    </resultMap>
+
+    <!-- 특정 판매자의 카테고리 리스트 조회 -->
+    <select id="selectByStoreInfoId" resultMap="storeCategoryMap" parameterType="int">
+        select * from store_categories WHERE store_info_id = #{storeInfoId}
+    </select>
+</mapper>
