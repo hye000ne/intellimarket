@@ -37,8 +37,8 @@ public class StoreManageController {
 	@GetMapping("/productList")
 	public String adminProductList(Model model) {
 		
-		int sellerId = 4; // 예시: 로그인된 seller의 ID (실제로는 세션에서 꺼내야 함)
-		int storeInfoId = 1;
+		int sellerId = 10; // 예시: 로그인된 seller의 ID (실제로는 세션에서 꺼내야 함)
+		int storeInfoId = 10;
 
 		List<TopCategory> topList = storeCategoryService.getTopCategoriesByStoreInfoId(storeInfoId);
 

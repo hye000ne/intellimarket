@@ -153,13 +153,45 @@
 </div>
 
 <script>
+
   $(()=>{
     $('#summernote').summernote({
       height: 600,
       placeholder: "상품 상세 설명을 입력하세요"
     });
+    
+    $('#bt_regist').click(()=>{
+   	  const formArray = $('#form1').serializeArray();
+   	  const dataObj = {};
+
+   	  formArray.forEach(field => {
+   	    dataObj[field.name] = field.value;
+   	  });
+
+   	  // 2. summernote 내용 추가 (Product.detail 필드로 들어감)
+   	  dataObj['detail'] = $('#summernote').summernote('code');
+
+   	  // 3. serialize 후 전송
+   	  $.ajax({
+   	    url: '/store/seller/manage/product/regist',
+   	    type: 'POST',
+   	    data: $.param(dataObj),
+   	    success: function (res) {
+   	      if (res.status === 'ok') {
+   	        alert(res.msg);
+   	        location.href = '/store/seller/manage/productRegist';
+   	      } else {
+   	        alert('상품 등록 실패');
+   	      }
+   	    },
+   	    error: function (err) {
+   	      console.error('에러 발생:', err);
+   	    }
+   	  });
+    });
   });
   
+  //이미지 미리보기 렌더링
   function previewMultipleImages(event) {
 	    let files = event.target.files;
 	    let mainPreview = document.getElementById('main-preview');
@@ -197,7 +229,7 @@
 	        img.classList.add('border', 'rounded');
 
 	        // 호버 시 큰 이미지 변경
-	        img.addEventListener('mouseenter', () => {
+	        img.addEventListener('mouseenter', () => {git 
 	          mainPreview.src = img.src;
 	        });
 
@@ -206,4 +238,6 @@
 	      reader.readAsDataURL(file);
 	    });
 	  }
+  
+  
 </script>
