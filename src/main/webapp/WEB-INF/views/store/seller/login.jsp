@@ -1,13 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ include file="/WEB-INF/views/common/init.jsp" %>
 
-
-        	<!-- 신규 회원 안내 -->
+        	<!-- 신규 판매자 안내 -->
             <div class="col-lg-6 col-md-6">
                 <div class="login_part_text text-center">
                     <div class="login_part_text_iner">
-                        <h2>아직 회원이 아니신가요?</h2>
-                        <p>지금 회원가입하고 인텔리 마켓의 특별한 쇼핑을 시작하세요.</p>
-                        <a href="${ctx}/shop/join" class="btn_3">회원가입</a>
+                        <h2>아직 인텔리마켓 판매자가 아니신가요?</h2>
+                        <p>지금 판매자 등록하고 인텔리 마켓의 똑똑한 쇼핑을 시작하세요.</p>
+                        <a href="${ctx}/store/seller/join" class="btn_3">판매자 등록</a>
                     </div>
                 </div>
             </div>
