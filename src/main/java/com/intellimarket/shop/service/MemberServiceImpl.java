@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import com.intellimarket.common.util.PasswordEncryptor;
 import com.intellimarket.shop.dao.MemberDAO;
 import com.intellimarket.shop.domain.Member;
+import com.intellimarket.shop.domain.Member.MemberStatus;
 import com.intellimarket.shop.exception.ShopException;
 
 @Service
@@ -55,8 +56,12 @@ public class MemberServiceImpl implements MemberService {
 	
 	// 회원 탈퇴
 	@Override
-	public int delete(int memberId){
-		return memberDAO.delete(memberId);
+	public boolean changeMemberStatus(int memberId, MemberStatus status, String reason) {
+		Member member = new Member();
+		member.setMemberId(memberId);
+		member.setStatus(status);
+		
+		return memberDAO.updateStatus(member) > 0;
 	}
 	
 	// 로그인

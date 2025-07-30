@@ -20,7 +20,7 @@ public class Member {
 	private LocalDate birth;
 	
 	private String phone;
-	private Status status;
+	private MemberStatus status;
 	private int zipCode;
 	private String address;
 	private String detailAddress;
@@ -32,6 +32,6 @@ public class Member {
 	
 	// ENUM 정의
     public enum Gender { M, F }
-    public enum Status { ACTIVE, INACTIVE}
+    public enum MemberStatus { ACTIVE, INACTIVE}
     public enum Role { USER, ADMIN }
 }
