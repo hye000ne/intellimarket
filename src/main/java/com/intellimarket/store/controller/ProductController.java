@@ -1,16 +1,20 @@
 package com.intellimarket.store.controller;
 
+import java.util.HashMap;
 import java.util.List;
-
-import javax.servlet.http.HttpServletRequest;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.intellimarket.common.util.Paging;
+import com.intellimarket.store.domain.Product;
 import com.intellimarket.store.service.ProductService;
 import com.intellimarket.store.service.StoreCategoryService;
 
@@ -39,7 +43,6 @@ public class ProductController {
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("topList",topList);
 		
-		mav.setViewName("store/seller/productList");
 		return mav;
 	}
 	
@@ -53,7 +56,17 @@ public class ProductController {
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("subList",subList);
 		
-		mav.setViewName("store/seller/productList");
 		return mav;
 	}
+	
+	@PostMapping("/regist")
+	@ResponseBody
+	public Map<String, Object> regist(@ModelAttribute Product product) {
+		productService.insert(product);
+		Map<String, Object> res = new HashMap<>();
+		res.put("status","ok");
+		res.put("msg", "상품 등록이 완료되었습니다");
+		return res;
+	}
+	
 }

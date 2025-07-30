@@ -24,6 +24,12 @@ public class ProductServiceImpl implements ProductService{
 		return productDAO.selectBySellerId(sellerId);
 	}
 	
+	//판매자가 보유한 상위 카테고리 별 상품 목록 조회
+	@Override
+	public List<Product> selectBySellerIdAndTCId(int sellerId, int topCategoryId) {
+		return productDAO.selectBySellerIdAndTCId(sellerId, topCategoryId);
+	}
+	
 	// 상품 단 건 조회
 	@Override
 	public Product select(int productId) {
@@ -47,6 +53,8 @@ public class ProductServiceImpl implements ProductService{
 	public int delete(int productId) {
 		return productDAO.delete(productId);
 	}
+
+
 
 
 	
