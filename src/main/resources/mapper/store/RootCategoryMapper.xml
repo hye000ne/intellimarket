@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.intellimarket.store.dao.RootCategoryDAO">
+	
+	<resultMap type="RootCategory" id="topJoin">
+		<id column="root_category_id" 	property="rootCategoryId"/>
+		<result column="category_name" 	property="categoryName"/>
+		
+		<collection
+			column = "root_category_id" 
+			property = "topList"
+			javaType = "java.util.List"
+			ofType = "TopCategory"
+			select = "com.intellimarket.store.dao.TopCategoryDAO.select"
+		/>
+	</resultMap>
+	
+	<!-- 루트 카테고리 전체 조회 -->
+	<select id="selectAll" resultMap="topJoin">
+		select *from root_categories
+	</select>
+	
+	<!-- 루트 카테고리 단 건 조회 -->
+	<select id="select" resultType="RootCategory" parameterType="int">
+		select * from root_categories where root_category_id = #{rootCategoryId} 
+	</select>
+	
+</mapper>

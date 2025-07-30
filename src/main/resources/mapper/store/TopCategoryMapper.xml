@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.intellimarket.store.dao.TopCategoryDAO">
+	
+	<resultMap type="TopCategory" id="subJoin">
+	
+		<id 	column="top_category_id" property="topCategoryId"/>
+		<result column="category_name" 	 property="categoryName"/>
+		
+		<association 
+			column = "root_category_id"
+			property = "rootCategory" 
+			javaType = "RootCategory" 	
+			select = "com.intellimarket.store.dao.RootCategoryDAO.select"
+		/>
+		
+		<collection 
+			column = "top_category_id"
+			property = "subList"
+			javaType = "java.util.List"
+			ofType = "SubCategory"
+			select = "com.intellimarket.store.dao.SubCategoryDAO.select"
+		/>
+	</resultMap>
+	
+	<!-- 상위 카테고리 전체 조회 -->
+	<select id="selectAll" resultMap="subJoin">
+		select * from top_categories
+	</select>
+	
+	<!-- 상위 카테고리 단 건 조회 -->
+	<select id="select" parameterType="int" resultMap="subJoin">
+		select top_category_id, category_name, root_category_id 
+		from top_categories
+		where top_category_id = #{topCategoryId}
+	</select>
+	
+	<!-- 루트 카테고리에 따른 상위 카테고리 조회 -->
+	<select id="selectByRootCategoryId" parameterType="int" resultType="TopCategory">
+		select top_category_id, category_name, root_category_id 
+		from top_categories
+		where root_category_id = #{rootCategoryId}
+	</select>
+	
+</mapper>
