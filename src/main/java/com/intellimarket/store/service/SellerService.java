@@ -3,6 +3,7 @@ package com.intellimarket.store.service;
 import java.util.List;
 
 import com.intellimarket.store.domain.Seller;
+import com.intellimarket.store.domain.SellerStatus;
 
 public interface SellerService {
 	// 전체 목록 조회
@@ -14,14 +15,17 @@ public interface SellerService {
 	// 판매자 한 건 조회 (이메일 기반)
 	Seller selectByEmail(String email);
 	
+	// 판매자 목록 조회 (상태값 기반)
+	Seller selectByStatus(SellerStatus sellerStatus);
+	
 	// 회원가입(판매자 가입)
 	void insert(Seller seller);
 	
-	// 회원 정보 수정
+	// 판매자 정보 수정
 	int updateSeller(Seller seller);
 	
-	// 판매자 탈퇴
-	int delete(int sellerId);
+	// 판매자 상태 수정(With msg)
+	int updateStatus(Seller seller);
 	
 	// 로그인
 	Seller loginSeller(String email, String password);

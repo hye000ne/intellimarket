@@ -68,7 +68,11 @@ public class SellerController {
 		res.put("msg", "회원가입이 완료되었습니다");
 		return res;
 	}
-
+	
+	/**
+	 * 로그인 처리
+	 * - 성공 시 세션에 loginSeller 저장
+	 */
 	@PostMapping("/login")
 	@ResponseBody
 	public Map<String, Object> login(@RequestParam String email, @RequestParam String password
@@ -90,6 +94,7 @@ public class SellerController {
 			session.setAttribute("loginSeller", loginSeller);
 			res.put("status", "ok");
 			res.put("msg", loginSeller.getName() + "님, 안녕하세요.");
+			res.put("url", "/store/seller/");
 		} else {
 			res.put("status", "fail");
 			res.put("msg", "이메일과 비밀번호를 확인해주세요.");
