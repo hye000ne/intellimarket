@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.intellimarket.common.util.CookieUtil;
 import com.intellimarket.shop.domain.Member;
+import com.intellimarket.shop.domain.Member.MemberStatus;
 import com.intellimarket.shop.domain.Member.Role;
 import com.intellimarket.shop.exception.ShopException;
 import com.intellimarket.shop.service.MemberService;
@@ -95,6 +96,19 @@ public class MemberController {
 		memberService.updateMember(member);
 		res.put("status", "ok");
 		res.put("msg", "회원 정보 수정이 완료되었습니다.");
+		return res;
+	}
+	
+	/**
+	 * 회원 상태 변경
+	 * - 회원 탈퇴 시 호출
+	 */
+	@PostMapping("/updateMemberStatus")
+	public Map<String, Object> updateMemberStatus(@RequestParam int memberId, @RequestParam MemberStatus status, @RequestParam String inactiveReason) { 
+		Map<String, Object> res = new HashMap<>();
+		memberService.updateMemberStatus(memberId, status, inactiveReason);
+		res.put("status", "ok");
+		res.put("msg", "회원 탈퇴 처리되었습니다.");
 		return res;
 	}
 	

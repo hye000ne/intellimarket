@@ -43,12 +43,13 @@
 	</update>
 	
 	<!-- 회원 상태 변경 -->
-	<delete id="updateStatus" parameterType="Member">
+	<update id="updateMemberStatus" parameterType="Member">
 		update members
 		set 
-			status = #{status}
+			status = #{status},
+			inactive_reason  = #{inactiveReason}
 		where member_id = #{memberId}
-	</delete>
+	</update>
 	
 	<!-- 비밀번호 변경 -->
 	<update id="updatePassword" parameterType="Member">
@@ -67,5 +68,6 @@
 	<select id="existByEmail" parameterType="String" resultType="int" >
 		select count(*) from members 
 		where email = #{email}
+		and status = 'ACTIVE'
 	</select>
 </mapper>

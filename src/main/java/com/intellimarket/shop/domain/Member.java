@@ -21,6 +21,7 @@ public class Member {
 	
 	private String phone;
 	private MemberStatus status;
+	private String inactiveReason;
 	private int zipCode;
 	private String address;
 	private String detailAddress;

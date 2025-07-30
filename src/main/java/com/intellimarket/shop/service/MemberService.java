@@ -21,8 +21,8 @@ public interface MemberService {
 	// 회원 정보 변경
 	void updateMember(Member member);
 	
-	// 회원 정보 변경
-	boolean changeMemberStatus(int memberId, MemberStatus status, String reason);
+	// 회원 상태 변경
+	void updateMemberStatus(int memberId, MemberStatus status, String inactiveReason);
 	
 	// 로그인
 	Member loginMember(String email, String password);

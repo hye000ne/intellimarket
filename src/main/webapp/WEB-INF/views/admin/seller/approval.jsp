@@ -47,7 +47,12 @@
 				                    		<td>${seller.businessNum}</td>
 				                    		<td>${seller.createdDate}</td>
 				                    		<td><button type="button" class="btn btn-block btn-primary btn-sm" onclick="approve(${seller.sellerId})">승인</button></td>
-				                    		<td><button type="button" class="btn btn-block btn-danger btn-sm" onclick="openRejectModal(${seller.sellerId})">반려</button></td>
+				                    		<td>
+				                  				<button type="button" class="btn btn-block btn-danger btn-sm" data-toggle="modal"
+									        	 	data-target="#rejectModal" onclick="setRejectSellerId(${seller.sellerId})">
+									            	반려
+									        	</button>
+											</td>
 				                  		</tr>
 									</c:forEach>
 			               		</tbody>
@@ -59,10 +64,44 @@
 		</div>
     </div>
 </div>
-<form id="sellerApproveForm" name="sellerApproveForm" method="post" action="/admin/seller/changeSellerStatus">
+
+<!-- 반려 모달 -->
+<div class="modal fade" id="rejectModal" tabindex="-1" role="dialog" aria-labelledby="rejectModalLabel" aria-hidden="true">
+  	<div class="modal-dialog" role="document">
+    	<div class="modal-content">
+			<!-- 판매자 반려 form  -->
+      		<form id="sellerRejectForm" method="post" action="/admin/member/updateMemberStatus">
+        		<div class="modal-header">
+	         		<h5 class="modal-title" id="rejectModalLabel">판매자 반려</h5>
+	          		<button type="button" class="close" data-dismiss="modal" aria-label="닫기">
+	            		<span aria-hidden="true">&times;</span>
+	          		</button>
+        		</div>
+
+		        <div class="modal-body">
+		          	<input type="hidden" name="sellerId" id="rejectSellerId"/>
+		          	<input type="hidden" name="status" value="REJECTED"/>
+		          	<div class="form-group">
+		            	<label for="inactiveReason">반려 사유</label>
+		            	<textarea name="rejectMsg" id="rejectMsg" class="form-control" required></textarea>
+		          	</div>
+        		</div>
+
+        		<div class="modal-footer">
+          			<button type="button" class="btn btn-secondary" data-dismiss="modal">취소</button>
+          			<button type="button" class="btn btn-danger" onclick="submitSellerRejectForm()">확인</button>
+        		</div>
+      		</form>
+    	</div>
+  	</div>
+</div>
+
+<!-- 판매자 승인 form  -->
+<form id="sellerApproveForm" method="post" action="/admin/seller/changeSellerStatus">
 	<input type="hidden" id="approveSellerId" name="sellerId"/>
 	<input type="hidden" id="status" name="status" value="APPROVED"/>
 </form>
+
 <!-- DataTables  & Plugins -->
 <script src="${ctx}/resources/admin/assets/plugins/datatables/jquery.dataTables.min.js"></script>
 <script src="${ctx}/resources/admin/assets/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
@@ -86,13 +125,17 @@
 		}
 	}
 	
-	// 반려 모달 창 열기
-	function openRejectModal(sellerId) {
-		$('#rejectModal input[name=sellerId]').val(sellerId);
-		$('#rejectModal').modal('show');
+	function setRejectSellerId(sellerId) {
+	    $('#rejectSellerId').val(sellerId);
 	}
 	
-	// 반려
+	// 반려 처리
+	function submitSellerRejectForm() {
+		if (confirm('정말 반려 처리하시겠습니까?')) {
+	        $('#sellerRejectForm').submit();
+	    }
+	}
+	
 	$(function() {
 		$("#approvalListTable").DataTable({
 			responsive: true,

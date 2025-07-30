@@ -51,7 +51,17 @@
 				                    		<td>${member.createdDate}</td>
 				                    		<td>${member.updatedDate}</td>
 				                    		<td><button type="button" class="btn btn-block btn-primary btn-sm" onclick="goToDetail(${member.memberId})">상세</button></td>
-				                    		<td><button type="button" class="btn btn-block btn-danger btn-sm" onclick="changeStatus(${member.memberId})">탈퇴</button></td>
+			                    			<td>
+												<c:choose>
+												    <c:when test="${member.status eq 'INACTIVE'}">탈퇴됨</c:when>
+												    <c:otherwise>
+												        <button type="button" class="btn btn-block btn-danger btn-sm" data-toggle="modal"
+												        	 data-target="#inactiveModal" onclick="setInactiveMemberId(${member.memberId})">
+												            탈퇴
+												        </button>
+												    </c:otherwise>
+												</c:choose>
+											</td>
 				                  		</tr>
 									</c:forEach>
 			               		</tbody>
@@ -63,6 +73,37 @@
 		</div>
     </div>
 </div>
+
+<!-- 탈퇴 모달 -->
+<div class="modal fade" id="inactiveModal" tabindex="-1" role="dialog" aria-labelledby="inactiveModalLabel" aria-hidden="true">
+  	<div class="modal-dialog" role="document">
+    	<div class="modal-content">
+      		<form id="memberInactiveForm" method="post" action="/admin/member/updateMemberStatus">
+        		<div class="modal-header">
+	         		<h5 class="modal-title" id="inactiveModalLabel">회원 탈퇴</h5>
+	          		<button type="button" class="close" data-dismiss="modal" aria-label="닫기">
+	            		<span aria-hidden="true">&times;</span>
+	          		</button>
+        		</div>
+
+		        <div class="modal-body">
+		          	<input type="hidden" name="memberId" id="inactiveMemberId"/>
+		          	<input type="hidden" name="status" value="INACTIVE"/>
+		          	<div class="form-group">
+		            	<label for="inactiveReason">탈퇴 사유</label>
+		            	<textarea name="inactiveReason" id="inactiveReason" class="form-control" required></textarea>
+		          	</div>
+        		</div>
+
+        		<div class="modal-footer">
+          			<button type="button" class="btn btn-secondary" data-dismiss="modal">취소</button>
+          			<button type="button" class="btn btn-danger" onclick="submitMemberInactiveForm()">확인</button>
+        		</div>
+      		</form>
+    	</div>
+  	</div>
+</div>
+
 
 <!-- DataTables  & Plugins -->
 <script src="${ctx}/resources/admin/assets/plugins/datatables/jquery.dataTables.min.js"></script>
@@ -83,6 +124,16 @@
 		location.href='/admin/member/detail?memberId='+memberId;
 	}
 
+	function setInactiveMemberId(memberId) {
+	    $('#inactiveMemberId').val(memberId);
+	}
+
+	function submitMemberInactiveForm() {
+		if (confirm('정말 탈퇴 처리하시겠습니까?')) {
+	        $('#memberInactiveForm').submit();
+	    }
+	}
+	
 	$(function() {
 		$("#memberListTable").DataTable({
 			responsive: true,

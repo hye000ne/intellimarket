@@ -54,14 +54,15 @@ public class MemberServiceImpl implements MemberService {
 		if(result <= 0) throw new ShopException("회원 정보 수정에 실패했습니다.");
 	}
 	
-	// 회원 탈퇴
+	// 회원 상태 변경
 	@Override
-	public boolean changeMemberStatus(int memberId, MemberStatus status, String reason) {
+	public void updateMemberStatus(int memberId, MemberStatus status, String inactiveReason) {
 		Member member = new Member();
 		member.setMemberId(memberId);
 		member.setStatus(status);
-		
-		return memberDAO.updateStatus(member) > 0;
+		member.setInactiveReason(inactiveReason);
+		int result = memberDAO.updateMemberStatus(member);
+		if(result <= 0) throw new ShopException("회원 탈퇴 처리에 실패했습니다.");
 	}
 	
 	// 로그인

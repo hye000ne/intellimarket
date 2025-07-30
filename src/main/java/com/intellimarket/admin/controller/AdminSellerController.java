@@ -8,6 +8,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.intellimarket.store.domain.SellerStatus;
+import com.intellimarket.store.service.SellerService;
+
 
 /**
  * 관리자 판매자 기능 관련 컨트롤러
@@ -16,11 +19,14 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Controller
 @RequestMapping("/admin/seller")
 public class AdminSellerController {
+	@Autowired SellerService sellerService;
 	/**
 	 * 판매자 가입 승인 페이지
 	 */
 	@GetMapping("/approval")
 	public String approvalPage(Model model) {
+		SellerStatus status = SellerStatus.valueOf("PENDING");
+		model.addAttribute("list", sellerService.selectByStatus(status));
 		model.addAttribute("contentPage", "admin/seller/approval.jsp");
 		return "layout/admin";
 	}
@@ -29,13 +35,8 @@ public class AdminSellerController {
 	 * 판매자 상태 변경
 	 */
 	@PostMapping("/changeSellerStatus")
-	public String changeSellerStatus(@RequestParam int sellerId, @RequestParam String status, @RequestParam(required = false) String msg) {
-		//SellerStatus sellerStatus;
-		try {
+	public String changeSellerStatus(@RequestParam int sellerId, @RequestParam SellerStatus status, @RequestParam(required = false) String msg) {
 		    //sellerStatus = SellerStatus.valueOf(status);
-		} catch (IllegalArgumentException e) {
-		    throw new IllegalArgumentException("유효하지 않은 상태 값입니다.");
-		}
 		return "redirect:/admin/seller/approval";
 	}
 	

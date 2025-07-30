@@ -24,7 +24,7 @@ public interface MemberDAO {
 	int updateMember(Member member);
 	
 	// 회원 상태 변경
-	int updateStatus(Member member);
+	int updateMemberStatus(Member member);
 	
 	// 비밀번호 변경
 	int updatePassword(Member member);

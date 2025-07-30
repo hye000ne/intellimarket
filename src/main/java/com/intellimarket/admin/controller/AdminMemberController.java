@@ -4,9 +4,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.intellimarket.shop.domain.Member.MemberStatus;
 import com.intellimarket.shop.service.MemberService;
 
 /**
@@ -47,4 +49,12 @@ public class AdminMemberController {
 		return "layout/admin";
 	}
 	
+	/**
+	 * 회원 탈퇴 처리
+	 */
+	@PostMapping("/updateMemberStatus")
+	public String updateMemberStatus(@RequestParam int memberId, @RequestParam MemberStatus status, @RequestParam(required = false) String inactiveReason) { 
+		memberService.updateMemberStatus(memberId, status, inactiveReason);
+		return "redirect:/admin/member/list";
+	}
 }
