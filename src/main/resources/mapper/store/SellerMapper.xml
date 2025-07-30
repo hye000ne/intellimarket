@@ -1,76 +1,96 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.intellimarket.store.dao.SellerDAO">
+
 	<!-- 전체 목록 조회 -->
 	<select id="selectAll" resultType="Seller">
 		select * from sellers
 	</select>
-	
-	<!-- 회원 단 건 조회 (ID 기반) -->
+
+	<!-- 판매자 단 건 조회 (ID 기반) -->
 	<select id="selectById" parameterType="int" resultType="Seller">
-		select * from sellers 
+		select *
+		from sellers
 		where seller_id = #{sellerId}
 	</select>
-	
-	<!-- 회원 단 건 조회 (이메일 기반) -->
-	<select id="selectByEmail" parameterType="String" resultType="Seller">  
-		select * from sellers 
-		where email = #{email}
+
+	<!-- 판매자 단 건 조회 (이메일 기반) -->
+	<select id="selectByEmail" parameterType="String"
+		resultType="Seller">
+		select * from sellers
+		where email = #{status}
 	</select>
-	
+
+	<!-- 판매자 단 건 조회 (상태값 기반) -->
+	<select id="selectByStatus" parameterType="SellerStatus"
+		resultType="Seller">
+		select * from sellers
+		where status = #{status}
+	</select>
+
 	<!-- 회원 가입 -->
 	<insert id="insert" parameterType="Seller">
 		insert into sellers (
-		email, password, name, tel, business_num, zip_code, address, detail_address
+		email,
+		password, name, tel, business_num, account_num, zip_code, address,
+		detail_address
 		)
 		values (
-		#{email},#{password},#{name},#{tel},#{businessNum}, #{zipCode}, #{address}, #{detailAddress}
+		#{email},#{password},#{name},#{tel},#{businessNum}, #{businessNum},
+		#{zipCode}, #{address}, #{detailAddress}
 		)
 	</insert>
-	
-	<!-- 회원 정보 수정 -->
+
+	<!-- 판매자 정보 수정 -->
 	<update id="updateSeller" parameterType="Seller">
 		update sellers
-		set 
-			password = #{password}
-			, name = #{name}
-			, tel = #{tel}
-			, zip_code = #{zipCode}
-			, address = #{address}
-			, detail_address = #{detailAddress}
-			, business_num = #{businessNum}
-		where seller_id = #{sellerId} 
-	</update>
-	
-	<!-- 회원 탈퇴 -->
-	<delete id="delete" parameterType="int">
-		delete from sellers
+		set
+		password = #{password}
+		, name = #{name}
+		, tel = #{tel}
+		, zip_code = #{zipCode}
+		, address = #{address}
+		, detail_address = #{detailAddress}
+		, business_num = #{businessNum}
+		, account_num = #{accountNum}
 		where seller_id = #{sellerId}
-	</delete>
-	
+	</update>
+
+	<!-- 판매자 상태 수정 -->
+	<update id="updateStatus" parameterType="Seller">
+		update sellers
+		set status = #{status}, reject_msg = #{rejectMsg}
+		where seller_id = #{sellerId}
+	</update>
+
 	<!-- 비밀번호 변경 -->
 	<update id="updatePassword" parameterType="Seller">
 		update sellers
-		set password = #{password}
+		set
+		password = #{password}
 		where email = #{email}
 	</update>
-	
+
 	<!-- 비밀번호 확인 -->
-	<select id="matchPassword" parameterType="Seller" resultType="int">
+	<select id="matchPassword" parameterType="Seller"
+		resultType="int">
 		select count(*) from sellers
-		where seller_id = #{sellerId} and password = #{password}
+		where seller_id = #{sellerId}
+		and password = #{password}
 	</select>
-	
+
 	<!-- 이메일 존재 여부 확인 -->
-	<select id="existByEmail" parameterType="String" resultType="int" >
-		select count(*) from sellers 
+	<select id="existByEmail" parameterType="String"
+		resultType="int">
+		select count(*) from sellers
 		where email = #{email}
 	</select>
-	
-	<!-- 사업자 등록 여부 확인  -->
-	<select id="existByBusinessNum" parameterType="String" resultType="int" >
-		select count(*) from sellers 
+
+	<!-- 사업자 등록 여부 확인 -->
+	<select id="existByBusinessNum" parameterType="String"
+		resultType="int">
+		select count(*) from sellers
 		where business_num= #{businessNum}
 	</select>
-	
+
 </mapper>
