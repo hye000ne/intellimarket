@@ -1,4 +1,4 @@
-package com.intellimarket.store.domain;
+  package com.intellimarket.store.domain;
 
 import java.time.LocalDateTime;
 
@@ -19,7 +19,8 @@ public class Seller {
 	private String tel;
 	private String businessNum;
 	private SellerStatus status;
-	private String message;
+	private String rejectMsg;
+	private String accountNum;
 	
 	private LocalDateTime createDate;
 	private LocalDateTime updatedDate;
