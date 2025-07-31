@@ -10,6 +10,7 @@
 	<!-- productId 에 따른 썸네일 이미지 조회 -->
 	<select id="selectById" parameterType="int" resultType="ProductImage">
 		select product_image_id, filename, product_id from product_images where product_id = #{productId}
+
 	</select>
 	
 </mapper>
