@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 import org.apache.ibatis.type.Alias;
+import org.springframework.web.multipart.MultipartFile;
 
 import lombok.Data;
 
@@ -30,5 +31,6 @@ public class Product {
 	private MarketEvent marketEvent;
 	private Seller seller;
 	
+	private MultipartFile[] photo;
 	private List<ProductImage> imgList;
 }
