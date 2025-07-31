@@ -20,34 +20,34 @@
 		<result column="created_date" 		property="createdDate"/>
 		<result column="updated_date" 		property="updatedDate"/>
 		
-		<association 
+		<!-- <association 
 			column = "sub_category_id" 
 			property = "subCategory" 
 			javaType = "SubCategory"
 			select = "com.intellimarket.store.dao.SubCategoryDAO.select"
-		/>
+		/> -->
 		
-		<association 
+		<!-- <association 
 			column = "market_event_id" 
 			property = "marketEvent" 
 			javaType = "MarketEvent"
 			select = "com.intellimarket.store.dao.MarketEventDAO.select"
-		/>
+		/> -->
 		
-		<association 
+		<!-- <association 
 			column = "seller_id" 
 			property = "seller" 
 			javaType = "Seller"
 			select = "com.intellimarket.store.dao.SellerDAO.select"
-		/>
+		/>  -->
 		
-		<collection 
+		<!-- <collection 
 			column = "product_id" 
 			property = "imgList"
 			javaType = "java.util.List"
 			ofType = "ProductImage"
 			select = "com.intellimarket.store.dao.ProductImageDAO.selectByProductId"
-		/>
+		/> -->
 	</resultMap>
 
 	<!-- 전체 목록 조회 -->

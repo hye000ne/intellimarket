@@ -36,9 +36,11 @@ public class ProductController {
 	/**
 	 * seller가 보유한 상위 카테고리 조회
 	 */
-	@GetMapping("/getTopList")
-	public ModelAndView getTopListByStoreInfoId(int storeInfoId) {
-		List topList = storeCategoryService.getTopCategoriesByStoreInfoId(storeInfoId);
+	@GetMapping("/getList")
+
+	public ModelAndView getList(HttpServletRequest request) {
+		List productList = productService.selectBySellerId();
+		paging.init(productList,request);
 		
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("topList",topList);
