@@ -73,8 +73,8 @@ public class AdminSellerController {
 	 * 판매자 상세 페이지 
 	 */
 	@GetMapping("/detail")
-	public String sellerDetailPage(@RequestParam int sellerId, @RequestParam(required = false, defaultValue = "detail") String mode, Model model) {
-		model.addAttribute("mode", mode); // detail, edit
+	public String sellerDetailPage(@RequestParam int sellerId, Model model) {
+		model.addAttribute("seller", sellerService.selectById(sellerId));
 		model.addAttribute("contentPage", "admin/seller/detail.jsp");
 		return "layout/admin";
 	}
