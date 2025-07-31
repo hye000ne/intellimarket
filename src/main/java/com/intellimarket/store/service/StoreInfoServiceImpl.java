@@ -29,4 +29,9 @@ public class StoreInfoServiceImpl implements StoreInfoService {
 		storeInfoDAO.insert(storeInfo);
 	}
 
+	@Override
+	public int update(StoreInfo storeInfo) {
+		return storeInfoDAO.update(storeInfo);
+	}
+
 }

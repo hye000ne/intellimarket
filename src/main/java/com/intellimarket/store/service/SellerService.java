@@ -27,6 +27,9 @@ public interface SellerService {
 	// 판매자 상태 수정(With msg)
 	int updateStatus(Seller seller);
 	
+	// 가입 승인 및 스토어 생성
+	void approveAndCreateStore(Seller seller);
+	
 	// 로그인
 	Seller loginSeller(String email, String password);
 	
