@@ -30,7 +30,8 @@ public class ProductController {
 	/**
 	 * seller가 보유한 상품 조회
 	 */
-	@GetMapping("/getlist")
+	@GetMapping("/getList")
+
 	public ModelAndView getList(HttpServletRequest request) {
 		List productList = productService.selectBySellerId();
 		paging.init(productList,request);
