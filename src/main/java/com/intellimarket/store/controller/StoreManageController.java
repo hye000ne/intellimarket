@@ -25,7 +25,7 @@ public class StoreManageController {
 	/**
 	 * 판매자 메인 페이지
 	 */
-	@GetMapping("/")
+	@GetMapping("")
 	public String manage(Model model) {
 		model.addAttribute("contentPage", "store/seller/adminMain.jsp");
 		return "layout/store";
@@ -47,6 +47,15 @@ public class StoreManageController {
 	@GetMapping("/productRegist")
 	public String adminProductRegist(Model model) {
 		model.addAttribute("contentPage", "store/seller/productRegist.jsp");
+		return "layout/store";
+	}
+	
+	/**
+	 * 스토어 정보 관리 페이지(커스텀마이징)
+	 */
+	@GetMapping("/editstore")
+	public String editstore(Model model) {
+		model.addAttribute("contentPage", "store/seller/editStore.jsp");
 		return "layout/store";
 	}
 }

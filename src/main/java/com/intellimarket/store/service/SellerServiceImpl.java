@@ -6,12 +6,15 @@ import java.util.Random;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.intellimarket.common.util.PasswordEncryptor;
 import com.intellimarket.shop.exception.ShopException;
 import com.intellimarket.store.dao.SellerDAO;
+import com.intellimarket.store.dao.StoreInfoDAO;
 import com.intellimarket.store.domain.Seller;
 import com.intellimarket.store.domain.SellerStatus;
+import com.intellimarket.store.domain.StoreInfo;
 import com.intellimarket.store.exception.SellerException;
 
 @Service
@@ -19,6 +22,9 @@ public class SellerServiceImpl implements SellerService {
 
 	@Autowired
 	SellerDAO sellerDAO;
+	
+	@Autowired	
+	StoreInfoDAO storeInfoDAO;
 
 	// 전체 목록 조회
 	@Override
@@ -40,7 +46,7 @@ public class SellerServiceImpl implements SellerService {
 
 	// 판매자 목록 조회(상태값 기반)
 	@Override
-	public Seller selectByStatus(SellerStatus sellerStatus) {
+	public List<Seller> selectByStatus(SellerStatus sellerStatus) {
 		return sellerDAO.selectByStatus(sellerStatus);
 	}
 
@@ -65,10 +71,26 @@ public class SellerServiceImpl implements SellerService {
 		return sellerDAO.updateSeller(seller);
 	}
 
-	// 판매자 상태 수정(With rejectMsg)
+	// 판매자 정보 수정
 	@Override
 	public int updateStatus(Seller seller) {
 		return sellerDAO.updateStatus(seller);
+	}
+	
+	
+	// 가입 승인 및 스토어 생성
+	@Transactional
+	public void approveAndCreateStore(Seller seller) {
+		sellerDAO.updateStatus(seller);
+		
+		StoreInfo storeInfo = new StoreInfo();
+		storeInfo.setStoreName(seller.getName()+" 님의 스토어");
+		storeInfo.setStoreTel(seller.getTel());
+		storeInfo.setLogoPath("");
+		storeInfo.setStoreIntroduce(seller.getName()+" 님의 인텔리한 상점입니다");
+		storeInfo.setSeller(seller);
+		
+		storeInfoDAO.insert(storeInfo);
 	}
 
 	// 로그인
@@ -129,5 +151,7 @@ public class SellerServiceImpl implements SellerService {
 	public boolean isBusinessNumExists(String businessNum) {
 		return sellerDAO.existByBusinessNum(businessNum) > 0;
 	}
+
+
 
 }

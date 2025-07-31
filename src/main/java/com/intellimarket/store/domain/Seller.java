@@ -21,6 +21,7 @@ public class Seller {
 	private SellerStatus status;
 	private String rejectMsg;
 	private String accountNum;
+	private String bank;
 	
 	private LocalDateTime createDate;
 	private LocalDateTime updatedDate;
