@@ -26,7 +26,9 @@ public class MemberServiceImpl implements MemberService {
 	// 회원 단 건 조회 (ID 기반)
 	@Override
 	public Member selectById(int memberId){
-		return memberDAO.selectById(memberId);
+		Member member = memberDAO.selectById(memberId);
+		if(member == null) throw new ShopException("해당 회원을 찾을 수 없습니다.");
+		return member;
 	}
 	
 	// 회원 단 건 조회 (ID 기반)
@@ -90,7 +92,7 @@ public class MemberServiceImpl implements MemberService {
 	
 	// 비밀번호 수정
 	@Override
-	public boolean updatePassword(String email, String password) {
+	public void updatePassword(String email, String password) {
 		Member member = new Member();
 		member.setEmail(email);
 		
@@ -98,7 +100,10 @@ public class MemberServiceImpl implements MemberService {
 		String encodedPassword = PasswordEncryptor.encode(password);
 		member.setPassword(encodedPassword);
 		
-		return memberDAO.updatePassword(member) > 0;
+		int result = memberDAO.updatePassword(member);
+		if(result <= 0) {
+			throw new ShopException("비밀번호 변경에 실패했습니다.");
+		}
 	}
 	
 	/** 

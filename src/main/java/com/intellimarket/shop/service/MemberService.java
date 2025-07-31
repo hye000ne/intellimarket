@@ -28,7 +28,7 @@ public interface MemberService {
 	Member loginMember(String email, String password);
 	
 	// 비밀번호 변경
-	boolean updatePassword(String email, String password);
+	void updatePassword(String email, String password);
 	
 	// 비밀번호 확인
 	boolean matchPassword(int memberId, String password);

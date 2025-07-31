@@ -8,6 +8,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -61,26 +62,22 @@ public class MemberController {
 		Map<String, Object> res = new HashMap<>();
 		Member loginMember = memberService.loginMember(email, password);
 		
-		if(loginMember != null) {
-			// 이메일 저장하기 체크 시
-			if(rememberEmail != null) {
-				// 쿠키에 저장 (만료시간 7일)
-				CookieUtil.setCookie(response, "rememberEmail", email, 60*60*24*7); 
-			} else {
-				// 쿠키 삭제
-				CookieUtil.deleteCookie(response, "rememberEmail");
-			}
-			session.setAttribute("loginMember", loginMember);
-			res.put("status", "ok");
-			res.put("msg", loginMember.getName()+"님, 안녕하세요.");
-			if(loginMember.getRole() == Role.ADMIN) {
-				res.put("url", "/admin/main");
-			} else {
-				res.put("url", "/shop/main");
-			}
+		// 이메일 저장하기 체크 시
+		if(rememberEmail != null) {
+			// 쿠키에 저장 (만료시간 7일)
+			CookieUtil.setCookie(response, "rememberEmail", email, 60*60*24*7); 
 		} else {
-			res.put("status", "fail");
-			res.put("msg", "이메일과 비밀번호를 확인해주세요.");
+			// 쿠키 삭제
+			CookieUtil.deleteCookie(response, "rememberEmail");
+		}
+		session.setAttribute("loginMember", loginMember);
+		res.put("status", "ok");
+		res.put("msg", loginMember.getName()+"님, 안녕하세요.");
+		
+		if(loginMember.getRole() == Role.ADMIN) {
+			res.put("url", "/admin/main");
+		} else {
+			res.put("url", "/shop/main");
 		}
 		
 		return res;
@@ -129,10 +126,16 @@ public class MemberController {
 	 */
 	@PostMapping("/checkEmailDuplicate")
 	@ResponseBody
-	public void checkEmailDuplicate(@RequestParam String email) {
+	public Map<String, Object> checkEmailDuplicate(@RequestParam String email) {
+		Map<String, Object> res = new HashMap<>();
 		if(memberService.isEmailExists(email)) {
-			throw new ShopException("이미 사용 중인 이메일입니다.");
-		} 
+			res.put("status", "fail");
+			res.put("msg", "이미 사용 중인 이메일입니다.");
+		} else {
+			res.put("status", "ok");
+			res.put("msg", "사용 가능한 이메일입니다.");
+		}
+		return res;
 	}
 	
 	/**
@@ -156,8 +159,7 @@ public class MemberController {
 		String sessionCode = (String)session.getAttribute("authCode_" + email);
 		Map<String, Object> res = new HashMap<>();
 		
-		if(sessionCode != null & sessionCode.equals(inputCode)) {
-			session.removeAttribute("authCode_" + email); // dlswmd
+		if(sessionCode != null && sessionCode.equals(inputCode)) {
 			res.put("status", "ok");
 		} else {
 			res.put("status", "fail");
@@ -167,4 +169,12 @@ public class MemberController {
 		return res;
 	}
 	
+	@ExceptionHandler(ShopException.class)
+	@ResponseBody
+	public Map<String, Object> handleShopException(ShopException e) {
+	    Map<String, Object> res = new HashMap<>();
+	    res.put("status", "fail");
+	    res.put("msg", e.getMessage());
+	    return res;
+	}
 }

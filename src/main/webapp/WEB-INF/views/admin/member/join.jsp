@@ -64,7 +64,7 @@
 							<label class="col-sm-3 col-form-label">성별</label>
 							<div class="col-sm-9">
 								<div class="form-check form-check-inline">
-						        	<input class="form-check-input" type="radio" name="gender" id="genderM" value="M">
+						        	<input class="form-check-input" type="radio" name="gender" id="genderM" value="M" checked>
 						        	<label class="form-check-label" for="genderM">남자</label>
 						      	</div>
 						      	<div class="form-check form-check-inline">
@@ -77,7 +77,7 @@
 							<label class="col-sm-3 col-form-label">구분</label>
 							<div class="col-sm-9">
 								<div class="form-check form-check-inline">
-						        	<input class="form-check-input" type="radio" name="role" id="roleA" value="ADMIN">
+						        	<input class="form-check-input" type="radio" name="role" id="roleA" value="ADMIN" checked>
 						        	<label class="form-check-label" for="roleA">관리자</label>
 						      	</div>
 						      	<div class="form-check form-check-inline">
