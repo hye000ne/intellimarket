@@ -21,14 +21,14 @@
 	</select>
 	
 	<!-- 상위 카테고리 단 건 조회 -->
-	<select id="select" parameterType="int" resultType="TopCategory">
+	<select id="select" parameterType="int" resultMap="subJoin">
 		select top_category_id, category_name, root_category_id 
 		from top_categories
 		where top_category_id = #{topCategoryId}
 	</select>
 	
 	<!-- 루트 카테고리에 따른 상위 카테고리 조회 -->
-	<select id="selectByRootCategoryId" parameterType="int" resultType="TopCategory">
+	<select id="selectById" parameterType="int" resultType="TopCategory">
 		select top_category_id, category_name, root_category_id 
 		from top_categories
 		where root_category_id = #{rootCategoryId}

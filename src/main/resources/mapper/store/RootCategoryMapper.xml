@@ -6,13 +6,6 @@
 		<id column="root_category_id" 	property="rootCategoryId"/>
 		<result column="category_name" 	property="categoryName"/>
 		
-		<collection
-			column = "root_category_id" 
-			property = "topList"
-			javaType = "java.util.List"
-			ofType = "TopCategory"
-			select = "com.intellimarket.store.dao.TopCategoryDAO.select"
-		/>
 	</resultMap>
 	
 	<!-- 루트 카테고리 전체 조회 -->

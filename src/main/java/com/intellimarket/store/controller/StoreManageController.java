@@ -37,20 +37,6 @@ public class StoreManageController {
 	@GetMapping("/productList")
 	public String adminProductList(Model model) {
 		
-		int sellerId = 10; // 예시: 로그인된 seller의 ID (실제로는 세션에서 꺼내야 함)
-		int storeInfoId = 10;
-
-		List<TopCategory> topList = storeCategoryService.getTopCategoriesByStoreInfoId(storeInfoId);
-
-		// <TopCategory, List<Product>> 형태로 묶어서 전달
-		Map<TopCategory, List<Product>> productMap = new LinkedHashMap<>();
-
-		for (TopCategory top : topList) {
-			List<Product> list = productService.selectBySellerIdAndTCId(sellerId, top.getTopCategoryId());
-			productMap.put(top, list);
-		}
-
-		model.addAttribute("productMap", productMap);
 		model.addAttribute("contentPage", "store/seller/productList.jsp");
 		return "layout/store";
 	}

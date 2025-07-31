@@ -16,7 +16,7 @@
     </resultMap>
 
     <!-- 특정 판매자의 카테고리 리스트 조회 -->
-    <select id="selectByStoreInfoId" resultMap="storeCategoryMap" parameterType="int">
+    <select id="selectById" resultMap="storeCategoryMap" parameterType="int">
         select * from store_categories WHERE store_info_id = #{storeInfoId}
     </select>
 </mapper>

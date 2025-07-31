@@ -22,17 +22,25 @@
 	</select>
 	
 	<!-- 하위 카테고리 단 건 조회 -->
-	<select id="select" parameterType="int" resultType="SubCategory">
+	<select id="select" parameterType="int" resultMap="topCategoryMap">
 		select sub_category_id, category_name, top_category_id 
 		from sub_categories
 		where sub_category_id = #{subCategoryId}
 	</select>
 	
 	<!-- 상위 카테고리에 따른 하위 카테고리 조회 -->
-	<select id="selectByTopCategoryId" parameterType="int" resultType="SubCategory">
+	<select id="selectById" parameterType="int" resultType="SubCategory">
 		select sub_category_id, category_name, top_category_id 
 		from sub_categories
 		where top_category_id = #{topCategoryId}
+	</select>
+	
+	<select id="selectByStoreTop" parameterType="map" resultType="SubCategory">
+	    select s.*
+	    from sub_categories s
+	    join store_categories sc on s.sub_category_id = sc.sub_category_id
+	    where sc.store_info_id = #{storeInfoId}
+	      and s.top_category_id = #{topCategoryId}
 	</select>
 	
 </mapper>

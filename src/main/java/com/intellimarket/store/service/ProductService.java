@@ -10,14 +10,11 @@ public interface ProductService {
 	// 전체 목록 조회
 	List<Product> selectAll();
 	
-	// 판매자별 상품 목록 조회
-	List<Product> selectBySellerId(int sellerId);
-	
-	//판매자가 보유한 상위 카테고리 별 상품 목록 조회
-	List<Product> selectBySellerIdAndTCId(@Param("sellerId")int sellerId, @Param("topCategoryId")int topCategoryId);
-	
 	// 상품 단 건 조회
 	Product select(int productId);
+	
+	// 판매자별 상품 목록 조회
+	List<Product> selectById(int sellerId);
 	
 	// 상품 등록
 	void insert(Product product);

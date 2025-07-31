@@ -5,6 +5,6 @@ import java.util.List;
 import com.intellimarket.store.domain.TopCategory;
 
 public interface StoreCategoryService {
-	public List selectByStoreInfoId(int storeInfoId);
-	public List<TopCategory> getTopCategoriesByStoreInfoId(int storeInfoId);
+	public List selectById(int storeInfoId);
+	public List<TopCategory> getTopCategoryById(int storeInfoId);
 }
