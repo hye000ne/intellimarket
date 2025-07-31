@@ -3,12 +3,14 @@ package com.intellimarket.admin.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.intellimarket.admin.dao.BannerDAO;
 import com.intellimarket.admin.domain.Banner;
 import com.intellimarket.admin.domain.Banner.BannerStatus;
 import com.intellimarket.admin.exception.AdminException;
 
+@Service
 public class BannerServiceImpl implements BannerService {
 	@Autowired BannerDAO bannerDAO;
 	

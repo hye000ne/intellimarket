@@ -2,12 +2,9 @@ package com.intellimarket.admin.service;
 
 import java.util.List;
 
-import org.springframework.stereotype.Service;
-
 import com.intellimarket.admin.domain.Banner;
 import com.intellimarket.admin.domain.Banner.BannerStatus;
 
-@Service
 public interface BannerService {
 	List<Banner> selectAll();
 	Banner selectById(int bannerId);

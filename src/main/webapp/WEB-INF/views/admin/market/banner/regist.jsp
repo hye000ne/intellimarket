@@ -16,57 +16,85 @@
 	</section>
 
 	<section class="content">
-		<div class="container-fluid d-flex justify-content-center">
-			<div class="card card-outline card-primary" style="width: 800px;">
-				<form id="bannerForm" enctype="multipart/form-data">
-					<div class="card-body">
-						<div class="form-group row">
-							<label class="col-sm-3 col-form-label">제목</label>
-							<div class="col-sm-9">
-								<input type="text" name="title" id="title" class="form-control" required>
-							</div>
-						</div>
+  		<div class="container-fluid">
+    		<div class="row">
 
-						<div class="form-group row">
-							<label class="col-sm-3 col-form-label">배너 이미지</label>
-							<div class="col-sm-9">
-								<input type="file" name="imageFile" id="imageFile" class="form-control" accept="image/*">
-							</div>
-						</div>
+	      		<!-- 좌측: 배너 정보 -->
+	      		<div class="col-md-6">
+	        		<div class="card card-primary">
+	          			<div class="card-header">
+	            			<h3 class="card-title"><i class="fas fa-flag"></i> 배너 등록</h3>
+	          			</div>
+	          			<div class="card-body">
+	            			<form id="bannerForm" enctype="multipart/form-data">
+	              				<!-- 제목 -->
+	              				<div class="form-group">
+		                			<label for="title">제목</label>
+		                			<input type="text" class="form-control" id="title" name="title" placeholder="배너 제목 입력">
+	              				</div>
+				
+				             	<!-- 노출 여부 -->
+				              	<div class="form-group">
+				                	<label>노출 여부</label><br/>
+				                	<div class="icheck-primary d-inline mr-3">
+				                  		<input type="radio" id="statusY" name="status" value="Y" checked>
+                  						<label for="statusY">Y</label>
+			                		</div>
+				                	<div class="icheck-primary d-inline">
+					                  	<input type="radio" id="statusN" name="status" value="N">
+					                  	<label for="statusN">N</label>
+					                </div>
+				              	</div>
+	
+				              	<!-- 링크 URL -->
+				              	<div class="form-group">
+				                	<label>링크 URL</label>
+				                	<input type="text" class="form-control" id="linkUrl" name="linkUrl" placeholder="클릭 시 이동할 링크">
+				              	</div>
+				            </form>
+		          		</div>
+	       			</div>
+	      		</div>
 
-						<div class="form-group row">
-							<label class="col-sm-3 col-form-label">노출 여부</label>
-							<div class="col-sm-9">
-								<div class="form-check form-check-inline">
-									<input class="form-check-input" type="radio" name="isVisible" id="visibleY" value="Y" checked>
-									<label class="form-check-label" for="visibleY">Y</label>
-								</div>
-								<div class="form-check form-check-inline">
-									<input class="form-check-input" type="radio" name="isVisible" id="visibleN" value="N">
-									<label class="form-check-label" for="visibleN">N</label>
-								</div>
-							</div>
-						</div>
-
-						<div class="form-group row">
-							<label class="col-sm-3 col-form-label">링크 URL</label>
-							<div class="col-sm-9">
-								<input type="text" name="linkUrl" id="linkUrl" class="form-control" placeholder="http:// 또는 /path 형식">
-							</div>
-						</div>
+	      		<!-- 우측: 이미지 업로드 -->
+		      	<div class="col-md-6">
+		        	<div class="card card-success">
+			          	<div class="card-header">
+			            	<h3 class="card-title"><i class="fas fa-image"></i> 배너 이미지 등록</h3>
+			          	</div>
+			          	<div class="card-body text-center">
+				            <!-- 미리보기 영역 -->
+			            	<div class="border rounded mb-3 d-flex justify-content-center align-items-center flex-column" style="min-height: 300px;">
+			              		<img id="banner-preview" class="img-fluid d-none mb-2" alt="선택된 이미지" />
+			              		<p id="banner-upload-placeholder" class="text-muted">이미지 미리보기</p>
+			            	</div>
+			            </div>
+						<!-- 파일 선택 -->
+				        <div>
+				        	<input type="file" id="imageFile" name="imageFile" accept="image/*" class="d-none" onchange="previewBannerImage(event)">
+				            <button type="button" class="btn btn-outline-primary" onclick="document.getElementById('imageFile').click();">
+			                	<i class="fas fa-upload"></i> 이미지 선택
+			              	</button>
+			            </div>
 					</div>
-
-					<div class="card-footer text-center">
-						<button type="button" class="btn btn-primary" onclick="handleBannerForm('save')">저장</button>
-						<button type="button" class="btn btn-secondary" onclick="handleBannerForm('list')">목록</button>
-					</div>
-				</form>
+				</div>
 			</div>
 		</div>
 	</section>
 </div>
 
 <script>
+	  function previewBannerImage(event) {
+	    const file = event.target.files[0];
+	    if (file) {
+	      const reader = new FileReader();
+	      reader.onload = function(e) {
+	        $('#banner-preview').attr('src', e.target.result).show();
+	        $('#banner-upload-placeholder').hide();
+	      };
+	      reader.readAsDataURL(file);
+	    }
+	  }
 	function handleBannerForm(action) {
 		if (action === 'list') {
 			location.href = '/admin/market/banner/list';
