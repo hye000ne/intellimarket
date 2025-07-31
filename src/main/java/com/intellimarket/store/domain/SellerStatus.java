@@ -1,6 +1,18 @@
 package com.intellimarket.store.domain;
 
 public enum SellerStatus {
-	//대기, 승인, 반려, 정지
-	PENDING, APPROVED, REJECTED, SUSPENDED
+	PENDING("대기"),
+	APPROVED("승인"),
+	REJECTED("반려"),
+	SUSPENDED("정지");
+
+	private final String label;
+
+	SellerStatus(String label) {
+		this.label = label;
+	}
+
+	public String getLabel() {
+		return label;
+	}
 }

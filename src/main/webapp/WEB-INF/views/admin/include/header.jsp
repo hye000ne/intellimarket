@@ -29,5 +29,11 @@
 				</form>
 			</div>
 		</li>
+		<!-- 로그아웃 버튼 -->
+		<li class="nav-item">
+			<a href="${ctx}/shop/member/logout" class="nav-link">
+				<i class="fas fa-sign-out-alt"></i> 로그아웃
+			</a>
+		</li>
 	</ul>
 </nav>

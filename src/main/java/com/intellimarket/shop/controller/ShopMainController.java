@@ -32,7 +32,7 @@ public class ShopMainController {
 	public String loginForm(Model model, HttpServletRequest request) {
 		String rememberedEmail = CookieUtil.getCookie(request, "rememberEmail");
 		model.addAttribute("email", rememberedEmail);
-		model.addAttribute("contentPage", "shop/login.jsp");
+		model.addAttribute("contentPage", "shop/member/login.jsp");
 		return "layout/shop";
 	}
 	
@@ -41,7 +41,7 @@ public class ShopMainController {
 	 */
 	@GetMapping("/join")
 	public String joinForm(Model model) {
-		model.addAttribute("contentPage", "shop/join.jsp");
+		model.addAttribute("contentPage", "shop/member/join.jsp");
 		return "layout/shop";
 	}
 	
@@ -50,7 +50,7 @@ public class ShopMainController {
 	 */
 	@GetMapping("/findPw")
 	public String findPwForm(Model model) {
-		model.addAttribute("contentPage", "shop/findPw.jsp");
+		model.addAttribute("contentPage", "shop/member/findPw.jsp");
 		return "layout/shop";
 	}
 }

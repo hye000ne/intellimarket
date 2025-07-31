@@ -23,6 +23,6 @@ public class Seller {
 	private String accountNum;
 	private String bank;
 	
-	private LocalDateTime createDate;
+	private LocalDateTime createdDate;
 	private LocalDateTime updatedDate;
 }

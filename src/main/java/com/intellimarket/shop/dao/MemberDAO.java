@@ -20,13 +20,13 @@ public interface MemberDAO {
 	// 회원가입
 	void insert(Member member);
 	
-	// 회원 정보 수정
+	// 회원 정보 변경
 	int updateMember(Member member);
 	
-	// 회원 탈퇴
-	int delete(int memberId);
+	// 회원 상태 변경
+	int updateMemberStatus(Member member);
 	
-	// 비밀번호 수정
+	// 비밀번호 변경
 	int updatePassword(Member member);
 	
 	// 비밀번호 확인
