@@ -56,16 +56,9 @@
 	</select>
 	
 	<!-- 판매자별 상품 목록 조회 -->
-	<select id="selectBySellerId" parameterType = "int" resultMap="joinMap">
+	<select id="selectById" parameterType = "int" resultMap="joinMap">
 		select *from products 
 		where seller_id = #{sellerId}
-	</select>
-	
-	<!-- 판매자가 보유한 상위 카테고리 별 상품 목록 조회 -->
-	<select id="selectBySellerIdAndTCId" resultMap="joinMap">
-		select p.*from products p
-		join sub_categories sc on p.sub_category_id = sc.sub_category_id
-		where seller_id = #{sellerId} and top_category_id = #{topCategoryId}
 	</select>
 	
 	<!-- 상품 단 건 조회 -->
@@ -80,7 +73,7 @@
 			product_name, brand_name, price, discount, product_stock, introduce, product_detail, model_code, origin, sub_category_id, seller_id
 		)
 		values (
-			#{productName}, #{brandName}, #{price}, #{discount}, #{productStock}, #{introduce}, #{productDetail}, #{modelCode}, #{origin}, #{subCategoryId}, #{sellerId}
+			#{productName}, #{brandName}, #{price}, #{discount}, #{productStock}, #{introduce}, #{productDetail}, #{modelCode}, #{origin}, #{subCategory.subCategoryId}, #{sellerId}
 		)
 	</insert>
 	

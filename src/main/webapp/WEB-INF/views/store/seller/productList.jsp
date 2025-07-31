@@ -1,21 +1,5 @@
-<%@page import="java.util.Map"%>
-<%@page import="com.intellimarket.store.domain.TopCategory"%>
-<%@page import="com.intellimarket.store.domain.Product"%>
-<%@page import="java.util.List"%>
-<%@page import="com.intellimarket.common.util.Paging"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/views/common/init.jsp" %>
-<% 
-	Map<TopCategory, List<Product>> productMap = (Map<TopCategory, List<Product>>) request.getAttribute("productMap");
-%>
-<%
-    System.out.println("productMap = " + productMap);
-    if (productMap != null) {
-        System.out.println("productMap size = " + productMap.size());
-    } else {
-        System.out.println("productMap is null");
-    }
-%>
 
 <!-- Content -->
 <div class="content-wrapper">
@@ -40,13 +24,9 @@
 	  
 	<section class="content">
 	    <!-- 상위 카테고리 카드 반복 시작 -->
-		<% for (Map.Entry<TopCategory, List<Product>> entry : productMap.entrySet()) { 
-			TopCategory top = entry.getKey();
-	    	List<Product> list = entry.getValue();
-		%>
 	        <div class="card">
 	            <div class="card-header">
-	                <h3 class="card-title"><%= top.getCategoryName() %></h3>
+	                <h3 class="card-title">펫용품</h3>
 	                <div class="card-tools">
 	                    <div class="input-group input-group-sm" style="width: 300px;">
 	                        <input
@@ -91,17 +71,16 @@
 	
 	                    <!-- 레코드 반복 시작 -->
 	                    <tbody>
-	                        <% for (Product p : list) { %>
 	                            <tr>
-	                                <td><%= p.getProductId() %></td>
+	                                <td>1</td>
 	                                <td>
-	                                    <a href="#"><%= p.getProductName()%> </a><br/>
+	                                    <a href="#"> 냥냥껌 </a><br/>
 	                                </td>
-	                                <td><%= p.getSubCategory().getCategoryName() %></td>
-	                                <td><%= p.getBrandName() %></td>
-	                                <td><%= p.getPrice() %></td>
-	                                <td><%= p.getSalesCount() %></td>
-	                                <td><%= p.getProductStock() %></td>
+	                                <td> 펫 용품 </td>
+	                                <td> 로얄캐닌 </td>
+	                                <td>20000</td>
+	                                <td>150</td>
+	                                <td>20</td>
 	                                <td class="project-state">
 										<span class="badge badge-success">활성화</span>
 	                                </td>
@@ -117,14 +96,22 @@
 	                                    </a>
 	                                </td>
 	                            </tr>
-	                        <% } %>
 	                    </tbody>
 	                    <!-- 레코드 반복 끝 -->
 	
 	                </table>
 	            </div>
+	            <!-- Footer Paging 시작 -->
+	            <div class="card-footer clearfix">
+	                <ul class="pagination pagination-sm m-0 float-left">
+	                  <li class="page-item"><a class="page-link" href="#">&laquo;</a></li>
+	                  <li class="page-item"><a class="page-link" href="#">1</a></li>
+	                  <li class="page-item"><a class="page-link" href="#">2</a></li>
+	                  <li class="page-item"><a class="page-link" href="#">3</a></li>
+	                  <li class="page-item"><a class="page-link" href="#">&raquo;</a></li>
+	                </ul>
+              	</div>
+	            <!-- Footer Paging 끝 -->
 	        </div>
-	    <% } %>
-	    <!-- 상위 카테고리 카드 반복 끝 -->
 	</section>
 </div>

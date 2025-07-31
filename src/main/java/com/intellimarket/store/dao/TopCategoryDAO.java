@@ -9,6 +9,7 @@ import com.intellimarket.store.domain.TopCategory;
 @Repository
 public interface TopCategoryDAO {
 	public List selectAll();
-	public List selectByRootCategoryId(int rootCategoryId);
 	public TopCategory select(int topCategoryId);
+	public List selectById(int rootCategoryId);
+	
 }
