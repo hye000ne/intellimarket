@@ -59,8 +59,8 @@
 						<p>마켓 관리<i class="right fas fa-angle-left"></i></p>
 					</a>
 					<ul class="nav nav-treeview">
-						<li class="nav-item"><a href="#" class="nav-link"><p>배너 관리</p></a></li>
-						<li class="nav-item"><a href="#" class="nav-link"><p>로고 관리</p></a></li>
+						<li class="nav-item"><a href="${ctx}/admin/market/banner/list" class="nav-link"><p>배너 관리</p></a></li>
+						<li class="nav-item"><a href="${ctx}/admin/market/logo/list" class="nav-link"><p>로고 관리</p></a></li>
 					</ul>
 				</li>
 				<!-- 공지사항 -->
