@@ -24,7 +24,7 @@ import lombok.extern.slf4j.Slf4j;
  */
 @Slf4j
 @Controller
-@RequestMapping("/seller/storeinfo")
+@RequestMapping("/store/seller/manage/editstore")
 public class StoreInfoController {
 
 	@Autowired
@@ -35,7 +35,7 @@ public class StoreInfoController {
 	 * - 이메일, 사업자번호 중복 검증 후 DB 등록
 	 */
 	
-	@PostMapping("/regist")
+	@PostMapping("/apply")
 	@ResponseBody
 	public Map<String, Object> join(@ModelAttribute StoreInfo storeInfo, HttpSession session){
 	    // 세션에서 로그인한 판매자 정보 꺼내기
@@ -53,7 +53,7 @@ public class StoreInfoController {
 	    // 또는 storeInfo.setSellerId(loginSeller.getSellerId()); 
 	    // (만약 seller 객체가 아닌 sellerId만 필드로 가지고 있다면)
 
-	    storeInfoService.insert(storeInfo);
+	    storeInfoService.update(storeInfo);
 	    Map<String, Object> res = new HashMap<>();
 	    res.put("status", "ok");
 	    res.put("msg", "스토어 등록이 완료되었습니다");

@@ -11,7 +11,8 @@ import com.intellimarket.store.domain.StoreInfo;
 @Service
 public class StoreInfoServiceImpl implements StoreInfoService {
 	
-	@Autowired StoreInfoDAO storeInfoDAO;
+	@Autowired 
+	StoreInfoDAO storeInfoDAO;
 	
 
 	@Override
@@ -27,6 +28,11 @@ public class StoreInfoServiceImpl implements StoreInfoService {
 	@Override
 	public void insert(StoreInfo storeInfo) {
 		storeInfoDAO.insert(storeInfo);
+	}
+
+	@Override
+	public int update(StoreInfo storeInfo) {
+		return storeInfoDAO.update(storeInfo);
 	}
 
 }

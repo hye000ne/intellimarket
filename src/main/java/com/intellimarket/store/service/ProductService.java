@@ -2,6 +2,8 @@ package com.intellimarket.store.service;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
+
 import com.intellimarket.store.domain.Product;
 
 public interface ProductService {
@@ -9,7 +11,10 @@ public interface ProductService {
 	List<Product> selectAll();
 	
 	// 판매자별 상품 목록 조회
-	List<Product> selectBySellerId();
+	List<Product> selectBySellerId(int sellerId);
+	
+	//판매자가 보유한 상위 카테고리 별 상품 목록 조회
+	List<Product> selectBySellerIdAndTCId(@Param("sellerId")int sellerId, @Param("topCategoryId")int topCategoryId);
 	
 	// 상품 단 건 조회
 	Product select(int productId);
