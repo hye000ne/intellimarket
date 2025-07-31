@@ -7,7 +7,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.intellimarket.store.domain.Seller;
 import com.intellimarket.store.domain.SellerStatus;
 import com.intellimarket.store.service.SellerService;
 
@@ -25,7 +27,7 @@ public class AdminSellerController {
 	 */
 	@GetMapping("/approval")
 	public String approvalPage(Model model) {
-		SellerStatus status = SellerStatus.valueOf("PENDING");
+		SellerStatus status = SellerStatus.valueOf("PENDING"); // 판매자 상태 : 대기
 		model.addAttribute("list", sellerService.selectByStatus(status));
 		model.addAttribute("contentPage", "admin/seller/approval.jsp");
 		return "layout/admin";
@@ -35,8 +37,24 @@ public class AdminSellerController {
 	 * 판매자 상태 변경
 	 */
 	@PostMapping("/changeSellerStatus")
-	public String changeSellerStatus(@RequestParam int sellerId, @RequestParam SellerStatus status, @RequestParam(required = false) String msg) {
-		    //sellerStatus = SellerStatus.valueOf(status);
+	public String changeSellerStatus(
+				@RequestParam int sellerId,
+				@RequestParam SellerStatus status,
+				@RequestParam(required = false) String msg,
+				RedirectAttributes redirectAttr) {
+		Seller seller = new Seller();
+		seller.setSellerId(sellerId);
+		seller.setStatus(status);
+		if(msg != null) seller.setRejectMsg(msg);
+		
+		try {
+			sellerService.updateStatus(seller);
+			redirectAttr.addFlashAttribute("msg", "판매자 "+ status.getLabel() +" 처리가 완료되었습니다.");
+		} catch (Exception e) {
+			redirectAttr.addFlashAttribute("msg", e.getMessage());
+			e.printStackTrace();
+		}
+		
 		return "redirect:/admin/seller/approval";
 	}
 	
@@ -45,6 +63,8 @@ public class AdminSellerController {
 	 */
 	@GetMapping("/list")
 	public String sellerListPage(Model model) {
+		SellerStatus status = SellerStatus.valueOf("APPROVED"); // 판매자 상태 : 승인
+		model.addAttribute("list", sellerService.selectByStatus(status));
 		model.addAttribute("contentPage", "admin/seller/list.jsp");
 		return "layout/admin";
 	}

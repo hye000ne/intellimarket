@@ -4,6 +4,12 @@
 <link rel="stylesheet" href="${ctx}/resources/admin/assets/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
 <link rel="stylesheet" href="${ctx}/resources/admin/assets/plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
 <link rel="stylesheet" href="${ctx}/resources/admin/assets/plugins/datatables-buttons/css/buttons.bootstrap4.min.css">
+<c:if test="${not empty msg}">
+	<script>
+		alert('${msg}');
+	</script>
+</c:if>
+
 <!-- Content -->
 <div class="content-wrapper">
 	<!-- Content Header -->
@@ -38,7 +44,7 @@
 					                    <th>가입일</th>
 					                    <th>수정일</th>
 					                    <th>상세</th>
-					                    <th>탈퇴</th>
+					                    <th>정지</th>
 			                  		</tr>
 			                  	</thead>
 			                  	<tbody>
@@ -48,19 +54,19 @@
 				                    		<td>${seller.name}</td>
 				                    		<td>${seller.tel}</td>
 				                    		<td>${seller.businessNum}</td>
-				                    		
-				                    		<td>
-				                    			<c:choose>
-				                    				<c:when test="${not empty seller.storeInfo}">${seller.storeInfo.storeName}</c:when>
-				                    				<c:otherwise>-</c:otherwise>
-				                    			</c:choose>
+				                    		<td>-</td>
+<!-- 				                    		<td> -->
+<%-- 				                    			<c:choose> --%>
+<%-- 				                    				<c:when test="${not empty seller.storeInfo}">${seller.storeInfo.storeName}</c:when> --%>
+<%-- 				                    				<c:otherwise>-</c:otherwise> --%>
+<%-- 				                    			</c:choose> --%>
 				                    			
-			                    			</td>
-				                    		<td>${seller.status}</td>
+<!-- 			                    			</td> -->
+				                    		<td>${seller.status.field}</td>
 				                    		<td>${seller.createdDate}</td>
 				                    		<td>${seller.updatedDate}</td>
 				                    		<td><button type="button" class="btn btn-block btn-primary btn-sm" onclick="goToDetail(${seller.sellerId})">상세</button></td>
-				                    		<td><button type="button" class="btn btn-block btn-danger btn-sm" onclick="changeStatus(${seller.sellerId})">탈퇴</button></td>
+				                    		<td><button type="button" class="btn btn-block btn-danger btn-sm" onclick="changeStatus(${seller.sellerId})">정지</button></td>
 				                  		</tr>
 									</c:forEach>
 			               		</tbody>

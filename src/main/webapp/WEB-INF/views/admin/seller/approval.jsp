@@ -4,6 +4,11 @@
 <link rel="stylesheet" href="${ctx}/resources/admin/assets/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
 <link rel="stylesheet" href="${ctx}/resources/admin/assets/plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
 <link rel="stylesheet" href="${ctx}/resources/admin/assets/plugins/datatables-buttons/css/buttons.bootstrap4.min.css">
+<c:if test="${not empty msg}">
+	<script>
+		alert('${msg}');
+	</script>
+</c:if>
 <!-- Content -->
 <div class="content-wrapper">
 	<!-- Content Header -->
@@ -70,7 +75,7 @@
   	<div class="modal-dialog" role="document">
     	<div class="modal-content">
 			<!-- 판매자 반려 form  -->
-      		<form id="sellerRejectForm" method="post" action="/admin/member/updateMemberStatus">
+      		<form id="sellerRejectForm" method="post" action="/admin/seller/changeSellerStatus">
         		<div class="modal-header">
 	         		<h5 class="modal-title" id="rejectModalLabel">판매자 반려</h5>
 	          		<button type="button" class="close" data-dismiss="modal" aria-label="닫기">
