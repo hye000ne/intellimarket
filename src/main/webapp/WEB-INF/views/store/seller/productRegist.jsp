@@ -35,7 +35,8 @@
 	    <h3 class="card-title"><i class="fas fa-box"></i> 상품 등록</h3>
 	  </div>
 	  <div class="card-body">
-	    <form id="form1">
+	    <form id="form1" enctype="multipart/form-data">
+	    <input type="hidden" name="seller.sellerId" value="10">
 	      <!-- 카테고리 섹션 -->
 	      <h5 class="mb-3"><i class="fas fa-layer-group text-primary"></i> 카테고리</h5>
 	      <div class="form-row mb-4">
@@ -98,7 +99,7 @@
 	      <div class="form-group">
 	        <textarea class="form-control" name="introduce" rows="2" placeholder="100자 이내로 작성하세요"></textarea>
 	      </div>
-	    </form>
+	     </form>
 	  </div>
 	</div>
         </div>
@@ -107,14 +108,14 @@
 	<div class="col-md-6">
 	  <div class="card card-success">
 	    <div class="card-header">
-	      <h3 class="card-title"><i class="fas fa-image"></i> 상품 썸네일 등록</h3>
+	      <h3 class="card-title"><i class="fas fa-image"></i> 상품 이미지 등록 </h3>
 	    </div>
 	    <div class="card-body text-center">
 	      <!-- 큰 썸네일 영역 -->
 	      <div id="main-thumbnail-preview" class="border rounded mb-3" 
 	           style="min-height:550px; display:flex; justify-content:center; align-items:center;">
 	        <img id="main-preview" style="max-width: 100%; max-height: 550px; display:none;" alt="선택된 이미지">
-	        <p id="main-upload-placeholder" class="text-muted">이미지를 선택하세요</p>
+	        <p id="main-upload-placeholder" class="text-muted">이미지 미리보기</p>
 	      </div>
 	
 	      <!-- 작은 썸네일 리스트 -->
@@ -133,15 +134,15 @@
 	    </div>
 	  </div>
 	</div>
-      </div>
-
+   </div>
+	
       <!-- 상세 내용 -->
       <div class="card card-primary mt-3">
         <div class="card-header">
           <h3 class="card-title"><i class="fas fa-info-circle"></i> 상품 상세 내용 등록</h3>
         </div>
         <div class="card-body">
-          <textarea id="summernote" name="detail"></textarea>
+          <textarea id="summernote" name="productDetail"></textarea>
         </div>
         <div class="card-footer text-right">
           <button type="button" class="btn btn-primary" id="bt_regist"><i class="fas fa-save"></i> 상품등록</button>
@@ -153,6 +154,8 @@
 </div>
 
 <script>
+	//이미지 업로드 시 , 필요한 selected file 배열 선언
+	let selectedFile = [];
 	//이미지 미리보기 렌더링
 	function previewMultipleImages(event) {
 		let files = event.target.files;
@@ -180,6 +183,7 @@
 	
 	    // 작은 썸네일 생성
 	    Array.from(files).forEach(file => {
+			selectedFile.push(file);
 	    	let reader = new FileReader();
 	      reader.onload = function(e) {
 	    	let img = document.createElement('img');
@@ -240,7 +244,7 @@
 			}
 		});
 	}
-
+	
   $(()=>{
 	
 	//summernote 디자인 조정
@@ -261,27 +265,30 @@
 	
     //상품등록 버튼 등록 이벤트 부여
     $('#bt_regist').click(()=>{
-   	  const formArray = $('#form1').serializeArray();
-   	  const dataObj = {};
+    	  const form = document.getElementById('form1');
+    	  const formData = new FormData(form);
 
-   	  formArray.forEach(field => {
-   	    dataObj[field.name] = field.value;
-   	  });
-
-   	  // 2. summernote 내용 추가 (Product.detail 필드로 들어감)
-   	  dataObj['detail'] = $('#summernote').summernote('code');
-
+    	  //summernote는 form 태그 바깥에 있으므로 추가
+    	  formData.append('productDetail', $('#summernote').summernote('code'));
+    	  
+    	  //썸네일 정보는 form 태그 바깥에 있으므로 추가
+    	  for (let i = 0; i < selectedFile.length; i++) {
+    	    formData.append('photo', selectedFile[i]);
+    	  }
+    	
    	  // 3. serialize 후 전송
    	  $.ajax({
    	    url: '/store/seller/manage/product/regist',
    	    type: 'POST',
-   	    data: $.param(dataObj),
+   	    data: formData,
+   	    contentType: false,
+   	    processData: false,
    	    success: function (res) {
    	      if (res.status === 'ok') {
    	        alert(res.msg);
    	        location.href = '/store/seller/manage/productRegist';
    	      } else {
-   	        alert('상품 등록 실패');
+   	        alert(res.msg);
    	      }
    	    },
    	    error: function (err) {

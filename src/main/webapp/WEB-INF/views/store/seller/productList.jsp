@@ -26,7 +26,7 @@
 	    <!-- 상위 카테고리 카드 반복 시작 -->
 	        <div class="card">
 	            <div class="card-header">
-	                <h3 class="card-title">펫용품</h3>
+	                <h3 class="card-title"></h3>
 	                <div class="card-tools">
 	                    <div class="input-group input-group-sm" style="width: 300px;">
 	                        <input
@@ -75,15 +75,15 @@
 	                                <td>1</td>
 	                                <td>
 	                                    <a href="#"> 냥냥껌 </a><br/>
+<%-- 	                                    <a href="#"> ${product.topCategoryName} / ${product.subCategoryName} </a><br/> --%>
 	                                </td>
 	                                <td> 펫 용품 </td>
 	                                <td> 로얄캐닌 </td>
 	                                <td>20000</td>
 	                                <td>150</td>
 	                                <td>20</td>
-	                                <td class="project-state">
-										<span class="badge badge-success">활성화</span>
-	                                </td>
+	                                <td>활성화</td>
+	                                <td></td>
 	                                <td class="project-actions text-right">
 	                                    <a class="btn btn-primary btn-sm" href="#">
 	                                        <i class="fas fa-folder"></i> 상세

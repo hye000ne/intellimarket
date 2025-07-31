@@ -6,5 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface StoreCategoryDAO {
-	public List selectById(int storeInfoId);
+	List selectById(int storeInfoId);
 }

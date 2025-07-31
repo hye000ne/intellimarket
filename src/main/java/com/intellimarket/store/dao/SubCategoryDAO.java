@@ -9,8 +9,8 @@ import com.intellimarket.store.domain.SubCategory;
 
 @Repository
 public interface SubCategoryDAO {
-	public List selectAll();
-	public SubCategory select(int subCategoryId);
-	public List selectById(int topCategoryId);
-	public List selectByStoreTop(@Param("storeInfoId") int storeInfoId, @Param("topCategoryId") int topCategoryId);
+	List selectAll();
+	SubCategory select(int subCategoryId);
+	List selectById(int topCategoryId);
+	List selectByStoreTop(@Param("storeInfoId") int storeInfoId, @Param("topCategoryId") int topCategoryId);
 }

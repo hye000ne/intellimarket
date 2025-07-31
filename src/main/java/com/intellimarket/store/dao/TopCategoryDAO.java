@@ -8,8 +8,8 @@ import com.intellimarket.store.domain.TopCategory;
 
 @Repository
 public interface TopCategoryDAO {
-	public List selectAll();
-	public TopCategory select(int topCategoryId);
-	public List selectById(int rootCategoryId);
+	List selectAll();
+	TopCategory select(int topCategoryId);
+	List selectById(int rootCategoryId);
 	
 }
