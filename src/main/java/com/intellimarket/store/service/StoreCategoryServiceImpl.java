@@ -15,14 +15,14 @@ public class StoreCategoryServiceImpl implements StoreCategoryService{
 	@Autowired StoreCategoryDAO storeCategoryDAO;
 	
 	@Override
-	public List selectByStoreInfoId(int storeInfoId) {
-		return storeCategoryDAO.selectByStoreInfoId(storeInfoId);
+	public List selectById(int storeInfoId) {
+		return storeCategoryDAO.selectById(storeInfoId);
 	}
 
 	//판매자가 보유한 Subcategories 를 통해 TopCategory를 List로 추출하여 /Store/Admin/ProductList에 사용
 	@Override
-	public List<TopCategory> getTopCategoriesByStoreInfoId(int storeInfoId) {
-		List<StoreCategory> storeCategories = storeCategoryDAO.selectByStoreInfoId(storeInfoId);
+	public List<TopCategory> getTopCategoryById(int storeInfoId) {
+		List<StoreCategory> storeCategories = storeCategoryDAO.selectById(storeInfoId);
 		
 		return storeCategories.stream()
 	            .map(sc -> sc.getSubCategory().getTopCategory())

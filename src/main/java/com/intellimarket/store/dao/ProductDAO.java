@@ -2,6 +2,7 @@ package com.intellimarket.store.dao;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import com.intellimarket.store.domain.Product;
@@ -11,8 +12,8 @@ public interface ProductDAO {
 	// 전체 목록 조회
 	List<Product> selectAll();
 	
-	// 판매자별 상품 목록 조회
-	List<Product> selectBySellerId();
+	// 판매자별 상품 전체 목록 조회
+	List<Product> selectById(int sellerId);
 	
 	// 상품 단 건 조회
 	Product select(int productId);

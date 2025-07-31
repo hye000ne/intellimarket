@@ -41,11 +41,11 @@
 	      <div class="form-row mb-4">
 	        <div class="form-group col-md-6">
 	          <label>상위 카테고리</label>
-	          <select class="form-control" id="topcategory"></select>
+	          <select class="form-control" id="topCategory"></select>
 	        </div>
 	        <div class="form-group col-md-6">
 	          <label>하위 카테고리</label>
-	          <select class="form-control" id="subcategory"></select>
+	          <select class="form-control" id="subCategory" name="subCategory.subCategoryId"></select>
 	        </div>
 	      </div>
 	
@@ -54,11 +54,11 @@
 	      <div class="form-row mb-4">
 	        <div class="form-group col-md-6">
 	          <label>상품명</label>
-	          <input type="text" class="form-control" name="product_name" placeholder="상품명을 입력하세요">
+	          <input type="text" class="form-control" name="productName" placeholder="상품명을 입력하세요">
 	        </div>
 	        <div class="form-group col-md-6">
 	          <label>브랜드</label>
-	          <input type="text" class="form-control" name="brand" placeholder="브랜드명">
+	          <input type="text" class="form-control" name="brandName" placeholder="브랜드명">
 	        </div>
 	      </div>
 	
@@ -75,7 +75,7 @@
 	        </div>
 	        <div class="form-group col-md-4">
 	          <label>재고</label>
-	          <input type="text" class="form-control" name="quantity" placeholder="수량">
+	          <input type="text" class="form-control" name="productStock" placeholder="수량">
 	        </div>
 	      </div>
 	
@@ -85,7 +85,7 @@
 		<div class="form-row mb-4">
 		  <div class="form-group col-md-6">
 		    <label><i class="fas fa-barcode text-secondary mr-1"></i> 모델명</label>
-		    <input type="text" class="form-control" name="model_code" placeholder="모델명을 입력하세요">
+		    <input type="text" class="form-control" name="modelCode" placeholder="모델명을 입력하세요">
 		  </div>
 		  <div class="form-group col-md-6">
 		    <label><i class="fas fa-globe-asia text-secondary mr-1"></i> 원산지</label>
@@ -153,27 +153,21 @@
 </div>
 
 <script>
-  $(()=>{
-    $('#summernote').summernote({
-      height: 600,
-      placeholder: "상품 상세 설명을 입력하세요"
-    });
-  });
-  
-  function previewMultipleImages(event) {
-	    let files = event.target.files;
+	//이미지 미리보기 렌더링
+	function previewMultipleImages(event) {
+		let files = event.target.files;
 	    let mainPreview = document.getElementById('main-preview');
 	    let mainPlaceholder = document.getElementById('main-upload-placeholder');
 	    let thumbnailList = document.getElementById('thumbnail-list');
-
+	
 	    thumbnailList.innerHTML = ''; // 작은 썸네일 초기화
-
+	
 	    if (files.length === 0) {
 	      mainPreview.style.display = 'none';
 	      mainPlaceholder.style.display = 'block';
 	      return;
 	    }
-
+	
 	    // 첫번째 이미지를 크게 보여주기
 	    let firstFile = files[0];
 	    let readerMain = new FileReader();
@@ -183,7 +177,7 @@
 	      mainPlaceholder.style.display = 'none';
 	    }
 	    readerMain.readAsDataURL(firstFile);
-
+	
 	    // 작은 썸네일 생성
 	    Array.from(files).forEach(file => {
 	    	let reader = new FileReader();
@@ -195,15 +189,105 @@
 	        img.style.objectFit = 'cover';
 	        img.style.cursor = 'pointer';
 	        img.classList.add('border', 'rounded');
-
+	
 	        // 호버 시 큰 이미지 변경
 	        img.addEventListener('mouseenter', () => {
 	          mainPreview.src = img.src;
 	        });
-
+	
 	        thumbnailList.appendChild(img);
 	      }
 	      reader.readAsDataURL(file);
 	    });
 	  }
+	
+	//카테고리 렌더링
+	function printCategory(obj,list){
+
+		let tag="<option value='0'>카테고리 선택</option>"
+		
+		for(let i=0; i<list.length;i++){
+			if(obj=="#topCategory"){
+				tag+="<option value='"+list[i].topCategoryId+"'>"+list[i].categoryName+"</option>";
+			}else if(obj=="#subCategory"){
+				tag+="<option value='"+list[i].subCategoryId+"'>"+list[i].categoryName+"</option>";
+			}	
+		}
+		$(obj).html(tag);
+	}
+	
+	//판매자가 보유한 상위 카테고리 요청
+	function getTopCategory(storeInfoId){
+		$.ajax({
+			url:"/store/seller/manage/product/getStoreTopList?storeInfoId=" + storeInfoId,
+			type:"get",
+			success:function(result, status, xhr){ //200번대의 성공 응답 시, 이 함수 실행
+				printCategory("#topCategory",result);
+			},
+			error:function(xhr,status,err){
+				
+			}
+		});
+	}
+	
+	//판매자가 보유한 하위 카테고리 요청 (상위 카테고리에 따른 change 이벤트 부여)
+	function getSubCategory(storeInfoId,topCategoryId){
+		$.ajax({
+			url :"/store/seller/manage/product/getStoreSubList?storeInfoId=" + storeInfoId + "&topCategoryId=" + topCategoryId,
+			type:"GET",
+			success:function(result, status, xhr){
+				printCategory("#subCategory",result);
+			}
+		});
+	}
+
+  $(()=>{
+	
+	//summernote 디자인 조정
+    $('#summernote').summernote({
+      height: 600,
+      placeholder: "상품 상세 설명을 입력하세요"
+    });
+    
+	//상위 카테고리 가져오기 
+	//storeInfoId 세션에서 얻어와야함. 현재 하드코딩
+	getTopCategory(10)
+	
+	//상위 카테고리의 값 변경 시, 하위 카테고리 가져오기
+	//storeInfoId 세션에서 얻어와야함. 현재 하드코딩
+   	$("#topCategory").change(function(){
+		getSubCategory(10,$(this).val());
+    });
+	
+    //상품등록 버튼 등록 이벤트 부여
+    $('#bt_regist').click(()=>{
+   	  const formArray = $('#form1').serializeArray();
+   	  const dataObj = {};
+
+   	  formArray.forEach(field => {
+   	    dataObj[field.name] = field.value;
+   	  });
+
+   	  // 2. summernote 내용 추가 (Product.detail 필드로 들어감)
+   	  dataObj['detail'] = $('#summernote').summernote('code');
+
+   	  // 3. serialize 후 전송
+   	  $.ajax({
+   	    url: '/store/seller/manage/product/regist',
+   	    type: 'POST',
+   	    data: $.param(dataObj),
+   	    success: function (res) {
+   	      if (res.status === 'ok') {
+   	        alert(res.msg);
+   	        location.href = '/store/seller/manage/productRegist';
+   	      } else {
+   	        alert('상품 등록 실패');
+   	      }
+   	    },
+   	    error: function (err) {
+   	      console.error('에러 발생:', err);
+   	    }
+   	  });
+    });
+  });
 </script>

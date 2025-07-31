@@ -20,7 +20,7 @@ public interface SellerDAO {
 	Seller selectByEmail(String email);
 
 	// 판매자 목록 조회 (상태값 기반)
-	Seller selectByStatus(SellerStatus sellerStatus);
+	List<Seller> selectByStatus(SellerStatus sellerStatus);
 
 	// 회원가입(판매자 가입)
 	void insert(Seller seller);
