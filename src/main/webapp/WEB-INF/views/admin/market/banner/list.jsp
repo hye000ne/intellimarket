@@ -53,7 +53,6 @@
 						             	<td>2025-07-30</td>
 							            <td><button class="btn btn-block btn-primary btn-sm" onclick="bannerDelete()">삭제</button></td>
 						            </tr>
-									<%-- 
 									<c:forEach var="banner" items="${list}">
 				                  		<tr>
 				                    		<td>${banner.title}</td>
@@ -63,7 +62,6 @@
 								            <td><button class="btn btn-block btn-primary btn-sm" onclick="bannerDelete(${banner.bannerId})">삭제</button></td>
 				                  		</tr>
 									</c:forEach> 
-									--%>
 			               		</tbody>
 		               		</table>
 	               		</div>
