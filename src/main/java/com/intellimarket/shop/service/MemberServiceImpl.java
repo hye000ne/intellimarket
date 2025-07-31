@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import com.intellimarket.common.util.PasswordEncryptor;
 import com.intellimarket.shop.dao.MemberDAO;
 import com.intellimarket.shop.domain.Member;
+import com.intellimarket.shop.domain.Member.MemberStatus;
 import com.intellimarket.shop.exception.ShopException;
 
 @Service
@@ -25,7 +26,9 @@ public class MemberServiceImpl implements MemberService {
 	// 회원 단 건 조회 (ID 기반)
 	@Override
 	public Member selectById(int memberId){
-		return memberDAO.selectById(memberId);
+		Member member = memberDAO.selectById(memberId);
+		if(member == null) throw new ShopException("해당 회원을 찾을 수 없습니다.");
+		return member;
 	}
 	
 	// 회원 단 건 조회 (ID 기반)
@@ -48,14 +51,20 @@ public class MemberServiceImpl implements MemberService {
 	
 	// 회원 정보 수정
 	@Override
-	public int updateMember(Member member){
-		return memberDAO.updateMember(member);
+	public void updateMember(Member member){
+		int result = memberDAO.updateMember(member); 
+		if(result <= 0) throw new ShopException("회원 정보 수정에 실패했습니다.");
 	}
 	
-	// 회원 탈퇴
+	// 회원 상태 변경
 	@Override
-	public int delete(int memberId){
-		return memberDAO.delete(memberId);
+	public void updateMemberStatus(int memberId, MemberStatus status, String inactiveReason) {
+		Member member = new Member();
+		member.setMemberId(memberId);
+		member.setStatus(status);
+		member.setInactiveReason(inactiveReason);
+		int result = memberDAO.updateMemberStatus(member);
+		if(result <= 0) throw new ShopException("회원 탈퇴 처리에 실패했습니다.");
 	}
 	
 	// 로그인
@@ -83,7 +92,7 @@ public class MemberServiceImpl implements MemberService {
 	
 	// 비밀번호 수정
 	@Override
-	public boolean updatePassword(String email, String password) {
+	public void updatePassword(String email, String password) {
 		Member member = new Member();
 		member.setEmail(email);
 		
@@ -91,7 +100,10 @@ public class MemberServiceImpl implements MemberService {
 		String encodedPassword = PasswordEncryptor.encode(password);
 		member.setPassword(encodedPassword);
 		
-		return memberDAO.updatePassword(member) > 0;
+		int result = memberDAO.updatePassword(member);
+		if(result <= 0) {
+			throw new ShopException("비밀번호 변경에 실패했습니다.");
+		}
 	}
 	
 	/** 

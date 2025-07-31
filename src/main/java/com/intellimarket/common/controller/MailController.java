@@ -7,11 +7,14 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.intellimarket.common.exception.CommonException;
 import com.intellimarket.common.service.MailService;
+import com.intellimarket.shop.exception.ShopException;
 import com.intellimarket.shop.service.MemberService;
 
 /**
@@ -51,14 +54,10 @@ public class MailController {
 	@ResponseBody
 	public Map<String, Object> sendTempPasswordEmail(@RequestParam String email) {
 		Map<String, Object> res = new HashMap<>();
-		String tempPassword = memberService.generateTempPassword(); // 1. 임시 비밀번호 생성
+		// 1. 임시 비밀번호 생성
+		String tempPassword = memberService.generateTempPassword();
 		// 2. 임시 비밀번호 DB 업데이트
-		if(!memberService.updatePassword(email, tempPassword)) { // 2-1. DB 반영 실패 시
-			res.put("status", "fail");
-			res.put("msg", "임시 비밀번호 DB 업데이트에 실패했습니다.");
-			return res;
-		}
-		
+		memberService.updatePassword(email, tempPassword);
 		// 3. 메일 전송
 		String subject = "[IntelliMarket] 임시 비밀번호입니다.";
 		String body = "임시 비밀번호 : " + tempPassword;
@@ -79,4 +78,14 @@ public class MailController {
 		int code = (int)((Math.random() * 9 + 1) * 100000);
 		return String.valueOf(code);
 	}
+	
+	@ExceptionHandler({ShopException.class, CommonException.class})
+	@ResponseBody
+	public Map<String, Object> handleMailException(CommonException e) {
+	    Map<String, Object> res = new HashMap<>();
+	    res.put("status", "fail");
+	    res.put("msg", e.getMessage());
+	    return res;
+	}
+
 }

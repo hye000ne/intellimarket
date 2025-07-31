@@ -12,6 +12,9 @@
 		<link rel="stylesheet" href="${ctx}/resources/admin/assets/css/adminlte.min.css">
 		
 		<link rel="stylesheet" href="${ctx}/resources/common/css/override.css">
+  		<!-- jQuery / jQuery UI -->
+		<script src="${ctx}/resources/admin/assets/plugins/jquery/jquery.min.js"></script>
+		<script src="${ctx}/resources/admin/assets/plugins/jquery-ui/jquery-ui.min.js"></script>
 	</head>
 	<body class="hold-transition sidebar-mini">
 		<div class="wrapper">
@@ -20,9 +23,6 @@
 		    <jsp:include page="/WEB-INF/views/${contentPage}" />
 		    <jsp:include page="/WEB-INF/views/admin/include/footer.jsp"/>
 	  	</div>
-	  		<!-- jQuery / jQuery UI -->
-			<script src="${ctx}/resources/admin/assets/plugins/jquery/jquery.min.js"></script>
-			<script src="${ctx}/resources/admin/assets/plugins/jquery-ui/jquery-ui.min.js"></script>
 			<script>
 				$.widget.bridge('uibutton', $.ui.button)
 			</script>

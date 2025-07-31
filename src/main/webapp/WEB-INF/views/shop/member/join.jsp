@@ -23,6 +23,7 @@
 				<div class="login_part_form">
                     <div class="login_part_form_iner">
 						<form class="row contact_form" id="joinForm">
+							<input type="hidden" id="role" name="role" value="USER"/>
 							<!-- 이메일 -->
 							<div class="col-md-12 form-group">
 							  	<label for="email">이메일</label>
@@ -86,7 +87,7 @@
 						    <div class="col-md-12 form-group">
 						      	<label>성별</label><br />
 						      	<div class="form-check form-check-inline">
-						        	<input class="form-check-input" type="radio" name="gender" id="genderM" value="M" />
+						        	<input class="form-check-input" type="radio" name="gender" id="genderM" value="M" checked/>
 						        	<label class="form-check-label" for="genderM">남자</label>
 						      	</div>
 						      	<div class="form-check form-check-inline">
@@ -131,15 +132,20 @@
 			type: 'POST',
 			url: '/shop/member/checkEmailDuplicate',
 			data : {email : email},
-			success : function(){
-				alert('사용 가능한 이메일입니다.');
-				isEmailChecked = true;
-				$('#email').prop('readonly', true);
-				$("#btnCheckEmail").text('재입력');
+			success : function(res){
+				if(res.status === 'ok') {
+					alert(res.msg);
+					isEmailChecked = true;
+					$('#email').prop('readonly', true);
+					$("#btnCheckEmail").text('재입력');
+				} else {
+					alert(res.msg);
+					isEmailChecked = false;
+				}
 			}, 
 			error : function(xhr) {
-				alert('이미 사용 중인 이메일입니다.');
-				isEmailChecked = false;
+				const res = JSON.parse(xhr.responseText);
+				alert(res.msg);
 			}
 		});
 	}
@@ -173,10 +179,13 @@
 				if(res.status === 'ok') {
 					alert(res.msg);
 					location.href= '/shop/login';
+				} else { 
+					alert(res.msg);
 				}
 			}, 
 			error : function(xhr) {
-				alert(xhr.responseText);
+				const res = JSON.parse(xhr.responseText);
+				alert(res.msg);
 			}
 		});
 	}

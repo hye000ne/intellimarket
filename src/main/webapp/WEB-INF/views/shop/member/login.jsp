@@ -42,7 +42,7 @@
                                 <input type="text" class="form-control" id="email" name="email" value="${email}" placeholder="이메일" />
                             </div>
                             <div class="col-md-12 form-group p_star">
-                                <input type="password" class="form-control" id="password" name="password" value="" placeholder="비밀번호" />
+                                <input type="password" class="form-control" id="password" name="password" value="" placeholder="비밀번호" onkeypress="enterKey()"/>
                             </div>
                             <div class="col-md-12 form-group">
                                 <div class="creat_account d-flex align-items-center">
@@ -92,5 +92,9 @@
 		}
 		
 		return true;
+	}
+	
+	function enterKey() {
+		if(window.event.keyCode == 13) submitLoginForm();
 	}
 </script>
