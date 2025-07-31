@@ -40,7 +40,7 @@ public class SellerServiceImpl implements SellerService {
 
 	// 판매자 목록 조회(상태값 기반)
 	@Override
-	public Seller selectByStatus(SellerStatus sellerStatus) {
+	public List<Seller> selectByStatus(SellerStatus sellerStatus) {
 		return sellerDAO.selectByStatus(sellerStatus);
 	}
 
