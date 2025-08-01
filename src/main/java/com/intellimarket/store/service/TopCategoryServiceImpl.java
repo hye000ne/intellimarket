@@ -17,10 +17,12 @@ public class TopCategoryServiceImpl implements TopCategoryService{
 		return topCategoryDAO.selectAll();
 	}
 
-	@Override
-	public List selectById(int rootCategoryId) {
-		return topCategoryDAO.selectById(rootCategoryId);
+	
+	@Override 
+	public List selectById(int rootCategoryId) { 
+		return topCategoryDAO.selectById(rootCategoryId); 
 	}
+	 
 
 	@Override
 	public TopCategory select(int topCategoryId) {
