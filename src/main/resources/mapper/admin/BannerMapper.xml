@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.intellimarket.admin.dao.BannerDAO">
+	<!-- 전체 목록 조회 -->
+	<select id="selectAll" resultType="Banner">
+		select * from banners
+	</select>
+	
+	<select id="selectByStatus" parameterType="String" resultType="Banner">
+		select * from banners
+		where status = #{status}
+	</select>
+	
+	<!-- 단 건 조회 (ID 기반) -->
+	<select id="selectById" parameterType="int" resultType="Banner">
+		select * from banners 
+		where banner_id = #{bannerId}
+	</select>
+	
+	<!-- 등록 -->
+	<insert id="regist" parameterType="Banner">
+		insert into banners (
+			title, image_path, status, link_url
+		)
+		values (
+			#{title}, #{imagePath}, #{status}, #{linkUrl}
+		)
+	</insert>
+	
+	<!-- 변경 -->
+	<update id="updateBanner" parameterType="Banner">
+		update banners
+		set 
+			title = #{title},
+			image_path = #{imagePath},
+			status = #{status},
+			link_url = #{linkUrl}
+		where banner_id = #{bannerId}			
+	</update>
+	
+	<!-- 상태 변경 -->
+	<update id="updateBannerStatus" parameterType="Banner">
+		update banners
+		set status = #{status}
+		where banner_id = #{bannerId}
+	</update>
+	
+	<!-- 삭제 -->
+	<delete id="deleteBanner" parameterType="int">
+		delete 
+		from banners
+		where banner_id = #{bannerId}
+	</delete>
+</mapper>

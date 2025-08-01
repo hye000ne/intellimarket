@@ -7,7 +7,7 @@
 		<id 	column="top_category_id" property="topCategoryId"/>
 		<result column="category_name" 	 property="categoryName"/>
 		
-		<association 
+ 		<association 
 			column = "root_category_id"
 			property = "rootCategory" 
 			javaType = "RootCategory" 	
@@ -28,7 +28,7 @@
 	</select>
 	
 	<!-- 루트 카테고리에 따른 상위 카테고리 조회 -->
-	<select id="selectById" parameterType="int" resultType="TopCategory">
+ 	<select id="selectById" parameterType="int" resultType="TopCategory">
 		select top_category_id, category_name, root_category_id 
 		from top_categories
 		where root_category_id = #{rootCategoryId}

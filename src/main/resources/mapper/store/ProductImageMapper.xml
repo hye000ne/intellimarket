@@ -2,5 +2,15 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.intellimarket.store.dao.ProductImageDAO">
 
+	<!-- 썸네일 이미지 등록 -->
+	<insert id="insert" parameterType="ProductImage">
+		insert into product_images(product_id,filename) values(#{product.productId}, #{filename})
+	</insert>
+	
+	<!-- productId 에 따른 썸네일 이미지 조회 -->
+	<select id="selectById" parameterType="int" resultType="ProductImage">
+		select product_image_id, filename, product_id from product_images where product_id = #{productId}
 
+	</select>
+	
 </mapper>

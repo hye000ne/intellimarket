@@ -27,7 +27,7 @@
 					</a>
 					<ul class="nav nav-treeview">
 						<li class="nav-item"><a href="${ctx}/admin/member/list" class="nav-link"><p>회원 목록</p></a></li>
-						<li class="nav-item"><a href="#" class="nav-link"><p>회원 등록</p></a></li>
+						<li class="nav-item"><a href="${ctx}/admin/member/join" class="nav-link"><p>회원 등록</p></a></li>
 					</ul>
 				</li>
 				<!-- 판매자 관리 -->
@@ -37,7 +37,7 @@
 						<p>판매자 관리<i class="right fas fa-angle-left"></i></p>
 					</a>
 					<ul class="nav nav-treeview">
-						<li class="nav-item"><a href="#" class="nav-link"><p>가입 승인</p></a></li>
+						<li class="nav-item"><a href="${ctx}/admin/seller/approval" class="nav-link"><p>가입 승인</p></a></li>
 						<li class="nav-item"><a href="${ctx}/admin/seller/list" class="nav-link"><p>판매자 목록</p></a></li>
 						<li class="nav-item"><a href="#" class="nav-link"><p>정산 관리</p></a></li>
 					</ul>
@@ -59,15 +59,15 @@
 						<p>마켓 관리<i class="right fas fa-angle-left"></i></p>
 					</a>
 					<ul class="nav nav-treeview">
-						<li class="nav-item"><a href="#" class="nav-link"><p>배너 관리</p></a></li>
-						<li class="nav-item"><a href="#" class="nav-link"><p>로고 관리</p></a></li>
+						<li class="nav-item"><a href="${ctx}/admin/market/banner/list" class="nav-link"><p>배너 관리</p></a></li>
+						<li class="nav-item"><a href="${ctx}/admin/market/logo/list" class="nav-link"><p>로고 관리</p></a></li>
 					</ul>
 				</li>
 				<!-- 공지사항 -->
-				<li class="nav-item">
+				<li class="nav-item has-treeview">
 					<a href="${ctx}/admin/notice" class="nav-link">
 						<i class="nav-icon fas fa-bullhorn"></i>
-						<p>시스템 공지</p>
+						<p>시스템 공지<i class="right fas fa-angle-left"></i></p>
 					</a>
 					<ul class="nav nav-treeview">
 						<li class="nav-item"><a href="#" class="nav-link"><p>공지 등록/관리</p></a></li>

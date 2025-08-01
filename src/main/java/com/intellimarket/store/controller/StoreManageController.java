@@ -25,25 +25,6 @@ public class StoreManageController {
 		model.addAttribute("contentPage", "store/seller/adminMain.jsp");
 		return "layout/store";
 	}
-
-	/**
-	 * 판매자 상품 리스트 페이지
-	 */
-	@GetMapping("/productList")
-	public String adminProductList(Model model) {
-		
-		model.addAttribute("contentPage", "store/seller/productList.jsp");
-		return "layout/store";
-	}
-
-	/**
-	 * 판매자 상품 등록 페이지
-	 */
-	@GetMapping("/productRegist")
-	public String adminProductRegist(Model model) {
-		model.addAttribute("contentPage", "store/seller/productRegist.jsp");
-		return "layout/store";
-	}
 	
 	
 }

@@ -5,13 +5,19 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.intellimarket.common.exception.CommonException;
+import com.intellimarket.common.util.FileManager;
 import com.intellimarket.store.dao.ProductDAO;
+import com.intellimarket.store.dao.ProductImageDAO;
 import com.intellimarket.store.domain.Product;
+import com.intellimarket.store.domain.ProductImage;
 
 @Service
 public class ProductServiceImpl implements ProductService{
 	@Autowired ProductDAO productDAO;
-
+	@Autowired ProductImageDAO productImageDAO;
+	@Autowired FileManager fileManager;
+	
 	// 전체 목록 조회
 	@Override
 	public List<Product> selectAll() {
@@ -32,8 +38,24 @@ public class ProductServiceImpl implements ProductService{
 
 	// 상품 등록
 	@Override
-	public void insert(Product product) {
+	public void insert(Product product,String savePath, String prefix) throws CommonException{
+		// 1. 상품정보 저장
 		productDAO.insert(product);
+		
+		// 2. 썸네일 파일 서버에 저장
+		fileManager.save(product,savePath, prefix);
+		
+		// 3. 썸네일 파일명 DB에 저장
+		for(ProductImage productImage : product.getImgList()) {
+			productImage.setProduct(product);
+			productImageDAO.insert(productImage);
+		}
+	}
+	
+	//트랜잭션에서 처리할 수 없는 파일 삭제 처리
+	@Override
+	public void remove(Product product, String savePath, String prefix) {
+		fileManager.remove(product, savePath, prefix);
 	}
 
 	// 상품 정보 수정
@@ -47,6 +69,8 @@ public class ProductServiceImpl implements ProductService{
 	public int delete(int productId) {
 		return productDAO.delete(productId);
 	}
+
+
 
 
 

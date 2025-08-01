@@ -17,9 +17,11 @@ public class RootCategoryServiceImpl implements RootCategoryService{
 		return rootCategoryDAO.selectAll();
 	}
 
-	@Override
-	public RootCategory select(int rootCategoryId) {
-		return rootCategoryDAO.select(rootCategoryId);
-	}
+	
+	 @Override 
+	 public RootCategory select(int rootCategoryId) { 
+		return rootCategoryDAO.select(rootCategoryId); 
+	 }
+	 
 
 }

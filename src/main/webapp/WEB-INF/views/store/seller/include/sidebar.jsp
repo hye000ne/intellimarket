@@ -40,12 +40,12 @@
           </a>
           <ul class="nav nav-treeview">
             <li class="nav-item">
-              <a href="${ctx}/store/seller/manage/productList" class="nav-link">
+              <a href="${ctx}/store/seller/manage/product/list" class="nav-link">
                 <p>상품 목록</p>
               </a>
             </li>
             <li class="nav-item">
-              <a href="${ctx}/store/seller/manage/productRegist" class="nav-link">
+              <a href="${ctx}/store/seller/manage/product/registForm" class="nav-link">
                 <p>상품 등록</p>
               </a>
             </li>

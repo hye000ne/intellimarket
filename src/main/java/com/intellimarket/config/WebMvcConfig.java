@@ -7,6 +7,7 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
+import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
@@ -35,6 +36,10 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter {
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler("/resources/**").addResourceLocations("/resources/");
+        
+        // 임시 배포 폴더 물리 경로 추가 매핑
+        registry.addResourceHandler("/resources/store/img/**")
+                .addResourceLocations("file:///C:/TeamProject/.metadata/.plugins/org.eclipse.wst.server.core/tmp0/wtpwebapps/intellimarket/resources/store/img/");
     }
     
     @Override
@@ -42,4 +47,12 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter {
         converters.add(new MappingJackson2HttpMessageConverter());
         super.configureMessageConverters(converters);
     }
+    
+	@Bean 
+	public CommonsMultipartResolver multipartResolver() {
+		CommonsMultipartResolver resolver = new CommonsMultipartResolver();
+		resolver.setMaxUploadSize(10*1024*1024); //10M 
+		return resolver;
+	}
+
 }

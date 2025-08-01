@@ -17,7 +17,10 @@ public interface ProductService {
 	List<Product> selectById(int sellerId);
 	
 	// 상품 등록
-	void insert(Product product);
+	void insert(Product product,String savePath, String prefix);
+	
+	//상품 등록 과정에서 트랜잭션에서 처리할 수 없는 파일 삭제 처리
+	void remove(Product product, String savePath, String prefix);
 	
 	// 상품 정보 수정
 	int updateProduct(Product product);

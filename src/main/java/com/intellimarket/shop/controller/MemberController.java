@@ -8,6 +8,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.intellimarket.common.util.CookieUtil;
 import com.intellimarket.shop.domain.Member;
+import com.intellimarket.shop.domain.Member.MemberStatus;
 import com.intellimarket.shop.domain.Member.Role;
 import com.intellimarket.shop.exception.ShopException;
 import com.intellimarket.shop.service.MemberService;
@@ -60,28 +62,50 @@ public class MemberController {
 		Map<String, Object> res = new HashMap<>();
 		Member loginMember = memberService.loginMember(email, password);
 		
-		if(loginMember != null) {
-			// 이메일 저장하기 체크 시
-			if(rememberEmail != null) {
-				// 쿠키에 저장 (만료시간 7일)
-				CookieUtil.setCookie(response, "rememberEmail", email, 60*60*24*7); 
-			} else {
-				// 쿠키 삭제
-				CookieUtil.deleteCookie(response, "rememberEmail");
-			}
-			session.setAttribute("loginMember", loginMember);
-			res.put("status", "ok");
-			res.put("msg", loginMember.getName()+"님, 안녕하세요.");
-			if(loginMember.getRole() == Role.ADMIN) {
-				res.put("url", "/admin/main");
-			} else {
-				res.put("url", "/shop/main");
-			}
+		// 이메일 저장하기 체크 시
+		if(rememberEmail != null) {
+			// 쿠키에 저장 (만료시간 7일)
+			CookieUtil.setCookie(response, "rememberEmail", email, 60*60*24*7); 
 		} else {
-			res.put("status", "fail");
-			res.put("msg", "이메일과 비밀번호를 확인해주세요.");
+			// 쿠키 삭제
+			CookieUtil.deleteCookie(response, "rememberEmail");
+		}
+		session.setAttribute("loginMember", loginMember);
+		res.put("status", "ok");
+		res.put("msg", loginMember.getName()+"님, 안녕하세요.");
+		
+		if(loginMember.getRole() == Role.ADMIN) {
+			res.put("url", "/admin/main");
+		} else {
+			res.put("url", "/shop/main");
 		}
 		
+		return res;
+	}
+	
+	/**
+	 * 회원 정보 수정
+	 */
+	@PostMapping("/update")
+	@ResponseBody
+	public Map<String, Object> update(@ModelAttribute Member member) {
+		Map<String, Object> res = new HashMap<>();
+		memberService.updateMember(member);
+		res.put("status", "ok");
+		res.put("msg", "회원 정보 수정이 완료되었습니다.");
+		return res;
+	}
+	
+	/**
+	 * 회원 상태 변경
+	 * - 회원 탈퇴 시 호출
+	 */
+	@PostMapping("/updateMemberStatus")
+	public Map<String, Object> updateMemberStatus(@RequestParam int memberId, @RequestParam MemberStatus status, @RequestParam String inactiveReason) { 
+		Map<String, Object> res = new HashMap<>();
+		memberService.updateMemberStatus(memberId, status, inactiveReason);
+		res.put("status", "ok");
+		res.put("msg", "회원 탈퇴 처리되었습니다.");
 		return res;
 	}
 	
@@ -102,10 +126,16 @@ public class MemberController {
 	 */
 	@PostMapping("/checkEmailDuplicate")
 	@ResponseBody
-	public void checkEmailDuplicate(@RequestParam String email) {
+	public Map<String, Object> checkEmailDuplicate(@RequestParam String email) {
+		Map<String, Object> res = new HashMap<>();
 		if(memberService.isEmailExists(email)) {
-			throw new ShopException("이미 사용 중인 이메일입니다.");
-		} 
+			res.put("status", "fail");
+			res.put("msg", "이미 사용 중인 이메일입니다.");
+		} else {
+			res.put("status", "ok");
+			res.put("msg", "사용 가능한 이메일입니다.");
+		}
+		return res;
 	}
 	
 	/**
@@ -129,8 +159,7 @@ public class MemberController {
 		String sessionCode = (String)session.getAttribute("authCode_" + email);
 		Map<String, Object> res = new HashMap<>();
 		
-		if(sessionCode != null & sessionCode.equals(inputCode)) {
-			session.removeAttribute("authCode_" + email); // dlswmd
+		if(sessionCode != null && sessionCode.equals(inputCode)) {
 			res.put("status", "ok");
 		} else {
 			res.put("status", "fail");
@@ -140,5 +169,12 @@ public class MemberController {
 		return res;
 	}
 	
-	
+	@ExceptionHandler(ShopException.class)
+	@ResponseBody
+	public Map<String, Object> handleShopException(ShopException e) {
+	    Map<String, Object> res = new HashMap<>();
+	    res.put("status", "fail");
+	    res.put("msg", e.getMessage());
+	    return res;
+	}
 }
