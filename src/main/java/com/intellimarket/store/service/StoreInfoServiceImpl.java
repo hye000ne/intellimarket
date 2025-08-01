@@ -5,15 +5,18 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.intellimarket.store.dao.StoreCategoryDAO;
 import com.intellimarket.store.dao.StoreInfoDAO;
 import com.intellimarket.store.domain.StoreInfo;
 
 @Service
 public class StoreInfoServiceImpl implements StoreInfoService {
-	
-	@Autowired 
+
+	@Autowired
 	StoreInfoDAO storeInfoDAO;
-	
+
+	@Autowired
+	StoreCategoryDAO storeCategoryDAO;
 
 	@Override
 	public List<StoreInfo> selectAll() {
@@ -34,5 +37,4 @@ public class StoreInfoServiceImpl implements StoreInfoService {
 	public int update(StoreInfo storeInfo) {
 		return storeInfoDAO.update(storeInfo);
 	}
-
 }

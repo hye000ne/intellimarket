@@ -19,4 +19,12 @@
     <select id="selectById" resultMap="storeCategoryMap" parameterType="int">
         select * from store_categories WHERE store_info_id = #{storeInfoId}
     </select>
+    
+    <insert id="insert" parameterType="StoreCategory">
+    	INSERT INTO store_categories(store_category_id, store_info_id, sub_category_id)
+    	VALUES
+    	<foreach collection="list" item="item" separator=","> 
+    		(#{item.storeCategoryId}, #{item.storeInfo.storeInfoId}, #{item.subCategory.subCategoryId})
+    	</foreach>
+    </insert>
 </mapper>

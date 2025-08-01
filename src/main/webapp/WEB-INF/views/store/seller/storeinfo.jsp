@@ -73,7 +73,7 @@
 function applyEditForm() {
 	$.ajax({
 		type : 'POST',
-		url : '/store/seller/manage/editstore/apply',
+		url : '/store/seller/manage/editstore/info/apply',
 		data : $('#editForm').serialize(),
 		success : function(res) {
 			if (res.status === 'ok') {
