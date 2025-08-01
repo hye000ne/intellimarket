@@ -54,5 +54,5 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter {
 		resolver.setMaxUploadSize(10*1024*1024); //10M 
 		return resolver;
 	}
-	
+
 }

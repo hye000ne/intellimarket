@@ -31,10 +31,10 @@
       		<div class="row">
 		        <div class="col-lg-12">
 		            <div class="card">
+	              		<div class="card-header d-flex justify-content-end">
+						  	<a href="/admin/market/banner/regist" class="btn btn-primary">등록</a>
+						</div>
 		              	<div class="card-body">
-		              		<div class="card-header d-flex justify-content-between align-items-center">
-						        <a href="/admin/market/banner/regist" class="btn btn-primary btn-sm">등록</a>
-							</div>
 		                	<table id="bannerListTable" class="table table-bordered table-hover text-center">
 		                  		<thead class="align-middle">
 			                  		<tr>
@@ -46,24 +46,15 @@
 			                  		</tr>
 			                  	</thead>
 			                  	<tbody>
-			                  		<tr>
-							            <td>메인 상단 배너</td>
-							            <td><img src="" style="height:40px;"></td>
-							            <td>Y</td>
-						             	<td>2025-07-30</td>
-							            <td><button class="btn btn-block btn-primary btn-sm" onclick="bannerDelete()">삭제</button></td>
-						            </tr>
-									<%-- 
 									<c:forEach var="banner" items="${list}">
 				                  		<tr>
 				                    		<td>${banner.title}</td>
-				                    		<td>${banner.img}</td>
+				                    		<td>${banner.imageFile}</td>
 				                    		<td>${banner.status}</td>
 				                    		<td>${banner.createdDate}</td>
-								            <td><button class="btn btn-block btn-primary btn-sm" onclick="bannerDelete(${banner.bannerId})">삭제</button></td>
+								            <td><button class="btn btn-block btn-danger btn-sm" onclick="bannerDelete(${banner.bannerId})">삭제</button></td>
 				                  		</tr>
 									</c:forEach> 
-									--%>
 			               		</tbody>
 		               		</table>
 	               		</div>
@@ -88,8 +79,9 @@
 <script src="${ctx}/resources/admin/assets/plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
 
 <script>
-	function bannerDelete() {
+	function bannerDelete(bannerId) {
 		if (confirm('정말 삭제하시겠습니까?')) {
+			location.href = '/admin/market/banner/delete?bannerId='+bannerId;
 	    }
 	}
 	

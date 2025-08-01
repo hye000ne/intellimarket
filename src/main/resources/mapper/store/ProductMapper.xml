@@ -48,8 +48,9 @@
 			ofType = "ProductImage"
 			select = "com.intellimarket.store.dao.ProductImageDAO.selectById"
 		/>
+		
 	</resultMap>
-
+	
 	<!-- 전체 목록 조회 -->
 	<select id="selectAll" resultMap="joinMap">
 		select *from products

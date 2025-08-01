@@ -98,3 +98,19 @@
   cursor: pointer;
 }
 
+
+/* ===================== 메인 배너 ===================== */
+.banner-wrapper {
+	position: relative;
+	padding-top: 35%;
+	overflow: hidden;
+}
+
+.banner-wrapper img {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+}
