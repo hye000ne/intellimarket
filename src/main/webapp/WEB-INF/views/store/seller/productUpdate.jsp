@@ -248,7 +248,8 @@
 	
 	//summernote 디자인 조정
     $('#summernote').summernote({
-      height: 600
+      height: 600,
+      placeholder: "상품 상세 설명을 입력하세요"
     });
     
 	//상위 카테고리 가져오기 

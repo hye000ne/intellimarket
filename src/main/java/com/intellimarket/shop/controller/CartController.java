@@ -25,7 +25,7 @@ public class CartController {
 			return "layout/shop";
 		}
 
-		model.addAttribute("contentPage", "shop/cart.jsp");
+		model.addAttribute("contentPage", "shop/orders/cart.jsp");
 		return "layout/shop";
 	}
 }
