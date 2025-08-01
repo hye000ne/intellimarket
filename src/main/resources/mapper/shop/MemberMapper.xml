@@ -21,19 +21,18 @@
 	<!-- 회원 가입 -->
 	<insert id="insert" parameterType="Member">
 		insert into members (
-			email, password, name, birth, phone, zip_code, address, detail_address, gender
+			email, password, name, birth, phone, zip_code, address, detail_address, gender, role
 		)
 		values (
-			#{email}, #{password}, #{name}, #{birth}, #{phone}, #{zipCode}, #{address}, #{detailAddress}, #{gender}
+			#{email}, #{password}, #{name}, #{birth}, #{phone}, #{zipCode}, #{address}, #{detailAddress}, #{gender}, #{role}
 		)
 	</insert>
 	
-	<!-- 회원 정보 수정 -->
+	<!-- 회원 정보 변경 -->
 	<update id="updateMember" parameterType="Member">
 		update members
 		set 
-			password = #{password}
-			, name = #{name}
+			name = #{name}
 			, birth = #{birth}
 			, phone = #{phone}
 			, zip_code = #{zipCode}
@@ -43,11 +42,14 @@
 		where member_id = #{memberId} 
 	</update>
 	
-	<!-- 회원 탈퇴 -->
-	<delete id="delete" parameterType="int">
-		delete from members
+	<!-- 회원 상태 변경 -->
+	<update id="updateMemberStatus" parameterType="Member">
+		update members
+		set 
+			status = #{status},
+			inactive_reason  = #{inactiveReason}
 		where member_id = #{memberId}
-	</delete>
+	</update>
 	
 	<!-- 비밀번호 변경 -->
 	<update id="updatePassword" parameterType="Member">
@@ -66,5 +68,6 @@
 	<select id="existByEmail" parameterType="String" resultType="int" >
 		select count(*) from members 
 		where email = #{email}
+		and status = 'ACTIVE'
 	</select>
 </mapper>

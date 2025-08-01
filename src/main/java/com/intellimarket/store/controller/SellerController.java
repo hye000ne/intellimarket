@@ -35,6 +35,15 @@ public class SellerController {
 	@Autowired
 	SellerService sellerService;
 	
+	// 로직 테스트용 메서드
+	@GetMapping("/test")
+	public String test(HttpSession session) {
+		Seller seller = (Seller) session.getAttribute("loginSeller");
+		sellerService.approveAndCreateStore(seller);
+		return "OK";
+	}
+	
+	
 	/**
 	 * 회원가입 폼 페이지
 	 */

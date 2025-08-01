@@ -13,14 +13,6 @@
 			javaType = "RootCategory" 	
 			select = "com.intellimarket.store.dao.RootCategoryDAO.select"
 		/>
-		
-		<collection 
-			column = "top_category_id"
-			property = "subList"
-			javaType = "java.util.List"
-			ofType = "SubCategory"
-			select = "com.intellimarket.store.dao.SubCategoryDAO.select"
-		/>
 	</resultMap>
 	
 	<!-- 상위 카테고리 전체 조회 -->
@@ -36,7 +28,7 @@
 	</select>
 	
 	<!-- 루트 카테고리에 따른 상위 카테고리 조회 -->
-	<select id="selectByRootCategoryId" parameterType="int" resultType="TopCategory">
+	<select id="selectById" parameterType="int" resultType="TopCategory">
 		select top_category_id, category_name, root_category_id 
 		from top_categories
 		where root_category_id = #{rootCategoryId}

@@ -16,4 +16,7 @@ public interface StoreInfoDAO {
 	
 	// 스토어 정보 등록
 	void insert(StoreInfo storeInfo);
+	
+	// 스토어 정보 업데이트
+	int update(StoreInfo storeInfo);
 }

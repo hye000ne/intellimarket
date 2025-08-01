@@ -8,6 +8,6 @@ import com.intellimarket.store.domain.RootCategory;
 
 @Repository
 public interface RootCategoryDAO {
-	public List selectAll();
-	public RootCategory select(int rootCategoryId);
+	List selectAll();
+	RootCategory select(int rootCategoryId);
 }

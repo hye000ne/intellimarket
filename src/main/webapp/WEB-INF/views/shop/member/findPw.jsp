@@ -71,15 +71,13 @@
 		$.ajax({
 			type : 'POST',
 			url : '/shop/member/checkEmailExist',
-			data : {
-				email : email
-			},
+			data : { email : email },
 			success : function(res) {
 				if (res) {
-					callback(res);
+					callback(true);
 				} else {
 					alert("해당 이메일로 가입된 회원이 없습니다.")
-					callback(res);
+					callback(false);
 				}
 			},
 			error : function() {
@@ -92,6 +90,7 @@
 	// 인증코드 요청 처리 
 	function sendAuthCode() {
 		showLoading();
+		
 		validateEmail(function(isValid) {
 			if (!isValid){
 				hideLoading();				
@@ -101,12 +100,13 @@
 			$.ajax({
 				type : 'POST',
 				url : '/sendAuthEmail',
-				data : {
-					email : $('#email').val()
-				},
+				data : { email : $('#email').val() },
 				success : function(res) {
-					if (res.status === 'ok')
+					if (res.status === 'ok') {
 						alert(res.msg);
+					} else {
+						alert(res.msg);
+					}
 				},
 				error : function(xhr) {
 					alert('인증 메일 전송에 실패했습니다.');
@@ -121,6 +121,7 @@
 	// 인증번호 유효성 검사
 	function validateAuthCode(callback) {
 		const authCode = $('#authCode').val();
+		
 		if (!authCode) {
 			alert('인증코드를 입력하세요.');
 			callback(false);
@@ -134,6 +135,7 @@
 				email : $('#email').val(),
 				authCode : authCode
 			},
+			
 			success : function(res) {
 				if (res.status === 'ok') {
 					callback(true);
@@ -153,6 +155,7 @@
 	// 임시 비밀번호 요청 처리
 	function submitFindPwForm() {
 		showLoading();
+		
 		validateAuthCode(function(isValid) {
 			if (!isValid) {
 				hideLoading();
@@ -162,9 +165,7 @@
 			$.ajax({
 				type : 'POST',
 				url : '/sendTempPasswordEmail',
-				data : {
-					email : $('#email').val()
-				},
+				data : { email : $('#email').val() },
 				success : function(res) {
 					if (res.status === 'ok') {
 						alert(res.msg);

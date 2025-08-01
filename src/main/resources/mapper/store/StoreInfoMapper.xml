@@ -1,9 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.intellimarket.seller.dao.StoreInfoDAO">
+<mapper namespace="com.intellimarket.store.dao.StoreInfoDAO">
 	
 	<insert id="insert" parameterType="StoreInfo">
-		INSERT INTO store_info(store_name, store_tel, logo_path, seller_id)
-			values (#{storeName}, #{storeTel}, #{logoPath}, #{seller.sellerId})
+		INSERT INTO store_info(store_name, store_tel, logo_path, seller_id, store_introduce)
+			values (#{storeName}, #{storeTel}, #{logoPath}, #{seller.sellerId}, #{storeIntroduce})
 	</insert>
+	
+	<insert id="update" parameterType="StoreInfo">
+		UPDATE store_info SET 
+		store_name = #{storeName},
+		store_tel = #{storeTel},
+		logo_path = #{logoPath},
+		store_introduce = #{storeIntroduce}
+		Where seller_id = #{seller.sellerId}
+	</insert>
+	
 </mapper>

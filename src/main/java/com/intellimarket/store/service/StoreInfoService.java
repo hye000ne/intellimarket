@@ -13,4 +13,7 @@ public interface StoreInfoService {
 	
 	// 스토어 정보 등록
 	void insert(StoreInfo storeInfo);
+	
+	int update(StoreInfo storeInfo);
+	
 }

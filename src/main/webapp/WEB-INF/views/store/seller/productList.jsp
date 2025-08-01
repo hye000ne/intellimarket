@@ -1,12 +1,6 @@
-<%@page import="com.intellimarket.store.domain.Product"%>
-<%@page import="java.util.List"%>
-<%@page import="com.intellimarket.common.util.Paging"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/views/common/init.jsp" %>
-<% 
-	List<Product> productList = (List)request.getAttribute("productList");
-	Paging paging = (Paging)request.getAttribute("paging");
-%>
+
 <!-- Content -->
 <div class="content-wrapper">
 
@@ -30,10 +24,9 @@
 	  
 	<section class="content">
 	    <!-- 상위 카테고리 카드 반복 시작 -->
-	    <% for (int i = 1; i < 5; i++) { %>
 	        <div class="card">
 	            <div class="card-header">
-	                <h3 class="card-title">전자제품</h3>
+	                <h3 class="card-title"></h3>
 	                <div class="card-tools">
 	                    <div class="input-group input-group-sm" style="width: 300px;">
 	                        <input
@@ -78,20 +71,19 @@
 	
 	                    <!-- 레코드 반복 시작 -->
 	                    <tbody>
-	                        <% for (int a = 1; a < 6; a++) { %>
 	                            <tr>
-	                                <td><%= i %></td>
+	                                <td>1</td>
 	                                <td>
-	                                    <a href="#">써큘레이터</a><br />
+	                                    <a href="#"> 냥냥껌 </a><br/>
+<%-- 	                                    <a href="#"> ${product.topCategoryName} / ${product.subCategoryName} </a><br/> --%>
 	                                </td>
-	                                <td>가전제품</td>
-	                                <td>삼성</td>
-	                                <td>18,000</td>
-	                                <td>19</td>
+	                                <td> 펫 용품 </td>
+	                                <td> 로얄캐닌 </td>
+	                                <td>20000</td>
 	                                <td>150</td>
-	                                <td class="project-state">
-	                                    <span class="badge badge-success">활성화</span>
-	                                </td>
+	                                <td>20</td>
+	                                <td>활성화</td>
+	                                <td></td>
 	                                <td class="project-actions text-right">
 	                                    <a class="btn btn-primary btn-sm" href="#">
 	                                        <i class="fas fa-folder"></i> 상세
@@ -104,14 +96,22 @@
 	                                    </a>
 	                                </td>
 	                            </tr>
-	                        <% } %>
 	                    </tbody>
 	                    <!-- 레코드 반복 끝 -->
 	
 	                </table>
 	            </div>
+	            <!-- Footer Paging 시작 -->
+	            <div class="card-footer clearfix">
+	                <ul class="pagination pagination-sm m-0 float-left">
+	                  <li class="page-item"><a class="page-link" href="#">&laquo;</a></li>
+	                  <li class="page-item"><a class="page-link" href="#">1</a></li>
+	                  <li class="page-item"><a class="page-link" href="#">2</a></li>
+	                  <li class="page-item"><a class="page-link" href="#">3</a></li>
+	                  <li class="page-item"><a class="page-link" href="#">&raquo;</a></li>
+	                </ul>
+              	</div>
+	            <!-- Footer Paging 끝 -->
 	        </div>
-	    <% } %>
-	    <!-- 상위 카테고리 카드 반복 끝 -->
 	</section>
 </div>

@@ -3,6 +3,7 @@ package com.intellimarket.shop.service;
 import java.util.List;
 
 import com.intellimarket.shop.domain.Member;
+import com.intellimarket.shop.domain.Member.MemberStatus;
 
 public interface MemberService {
 	// 전체 목록 조회
@@ -17,17 +18,17 @@ public interface MemberService {
 	// 회원가입
 	void insert(Member member);
 	
-	// 회원 정보 수정
-	int updateMember(Member member);
+	// 회원 정보 변경
+	void updateMember(Member member);
 	
-	// 회원 탈퇴
-	int delete(int memberId);
+	// 회원 상태 변경
+	void updateMemberStatus(int memberId, MemberStatus status, String inactiveReason);
 	
 	// 로그인
 	Member loginMember(String email, String password);
 	
-	// 비밀번호 수정
-	boolean updatePassword(String email, String password);
+	// 비밀번호 변경
+	void updatePassword(String email, String password);
 	
 	// 비밀번호 확인
 	boolean matchPassword(int memberId, String password);
