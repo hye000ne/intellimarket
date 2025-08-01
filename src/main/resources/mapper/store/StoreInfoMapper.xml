@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.intellimarket.store.dao.StoreInfoDAO">
+
+	<select id="select" parameterType="int" resultType="StoreInfo">
+		select * from store_info where seller_id = #{sellerId}
+	</select>
 	
 	<insert id="insert" parameterType="StoreInfo">
 		INSERT INTO store_info(store_name, store_tel, logo_path, seller_id, store_introduce)

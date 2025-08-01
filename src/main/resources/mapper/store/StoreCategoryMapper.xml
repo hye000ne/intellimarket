@@ -5,7 +5,13 @@
 	 <resultMap id="storeCategoryMap" type="StoreCategory">
 	 
         <id column="store_category_id" property="storeCategoryId"/>
-        <result column="store_info_id" property="storeInfoId"/>
+        
+        <association 
+        property="storeInfo" 
+        column="store_info_id"
+        javaType="StoreInfo"
+        select="com.intellimarket.store.dao.StoreInfoDAO.select"
+    	/>
         
         <association 
             property="subCategory" 
