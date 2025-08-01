@@ -1,4 +1,4 @@
-package com.intellimarket.shop.controller.mypagecontroller;
+package com.intellimarket.shop.controller.mypage;
 
 import javax.servlet.http.HttpSession;
 
@@ -14,19 +14,19 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @Controller
-@RequestMapping("/shop/mypage/inquiries")
-public class InquiriesController {
+@RequestMapping("/shop/mypage/myorders")
+public class MyOrdersController {
 	
 	@GetMapping
-	public String showInquiriesPage(Model model, HttpSession session) {
+	public String showMyOrdersPage(Model model, HttpSession session) {
 		// 로그인 사용자 세션 확인
-		Member member = SessionUtil.getLoginMember(session, model, "shop/login.jsp", "shop/loginFailAlert.jsp");
+		Member member = SessionUtil.getLoginMember(session, model, "shop/member/login.jsp", "shop/common/loginFailAlert.jsp");
 
 	    if (member == null) {
 	        return "layout/shop";
 	    }
 		
-		model.addAttribute("contentPage", "shop/mypage/inquiries.jsp");
+		model.addAttribute("contentPage", "shop/mypage/myorders.jsp");
 		return "layout/shop";
 	}
 }

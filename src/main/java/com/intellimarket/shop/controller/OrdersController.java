@@ -63,7 +63,7 @@ public class OrdersController {
 		}
 		
 		model.addAttribute("list", list);
-		model.addAttribute("contentPage", "shop/orders.jsp");
+		model.addAttribute("contentPage", "shop/orders/orders.jsp");
 		
 		return "layout/shop";
 	}

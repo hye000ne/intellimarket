@@ -77,22 +77,13 @@
                                 <!-- 마이 페이지 -->
 								<li>
 									<div class="favorit-items">
-										<c:if test="${not empty sessionScope.loginMember}">
                                        		<a href="${ctx}/shop/mypage"><i class="far fa-user"></i></a>
-                                     	</c:if>
-										<c:if test="${empty sessionScope.loginMember}">
-                                       		<a href="${ctx}/shop/mypage"><i class="far fa-user"></i></a>
-                                     	</c:if>
 									</div>
 								</li>
                                	<!-- 장바구니 -->
                                	<li>
                                    	<div class="shopping-card">
-                                   		<c:if test="${not empty sessionScope.loginMember}">
                                        		<a href="${ctx}/shop/cart"><i class="fas fa-shopping-cart"></i><span class="cart-count">3</span></a>
-                                     	</c:if>
-										<c:if test="${empty sessionScope.loginMember}">
-                                     	</c:if>
                                    	</div>
                                	</li>
                            	</ul>
