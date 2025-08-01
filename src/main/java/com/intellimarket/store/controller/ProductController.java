@@ -9,6 +9,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -16,7 +17,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.intellimarket.common.util.Paging;
 import com.intellimarket.store.domain.Product;
 import com.intellimarket.store.domain.Seller;
 import com.intellimarket.store.domain.SubCategory;
@@ -39,7 +39,47 @@ public class ProductController {
 	@Autowired ProductService productService;
 	@Autowired StoreCategoryService storeCategoryService;
 	@Autowired SubCategoryService subCategoryService;
-	@Autowired Paging paging;
+	
+	/**
+	 * 판매자 상품 리스트 페이지
+	 */
+	@GetMapping("/list")
+	public String adminProductList(Model model , HttpSession session) {
+		Seller loginSeller = (Seller) session.getAttribute("loginSeller");
+		model.addAttribute("list", productService.selectById(10));
+		model.addAttribute("contentPage", "store/seller/productList.jsp");
+		return "layout/store";
+	}
+
+	/**
+	 * 판매자 상품 등록 페이지
+	 */
+	@GetMapping("/registForm")
+	public String adminProductRegistForm(Model model) {
+		model.addAttribute("contentPage", "store/seller/productRegist.jsp");
+		return "layout/store";
+	}
+	
+	/**
+	 * 판매자 상품 상세 페이지
+	 * */
+	@GetMapping("/detail")
+	public String adminProductDetail(@RequestParam int productId, Model model) {
+		Product product = productService.select(productId);
+		model.addAttribute("product", product);
+		model.addAttribute("contentPage", "store/seller/productDetail.jsp");
+		return "layout/store";
+	}
+	
+	/**
+	 * 판매자 상품 수정 페이지
+	 * */
+	@GetMapping("/update")
+	public String adminProductUpdate(@RequestParam int productId, Model model) {
+		model.addAttribute("product", productService.selectById(productId));
+		model.addAttribute("contentPage", "store/seller/productUpdate.jsp");
+		return "layout/store";
+	}
 	
 	/**
 	 * seller가 보유한 상위 카테고리 조회

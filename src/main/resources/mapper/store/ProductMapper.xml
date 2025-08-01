@@ -15,7 +15,7 @@
 		<result column="model_code" 		property="modelCode"/>
 		<result column="origin" 			property="origin"/>
 		<result column="sales_count" 		property="salesCount"/>
-		<result column="product_status" 	property="status"/>
+		<result column="status" 			property="status"/>
 		
 		<result column="created_date" 		property="createdDate"/>
 		<result column="updated_date" 		property="updatedDate"/>
@@ -27,18 +27,18 @@
 			select = "com.intellimarket.store.dao.SubCategoryDAO.select"
 		/> 
 		
-		<association 
+<!-- 		<association 
 			column = "market_event_id" 
 			property = "marketEvent" 
 			javaType = "MarketEvent"
 			select = "com.intellimarket.store.dao.MarketEventDAO.select"
-		/>
+		/> -->
 		
 		<association 
 			column = "seller_id" 
 			property = "seller" 
 			javaType = "Seller"
-			select = "com.intellimarket.store.dao.SellerDAO.select"
+			select = "com.intellimarket.store.dao.SellerDAO.selectById"
 		/>
 		
 		<collection 

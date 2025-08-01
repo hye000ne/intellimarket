@@ -36,6 +36,10 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter {
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler("/resources/**").addResourceLocations("/resources/");
+        
+        // 임시 배포 폴더 물리 경로 추가 매핑
+        registry.addResourceHandler("/resources/store/img/**")
+                .addResourceLocations("file:///C:/TeamProject/.metadata/.plugins/org.eclipse.wst.server.core/tmp0/wtpwebapps/intellimarket/resources/store/img/");
     }
     
     @Override
@@ -50,4 +54,5 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter {
 		resolver.setMaxUploadSize(10*1024*1024); //10M 
 		return resolver;
 	}
+
 }
