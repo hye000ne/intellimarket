@@ -37,21 +37,27 @@
 							</div>
 						</div>
 						<div class="form-group row">
-							<label class="col-sm-3 col-form-label">생년월일</label>
-							<div class="col-sm-9">
-								<input type="date" class="form-control" id="birth" name="birth" value="${seller.birth}" readonly>
-							</div>
-						</div>
-						<div class="form-group row">
 							<label class="col-sm-3 col-form-label">연락처</label>
 							<div class="col-sm-9">
 								<input type="text" class="form-control" id="tel" name="tel" value="${seller.tel}" readonly>
 							</div>
 						</div>
 						<div class="form-group row">
-							<label class="col-sm-3 col-form-label">상태</label>
+							<label class="col-sm-3 col-form-label">사업자 등록번호</label>
 							<div class="col-sm-9">
-								<input type="text" class="form-control" id="status" name="status" value="${seller.status}" readonly>
+								<input type="text" class="form-control" id="businessNum" name="businessNum" value="${seller.businessNum}" readonly>
+							</div>
+						</div>
+						<div class="form-group row">
+							<label class="col-sm-3 col-form-label">은행</label>
+							<div class="col-sm-9">
+								<input type="text" class="form-control" id="bank" name="bank" value="${seller.bank}" readonly>
+							</div>
+						</div>
+						<div class="form-group row">
+							<label class="col-sm-3 col-form-label">계좌번호</label>
+							<div class="col-sm-9">
+								<input type="text" class="form-control" id="accountNum" name="accountNum" value="${seller.accountNum}" readonly>
 							</div>
 						</div>
 						<div class="form-group row">

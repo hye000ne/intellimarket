@@ -88,7 +88,7 @@
 		          	<input type="hidden" name="status" value="REJECTED"/>
 		          	<div class="form-group">
 		            	<label for="inactiveReason">반려 사유</label>
-		            	<textarea name="rejectMsg" id="rejectMsg" class="form-control" required></textarea>
+		            	<textarea name="msg" id="msg" class="form-control" required></textarea>
 		          	</div>
         		</div>
 
