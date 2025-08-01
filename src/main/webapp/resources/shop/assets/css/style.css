@@ -3875,7 +3875,7 @@ input:focus {
 
 /* line 2, ../../SAIFUL/Running_project/250 eCommerce_HTML/250 eCommerce_HTML/250 eCommerce_HTML/assets/scss/_h1-hero.scss */
 .slider-height {
-  min-height: 800px;
+  min-height: 400px;
   background-repeat: no-repeat;
   background-position: center center;
   background-size: cover;

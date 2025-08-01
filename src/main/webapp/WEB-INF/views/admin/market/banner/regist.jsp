@@ -17,100 +17,110 @@
 
 	<section class="content">
   		<div class="container-fluid">
-    		<div class="row">
-
-	      		<!-- 좌측: 배너 정보 -->
-	      		<div class="col-md-6">
-	        		<div class="card card-primary">
-	          			<div class="card-header">
-	            			<h3 class="card-title"><i class="fas fa-flag"></i> 배너 등록</h3>
-	          			</div>
-	          			<div class="card-body">
-	            			<form id="bannerForm" enctype="multipart/form-data">
-	              				<!-- 제목 -->
-	              				<div class="form-group">
-		                			<label for="title">제목</label>
-		                			<input type="text" class="form-control" id="title" name="title" placeholder="배너 제목 입력">
-	              				</div>
-				
-				             	<!-- 노출 여부 -->
-				              	<div class="form-group">
-				                	<label>노출 여부</label><br/>
-				                	<div class="icheck-primary d-inline mr-3">
-				                  		<input type="radio" id="statusY" name="status" value="Y" checked>
-                  						<label for="statusY">Y</label>
-			                		</div>
-				                	<div class="icheck-primary d-inline">
-					                  	<input type="radio" id="statusN" name="status" value="N">
-					                  	<label for="statusN">N</label>
-					                </div>
-				              	</div>
+			<form id="bannerForm" enctype="multipart/form-data">
+    			<div class="row">
+		      		<!-- 좌측: 배너 정보 -->
+		      		<div class="col-md-6">
+		        		<div class="card card-primary" style="height: 440px;">
+		          			<div class="card-header">
+		            			<h3 class="card-title"><i class="fas fa-flag"></i> 배너 등록</h3>
+		          			</div>
+		          			<div class="card-body">
+		              				<!-- 제목 -->
+		              				<div class="form-group mt-3 mb-4">
+			                			<label for="title">제목</label>
+			                			<input type="text" class="form-control" id="title" name="title" placeholder="배너 제목 입력">
+		              				</div>
+					
+					             	<!-- 노출 여부 -->
+					              	<div class="form-group mt-3 mb-4">
+					                	<label>노출 여부</label><br/>
+					                	<div class="form-check form-check-inline">
+					                  		<input class="form-check-input" type="radio" id="statusY" name="status" value="Y" checked>
+	                  						<label class="form-check-label" for="statusY">Y</label>
+				                		</div>
+					                	<div class="form-check form-check-inline">
+						                  	<input class="form-check-input" type="radio" id="statusN" name="status" value="N">
+						                  	<label class="form-check-label" for="statusN">N</label>
+						                </div>
+					              	</div>
+		
+					              	<!-- 링크 URL -->
+					              	<div class="form-group mt-3 mb-5">
+					                	<label>링크 URL</label>
+					                	<input type="text" class="form-control" id="linkUrl" name="linkUrl" placeholder="클릭 시 이동할 링크">
+					              	</div>
+								<div class="text-right">
+								  	<button type="button" class="btn btn-secondary" onclick="goListPage()">목록</button>
+								  	<button type="button" class="btn btn-primary mr-2" onclick="submitBanner()">등록</button>
+						        </div>
+			          		</div>
+		       			</div>
+		      		</div>
 	
-				              	<!-- 링크 URL -->
-				              	<div class="form-group">
-				                	<label>링크 URL</label>
-				                	<input type="text" class="form-control" id="linkUrl" name="linkUrl" placeholder="클릭 시 이동할 링크">
-				              	</div>
-				            </form>
-		          		</div>
-	       			</div>
-	      		</div>
-
-	      		<!-- 우측: 이미지 업로드 -->
-		      	<div class="col-md-6">
-		        	<div class="card card-success">
-			          	<div class="card-header">
-			            	<h3 class="card-title"><i class="fas fa-image"></i> 배너 이미지 등록</h3>
-			          	</div>
-			          	<div class="card-body text-center">
-				            <!-- 미리보기 영역 -->
-			            	<div class="border rounded mb-3 d-flex justify-content-center align-items-center flex-column" style="min-height: 300px;">
-			              		<img id="banner-preview" class="img-fluid d-none mb-2" alt="선택된 이미지" />
-			              		<p id="banner-upload-placeholder" class="text-muted">이미지 미리보기</p>
-			            	</div>
-			            </div>
-						<!-- 파일 선택 -->
-				        <div>
-				        	<input type="file" id="imageFile" name="imageFile" accept="image/*" class="d-none" onchange="previewBannerImage(event)">
-				            <button type="button" class="btn btn-outline-primary" onclick="document.getElementById('imageFile').click();">
-			                	<i class="fas fa-upload"></i> 이미지 선택
-			              	</button>
-			            </div>
+		      		<!-- 우측: 이미지 업로드 -->
+			      	<div class="col-md-6">
+			        	<div class="card card-success">
+				          	<div class="card-header">
+				            	<h3 class="card-title"><i class="fas fa-image"></i> 배너 이미지 등록</h3>
+				          	</div>
+				          	<div class="card-body text-center">
+					            <!-- 미리보기 영역 -->
+				            	<div class="preview-wrapper border rounded mb-3 d-flex justify-content-center align-items-center flex-column" style="min-height: 300px;">
+								  	<img id="bannerPreview" class="img-fluid d-none mb-2" alt="선택된 이미지" />
+								  	<p id="bannerPlaceholder" class="text-muted">이미지 미리보기</p>
+								</div>
+								<!-- 파일 선택 -->
+								<div>
+								  	<input type="file" id="imageFile" name="imageFile" accept="image/*" class="d-none" onchange="onBannerImageChange(this)">
+								  	<button type="button" class="btn btn-outline-primary" onclick="openImageFile()">이미지 선택</button>
+								</div>
+				            </div>
+						</div>
 					</div>
 				</div>
-			</div>
+			</form>
 		</div>
 	</section>
 </div>
 
 <script>
-	  function previewBannerImage(event) {
-	    const file = event.target.files[0];
-	    if (file) {
-	      const reader = new FileReader();
-	      reader.onload = function(e) {
-	        $('#banner-preview').attr('src', e.target.result).show();
-	        $('#banner-upload-placeholder').hide();
-	      };
-	      reader.readAsDataURL(file);
-	    }
-	  }
-	function handleBannerForm(action) {
-		if (action === 'list') {
-			location.href = '/admin/market/banner/list';
-			return;
-		}
-		
-		if (!validateBannerForm()) return;
+	// 이미지 선택 트리거
+	function openImageFile() {
+		$('#imageFile').click();
+	}
 
+	// 이미지 미리보기
+	function onBannerImageChange(input) {
+		const file = input.files[0];
+		if(!file) return;
+		
+		const reader = new FileReader();
+		reader.onload =function(e) {
+			$('#bannerPreview').attr('src', e.target.result).removeClass('d-none');
+			$('#bannerPlaceholder').hide();
+		};
+		reader.readAsDataURL(file);		
+	}
+	
+	// 배너 등록 ajax
+	function submitBanner() {
+		if (!validateBannerForm()) return;
+	
+		const formData = new FormData(document.getElementById('bannerForm'));
+	
 		$.ajax({
 			url: '/admin/market/banner/regist',
 			type: 'POST',
-			data: $("#bannerForm").serialize(),
+			data: formData,
+			processData: false,
+			contentType: false,
 			success: function(res) {
 				if (res.status === 'ok') {
 					alert(res.msg);
 					location.href = '/admin/market/banner/list';
+				} else {
+					alert(res.msg);
 				}
 			},
 			error: function(xhr) {
@@ -118,7 +128,8 @@
 			}
 		});
 	}
-
+	
+	// 유효성 검사
 	function validateBannerForm() {
 		if (!$('#title').val()) {
 			alert('제목을 입력해주세요.');
@@ -130,11 +141,16 @@
 			return false;
 		}
 		
-		if (!$('[name="isVisible"]').is(':checked')) {
-		  	alert('노출기간을 선택해주세요.');
+		if (!$('[name="status"]').is(':checked')) {
+		  	alert('노출여부를 체크해주세요.');
 		  	return false;
 		}
 
 		return true;
+	}
+	
+	// 목록
+	function goListPage() {
+		location.href = '/admin/market/banner/list';
 	}
 </script>

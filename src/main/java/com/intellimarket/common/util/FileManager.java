@@ -7,6 +7,7 @@ import java.util.List;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.intellimarket.admin.domain.Banner;
 import com.intellimarket.common.exception.CommonException;
 import com.intellimarket.store.domain.Product;
 import com.intellimarket.store.domain.ProductImage;
@@ -20,7 +21,6 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @Component //ComponentScan의 대상이 될 수 있다. 따라서 자동으로 인스턴스가 올라온다
 public class FileManager {
-	
 	public void save(Product product, String path, String prefix) throws CommonException{
 		
 		//파일의 수가 복수개 이므로, 상품마다 1:1 대응하는 디렉토리를 생성하자
@@ -100,4 +100,39 @@ public class FileManager {
 		
 	}
 	
+	// 쇼핑몰 관리자 배너 이미지 저장
+	public void save(Banner banner, String path) throws CommonException{
+		MultipartFile imageFile = banner.getImageFile();
+		
+		if(imageFile == null || imageFile.isEmpty()) throw new CommonException("배너 이미지 파일이 없습니다.");
+		
+		try {
+			String ori = imageFile.getOriginalFilename();
+	        String ext = ori.substring(ori.lastIndexOf(".") + 1);
+	        String fileName = System.currentTimeMillis() + "." + ext;
+			
+	        File file = new File(path, fileName);
+	        imageFile.transferTo(file);
+			
+	        // DB에 저장할 경로 세팅
+	        banner.setImagePath("/resources/common/img/banner/" + fileName);
+		} catch (Exception e) {
+			throw new CommonException("배너 이미지 저장 중 오류가 발생했습니다.", e);
+		} 
+	}
+	
+	// 쇼핑몰 관리자 배너 이미지 삭제
+	public void remove(Banner banner, String savePath) {
+		String imgPath = banner.getImagePath(); // /resources/common/img/banner/파일명.png
+
+		if(imgPath != null) {
+			String fileName = imgPath.substring(imgPath.lastIndexOf("/")+1);
+			File file = new File(savePath, fileName);
+			
+			if(file.exists()) {
+				boolean deleted = file.delete();
+				log.debug(file.getAbsolutePath() + " 삭제 결과: " + deleted);
+			}
+		}
+	}
 }

@@ -6,6 +6,11 @@
 		select * from banners
 	</select>
 	
+	<select id="selectByStatus" parameterType="String" resultType="Banner">
+		select * from banners
+		where status = #{status}
+	</select>
+	
 	<!-- 단 건 조회 (ID 기반) -->
 	<select id="selectById" parameterType="int" resultType="Banner">
 		select * from banners 

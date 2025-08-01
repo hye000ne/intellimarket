@@ -9,6 +9,7 @@ import com.intellimarket.admin.domain.Banner;
 @Repository
 public interface BannerDAO {
 	public List<Banner> selectAll();
+	public List<Banner> selectByStatus(String status);
 	public Banner selectById(int bannerId);
 	public int regist(Banner banner);
 	public int updateBanner(Banner banner);
