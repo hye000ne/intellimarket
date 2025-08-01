@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.intellimarket.common.util.SessionUtil;
 import com.intellimarket.shop.domain.Cart;
 import com.intellimarket.shop.domain.Member;
 import com.intellimarket.shop.domain.Orders;
@@ -47,19 +48,11 @@ public class OrdersController {
 	public String orders(@RequestParam(required = false)Integer product_id, Model model, HttpSession session) {
 		
 		// 로그인 사용자 세션 확인
-		Member member = (Member)session.getAttribute("loginMember");
-		
-		if(member == null) {
-			model.addAttribute("contentPage", "shop/login.jsp");
-			return "layout/shop";
-		}
-		
-		log.debug(member.getName());
-		log.debug(member.getEmail());
-		log.debug(member.getPhone());
-		log.debug(""+member.getZipCode());
-		log.debug(member.getAddress());
-		log.debug(member.getDetailAddress());
+		Member member = SessionUtil.getLoginMember(session, model, "shop/login.jsp", "shop/loginFailAlert.jsp");
+
+	    if (member == null) {
+	        return "layout/shop";
+	    }
 		
 		//결제 상품 리스트 (0 이면 장바구니에서 접근, 다른 번호일 경우 바로결제버튼을 클릭해서 접근)
 		List<?> list; 

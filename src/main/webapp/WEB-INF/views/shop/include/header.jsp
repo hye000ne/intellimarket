@@ -81,7 +81,7 @@
                                        		<a href="${ctx}/shop/mypage"><i class="far fa-user"></i></a>
                                      	</c:if>
 										<c:if test="${empty sessionScope.loginMember}">
-                                       		<a href="${ctx}/shop/login"><i class="far fa-user"></i></a>
+                                       		<a href="${ctx}/shop/mypage"><i class="far fa-user"></i></a>
                                      	</c:if>
 									</div>
 								</li>
