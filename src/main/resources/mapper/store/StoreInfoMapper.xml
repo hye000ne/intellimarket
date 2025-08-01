@@ -21,15 +21,13 @@
 			values (#{storeName}, #{storeTel}, #{logoPath}, #{seller.sellerId}, #{storeIntroduce})
 	</insert>
 	
-	<insert id="update" parameterType="StoreInfo">
+	<update id="update" parameterType="StoreInfo">
 		UPDATE store_info SET 
 		store_name = #{storeName},
 		store_tel = #{storeTel},
 		logo_path = #{logoPath},
 		store_introduce = #{storeIntroduce}
 		Where seller_id = #{seller.sellerId}
-	</insert>
-	
-
+	</update>
 	
 </mapper>
