@@ -12,4 +12,6 @@ public interface ProductImageDAO {
 	void insert(ProductImage productImage);
 	
 	List<ProductImage> selectById(int productId);
+	
+	void delete(int productId);
 }

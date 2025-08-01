@@ -93,8 +93,15 @@
 			, product_detail = #{productDetail}
 			, model_code = #{modelCode}
 			, origin = #{origin}
-			, sub_category_id = #{subCategoryId}
+			, sub_category_id = #{subCategory.subCategoryId}
 			, updated_date = NOW()
+		where product_id = #{productId}
+	</update>
+	
+	<!-- 상품 상태 변경 -->
+	<update id="updateStatus" parameterType="Product">
+		update products
+		set status = #{status}
 		where product_id = #{productId}
 	</update>
 	

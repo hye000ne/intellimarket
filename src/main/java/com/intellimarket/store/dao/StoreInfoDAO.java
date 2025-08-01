@@ -14,6 +14,9 @@ public interface StoreInfoDAO {
 	// 판매자 한 건 조회(ID 기반)
 	StoreInfo selectById(int StoreInfoId);
 	
+	// 판먜자 한 건 조회(seller_id 기반)
+	StoreInfo select(int sellerId);
+	
 	// 스토어 정보 등록
 	void insert(StoreInfo storeInfo);
 	

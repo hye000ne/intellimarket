@@ -41,12 +41,11 @@
 					                    <th>가격</th>
 					                    <th>판매 건수</th>
 					                    <th>재고</th>
-					                    <th>상품 상태</th>
 					                    <th>등록일</th>
 					                    <th>수정일</th>
 					                    <th>상세</th>
 					                    <th>수정</th>
-					                    <th>삭제</th>
+					                    <th>상품 상태 변경</th>
 			                  		</tr>
 			                  	</thead>
 			                  	<tbody>
@@ -59,21 +58,27 @@
 				                    		<td>${product.salesCount}</td>
 				                    		<td>${product.productStock}</td>
 				                    		<!-- 판매중지 , 품절이 추가되면 <td>${product.status.label}</td> -->
-				                    		<td>${product.status.label}</td>
 				                    		<td>${product.createdDate}</td>
 				                    		<td>${product.updatedDate}</td>
-				                    		<td><button type="button" class="btn btn-block btn-primary btn-sm" onclick="goToDetail(${product.productId})">상세</button></td>
+				                    		<td><button type="button" class="btn btn-block btn-info btn-sm" onclick="goToDetail(${product.productId})">상세</button></td>
 				                    		<td><button type="button" class="btn btn-block btn-primary btn-sm" onclick="goToUpdate(${product.productId})">수정</button></td>
 			                    			<td>
-												<c:choose>
-												    <c:when test="${product.status eq 'INACTIVATE'}">삭제됨</c:when>
-												    <c:otherwise>
-												        <button type="button" class="btn btn-block btn-danger btn-sm" data-toggle="modal"
-												        	 data-target="#inactivateModal" onclick="setInactivateProductId(${product.productId})">
-												            삭제
-												        </button>
-												    </c:otherwise>
-												</c:choose>
+											<c:choose>
+											  <c:when test="${product.status eq 'INACTIVATE'}">
+											    <button type="button" class="btn btn-block btn-danger btn-sm" data-toggle="modal"
+											            data-target="#statusModal"
+											            onclick="setProductStatus(${product.productId}, 'ACTIVATE')">
+											      비활성화
+											    </button>
+											  </c:when>
+											  <c:when test="${product.status eq 'ACTIVATE'}">
+											    <button type="button" class="btn btn-block btn-success btn-sm" data-toggle="modal"
+											            data-target="#statusModal"
+											            onclick="setProductStatus(${product.productId}, 'INACTIVATE')">
+											      활성화
+											    </button>
+											  </c:when>
+											</c:choose>
 											</td>
 				                  		</tr>
 									</c:forEach>
@@ -87,29 +92,30 @@
     </div>
 </div>
 
-<!-- 탈퇴 모달 -->
-<div class="modal fade" id="inactivateModal" tabindex="-1" role="dialog" aria-labelledby="inactivateModalLabel" aria-hidden="true">
+<!-- 상품 상태 수정 모달 -->
+<div class="modal fade" id="statusModal" tabindex="-1" role="dialog" aria-labelledby="statusModalLabel" aria-hidden="true">
   	<div class="modal-dialog" role="document">
     	<div class="modal-content">
-      		<form id="productInactivateForm" method="post" action="/admin/member/updateMemberStatus">
+      		<form id="setProductStatusForm" method="post" action="/store/seller/manage/product/updateProductStatus">
         		<div class="modal-header">
-	         		<h5 class="modal-title" id="inactivateModalLabel">상품 삭제</h5>
+	         		<h5 class="modal-title" id="statusModalLabel">상품 상태 변경</h5>
 	          		<button type="button" class="close" data-dismiss="modal" aria-label="닫기">
 	            		<span aria-hidden="true">&times;</span>
 	          		</button>
         		</div>
 
 		        <div class="modal-body">
-		          	<input type="hidden" name="productId" id="inactivateProductId"/>
-		          	<input type="hidden" name="status" value="INACTIVATE"/>
+		          	<input type="hidden" name="productId" id="statusProductId"/>
+					<input type="hidden" name="status" id="statusValue"/>
 		          	<div class="form-group">
-		            	<label for="inactiveReason">상품을 삭제하시면 , Status가 변경됩니다.</label>
+		            	<label> 상품 상태가 활성화 <-> 비활성화 로 변경됩니다.</label>
+		            	<label> 상품 상태가 비활성화인 경우 , 쇼핑몰에 노출되지 않습니다.</label>
 		          	</div>
         		</div>
 
         		<div class="modal-footer">
           			<button type="button" class="btn btn-secondary" data-dismiss="modal">취소</button>
-          			<button type="button" class="btn btn-danger" onclick="submitProductInactivateForm()">확인</button>
+          			<button type="button" class="btn btn-danger" onclick="submitProductStatusForm()">확인</button>
         		</div>
       		</form>
     	</div>
@@ -140,13 +146,14 @@
 		location.href='/store/seller/manage/product/update?productId='+productId;
 	}
 
-	function setInactivateProductId(productId) {
-	    $('#inactivateProductId').val(productId);
+	function setProductStatus(productId, status) {
+	    document.getElementById("statusProductId").value = productId;
+	    document.getElementById("statusValue").value = status;
 	}
 
-	function submitProductInactivateForm() {
-		if (confirm('정말 삭제 처리하시겠습니까?')) {
-	        $('#productInactivateForm').submit();
+	function submitProductStatusForm() {
+		if (confirm('정말 상품 상태를 변경 하시겠습니까?')) {
+	        $('#setProductStatusForm').submit();
 	    }
 	}
 	

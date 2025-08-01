@@ -116,7 +116,7 @@
 		<div id="main-thumbnail-preview" class="border rounded mb-3" 
 		     style="min-height:550px; display:flex; justify-content:center; align-items:center;">
 		  <img id="main-preview" style="max-width: 100%; max-height: 550px;" 
-		       src="${ctx}/resources/store/img/p_${product.productId}/${product.imgList[0].filename}" 
+		       src="${ctx}/resources/store/img/p_${product.productId}/${product.imgList[0].filename}?v=${System.currentTimeMillis()}" 
 		       alt="선택된 이미지">
 		</div>
 	
@@ -124,7 +124,7 @@
 		<div id="thumbnail-list" class="d-flex flex-wrap border rounded" 
 		     style="gap:10px; padding:10px; min-height:100px; justify-content:center; overflow-y:auto;">
 		  <c:forEach var="img" items="${product.imgList}">
-		    <img src="${ctx}/resources/store/img/p_${product.productId}/${img.filename}" 
+		    <img src="${ctx}/resources/store/img/p_${product.productId}/${img.filename}?v=${System.currentTimeMillis()}" 
 		         style="width:80px; height:80px; object-fit:cover; cursor:pointer;" 
 		         class="border rounded thumbnail-img" />
 		  </c:forEach>
@@ -152,8 +152,6 @@
 </div>
 
 <script>
-	//이미지 업로드 시 , 필요한 selected file 배열 선언
-	let selectedFile = [];
 	//이미지 미리보기 렌더링
 	function previewMultipleImages(event) {
 		let files = event.target.files;
@@ -181,9 +179,8 @@
 	
 	    // 작은 썸네일 생성
 	    Array.from(files).forEach(file => {
-			selectedFile.push(file);
 	    	let reader = new FileReader();
-	      reader.onload = function(e) {
+	      	reader.onload = function(e) {
 	    	let img = document.createElement('img');
 	        img.src = e.target.result;
 	        img.style.width = '80px';
@@ -203,7 +200,7 @@
 	    });
 	  }
 	
-	//업데이트 페이지 요청
+	//수정 페이지 요청
 	function gotoUpdate(){
 		let productId = Number($('#productId').val()); 
     	location.href='/store/seller/manage/product/update?productId='+productId;

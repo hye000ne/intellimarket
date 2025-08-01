@@ -28,6 +28,7 @@ public class FileManager {
 		
 		//MultipartFile 변수와 html 이름이 동일하면 매핑됨
 		MultipartFile[] photo = product.getPhoto();
+		if (photo == null || photo.length == 0 || photo[0].isEmpty()) return;
 		List imgList = new ArrayList();
 		
 		for(int i=0;i<photo.length;i++) {
