@@ -1,5 +1,3 @@
-<%@page import="java.util.ArrayList"%>
-<%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/views/common/init.jsp" %> <!-- 절대 침범 금지 -->
 
@@ -99,27 +97,30 @@
 <div class="cart-container">
     <h2>🛒 내 장바구니</h2>
 
-    <%
-        int totalPrice = 0;
-        for(Cart cart : (List<Cart>) request.getAttribute("list")) {
-            totalPrice += cart.getProduct().getPrice() * cart.getQuantity();
-    %>
-        <div class="product-card">
-            <div class="product-thumbnail">
-                <img src="${ctx}/resources/shop/assets/img/product/product_list_1.png" alt="<%= cart.getProduct().getProductName() %>" />
-            </div>
-            <div class="product-details">
-                <div class="product-title"><%= cart.getProduct().getProductName() %></div>
-                <div class="product-quantity"><%= cart.getQuantity() %> 개</div>
-                <div class="product-price">₩<%= String.format("%,d", cart.getProduct().getPrice()) %></div>
-            </div>
+    <div class="product-card">
+        <div class="product-thumbnail">
+            <img src="https://via.placeholder.com/80" alt="상품 이미지" />
         </div>
-    <%
-        }
-    %>
+        <div class="product-details">
+            <div class="product-title">예시 상품 A</div>
+            <div class="product-quantity">2 개</div>
+            <div class="product-price">₩25,000</div>
+        </div>
+    </div>
+
+    <div class="product-card">
+        <div class="product-thumbnail">
+            <img src="https://via.placeholder.com/80" alt="상품 이미지" />
+        </div>
+        <div class="product-details">
+            <div class="product-title">예시 상품 B</div>
+            <div class="product-quantity">1 개</div>
+            <div class="product-price">₩15,000</div>
+        </div>
+    </div>
 
     <div class="cart-summary">
-        <h3>총 금액: ₩<%= String.format("%,d", totalPrice) %></h3>
+        <h3>총 금액: ₩40,000</h3>
         <button class="checkout-btn" onclick="alert('결제 페이지로 이동합니다!')">결제하기</button>
     </div>
 </div>

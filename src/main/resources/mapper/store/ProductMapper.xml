@@ -28,7 +28,6 @@
 		/> 
 		
 <!-- 		<association 
->>>>>>> b76e38126124162d7e99fa1c9a85047303d1e535
 			column = "market_event_id" 
 			property = "marketEvent" 
 			javaType = "MarketEvent"
@@ -50,9 +49,8 @@
 			select = "com.intellimarket.store.dao.ProductImageDAO.selectById"
 		/>
 		
-		 -->
 	</resultMap>
-
+	
 	<!-- 전체 목록 조회 -->
 	<select id="selectAll" resultMap="joinMap">
 		select *from products
