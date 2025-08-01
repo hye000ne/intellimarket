@@ -27,7 +27,7 @@
 			select = "com.intellimarket.store.dao.SubCategoryDAO.select"
 		/> 
 		
-		<association 
+	<!-- 	<association 
 			column = "market_event_id" 
 			property = "marketEvent" 
 			javaType = "MarketEvent"
@@ -48,6 +48,8 @@
 			ofType = "ProductImage"
 			select = "com.intellimarket.store.dao.ProductImageDAO.selectById"
 		/>
+		
+		 -->
 	</resultMap>
 
 	<!-- 전체 목록 조회 -->
