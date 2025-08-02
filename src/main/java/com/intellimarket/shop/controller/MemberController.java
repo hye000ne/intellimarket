@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.intellimarket.common.util.CookieUtil;
+import com.intellimarket.common.util.SessionUtil;
 import com.intellimarket.shop.domain.Member;
 import com.intellimarket.shop.domain.Member.MemberStatus;
 import com.intellimarket.shop.domain.Member.Role;
@@ -85,14 +86,47 @@ public class MemberController {
 	
 	/**
 	 * 회원 정보 수정
+	 * - 관리자 : 다른 회원 정보 수정 가능 (세션 갱신 없음)
+	 * - 본인 : 정보 수정 후 세션 갱신
 	 */
 	@PostMapping("/update")
 	@ResponseBody
-	public Map<String, Object> update(@ModelAttribute Member member) {
+	public Map<String, Object> update(@ModelAttribute Member member, HttpSession session) {
 		Map<String, Object> res = new HashMap<>();
+		Member loginMember = (Member) session.getAttribute("loginMember");
+		
+		// 본인인지 or 관리자 권한인지 체크
+		boolean isSelf = loginMember.getMemberId() == member.getMemberId();
+		boolean isAdmin = loginMember.getRole() == Member.Role.ADMIN;
+		
+		if (!isSelf && !isAdmin) {
+			res.put("status", "fail");
+			res.put("msg", "권한이 없습니다.");
+			return res;
+		}
+		
 		memberService.updateMember(member);
+		
+		if (isSelf) SessionUtil.refreshLoginMember(session, memberService);
+
 		res.put("status", "ok");
 		res.put("msg", "회원 정보 수정이 완료되었습니다.");
+		return res;
+	}
+	
+	/**
+	 * 비밀번호 변경
+	 * - 마이페이지에서 사용자 본인이 직접 비밀번호를 변경
+	 */
+	@PostMapping("/updateMemberPassword")
+	@ResponseBody
+	public Map<String,Object> updateMemberPassword(@RequestParam String password, HttpSession session) {
+		Map<String, Object> res = new HashMap<>();
+		Member loginMember = (Member) session.getAttribute("loginMember");
+		
+		memberService.updatePassword(loginMember.getEmail(), password);
+		res.put("status", "ok");
+		res.put("msg", "비밀번호 변경이 완료되었습니다.");
 		return res;
 	}
 	
@@ -146,6 +180,21 @@ public class MemberController {
 	@ResponseBody
 	public boolean checkEmailExist(@RequestParam String email) {
 		return memberService.isEmailExists(email);
+	}
+	
+	/**
+	 * 비밀번호 확인
+	 * - 마이페이지에서 비밀번호 변경 시 1단계 비밀번호 확인용 
+	 */
+	@PostMapping("/checkPassword")
+	@ResponseBody
+	public Map<String, Object> checkPassword(@RequestParam String password, HttpSession session) {
+		Map<String, Object> res = new HashMap<>();
+		Member loginMember = (Member) session.getAttribute("loginMember");
+		memberService.matchPassword(loginMember, password); // 비밀번호 매치
+		res.put("status","ok");
+		
+		return res;
 	}
 	
 	/**
