@@ -28,6 +28,8 @@ public class AdminMemberController {
 	public String memberListPage(Model model) {
 		model.addAttribute("list", memberService.selectAll());
 		model.addAttribute("contentPage", "admin/member/list.jsp");
+		model.addAttribute("menuGroup", "member");
+		model.addAttribute("subMenu", "memberList");
 		return "layout/admin";
 	}
 	
@@ -39,6 +41,8 @@ public class AdminMemberController {
 		model.addAttribute("member", memberService.selectById(memberId));
 		model.addAttribute("mode", mode); // detail, edit
 		model.addAttribute("contentPage", "admin/member/detail.jsp");
+		model.addAttribute("menuGroup", "member");
+		model.addAttribute("subMenu", "memberList");
 		return "layout/admin";
 	}
 	
@@ -48,6 +52,8 @@ public class AdminMemberController {
 	@GetMapping("/join")
 	public String memberJoinForm(Model model) {
 		model.addAttribute("contentPage", "admin/member/join.jsp");
+		model.addAttribute("menuGroup", "member");
+		model.addAttribute("subMenu", "join");
 		return "layout/admin";
 	}
 	

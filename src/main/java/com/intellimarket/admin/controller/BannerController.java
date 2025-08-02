@@ -34,6 +34,8 @@ public class BannerController {
 	public String bannerListPage(Model model) {
 		model.addAttribute("list", bannerService.selectAll());
 		model.addAttribute("contentPage", "admin/market/banner/list.jsp");
+		model.addAttribute("menuGroup", "market");
+		model.addAttribute("subMenu", "banner");
 		return "layout/admin";
 	}
 	
@@ -43,6 +45,8 @@ public class BannerController {
 	@GetMapping("/banner/regist")
 	public String registBannerPage(Model model) {
 		model.addAttribute("contentPage", "admin/market/banner/regist.jsp");
+		model.addAttribute("menuGroup", "market");
+		model.addAttribute("subMenu", "banner");
 		return "layout/admin";
 	}
 	
