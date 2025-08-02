@@ -10,5 +10,7 @@ public interface StoreCategoryService {
 	public List selectById(int storeInfoId);
 	public void update(StoreCategory StoreCategory);
 	public List<TopCategory> getTopCategoryById(int storeInfoId);
+	public List<StoreCategory> getAllCategoryById(Seller seller);
 	public void insert(List<Integer> StoreCategory, Seller seller);
+	public void delete(int storeCategoryId, Seller seller);
 }

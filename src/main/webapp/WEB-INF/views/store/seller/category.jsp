@@ -1,7 +1,8 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/views/common/init.jsp"%>
 
-<!-- Content -->
+<!-- Content Wrapper -->
 <div class="content-wrapper">
 	<!-- Content Header -->
 	<div class="content-header">
@@ -12,9 +13,7 @@
 				</div>
 				<div class="col-sm-6">
 					<ol class="breadcrumb float-sm-right">
-						<li class="breadcrumb-item">
-							<a href="#">Home</a>
-						</li>
+						<li class="breadcrumb-item"><a href="#">Home</a></li>
 						<li class="breadcrumb-item active">상품 관리 > 카테고리 연결</li>
 					</ol>
 				</div>
@@ -25,34 +24,38 @@
 
 	<!-- Main content -->
 	<section class="content">
-		<div class="container-fluid d-flex justify-content-center">
-			<div class="card card-outline card-primary" style="width: 800px;">
+		<div class="container-fluid d-flex flex-column align-items-center"
+			style="gap: 2rem;">
+			<!-- Form 카드 -->
+			<div class="card card-outline card-primary"
+				style="max-width: 800px; width: 100%;">
 				<div class="card-header">
 					<h3 class="card-title">
-						<i class="fas fa-tags"></i> 상품 카테고리 선택
+						<i class="fas fa-tags"></i> 카테고리 선택
 					</h3>
 				</div>
 
 				<!-- 카테고리 선택 폼 -->
 				<form id="categoryForm">
 					<div class="card-body">
-						<!-- 선택된 상품 카테고리 중복 메시지 (상단에 표시) -->
+						<!-- 상단 메시지 -->
 						<div class="form-group row">
 							<div class="col-sm-12">
 								<div class="alert alert-info" role="alert">
-									<i class="fas fa-info-circle"></i> <strong>선택된 카테고리:</strong> 상품 카테고리 연결을 위해 최대 00개 까지 지정할 수 있습니다.
+									<i class="fas fa-info-circle"></i> <strong>선택된 카테고리:</strong>
+									상품 카테고리 연결을 위해 최대 00개 까지 지정할 수 있습니다.
 								</div>
 							</div>
 						</div>
 
 						<!-- 대분류 선택 -->
 						<div class="form-group row">
-							<label class="col-sm-3 col-form-label" for="rootCategory"> <i class="fas fa-layer-group"></i> 대분류
-							</label>
+							<label class="col-sm-3 col-form-label" for="rootCategory"><i
+								class="fas fa-layer-group"></i> 대분류</label>
 							<div class="col-sm-9">
-								<select class="form-control" id="rootCategory" name="rootCategory" required>
+								<select class="form-control" id="rootCategory"
+									name="rootCategory" required>
 									<option value="">대분류를 선택하세요</option>
-									<!-- DB에서 가져온 대분류 목록이 여기에 동적으로 추가됩니다 -->
 									<c:forEach items="${rootCategories}" var="rootCategory">
 										<option value="${rootCategory.rootCategoryId}">${rootCategory.categoryName}</option>
 									</c:forEach>
@@ -62,24 +65,24 @@
 
 						<!-- 중분류 선택 -->
 						<div class="form-group row">
-							<label class="col-sm-3 col-form-label" for="topCategory"> <i class="fas fa-list-ul"></i> 중분류
-							</label>
+							<label class="col-sm-3 col-form-label" for="topCategory"><i
+								class="fas fa-list-ul"></i> 중분류</label>
 							<div class="col-sm-9">
-								<select class="form-control" id="topCategory" name="topCategory" disabled required>
+								<select class="form-control" id="topCategory" name="topCategory"
+									disabled required>
 									<option value="">중분류를 선택하세요</option>
-									<!-- 대분류 선택 후 동적으로 옵션이 추가됩니다 -->
 								</select>
 							</div>
 						</div>
 
 						<!-- 소분류 선택 -->
 						<div class="form-group row">
-							<label class="col-sm-3 col-form-label" for="subCategory"> <i class="fas fa-tags"></i> 소분류
-							</label>
+							<label class="col-sm-3 col-form-label" for="subCategory"><i
+								class="fas fa-tags"></i> 소분류</label>
 							<div class="col-sm-9">
-								<select class="form-control" id="subCategory" name="subCategory" disabled required>
+								<select class="form-control" id="subCategory" name="subCategory"
+									disabled required>
 									<option value="">소분류를 선택하세요</option>
-									<!-- 중분류 선택 후 동적으로 옵션이 추가됩니다 -->
 								</select>
 							</div>
 						</div>
@@ -88,9 +91,9 @@
 						<div class="form-group row">
 							<label class="col-sm-3 col-form-label">선택된 카테고리</label>
 							<div class="col-sm-9">
-								<div id="selectedCategoriesDisplay" class="border rounded p-3" style="min-height: 100px; background-color: #f8f9fa;">
+								<div id="selectedCategoriesDisplay" class="border rounded p-3"
+									style="min-height: 100px; background-color: #f8f9fa;">
 									<small class="text-muted">선택된 카테고리가 여기에 표시됩니다.</small>
-									<!-- 선택된 카테고리들이 태그 형태로 표시 -->
 									<div id="categoryTags"></div>
 								</div>
 							</div>
@@ -99,7 +102,8 @@
 						<!-- 카테고리 추가 버튼 -->
 						<div class="form-group row">
 							<div class="col-sm-12 text-center">
-								<button type="button" id="addCategoryBtn" class="btn btn-success btn-sm" disabled>
+								<button type="button" id="addCategoryBtn"
+									class="btn btn-success btn-sm" disabled>
 									<i class="fas fa-plus"></i> 카테고리 추가
 								</button>
 							</div>
@@ -108,18 +112,54 @@
 
 					<!-- 폼 하단 버튼 -->
 					<div class="card-footer text-center">
-						<button type="button" onclick="handleActionBtnClick('save')" class="btn btn-primary">
+						<button type="button" onclick="handleActionBtnClick('save')"
+							class="btn btn-primary">
 							<i class="fas fa-save"></i> 저장
 						</button>
-						<button type="button" onclick="handleActionBtnClick('cancel')" class="btn btn-secondary">
+						<button type="button" onclick="handleActionBtnClick('cancel')"
+							class="btn btn-secondary">
 							<i class="fas fa-times"></i> 취소
 						</button>
 					</div>
 				</form>
 			</div>
+
+			<!-- 사용중인 카테고리 영역 -->
+			<div class="card card-info" style="max-width: 800px; width: 100%;">
+				<div class="card-header">
+					<h3 class="card-title">
+						<i class="fas fa-check-circle"></i> 사용중인 카테고리
+					</h3>
+				</div>
+				<div class="card-body"
+					style="min-height: 100px; background-color: #f0f8ff;">
+					<div id="usedCategoriesContainer">
+						<c:choose>
+							<c:when test="${not empty usedCategory}">
+								<c:forEach var="sc" items="${usedCategory}">
+									<span class="badge badge-info mr-2 mb-2 category-tag"
+										style="font-size: 0.9em; cursor: pointer;"
+										data-storecategoryid="${sc.storeCategoryId}" title="더블클릭해서 삭제">
+										${sc.subCategory.topCategory.rootCategory.categoryName} &gt;
+										${sc.subCategory.topCategory.categoryName} &gt;
+										${sc.subCategory.categoryName} </span>
+								</c:forEach>
+							</c:when>
+							<c:otherwise>
+								<small class="text-muted">사용 중인 카테고리가 없습니다.</small>
+							</c:otherwise>
+						</c:choose>
+					</div>
+				</div>
+			</div>
 		</div>
 	</section>
 </div>
+
+<script>
+// 기존에 작성하신 JS 코드 재사용 (변경 불필요)
+</script>
+
 
 <script>
 // 전역 변수 선언
@@ -174,8 +214,49 @@ $(document).ready(function() {
     $('#addCategoryBtn').on('click', function() {
         addSelectedCategory();
     });
+    
+    // 태그 더블 클릭시 삭제
+    $('#usedCategoriesContainer').on('dblclick', '.category-tag', function() {
+        const $tag = $(this);
+        const storeCategoryId = $tag.data('storecategoryid')
+        deleteCategory(storeCategoryId, $tag);
+    });
 });
-
+	
+	/**
+	 * 삭제 확인 후 서버에 삭제 요청 보내기
+	 */
+	function deleteCategory(storeCategoryId, $tagElement) {
+	    if (!confirm('정말 이 카테고리를 삭제하시겠습니까?')) {
+	        return;
+	    }
+	
+	    $.ajax({
+	        type: 'POST',
+	        url: '/store/seller/manage/editstore/category/delete',
+	        contentType: 'application/json',
+	        data: JSON.stringify({ storeCategoryId: storeCategoryId }),
+	        success: function(response) {
+	            if (response.status === 'ok') {
+	                alert('카테고리가 삭제되었습니다.');
+	                $tagElement.remove();
+	
+	                // selectedCategories 배열에서 제거
+	                const index = selectedCategories.findIndex(c => c.subId == storeCategoryId);
+	                if (index !== -1) {
+	                    selectedCategories.splice(index, 1);
+	                    updateCategoryDisplay();
+	                }
+	            } else {
+	                alert('삭제 실패: ' + response.message);
+	            }
+	        },
+	        error: function() {
+	            alert('서버 통신 중 오류가 발생했습니다.');
+	        }
+	    });
+	}
+	    
 /**
  * 기존에 선택된 카테고리들을 로드하여 표시
  */
@@ -185,6 +266,7 @@ function loadExistingCategories() {
     <c:if test="${not empty existingCategories}">
         <c:forEach items="${existingCategories}" var="category">
             selectedCategories.push({
+            	storeCategoryId : ${category.storeCategoryId},
                 rootId: '${category.rootCategoryId}',
                 rootName: '${category.rootCategoryName}',
                 topId: '${category.topCategoryId}',

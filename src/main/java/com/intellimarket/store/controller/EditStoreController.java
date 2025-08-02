@@ -19,9 +19,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.intellimarket.store.domain.Seller;
+import com.intellimarket.store.domain.StoreCategory;
 import com.intellimarket.store.domain.StoreInfo;
 import com.intellimarket.store.domain.SubCategory;
 import com.intellimarket.store.domain.TopCategory;
+import com.intellimarket.store.exception.StoreCategoryException;
 import com.intellimarket.store.service.RootCategoryService;
 import com.intellimarket.store.service.StoreCategoryService;
 import com.intellimarket.store.service.StoreInfoService;
@@ -61,9 +63,13 @@ public class EditStoreController {
 	@GetMapping("/info")
 	public String info(HttpSession session, Model model) {
 		Map<String, Object> res = new HashMap<>();
+
+		// 셀러 정보 세션에서 받아오기
+		Seller loginSeller = (Seller)session.getAttribute("loginSeller");
 		
-		Seller seller = (Seller)session.getAttribute("loginSeller");
-		StoreInfo storeInfo = storeInfoService.selectById(seller);
+		// 스토어 정보 가져오기
+		StoreInfo storeInfo = storeInfoService.selectById(loginSeller);
+		
 		
 		model.addAttribute("storeInfo", storeInfo);
 		model.addAttribute("contentPage", "store/seller/storeinfo.jsp");
@@ -100,7 +106,6 @@ public class EditStoreController {
 		
 		// 파일 저장 경로
 		String savePath = request.getServletContext().getRealPath("/resources/common/img/logo");
-		log.warn(savePath);
 		
 		
 		Map<String, Object> res = new HashMap<>();
@@ -117,8 +122,17 @@ public class EditStoreController {
 	 * 스토어 카테고리 선택 페이지
 	 */
 	@GetMapping("/category")
-	public String applyCategory(Model model) {
+	public String applyCategory(Model model, HttpSession session) {
+		Seller loginSeller = (Seller) session.getAttribute("loginSeller");
+		
+		// 스토어 보유한 모든 카테고리(서브-탑-루트) 몽땅 가져오기
+		List<StoreCategory> storeCategoryCategories = storeCategoryService.getAllCategoryById(loginSeller);
+		
+		//카테고리 선택용 루트 카테고리
 		model.addAttribute("rootCategories", rootCategoryService.selectAll());
+
+		// 스토어가 가지고 있는 모든 카테고리(서브 ~ 루트) 몽땅
+		model.addAttribute("usedCategory", storeCategoryCategories);
 		model.addAttribute("contentPage", "store/seller/category.jsp");
 		return "layout/store";
 	}
@@ -164,6 +178,27 @@ public class EditStoreController {
 
 		Map<String, Object> res = new HashMap<>();
 		res.put("status", "ok");
+		return res;
+	}
+	
+	@PostMapping("/category/delete")
+	@ResponseBody
+	public Map<String, Object> deleteCategory(@RequestBody Map<String, Integer> data, HttpSession session) {
+
+		Map<String, Object> res = new HashMap<>();
+		Seller seller = (Seller) session.getAttribute("loginSeller");
+
+		try {
+			storeCategoryService.delete(data.get("storeCategoryId"), seller);
+			res.put("status", "ok");
+		} catch (StoreCategoryException e){
+			res.put("status","fail");
+			res.put("message",e.getMessage());
+		} catch (Exception e){
+	        res.put("status", "error");
+	        res.put("message", "서버 오류가 발생했습니다.");
+	        e.printStackTrace();
+		}
 		return res;
 	}
 }

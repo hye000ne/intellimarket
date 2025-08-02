@@ -21,10 +21,37 @@
         />
     </resultMap>
 
+	<!-- StoreCategory의 subCategoryId를 통해 rootCategory 정보까지 가져오기 -->
+	<resultMap id="storeCategoryFullMap" type="StoreCategory">
+		<id column="store_category_id" property="storeCategoryId" />
+		<association property="storeInfo" column="store_info_id"
+			javaType="StoreInfo" select="com.intellimarket.store.dao.StoreInfoDAO.select" />
+		<association property="subCategory" javaType="SubCategory">
+			<id column="sub_category_id" property="subCategoryId" />
+			<result column="sub_category_name" property="categoryName" />
+			<association property="topCategory"
+				javaType="TopCategory">
+				<id column="top_category_id" property="topCategoryId" />
+				<result column="top_category_name" property="categoryName" />
+				<association property="rootCategory"
+					javaType="RootCategory">
+					<id column="root_category_id" property="rootCategoryId" />
+					<result column="root_category_name" property="categoryName" />
+				</association>
+			</association>
+		</association>
+	</resultMap>
+    
+
     <!-- 특정 판매자의 카테고리 리스트 조회 -->
     <select id="selectById" resultMap="storeCategoryMap" parameterType="int">
         select * from store_categories WHERE store_info_id = #{storeInfoId}
     </select>
+    
+    <select id="selectByStoreCategoryId" resultMap="storeCategoryMap" parameterType="int">
+    	select * from store_categories WHERE store_category_id = #{storeCategoryId}
+    </select>
+    
     
     <insert id="insert" parameterType="StoreCategory">
     	INSERT INTO store_categories(store_category_id, store_info_id, sub_category_id)
@@ -33,4 +60,34 @@
     		(#{item.storeCategoryId}, #{item.storeInfo.storeInfoId}, #{item.subCategory.subCategoryId})
     	</foreach>
     </insert>
+    
+    <select id="selectRootById" resultMap="storeCategoryFullMap" parameterType="int">
+		SELECT
+			sc.store_category_id,
+			sc.store_info_id,
+			sub.sub_category_id, sub.category_name as sub_category_name, sub.top_category_id,
+			top.top_category_id, top.category_name as top_category_name,
+			top.root_category_id,
+			root.root_category_id, root.category_name as root_category_name
+		FROM 
+			store_categories sc
+		JOIN 
+			sub_categories sub ON sc.sub_category_id = sub.sub_category_id
+		JOIN 
+			top_categories top ON sub.top_category_id = top.top_category_id
+		JOIN 
+			root_categories root ON top.root_category_id = root.root_category_id
+		WHERE 
+			sc.store_info_id = #{storeInfoId}
+		ORDER BY
+			root.category_name ASC,
+			top.category_name ASC,
+			sub.category_name ASC			
+	</select>
+	
+	<delete id="delete" parameterType="int">
+	    DELETE FROM store_categories
+	    WHERE store_category_id = #{storeCategoryId}
+	</delete>
+    
 </mapper>
