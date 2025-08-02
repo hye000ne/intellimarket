@@ -41,7 +41,7 @@
 	      <div class="form-row mb-4">
 	        <div class="form-group col-md-6">
 	          <label>상위 카테고리</label>
-	          <select class="form-control" id="topCategory"></select>
+	          <select class="form-control" id="topCategory" name="subCategory.topCategory.topCategoryId"></select>
 	        </div>
 	        <div class="form-group col-md-6">
 	          <label>하위 카테고리</label>
@@ -220,9 +220,9 @@
 	}
 	
 	//판매자가 보유한 상위 카테고리 요청
-	function getTopCategory(storeInfoId){
+	function getTopCategory(){
 		$.ajax({
-			url:"/store/seller/manage/product/getStoreTopList?storeInfoId=" + storeInfoId,
+			url:"/store/seller/manage/product/getStoreTopList",
 			type:"get",
 			success:function(result, status, xhr){ //200번대의 성공 응답 시, 이 함수 실행
 				printCategory("#topCategory",result);
@@ -234,15 +234,101 @@
 	}
 	
 	//판매자가 보유한 하위 카테고리 요청 (상위 카테고리에 따른 change 이벤트 부여)
-	function getSubCategory(storeInfoId,topCategoryId){
+	function getSubCategory(topCategoryId){
 		$.ajax({
-			url :"/store/seller/manage/product/getStoreSubList?storeInfoId=" + storeInfoId + "&topCategoryId=" + topCategoryId,
+			url :"/store/seller/manage/product/getStoreSubList?topCategoryId=" + topCategoryId,
 			type:"GET",
 			success:function(result, status, xhr){
 				printCategory("#subCategory",result);
 			}
 		});
 	}
+	
+	function validateProductForm() {
+		const topCategoryId = parseInt($('#topCategory').val());
+		const subCategoryId = parseInt($('#subCategory').val());
+		const productName = $('[name="productName"]').val().trim();
+		const brandName = $('[name="brandName"]').val().trim();
+		const priceStr = $('[name="price"]').val().trim();
+		const discountStr = $('[name="discount"]').val().trim();
+		const productStockStr = $('[name="productStock"]').val().trim();
+		const modelCode = $('[name="modelCode"]').val().trim();
+		const origin = $('[name="origin"]').val().trim();
+		const introduce = $('[name="introduce"]').val().trim();
+		const productDetail = $('#summernote').summernote('code').replace(/<[^>]*>/g, '').trim();
+		const hasThumbnail = selectedFile.length > 0;
+
+		  // 상위 카테고리 체크
+		  if (isNaN(topCategoryId) || topCategoryId <= 0) {
+		    alert('상위 카테고리를 선택해주세요.');
+		    return false;
+		  }
+		  
+		  // 하위 카테고리 체크
+		  if (isNaN(subCategoryId) || subCategoryId <= 0) {
+		    alert('하위 카테고리를 선택해주세요.');
+		    return false;
+		  }
+
+		  if (productName.length < 1) {
+		    alert('상품명을 입력해주세요.');
+		    return false;
+		  }
+
+		  if (brandName.length < 1) {
+		    alert('브랜드명을 입력해주세요.');
+		    return false;
+		  }
+
+		  if (!/^\d+$/.test(priceStr) || parseInt(priceStr) <= 0) {
+		    alert('상품 가격은 0보다 큰 숫자만 입력 가능합니다.');
+		    return false;
+		  }
+		  const price = parseInt(priceStr);
+
+		  if (!/^\d+$/.test(discountStr) || parseInt(discountStr) < 0) {
+		    alert('할인 가격은 0 이상의 숫자만 입력 가능합니다.');
+		    return false;
+		  }
+		  const discount = parseInt(discountStr);
+
+		  if (discount > price) {
+		    alert('할인 가격은 상품 가격보다 클 수 없습니다.');
+		    return false;
+		  }
+
+		  if (!/^\d+$/.test(productStockStr) || parseInt(productStockStr) <= 0) {
+		    alert('상품 재고는 0보다 큰 숫자만 입력 가능합니다.');
+		    return false;
+		  }
+
+		  if (modelCode.length < 1) {
+		    alert('모델명을 입력해주세요.');
+		    return false;
+		  }
+
+		  if (origin.length < 1) {
+		    alert('원산지를 입력해주세요.');
+		    return false;
+		  }
+
+		  if (introduce.length < 1) {
+		    alert('간단소개를 입력해주세요.');
+		    return false;
+		  }
+
+		  if (productDetail.length < 1) {
+		    alert('상세 내용을 입력해주세요.');
+		    return false;
+		  }
+
+		  if (!hasThumbnail) {
+		    alert('상품 이미지를 최소 1장 선택해주세요.');
+		    return false;
+		  }
+
+		  return true;
+		}
 	
   $(()=>{
 	
@@ -252,17 +338,17 @@
     });
     
 	//상위 카테고리 가져오기 
-	//storeInfoId 세션에서 얻어와야함. 현재 하드코딩
-	getTopCategory(10)
+	getTopCategory()
 	
 	//상위 카테고리의 값 변경 시, 하위 카테고리 가져오기
-	//storeInfoId 세션에서 얻어와야함. 현재 하드코딩
    	$("#topCategory").change(function(){
-		getSubCategory(10,$(this).val());
+		getSubCategory($(this).val());
     });
 	
     //상품등록 버튼 등록 이벤트 부여
     $('#bt_regist').click(()=>{
+    	if (!validateProductForm()) return;
+    	
     	  const form = document.getElementById('form1');
     	  const formData = new FormData(form);
 
@@ -284,7 +370,7 @@
    	    success: function (res) {
    	      if (res.status === 'ok') {
    	        alert(res.msg);
-   	        location.href = '/store/seller/manage/productRegist';
+   	        location.href = '/store/seller/manage/product/list';
    	      } else {
    	        alert(res.msg);
    	      }

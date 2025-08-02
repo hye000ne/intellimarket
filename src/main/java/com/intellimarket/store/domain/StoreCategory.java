@@ -8,6 +8,6 @@ import lombok.Data;
 @Alias("StoreCategory")
 public class StoreCategory {
     private int storeCategoryId;
-    private int storeInfoId;
+    private StoreInfo storeInfo;
     private SubCategory subCategory;
 }

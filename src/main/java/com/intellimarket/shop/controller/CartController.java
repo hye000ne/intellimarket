@@ -19,7 +19,7 @@ public class CartController {
 	@GetMapping
 	public String cart(Model model, HttpSession session) {
 		// 로그인 사용자 세션 확인
-		Member member = SessionUtil.getLoginMember(session, model, "shop/login.jsp", "shop/loginFailAlert.jsp");
+		Member member = SessionUtil.getLoginMember(session, model, "shop/login.jsp", "shop/common/loginFailAlert.jsp");
 
 		if (member == null) {
 			return "layout/shop";

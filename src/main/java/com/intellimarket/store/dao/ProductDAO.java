@@ -2,10 +2,10 @@ package com.intellimarket.store.dao;
 
 import java.util.List;
 
-import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import com.intellimarket.store.domain.Product;
+import com.intellimarket.store.domain.ProductStatus;
 
 @Repository
 public interface ProductDAO {
@@ -23,6 +23,9 @@ public interface ProductDAO {
 	
 	// 상품 정보 수정
 	int updateProduct(Product product);
+	
+	// 상품 상태 변경
+	int updateStatus(Product product);
 	
 	// 상품 삭제
 	int delete(int productId);
