@@ -31,7 +31,7 @@ public interface MemberService {
 	void updatePassword(String email, String password);
 	
 	// 비밀번호 확인
-	boolean matchPassword(int memberId, String password);
+	void matchPassword(Member member, String password);
 	
 	// 회원 존재 여부 (이메일 기반)
 	boolean isEmailExists(String email);

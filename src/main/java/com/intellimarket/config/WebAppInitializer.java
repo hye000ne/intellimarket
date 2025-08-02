@@ -33,6 +33,7 @@ public class WebAppInitializer implements WebApplicationInitializer {
         AnnotationConfigWebApplicationContext web = new AnnotationConfigWebApplicationContext();
         web.register(WebMvcConfig.class);
         ServletRegistration.Dynamic dispatcher = servletContext.addServlet("dispatcher", new DispatcherServlet(web));
+        dispatcher.setInitParameter("throwExceptionIfNoHandlerFound", "true");
         dispatcher.setLoadOnStartup(1);
         dispatcher.addMapping("/"); // 전체 요청 처리
 	}

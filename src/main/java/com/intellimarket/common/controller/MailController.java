@@ -78,14 +78,5 @@ public class MailController {
 		int code = (int)((Math.random() * 9 + 1) * 100000);
 		return String.valueOf(code);
 	}
-	
-	@ExceptionHandler({ShopException.class, CommonException.class})
-	@ResponseBody
-	public Map<String, Object> handleMailException(CommonException e) {
-	    Map<String, Object> res = new HashMap<>();
-	    res.put("status", "fail");
-	    res.put("msg", e.getMessage());
-	    return res;
-	}
 
 }

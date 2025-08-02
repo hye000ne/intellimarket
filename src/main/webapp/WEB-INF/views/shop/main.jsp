@@ -7,12 +7,11 @@
 				<div class="carousel-item ${status.index == 0 ? 'active' : ''}">
 					<div class="banner-wrapper">
 						<img src="${ctx}${banner.imagePath}">
-<%-- 						<img src="${ctx}${banner.imagePath}" class="d-block w-100" style="max-height: 500px; object-fit: contain;"> --%>
-						<div class="carousel-caption d-none d-md-block">
-							<c:if test="${not empty banner.linkUrl}">
+						<c:if test="${not empty banner.linkUrl}">
+							<div class="carousel-caption d-none d-md-block">
 								<a href="${banner.linkUrl}" class="btn btn-primary btn-sm">바로가기</a>
-							</c:if>
-						</div>
+							</div>
+						</c:if>
 					</div>
 				</div>
 			</c:forEach>
@@ -27,8 +26,6 @@
 			<span class="sr-only">Next</span>
 		</a>
 	</div>
-
-
 		
 	<!-- 카테고리 -->
 	<section class="category-area section-padding30">

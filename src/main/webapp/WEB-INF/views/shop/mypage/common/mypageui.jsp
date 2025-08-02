@@ -60,6 +60,7 @@
                 <li onclick="location.href='/shop/mypage/shipping'" 		style="<c:if test='${selectedMenu eq "shipping"}'>background-color: #E0F5F5; color: navy;</c:if>">🚚 배송 확인</li>
                 <li onclick="location.href='/shop/mypage/inquiries'" 		style="<c:if test='${selectedMenu eq "inquiries"}'>background-color: #E0F5F5; color: navy;</c:if>">❓ 상품 문의 확인</li>
                 <li onclick="location.href='/shop/mypage/editprofile'" 		style="<c:if test='${selectedMenu eq "editProfile"}'>background-color: #E0F5F5; color: navy;</c:if>">👤 회원정보 수정</li>
+                <li onclick="location.href='/shop/mypage/updatePw'"  		style="<c:if test='${selectedMenu eq "updatePw"}'>background-color: #E0F5F5; color: navy;</c:if>">🔒 비밀번호 변경</li>
                 <li onclick="location.href='/shop/mypage/reviews'" 			style="<c:if test='${selectedMenu eq "reviews"}'>background-color: #E0F5F5; color: navy;</c:if>">⭐ 리뷰 조회</li>
                 <li onclick="location.href='/shop/mypage/coupon'" 			style="<c:if test='${selectedMenu eq "coupon"}'>background-color: #E0F5F5; color: navy;</c:if>">🎁 쿠폰 및 적립금 확인</li>
                 <li onclick="location.href='/shop/mypage/notifications'" 	style="<c:if test='${selectedMenu eq "notifications"}'>background-color: #E0F5F5; color: navy;</c:if>">🔔 알림함</li>

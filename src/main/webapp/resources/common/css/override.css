@@ -101,16 +101,29 @@
 
 /* ===================== 메인 배너 ===================== */
 .banner-wrapper {
-	position: relative;
-	padding-top: 35%;
-	overflow: hidden;
+  height: 400px; /* 원하는 고정 높이 */
+  overflow: hidden;
+  position: relative;
+  background: #f8f9fa;
 }
 
 .banner-wrapper img {
-	position: absolute;
-	top: 0;
-	left: 0;
-	width: 100%;
-	height: 100%;
-	object-fit: cover;
+  max-height: 100%;
+  width: auto;
+  height: 100%;
+  object-fit: contain;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
 }
+
+.carousel-caption {
+  bottom: 20px;
+  right: 500px;
+  left: auto;
+  top: auto;
+  transform: none;
+  text-align: right;
+}
+
