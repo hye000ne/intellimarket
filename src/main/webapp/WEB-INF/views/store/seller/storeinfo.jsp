@@ -1,6 +1,6 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/views/common/init.jsp"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
 <!-- Content Wrapper -->
 <div class="content-wrapper">
@@ -13,9 +13,7 @@
 				</div>
 				<div class="col-sm-6">
 					<ol class="breadcrumb float-sm-right">
-						<li class="breadcrumb-item">
-							<a href="#">Home</a>
-						</li>
+						<li class="breadcrumb-item"><a href="#">Home</a></li>
 						<li class="breadcrumb-item active">스토어 관리 > 스토어 정보 관리</li>
 					</ol>
 				</div>
@@ -41,18 +39,24 @@
 								<!-- 스토어 정보 입력 폼 -->
 								<div class="form-row mb-4">
 									<div class="form-group col-md-6">
-										<label for="storeName">스토어 이름</label> <input type="text" class="form-control" id="storeName" name="storeName" value="${storeInfo.storeName}" placeholder="스토어 이름을 입력하세요" />
+										<label for="storeName">스토어 이름</label> <input type="text"
+											class="form-control" id="storeName" name="storeName"
+											value="${storeInfo.storeName}" placeholder="스토어 이름을 입력하세요" />
 									</div>
 									<div class="form-group col-md-6">
-										<label for="storeTel">스토어 연락처(고객센터)</label> <input type="text" class="form-control" id="storeTel" name="storeTel" value="${storeInfo.storeTel}" placeholder="스토어 연락처를 입력하세요" />
+										<label for="storeTel">스토어 연락처(고객센터)</label> <input type="text"
+											class="form-control" id="storeTel" name="storeTel"
+											value="${storeInfo.storeTel}" placeholder="스토어 연락처를 입력하세요" />
 									</div>
 									<div class="form-group col-12">
 										<label for="storeIntroduce">스토어 간단소개</label>
-										<textarea class="form-control" id="storeIntroduce" name="storeIntroduce" rows="2" placeholder="50자 이내로 입력해주세요">${storeInfo.storeIntroduce}</textarea>
+										<textarea class="form-control" id="storeIntroduce"
+											name="storeIntroduce" rows="2" placeholder="50자 이내로 입력해주세요">${storeInfo.storeIntroduce}</textarea>
 									</div>
 								</div>
 								<div class="form-group text-right">
-									<button type="button" class="btn btn-primary" onclick="applyEditForm()">적용</button>
+									<button type="button" class="btn btn-primary"
+										onclick="applyEditForm()">적용</button>
 								</div>
 							</form>
 						</div>
@@ -69,16 +73,27 @@
 								</h3>
 							</div>
 							<div class="card-body text-center">
-								<div class="preview-wrapper border rounded mb-3 d-flex justify-content-center align-items-center flex-column" style="min-width: auto; max-width: 100%">
-									<img id="logoPreview" class="img-fluid d-none mb-2" alt="선택된 이미지" />
-									<p id="logoPlaceholder" class="text-muted">이미지 미리보기</p>
+								<div
+									class="preview-wrapper border rounded mb-3 d-flex justify-content-center align-items-center flex-column"
+									style="min-width: auto; max-width: 100%">
+									<img id="logoPreview" class="img-fluid mb-2" alt="로고 이미지"
+										src="${empty storeInfo.logoPath ? '' : storeInfo.logoPath}"
+										style="${empty storeInfo.logoPath ? 'display:none;' : ''}" />
+									<p id="logoPlaceholder" class="text-muted"
+										style="${empty storeInfo.logoPath ? '' : 'display:none;'}">이미지
+										미리보기</p>
+
 								</div>
 								<div>
-									<input type="file" id="imageFile" name="imageFile" accept="image/*" class="d-none" onchange="onBannerImageChange(this)" />
-									<button type="button" class="btn btn-outline-primary" onclick="openImageFile()">이미지 선택</button>
+									<input type="file" id="imageFile" name="imageFile"
+										accept="image/*" class="d-none"
+										onchange="onLogoImageChange(this)" />
+									<button type="button" class="btn btn-outline-primary"
+										onclick="openImageFile()">이미지 선택</button>
 								</div>
 								<div class="text-right mt-3">
-									<button type="button" class="btn btn-primary" onclick="submitBanner()">등록</button>
+									<button type="button" class="btn btn-primary"
+										onclick="submitBanner()">등록</button>
 								</div>
 							</div>
 						</div>
@@ -114,25 +129,52 @@
 		});
 	}
 
-	// 이미지 파일 입력 클릭 트리거
+	// 이미지 선택 트리거
 	function openImageFile() {
 		$('#imageFile').click();
 	}
 
-	// 이미지 미리보기 처리
-	function onBannerImageChange(input) {
-		const file = input.files[0];
-		if (!file)
-			return;
+	function onLogoImageChange(input) {
+		  const file = input.files[0];
+		  if (!file) return;
 
-		const reader = new FileReader();
-		reader.onload = function(e) {
-			$('#logoPreview').attr('src', e.target.result).removeClass(
-					'd-none');
-			$('#logoPlaceholder').hide();
-		};
-		reader.readAsDataURL(file);
-	}
+		  const reader = new FileReader();
+		  reader.onload = function(e) {
+		    const img = new Image();
+		    img.onload = function() {
+		      // 최소 / 최대 가로 세로 크기 설정 (원하는 값으로 수정하세요)
+		      const minWidth = 100;   // 최소 너비(px)
+		      const minHeight = 100;  // 최소 높이(px)
+		      const maxWidth = 1000;  // 최대 너비(px)
+		      const maxHeight = 1000; // 최대 높이(px)
+
+		      if (
+		        img.width < minWidth ||
+		        img.height < minHeight ||
+		        img.width > maxWidth ||
+		        img.height > maxHeight
+		      ) {
+	    	  alert("이미지 크기는 최소 " + minWidth + "x" + minHeight + "px, 최대 " + maxWidth + "x" + maxHeight + "px 이어야 합니다.\n현재 이미지 크기: " + img.width + "x" + img.height + "px");
+		        // 파일 선택 초기화
+		        $(input).val('');
+		        // 미리보기 초기화
+		        $('#logoPreview').attr('src', '').hide();
+		        $('#logoPlaceholder').show();
+		        return;
+		      }
+
+		      // 크기 조건 만족 시 미리보기 출력
+		      $('#logoPreview')
+		        .attr('src', e.target.result)
+		        .removeClass('d-none')
+		        .css('display', 'block');
+		      $('#logoPlaceholder').hide();
+		    };
+		    img.src = e.target.result;
+		  };
+		  reader.readAsDataURL(file);
+		}
+
 
 	// 배너 이미지 등록 AJAX
 	function submitBanner() {

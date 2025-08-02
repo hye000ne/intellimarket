@@ -17,4 +17,6 @@ public interface StoreInfoService {
 	
 	// 스토어 정보 업데이트	
 	int update(StoreInfo storeInfo);
+	
+	void updateLogo(StoreInfo storeInfo, String savepath, Seller seller);
 }

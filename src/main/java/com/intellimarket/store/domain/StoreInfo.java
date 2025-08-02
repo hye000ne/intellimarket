@@ -1,6 +1,7 @@
 package com.intellimarket.store.domain;
 
 import org.apache.ibatis.type.Alias;
+import org.springframework.web.multipart.MultipartFile;
 
 import lombok.Data;
 
@@ -12,7 +13,8 @@ public class StoreInfo {
 	private String storeTel;
 	private String logoPath;
 	private String storeIntroduce;
-	
+
 	private Seller seller;
-}
 	
+	private MultipartFile imageFile;
+}

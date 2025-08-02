@@ -5,7 +5,6 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +18,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.intellimarket.admin.domain.Banner;
 import com.intellimarket.store.domain.Seller;
 import com.intellimarket.store.domain.StoreInfo;
 import com.intellimarket.store.domain.SubCategory;
@@ -95,17 +93,21 @@ public class EditStoreController {
 	/**
 	 * 로고 등록 처리
 	 */
-	@PostMapping("/banner/regist")
+	@PostMapping("/info/logo")
 	@ResponseBody
-	public Map<String, Object> registBanner(@ModelAttribute Banner banner, HttpServletRequest request) {
+	public Map<String, Object> updateLogo(@ModelAttribute StoreInfo storeInfo, HttpServletRequest request, HttpSession session) {
+		Seller loginSeller = (Seller) session.getAttribute("loginSeller");
+		
 		// 파일 저장 경로
-		String savePath = request.getServletContext().getRealPath("/resources/common/img/banner");
+		String savePath = request.getServletContext().getRealPath("/resources/common/img/logo");
+		log.warn(savePath);
+		
 		
 		Map<String, Object> res = new HashMap<>();
-		bannerService.regist(banner, savePath);
+		storeInfoService.updateLogo(storeInfo, savePath, loginSeller);
 		
 		res.put("status", "ok");
-		res.put("msg", "배너가 등록되었습니다.");
+		res.put("msg", "로고가 등록되었습니다.");
 		
 		return res;
 	}
