@@ -13,10 +13,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.intellimarket.admin.domain.Banner;
+import com.intellimarket.admin.domain.Banner.BannerStatus;
 import com.intellimarket.admin.exception.AdminException;
 import com.intellimarket.admin.service.BannerService;
 
@@ -60,6 +62,23 @@ public class BannerController {
 		res.put("msg", "배너가 등록되었습니다.");
 		
 		return res;
+	}
+
+	/**
+	 * 배너 상태 변경 처리
+	 */
+	@GetMapping("/banner/updateBannerStatus")
+	public String updateBannerStatus(
+			@RequestParam int bannerId,
+			@RequestParam BannerStatus status,
+			RedirectAttributes redirectAttr) {
+		try {
+			bannerService.updateBannerStatus(bannerId, status);
+			redirectAttr.addFlashAttribute("msg", "배너 상태 변경이 완료되었습니다.");
+		} catch (AdminException e) {
+			redirectAttr.addFlashAttribute("msg", e.getMessage());
+		}
+		return "redirect:/admin/market/banner/list";
 	}
 	
 	/**
