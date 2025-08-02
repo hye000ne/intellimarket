@@ -217,13 +217,4 @@ public class MemberController {
 		
 		return res;
 	}
-	
-	@ExceptionHandler(ShopException.class)
-	@ResponseBody
-	public Map<String, Object> handleShopException(ShopException e) {
-	    Map<String, Object> res = new HashMap<>();
-	    res.put("status", "fail");
-	    res.put("msg", e.getMessage());
-	    return res;
-	}
 }

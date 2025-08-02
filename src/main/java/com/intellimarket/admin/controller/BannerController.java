@@ -99,13 +99,4 @@ public class BannerController {
 		}
 		return "redirect:/admin/market/banner/list";
 	}
-	
-	@ExceptionHandler(AdminException.class)
-	@ResponseBody
-	public Map<String, Object> handleShopException(AdminException e) {
-	    Map<String, Object> res = new HashMap<>();
-	    res.put("status", "fail");
-	    res.put("msg", e.getMessage());
-	    return res;
-	}
 }
