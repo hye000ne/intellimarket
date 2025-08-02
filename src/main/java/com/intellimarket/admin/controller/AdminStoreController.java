@@ -32,12 +32,12 @@ public class AdminStoreController {
 	/**
 	 * 스토어 상세 페이지 
 	 */
-	@GetMapping("/detail")
-	public String memberDetailPage(@RequestParam int storeId, Model model) {
-		model.addAttribute("store", storeInfoService.selectById(storeId));
-		model.addAttribute("contentPage", "admin/store/detail.jsp");
-		model.addAttribute("menuGroup", "store");
-		model.addAttribute("subMenu", "storeList");
-		return "layout/admin";
-	}
+//	@GetMapping("/detail")
+//	public String memberDetailPage(@RequestParam int storeId, Model model) {
+//		model.addAttribute("store", storeInfoService.selectById(storeId));
+//		model.addAttribute("contentPage", "admin/store/detail.jsp");
+//		model.addAttribute("menuGroup", "store");
+//		model.addAttribute("subMenu", "storeList");
+//		return "layout/admin";
+//	}
 }
