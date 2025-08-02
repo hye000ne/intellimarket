@@ -11,6 +11,7 @@ import com.intellimarket.admin.domain.Banner;
 import com.intellimarket.common.exception.CommonException;
 import com.intellimarket.store.domain.Product;
 import com.intellimarket.store.domain.ProductImage;
+import com.intellimarket.store.domain.StoreInfo;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -121,6 +122,29 @@ public class FileManager {
 			throw new CommonException("배너 이미지 저장 중 오류가 발생했습니다.", e);
 		} 
 	}
+	
+	// 스토어 판매자 로고 이미지 저장
+	public void save(StoreInfo storeInfo, String path) throws CommonException{
+		MultipartFile imageFile = storeInfo.getImageFile();
+		
+		if(imageFile == null || imageFile.isEmpty()) throw new CommonException("로고 이미지 파일이 없습니다.");
+		
+		try {
+			String ori = imageFile.getOriginalFilename();
+	        String ext = ori.substring(ori.lastIndexOf(".") + 1);
+	        String fileName = System.currentTimeMillis() + "." + ext;
+			
+	        File file = new File(path, fileName);
+	        imageFile.transferTo(file);
+			
+	        // DB에 저장할 경로 세팅
+	        storeInfo.setLogoPath("/resources/common/img/logo/" + fileName);
+			log.debug("업로드된 이미지가 생성된 경로는 "+path);
+		} catch (Exception e) {
+			throw new CommonException("배너 이미지 저장 중 오류가 발생했습니다.", e);
+		} 
+	}
+	
 	
 	// 쇼핑몰 관리자 배너 이미지 삭제
 	public void remove(Banner banner, String savePath) {

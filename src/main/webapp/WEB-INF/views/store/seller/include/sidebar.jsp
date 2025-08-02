@@ -109,12 +109,12 @@
           </a>
           <ul class="nav nav-treeview">
             <li class="nav-item">
-              <a href="/store/seller/manage/editstore" class="nav-link">
+              <a href="/store/seller/manage/editstore/info" class="nav-link">
                 <p>스토어 정보 관리</p>
               </a>
             </li>
             <li class="nav-item">
-              <a href="#" class="nav-link">
+              <a href="/store/seller/manage/editstore/category" class="nav-link">
                 <p>카테고리 관리</p>
               </a>
             </li>
