@@ -4,6 +4,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.intellimarket.admin.domain.Banner;
 import com.intellimarket.store.domain.Seller;
 import com.intellimarket.store.domain.StoreInfo;
 import com.intellimarket.store.domain.SubCategory;
@@ -58,8 +61,15 @@ public class EditStoreController {
 	 * 스토어 정보 관리 페이지
 	 */
 	@GetMapping("/info")
-	public String applyInfo(Model model) {
+	public String info(HttpSession session, Model model) {
+		Map<String, Object> res = new HashMap<>();
+		
+		Seller seller = (Seller)session.getAttribute("loginSeller");
+		StoreInfo storeInfo = storeInfoService.selectById(seller);
+		
+		model.addAttribute("storeInfo", storeInfo);
 		model.addAttribute("contentPage", "store/seller/storeinfo.jsp");
+		
 		return "layout/store";
 	}
 
@@ -81,6 +91,25 @@ public class EditStoreController {
 		res.put("msg", "스토어 등록이 완료되었습니다");
 		return res;
 	}
+	
+	/**
+	 * 로고 등록 처리
+	 */
+	@PostMapping("/banner/regist")
+	@ResponseBody
+	public Map<String, Object> registBanner(@ModelAttribute Banner banner, HttpServletRequest request) {
+		// 파일 저장 경로
+		String savePath = request.getServletContext().getRealPath("/resources/common/img/banner");
+		
+		Map<String, Object> res = new HashMap<>();
+		bannerService.regist(banner, savePath);
+		
+		res.put("status", "ok");
+		res.put("msg", "배너가 등록되었습니다.");
+		
+		return res;
+	}
+	
 
 	/**
 	 * 스토어 카테고리 선택 페이지

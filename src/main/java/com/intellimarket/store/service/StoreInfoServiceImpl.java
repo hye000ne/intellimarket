@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.intellimarket.store.dao.StoreCategoryDAO;
 import com.intellimarket.store.dao.StoreInfoDAO;
+import com.intellimarket.store.domain.Seller;
 import com.intellimarket.store.domain.StoreInfo;
 
 @Service
@@ -24,8 +25,8 @@ public class StoreInfoServiceImpl implements StoreInfoService {
 	}
 
 	@Override
-	public StoreInfo selectById(int storeInfoId) {
-		return storeInfoDAO.selectById(storeInfoId);
+	public StoreInfo selectById(Seller seller) {
+		return storeInfoDAO.selectById(seller.getSellerId());
 	}
 
 	@Override
