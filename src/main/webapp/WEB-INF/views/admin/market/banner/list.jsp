@@ -49,8 +49,11 @@
 									<c:forEach var="banner" items="${list}">
 				                  		<tr>
 				                    		<td>${banner.title}</td>
-				                    		<td>${banner.imageFile}</td>
-				                    		<td>${banner.status}</td>
+				                    		<td><img src="${ctx}${banner.imagePath}" class="img-fluid" style="max-width: 150px; height: auto;"></td>
+				                    		<td>
+				                    			
+				                    			<input type="checkbox" ${banner.status == 'Y'? 'checked' : ''} onchange="changeStatus(${banner.bannerId }, this.checked)"/>     	
+			                    			</td>
 				                    		<td>${banner.createdDate}</td>
 								            <td><button class="btn btn-block btn-danger btn-sm" onclick="bannerDelete(${banner.bannerId})">삭제</button></td>
 				                  		</tr>
@@ -79,6 +82,11 @@
 <script src="${ctx}/resources/admin/assets/plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
 
 <script>
+	function changeStatus(bannerId, isChecked){
+		const status = isChecked? 'Y' : 'N';
+		location.href = '/admin/market/banner/updateBannerStatus?bannerId='+bannerId+"&status="+status;
+	}
+	
 	function bannerDelete(bannerId) {
 		if (confirm('정말 삭제하시겠습니까?')) {
 			location.href = '/admin/market/banner/delete?bannerId='+bannerId;

@@ -16,8 +16,9 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
 /**
  * Spring MVC 설정
  * - 뷰 리졸버
- * - 정적 리소스 경로 설정
- * - 컨트롤러 전체 스캔 포함
+ * - 정적 리소스 핸들링
+ * - 파일 업로드, JSON 변환
+ * - 컨트롤러 자동 스캔 (@Controller)
  * @author 혜원
  */
 @Configuration
@@ -25,6 +26,10 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
 @ComponentScan(basePackages = "com.intellimarket")
 public class WebMvcConfig extends WebMvcConfigurerAdapter {
 
+	/**
+     * JSP 뷰 리졸버 설정
+     * - /WEB-INF/views/ 이하 .jsp 파일을 뷰로 인식
+     */
     @Bean
     public InternalResourceViewResolver viewResolver() {
         InternalResourceViewResolver vr = new InternalResourceViewResolver();
@@ -33,6 +38,11 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter {
         return vr;
     }
 
+    /**
+     * 정적 리소스 경로 설정
+     * - /resources/** → /resources/ 내부 파일 접근 가능
+     * - 배포 중 직접 접근 가능한 이미지 경로도 추가 매핑
+     */
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler("/resources/**").addResourceLocations("/resources/");
@@ -42,17 +52,24 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter {
                 .addResourceLocations("file:///C:/TeamProject/.metadata/.plugins/org.eclipse.wst.server.core/tmp0/wtpwebapps/intellimarket/resources/store/img/");
     }
     
+    /**
+     * JSON 변환기 등록
+     * - @ResponseBody 사용 시 객체를 JSON으로 자동 변환
+     */
     @Override
     public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
         converters.add(new MappingJackson2HttpMessageConverter());
         super.configureMessageConverters(converters);
     }
     
+    /**
+     * 파일 업로드 설정
+     * - 최대 업로드 사이즈: 10MB
+     */
 	@Bean 
 	public CommonsMultipartResolver multipartResolver() {
 		CommonsMultipartResolver resolver = new CommonsMultipartResolver();
 		resolver.setMaxUploadSize(10*1024*1024); //10M 
 		return resolver;
 	}
-
 }
