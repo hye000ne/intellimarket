@@ -31,7 +31,7 @@ public class StoreMainController {
 
 	@Autowired
 	ProductService productService;
-	
+
 	/**
 	 * 쇼핑몰 메인 페이지
 	 */
@@ -42,7 +42,6 @@ public class StoreMainController {
 		seller.setSellerId(sellerId);
 		
 	    StoreInfo storeInfo = storeInfoService.selectById(seller);
-
 	    List<StoreCategory> storeCategories = storeCategoryService.getAllCategoryById(seller);
 	    List<Product> products = productService.selectById(sellerId);
 

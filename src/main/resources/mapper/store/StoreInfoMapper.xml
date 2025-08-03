@@ -35,8 +35,6 @@
 			UPDATE store_info SET
 			store_name = #{storeName},
 			store_tel = #{storeTel},
-			logo_path =
-			#{logoPath},
 			store_introduce = #{storeIntroduce}
 			Where seller_id =
 			#{seller.sellerId}
