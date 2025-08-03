@@ -7,6 +7,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -18,10 +19,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.intellimarket.common.util.SessionUtil;
 import com.intellimarket.shop.domain.Cart;
 import com.intellimarket.shop.domain.Member;
-import com.intellimarket.shop.domain.Orders;
+import com.intellimarket.shop.domain.Order;
 import com.intellimarket.shop.service.CartService;
 import com.intellimarket.shop.service.MemberService;
-import com.intellimarket.shop.service.OrdersService;
+import com.intellimarket.shop.service.OrderService;
 import com.intellimarket.store.service.ProductService;
 
 import lombok.extern.slf4j.Slf4j;
@@ -30,10 +31,10 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @Controller
 @RequestMapping("/shop/orders")
-public class OrdersController {
+public class OrderController {
 	
 	@Autowired
-	private OrdersService paymentService;
+	private OrderService paymentService;
 	
 	@Autowired
 	private MemberService memberService;
@@ -69,15 +70,14 @@ public class OrdersController {
 	}
 	
 	@PostMapping("/complete")
+	@Transactional
 	@ResponseBody
-	public String complete(@RequestBody Orders payment, Model model) {
-		String impUid = payment.getImpUid();
-		String merchantUid = payment.getMerchantUid();
-		String name = payment.getName();
-		
-		log.debug("impUid : " + impUid);
-		log.debug("merchantUid : " + merchantUid);
-		log.debug("name : " + name);
+	public String complete(@RequestBody Order payment, Model model) {
+//		String merchantUid = payment.getMerchantUid();
+//		String name = payment.getName();
+//		
+//		log.debug("merchantUid : " + merchantUid);
+//		log.debug("name : " + name);
 		
 		model.addAttribute("contentPage", "shop/main.jsp");
 		
