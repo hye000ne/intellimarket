@@ -238,8 +238,7 @@
 		    $('#birth').prop('readonly', false);
 		    $('#phone').prop('readonly', false);
 		    $('#detailAddress').prop('readonly', false);
+		    $('#zipCode').click(findZipCode);
 		}
-		
-	    $('#zipCode').click(findZipCode);
 	});
 </script>
