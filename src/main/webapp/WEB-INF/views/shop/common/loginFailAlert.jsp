@@ -5,7 +5,7 @@
 <meta charset="UTF-8">
 <script type="text/javascript">
 	alert("${alertMessage}");
-	location.href = "/shop/login";
+	location.href = "${redirectUrl}";
 </script>
 </head>
 <body>
