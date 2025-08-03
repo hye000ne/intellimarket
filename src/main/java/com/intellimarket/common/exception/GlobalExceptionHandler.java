@@ -30,14 +30,14 @@ public class GlobalExceptionHandler {
         return "common/error/404";
     }
 
-    /**
-     * 그 외 모든 예외 처리 (500 에러)
-     * - 정의되지 않은 예외는 500.jsp로 포워딩
-     */
-    @ExceptionHandler(Exception.class)
-    public String handleException(Exception ex) {
-        return "common/error/500";
-    }
+//    /**
+//     * 그 외 모든 예외 처리 (500 에러)
+//     * - 정의되지 않은 예외는 500.jsp로 포워딩
+//     */
+//    @ExceptionHandler(Exception.class)
+//    public String handleException(Exception ex) {
+//        return "common/error/500";
+//    }
     
     /**
      * 비즈니스 로직에서 발생하는 커스텀 예외 처리 (JSON 응답)
