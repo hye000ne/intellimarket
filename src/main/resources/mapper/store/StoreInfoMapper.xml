@@ -3,21 +3,45 @@
 <mapper namespace="com.intellimarket.store.dao.StoreInfoDAO">
 
 	<select id="select" parameterType="int" resultType="StoreInfo">
-		select * from store_info where seller_id = #{sellerId}
+		select * from
+		store_info where seller_id = #{sellerId}
 	</select>
-	
+
+
+	<!-- 전체 목록 조회 -->
+	<select id="selectAll" resultType="StoreInfo">
+		SELECT * FROM store_info
+	</select>
+
+	<select id="selectById" parameterType="int"
+		resultType="StoreInfo">
+		SELECT * FROM store_info WHERE store_info_id = #{storeInfoId}
+	</select>
+
 	<insert id="insert" parameterType="StoreInfo">
-		INSERT INTO store_info(store_name, store_tel, logo_path, seller_id, store_introduce)
-			values (#{storeName}, #{storeTel}, #{logoPath}, #{seller.sellerId}, #{storeIntroduce})
+		INSERT INTO
+		store_info(store_name, store_tel, logo_path, seller_id,
+		store_introduce)
+		values (#{storeName}, #{storeTel}, #{logoPath}, #{seller.sellerId},
+		#{storeIntroduce})
 	</insert>
-	
-	<insert id="update" parameterType="StoreInfo">
-		UPDATE store_info SET 
+
+	<update id="update" parameterType="StoreInfo">
+		UPDATE store_info SET
 		store_name = #{storeName},
 		store_tel = #{storeTel},
-		logo_path = #{logoPath},
+		logo_path =
+		#{logoPath},
 		store_introduce = #{storeIntroduce}
-		Where seller_id = #{seller.sellerId}
-	</insert>
-	
+		Where seller_id =
+		#{seller.sellerId}
+	</update>
+
+	<!-- 변경 -->
+	<update id="updateLogo" parameterType="StoreInfo">
+		update store_info
+		set logo_path = #{logoPath}
+		where seller_id = #{seller.sellerId}
+	</update>
+
 </mapper>

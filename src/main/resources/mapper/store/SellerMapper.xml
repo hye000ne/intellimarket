@@ -9,7 +9,7 @@
 
 	<!-- 판매자 단 건 조회 (ID 기반) -->
 	<select id="selectById" parameterType="int" resultType="Seller">
-		select *
+		select seller_id, email, password, name, business_num, tel, address, detail_address, zip_code, status, created_date, updated_date, account_num, bank
 		from sellers
 		where seller_id = #{sellerId}
 	</select>

@@ -34,7 +34,9 @@ public class MemberServiceImpl implements MemberService {
 	// 회원 단 건 조회 (ID 기반)
 	@Override
 	public Member selectByEmail(String email){
-		return memberDAO.selectByEmail(email);
+		Member member = memberDAO.selectByEmail(email);
+		if (member == null) throw new ShopException("해당 이메일의 회원을 찾을 수 없습니다.");
+		return member;
 	}
 	
 	// 회원가입
@@ -71,17 +73,15 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	public Member loginMember(String email, String password){
 		Member member = selectByEmail(email);
-		if(member == null) throw new ShopException("가입되지 않은 이메일입니다.");
-		if(!PasswordEncryptor.matches(password, member.getPassword())) throw new ShopException("비밀번호가 일치하지 않습니다.");
+		matchPassword(member, password); // 비밀번호 확인 메서드에서 예외 호출
 		
 		return member;
 	}
 
 	// 비밀번호 확인
 	@Override
-	public boolean matchPassword(int memberId, String password){
-		Member member = selectById(memberId);
-		return PasswordEncryptor.matches(password, member.getPassword());
+	public void matchPassword(Member member, String password){
+		if(!PasswordEncryptor.matches(password, member.getPassword())) throw new ShopException("비밀번호가 일치하지 않습니다.");
 	}
 	
 	// 회원 존재 여부 (이메일 기반)
@@ -101,9 +101,7 @@ public class MemberServiceImpl implements MemberService {
 		member.setPassword(encodedPassword);
 		
 		int result = memberDAO.updatePassword(member);
-		if(result <= 0) {
-			throw new ShopException("비밀번호 변경에 실패했습니다.");
-		}
+		if(result <= 0) throw new ShopException("비밀번호 변경에 실패했습니다.");
 	}
 	
 	/** 

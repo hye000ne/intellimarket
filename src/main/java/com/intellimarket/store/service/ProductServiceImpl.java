@@ -118,7 +118,7 @@ public class ProductServiceImpl implements ProductService{
 
 	@Override
 	public StoreInfo getStoreInfo(Seller seller) {
-		return storeInfoDAO.select(seller.getSellerId());
+		return storeInfoDAO.selectById(seller.getSellerId());
 	}
 
 	//상품 유효성 검사

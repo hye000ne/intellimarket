@@ -30,6 +30,8 @@ public class AdminSellerController {
 		SellerStatus status = SellerStatus.valueOf("PENDING"); // 판매자 상태 : 대기
 		model.addAttribute("list", sellerService.selectByStatus(status));
 		model.addAttribute("contentPage", "admin/seller/approval.jsp");
+		model.addAttribute("menuGroup", "seller");
+		model.addAttribute("subMenu", "approval");
 		return "layout/admin";
 	}
 	
@@ -66,6 +68,8 @@ public class AdminSellerController {
 		SellerStatus status = SellerStatus.valueOf("APPROVED"); // 판매자 상태 : 승인
 		model.addAttribute("list", sellerService.selectByStatus(status));
 		model.addAttribute("contentPage", "admin/seller/list.jsp");
+		model.addAttribute("menuGroup", "seller");
+		model.addAttribute("subMenu", "sellerList");
 		return "layout/admin";
 	}
 	
@@ -76,6 +80,8 @@ public class AdminSellerController {
 	public String sellerDetailPage(@RequestParam int sellerId, Model model) {
 		model.addAttribute("seller", sellerService.selectById(sellerId));
 		model.addAttribute("contentPage", "admin/seller/detail.jsp");
+		model.addAttribute("menuGroup", "seller");
+		model.addAttribute("subMenu", "sellerList");
 		return "layout/admin";
 	}
 }

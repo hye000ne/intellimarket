@@ -122,7 +122,7 @@ public class ProductController {
 		//세션에서 login한 Seller 정보 받아오기
 		Seller loginSeller = (Seller) session.getAttribute("loginSeller");
 		String prefix="p";
-		//product.setSeller(loginSeller);
+		product.setSeller(loginSeller);
 		// 파일이 저장될 경로 지정
 		String savePath = request.getServletContext().getRealPath("/resources/store/img");
 		

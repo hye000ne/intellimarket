@@ -2,6 +2,8 @@ package com.intellimarket.shop.service;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
+
 import com.intellimarket.shop.domain.Cart;
 
 public interface CartService {
@@ -13,7 +15,7 @@ public interface CartService {
 	
 	void insert(Cart cart);
 	
-	void updateQuantity(int quantity);
-	
-	void delete(int cart_id);
+	int updateQuantity(@Param("cartId") int cartId, @Param("quantity") int quantity);
+
+	int delete(int cart_id);
 }

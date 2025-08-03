@@ -14,19 +14,30 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @Controller
-@RequestMapping("/shop/mypage/editprofile")
+@RequestMapping("/shop/mypage")
 public class EditProfileController {
 	
-	@GetMapping
+	@GetMapping("/editprofile")
 	public String showEditProfilePage(Model model, HttpSession session) {
 		// 로그인 사용자 세션 확인
 		Member member = SessionUtil.getLoginMember(session, model, "shop/member/login.jsp", "shop/common/loginFailAlert.jsp");
 
-	    if (member == null) {
-	        return "layout/shop";
-	    }
+	    if (member == null) return "layout/shop";
 		
+	    model.addAttribute("member", member);
 		model.addAttribute("contentPage", "shop/mypage/editprofile.jsp");
+		return "layout/shop";
+	}
+	
+	@GetMapping("/updatePw")
+	public String showUpdatePwPage(Model model, HttpSession session) {
+		// 로그인 사용자 세션 확인
+		Member member = SessionUtil.getLoginMember(session, model, "shop/member/login.jsp", "shop/common/loginFailAlert.jsp");
+		
+		if (member == null) return "layout/shop";
+		
+		model.addAttribute("member", member);
+		model.addAttribute("contentPage", "shop/mypage/updatePw.jsp");
 		return "layout/shop";
 	}
 }

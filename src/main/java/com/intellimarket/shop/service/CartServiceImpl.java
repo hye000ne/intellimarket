@@ -35,12 +35,12 @@ public class CartServiceImpl implements CartService{
 	}
 
 	@Override
-	public void updateQuantity(int quantity) {
-		cartDAO.updateQuantity(quantity);
+	public int updateQuantity(int cart_id, int quantity) {
+		return cartDAO.updateQuantity(cart_id, quantity);
 	}
 
 	@Override
-	public void delete(int cart_id) {
-		cartDAO.delete(cart_id);
+	public int delete(int cart_id) {
+		return cartDAO.delete(cart_id);
 	}
 }
