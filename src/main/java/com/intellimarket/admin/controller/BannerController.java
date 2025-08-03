@@ -4,11 +4,11 @@ import java.util.HashMap;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -21,6 +21,8 @@ import com.intellimarket.admin.domain.Banner;
 import com.intellimarket.admin.domain.Banner.BannerStatus;
 import com.intellimarket.admin.exception.AdminException;
 import com.intellimarket.admin.service.BannerService;
+import com.intellimarket.common.util.SessionUtil;
+import com.intellimarket.shop.domain.Member;
 
 
 @Controller
@@ -31,7 +33,11 @@ public class BannerController {
 	 * 배너 목록 페이지
 	 */
 	@GetMapping("/banner/list")
-	public String bannerListPage(Model model) {
+	public String bannerListPage(Model model, HttpSession session) {
+		// 로그인 사용자 세션 확인
+		Member member = SessionUtil.getLoginMember(session, model, "shop/common/loginFailAlert.jsp", Member.Role.ADMIN);
+		if (member == null) return "layout/shop";
+		
 		model.addAttribute("list", bannerService.selectAll());
 		model.addAttribute("contentPage", "admin/market/banner/list.jsp");
 		model.addAttribute("menuGroup", "market");
@@ -43,7 +49,11 @@ public class BannerController {
 	 * 배너 등록 페이지
 	 */
 	@GetMapping("/banner/regist")
-	public String registBannerPage(Model model) {
+	public String registBannerPage(Model model, HttpSession session) {
+		// 로그인 사용자 세션 확인
+		Member member = SessionUtil.getLoginMember(session, model, "shop/common/loginFailAlert.jsp", Member.Role.ADMIN);
+		if (member == null) return "layout/shop";
+		
 		model.addAttribute("contentPage", "admin/market/banner/regist.jsp");
 		model.addAttribute("menuGroup", "market");
 		model.addAttribute("subMenu", "banner");

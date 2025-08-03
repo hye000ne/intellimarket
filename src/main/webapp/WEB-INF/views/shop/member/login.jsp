@@ -64,7 +64,7 @@
 <script>
 	function submitLoginForm() {
 		if (!validateLoginForm()) return;
-
+		showLoading();
 		$.ajax({
 			type: 'POST',
 			url: '/shop/member/login',
@@ -76,6 +76,9 @@
 				} else {
 					alert(res.msg);
 				}
+			},
+			complete : function() {
+				hideLoading();
 			}
 		});
 	}

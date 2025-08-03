@@ -1,5 +1,7 @@
 package com.intellimarket.admin.controller;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -9,6 +11,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.intellimarket.common.util.SessionUtil;
+import com.intellimarket.shop.domain.Member;
 import com.intellimarket.shop.domain.Member.MemberStatus;
 import com.intellimarket.shop.exception.ShopException;
 import com.intellimarket.shop.service.MemberService;
@@ -25,7 +29,11 @@ public class AdminMemberController {
 	 * 회원 목록 페이지
 	 */
 	@GetMapping("/list")
-	public String memberListPage(Model model) {
+	public String memberListPage(Model model, HttpSession session) {
+		// 로그인 사용자 세션 확인
+		Member member = SessionUtil.getLoginMember(session, model, "shop/common/loginFailAlert.jsp", Member.Role.ADMIN);
+		if (member == null) return "layout/shop";
+		
 		model.addAttribute("list", memberService.selectAll());
 		model.addAttribute("contentPage", "admin/member/list.jsp");
 		model.addAttribute("menuGroup", "member");
@@ -37,7 +45,10 @@ public class AdminMemberController {
 	 * 회원 상세 페이지 
 	 */
 	@GetMapping("/detail")
-	public String memberDetailPage(@RequestParam int memberId, @RequestParam(required = false, defaultValue = "detail") String mode, Model model) {
+	public String memberDetailPage(@RequestParam int memberId, @RequestParam(required = false, defaultValue = "detail") String mode, Model model, HttpSession session) {
+		// 로그인 사용자 세션 확인
+		Member member = SessionUtil.getLoginMember(session, model, "shop/common/loginFailAlert.jsp", Member.Role.ADMIN);
+		if (member == null) return "layout/shop";
 		model.addAttribute("member", memberService.selectById(memberId));
 		model.addAttribute("mode", mode); // detail, edit
 		model.addAttribute("contentPage", "admin/member/detail.jsp");
@@ -50,7 +61,10 @@ public class AdminMemberController {
 	 * 회원 등록 페이지 
 	 */
 	@GetMapping("/join")
-	public String memberJoinForm(Model model) {
+	public String memberJoinForm(Model model, HttpSession session) {
+		// 로그인 사용자 세션 확인
+		Member member = SessionUtil.getLoginMember(session, model, "shop/common/loginFailAlert.jsp", Member.Role.ADMIN);
+		if (member == null) return "layout/shop";
 		model.addAttribute("contentPage", "admin/member/join.jsp");
 		model.addAttribute("menuGroup", "member");
 		model.addAttribute("subMenu", "join");
