@@ -15,7 +15,7 @@
 
 	<select id="selectById" parameterType="int"
 		resultType="StoreInfo">
-		SELECT * FROM store_info WHERE seller_id = #{sellerId}
+		SELECT * FROM store_info WHERE store_info_id = #{storeInfoId}
 	</select>
 
 	<insert id="insert" parameterType="StoreInfo">

@@ -179,8 +179,9 @@
       productPrice += price * quantity;
     });
 
-    const discount = productPrice >= 30000 ? 0 : 0;
-    const shipping = productPrice >= 100000 ? 0 : 3000;
+    
+    const shipping = productPrice >= 100000 ? 0 : 2500;
+    const discount = shipping == 0? 2500 : 0;
     const total = productPrice - discount + shipping;
 
     $("#selectedAmount").text("₩ " + productPrice.toLocaleString());
@@ -262,7 +263,6 @@
         if (rsp.success) {
           const result = {
             merchant_uid: rsp.merchant_uid,
-            imp_uid: rsp.imp_uid,
             name: rsp.name,
           };
 
