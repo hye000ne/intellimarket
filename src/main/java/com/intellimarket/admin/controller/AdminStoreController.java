@@ -7,9 +7,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.intellimarket.common.util.SessionUtil;
 import com.intellimarket.shop.domain.Member;
+import com.intellimarket.store.domain.Seller;
 import com.intellimarket.store.service.StoreInfoService;
 
 /**
@@ -39,19 +41,19 @@ public class AdminStoreController {
 	/**
 	 * 스토어 상세 페이지 
 	 */
-//	@GetMapping("/detail")
-//	public String memberDetailPage(@RequestParam int sellerId, Model model, HttpSession session) {
-//		// 로그인 사용자 세션 확인
-//		Member member = SessionUtil.getLoginMember(session, model, "shop/common/loginFailAlert.jsp", Member.Role.ADMIN);
-//		if (member == null) return "layout/shop";.3
-	
-//		Seller seller = new Seller();
-//		seller.setSellerId(sellerId);
-//		
-//		model.addAttribute("store", storeInfoService.selectById(seller));
-//		model.addAttribute("contentPage", "admin/store/detail.jsp");
-//		model.addAttribute("menuGroup", "store");
-//		model.addAttribute("subMenu", "storeList");
-//		return "layout/admin";
-//	}
+	@GetMapping("/detail")
+	public String memberDetailPage(@RequestParam int sellerId, Model model, HttpSession session) {
+		// 로그인 사용자 세션 확인
+		Member member = SessionUtil.getLoginMember(session, model, "shop/common/loginFailAlert.jsp", Member.Role.ADMIN);
+		if (member == null) return "layout/shop";
+		
+		Seller seller = new Seller();
+		seller.setSellerId(sellerId);
+		
+		model.addAttribute("store", storeInfoService.selectById(seller));
+		model.addAttribute("contentPage", "admin/store/detail.jsp");
+		model.addAttribute("menuGroup", "store");
+		model.addAttribute("subMenu", "storeList");
+		return "layout/admin";
+	}
 }
