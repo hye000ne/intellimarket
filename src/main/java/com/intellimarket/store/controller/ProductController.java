@@ -52,7 +52,7 @@ public class ProductController {
 	public String adminProductList(Model model , HttpSession session) {
 		Seller loginSeller = (Seller) session.getAttribute("loginSeller");
 		model.addAttribute("list", productService.selectById(loginSeller.getSellerId()));
-		model.addAttribute("contentPage", "store/seller/productList.jsp");
+		model.addAttribute("contentPage", "store/seller/product/productList.jsp");
 		return "layout/store";
 	}
 
@@ -61,7 +61,7 @@ public class ProductController {
 	 */
 	@GetMapping("/registForm")
 	public String adminProductRegistForm(Model model) {
-		model.addAttribute("contentPage", "store/seller/productRegist.jsp");
+		model.addAttribute("contentPage", "store/seller/product/productRegist.jsp");
 		return "layout/store";
 	}
 	
@@ -72,7 +72,7 @@ public class ProductController {
 	public String adminProductDetail(@RequestParam int productId, Model model) {
 		Product product = productService.select(productId);
 		model.addAttribute("product", product);
-		model.addAttribute("contentPage", "store/seller/productDetail.jsp");
+		model.addAttribute("contentPage", "store/seller/product/productDetail.jsp");
 		return "layout/store";
 	}
 	
@@ -83,7 +83,7 @@ public class ProductController {
 	public String adminProductUpdate(@RequestParam int productId, Model model) {
 		Product product = productService.select(productId);
 		model.addAttribute("product", product);
-		model.addAttribute("contentPage", "store/seller/productUpdate.jsp");
+		model.addAttribute("contentPage", "store/seller/product/productUpdate.jsp");
 		return "layout/store";
 	}
 	
