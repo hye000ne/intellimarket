@@ -13,6 +13,8 @@ public interface CartService {
 	
 	List<Cart> selectAllByMemberId(int member_id);
 	
+	List<Cart> selectAllByStatus(int status);
+	
 	void insert(Cart cart);
 	
 	int updateQuantity(Cart cart);
