@@ -18,7 +18,7 @@
 	                           	<ul>
 	                              	<c:if test="${not empty sessionScope.loginSeller}">
 										<li><a href="${ctx}/store/seller/logout">로그아웃</a></li>
-										<li><a href="${ctx}/store/seller/manage">스토어 관리</a></li>
+										<li><a href="${ctx}/store/seller/manage/">스토어 관리</a></li>
 									</c:if>
 									<c:if test="${empty sessionScope.loginSeller}">
 										<li><a href="${ctx}/store/seller/login">로그인</a></li>
