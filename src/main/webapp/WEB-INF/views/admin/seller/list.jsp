@@ -43,7 +43,7 @@
 				                  		<tr>
 				                    		<td>${seller.email}</td>
 				                    		<td>${seller.name}</td>
-				                    		<td>${seller.tel}</td>
+				                    		<td>${fn:substring(seller.tel, 0, 3)}-${fn:substring(seller.tel, 3, 7)}-${fn:substring(seller.tel, 7, 11)}</td>
 				                    		<td>${seller.businessNum}</td>
 				                    		<td>${seller.createdDate}</td>
 				                    		<td>${seller.updatedDate}</td>

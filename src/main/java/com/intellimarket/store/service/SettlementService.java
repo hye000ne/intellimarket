@@ -23,7 +23,7 @@ public interface SettlementService {
 	List<Settlement> selectByStatus(SettlementStatus status);
 	
 	//정산 상태 변경
-	void updateStatus(int settlementId , SettlementStatus settlementStatus);
+	void updateStatus(Settlement settlement);
 	
 	//status가 READY인 건 일괄 REQUESTED 요청 (단, yearMonth / storeInfoId 입력 필요)
 	int updateStatusToRequested(int storeInfoId, String yearMonth);

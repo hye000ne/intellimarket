@@ -29,10 +29,9 @@
 		                	<table id="storeListTable" class="table table-bordered table-hover text-center">
 		                  		<thead class="align-middle">
 			                  		<tr>
-					                    <th>이름</th>
-					                    <th>연락처</th>
-<!-- 					                    <th>등급</th> -->
-					                    <th>판매자 이름</th>
+					                    <th>스토어명</th>
+					                    <th>스토어 연락처</th>
+					                    <th>판매자명</th>
 					                    <th>판매자 연락처</th>
 					                    <th>상세</th>
 			                  		</tr>
@@ -41,10 +40,9 @@
 									<c:forEach var="store" items="${list}">
 				                  		<tr>
 				                    		<td>${store.storeName}</td>
-				                    		<td>${store.storeTel}</td>
-<%-- 				                    		<td>${store.storeRank}</td> --%>
+				                    		<td>${fn:substring(store.storeTel, 0, 3)}-${fn:substring(store.storeTel, 3, 7)}-${fn:substring(store.storeTel, 7, 11)}</td>
 				                    		<td>${store.seller.name}</td>
-				                    		<td>${store.seller.tel}</td>
+				                    		<td>${fn:substring(store.seller.tel, 0, 3)}-${fn:substring(store.seller.tel, 3, 7)}-${fn:substring(store.seller.tel, 7, 11)}</td>
 				                    		<td><button type="button" class="btn btn-block btn-primary btn-sm" onclick="goToDetail(${store.seller.sellerId })">상세</button></td>
 				                  		</tr>
 									</c:forEach>

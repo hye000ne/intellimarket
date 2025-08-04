@@ -30,7 +30,8 @@
 					<div class="form-group row">
 						<label class="col-sm-3 col-form-label">스토어 연락처</label>
 						<div class="col-sm-9">
-							<input type="text" class="form-control" id="storeTel" name="storeTel" value="${store.storeTel}" readonly>
+							<c:set var="storeTel" value="${store.storeTel}" />
+							<input type="text" class="form-control" id="storeTel" name="storeTel" value="${fn:substring(storeTel, 0, 3)}-${fn:substring(storeTel, 3, 7)}-${fn:substring(storeTel, 7, 11)}" readonly>
 						</div>
 					</div>
 					<div class="form-group row">
@@ -42,7 +43,8 @@
 					<div class="form-group row">
 						<label class="col-sm-3 col-form-label">판매자 연락처</label>
 						<div class="col-sm-9">
-							<input type="text" class="form-control" id="sellerTel" name="sellerTel" value="${store.seller.tel}" readonly>
+							<c:set var="sellerTel" value="${store.seller.tel}" />
+							<input type="text" class="form-control" id="sellerTel" name="sellerTel" value="${fn:substring(sellerTel, 0, 3)}-${fn:substring(sellerTel, 3, 7)}-${fn:substring(sellerTel, 7, 11)}" readonly>
 						</div>
 					</div>
 					<div class="form-group row">

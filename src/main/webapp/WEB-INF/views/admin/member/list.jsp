@@ -51,7 +51,9 @@
 				                  		<tr>
 				                    		<td>${member.email}</td>
 				                    		<td>${member.name}</td>
-				                    		<td>${member.phone}</td>
+				                    		<td>
+											  	${fn:substring(member.phone, 0, 3)}-${fn:substring(member.phone, 3, 7)}-${fn:substring(member.phone, 7, 11)}
+											</td>
 				                    		<td>${member.status eq 'ACTIVE' ? '활성':'탈퇴'}</td>
 				                    		<td>${member.gender eq 'M' ? '남자':'여자'}</td>
 				                    		<td>${member.createdDate}</td>
