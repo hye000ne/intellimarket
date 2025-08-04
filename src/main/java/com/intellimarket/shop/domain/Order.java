@@ -38,6 +38,4 @@ public class Order {
 	private Member member;
 	
 	private Product product;
-	
-	private StoreInfo storeInfo;
 }

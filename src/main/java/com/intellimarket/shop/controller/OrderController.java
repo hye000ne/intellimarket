@@ -29,7 +29,7 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @Controller
-@RequestMapping("/shop/orders")
+@RequestMapping("/shop/order")
 public class OrderController {
 	
 	@Autowired
@@ -56,14 +56,15 @@ public class OrderController {
 		
 		//결제 상품 리스트 (0 이면 장바구니에서 접근, 다른 번호일 경우 바로결제버튼을 클릭해서 접근)
 		List<?> list; 
-		if(product_id == 0) { 
-			list = cartService.selectAllByMemberId(member.getMemberId());
+		if(product_id == 0) {
+			list = cartService.selectAllByStatus(member.getMemberId());
 		}else { 
 			list = Arrays.asList(productService.select(product_id));
 		}
 		
+		model.addAttribute("loginMember", member);
 		model.addAttribute("list", list);
-		model.addAttribute("contentPage", "shop/orders/orders.jsp");
+		model.addAttribute("contentPage", "shop/orders/order.jsp");
 		
 		return "layout/shop";
 	}
@@ -71,12 +72,9 @@ public class OrderController {
 	@PostMapping("/complete")
 	@Transactional
 	@ResponseBody
-	public String complete(@RequestBody Order payment, Model model) {
-//		String merchantUid = payment.getMerchantUid();
-//		String name = payment.getName();
-//		
-//		log.debug("merchantUid : " + merchantUid);
-//		log.debug("name : " + name);
+	public String complete(@RequestBody Order order, Model model) {
+		
+		
 		
 		model.addAttribute("contentPage", "shop/main.jsp");
 		

@@ -17,9 +17,9 @@ public interface CartDAO {
 	
 	List<Cart> selectAllByMemberId(int member_id);
 	
-	List<Cart> selectAllByStatus(int status);
+	List<Cart> selectAllByStatus(int member_id);
 	
-	void insert(Cart cart);
+	int insert(Cart cart);
 	
 	int updateQuantity(Cart cart);
 	

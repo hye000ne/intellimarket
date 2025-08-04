@@ -50,6 +50,23 @@ public class CartController {
 		return "layout/shop";
 	}
 	
+	@PostMapping("/insert")
+	@Transactional
+	@ResponseBody
+	public ResponseEntity<?> insert(@RequestBody Cart cart, HttpSession session, Model model){
+		Member member = SessionUtil.getLoginMember(session, model, "shop/common/loginFailAlert.jsp", Member.Role.USER);
+
+	    if (member == null) {
+	        throw new ShopException("로그인이 필요합니다.");
+	    }
+	    
+	    if(cartService.insert(cart) < 1) {
+	    	throw new ShopException("장바구니 등록에 실패하셨습니다.");
+	    }
+	    
+	    return ResponseEntity.ok("장바구니가 업데이트되었습니다.");
+	}
+	
 	@PostMapping("/update")
 	@Transactional
 	@ResponseBody
@@ -61,7 +78,9 @@ public class CartController {
 	    }
 	    
 	    for (Cart cart : cartList) {   	
-	        cartService.updateQuantity(cart);
+	        if(cartService.updateQuantity(cart) < 1) {
+	        	throw new ShopException("장바구니 업데이트에 실패하셨습니다.");
+	        }
 	    }
 
 	    return ResponseEntity.ok("장바구니가 업데이트되었습니다.");
