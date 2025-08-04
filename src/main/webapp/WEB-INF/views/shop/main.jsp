@@ -40,8 +40,8 @@
 	        
 	        <div class="row">
 			  	<c:forEach var="store" items="${recentStoreList}">
-			    	<div class="col-md-4 mb-4">
-						<div class="card h-100 text-center py-4">
+			    	<div class="col-md-4 mb-4 " onclick="moveToStorePage('${store.engName}')">
+						<div class="card h-100 text-center py-4 recent-store-card">
 				        	<img src="${ctx}${store.logoPath != null ? store.logoPath : '/resources/common/img/logo/default.png'}" alt="스토어 로고" class="recent-store-logo">
 				        	<div class="card-body">
 					          	<h5 class="card-title">${store.storeName}</h5>
@@ -720,3 +720,8 @@
 	    </div>
 	</section>
 </main>
+<script>
+	function moveToStorePage(engName) {
+		location.href="/store/"+engName;
+	}
+</script>
