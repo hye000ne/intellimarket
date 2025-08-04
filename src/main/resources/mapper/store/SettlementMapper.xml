@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.intellimarket.store.dao.SettlementDAO">
+
+	<resultMap type="Settlement" id="joinMap">
+	
+		<id column="settlement_id" property="settlementId"/>
+		
+		<result column="requested_amount" property="requestedAmount"/>
+		<result column="fee_amount" property="feeAmount"/>
+		<result column="net_amount" property="netAmount"/>
+		<result column="settlement_status" property="settlementStatus"/>
+		<result column="settlement_requested_at" property="settlementRequestedAt"/>
+		<result column="settlement_completed_at" property="settlementCompletedAt"/>
+		<result column="created_at" property="createdAt"/>
+		<result column="updated_at" property="updatedAt"/>
+		
+		<association 
+			column="store_info_id" 
+			property="storeInfo" 
+			javaType="StoreInfo"
+			select="com.intellimarket.store.dao.StoreInfoDAO.selectById"
+		/>
+		
+	</resultMap>
+	
+	<select id="selectAll" resultMap="joinMap">
+		select * from settlement 
+	</select>
+	
+	<select id="selectById" resultMap="joinMap">
+		select * from settlement where settlement_id = #{settlementId}
+	</select>
+	
+	<select id="selectByStoreInfoId" resultMap="joinMap">
+		select * from settlement where store_info_id = #{storeInfoId}
+	</select>
+	
+	<select id="selectByStatus" resultMap="joinMap">
+		select * from settlement 
+		where store_info_id = #{storeInfoId} 
+		and settlement_status = #{settlementStatus} 
+	</select>
+	
+	<update id="updateStatus" parameterType="Settlement">
+		update settlement
+		set settlement_status = #{settlementStatus}
+		where settlement_id = #{settlementId}
+	</update>
+
+</mapper>
