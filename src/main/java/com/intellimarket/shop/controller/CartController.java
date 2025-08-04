@@ -53,18 +53,20 @@ public class CartController {
 	@PostMapping("/update")
 	@Transactional
 	@ResponseBody
-	public ResponseEntity<?> updateCart(@RequestBody List<Cart> items, HttpSession session, Model model) {
+	public ResponseEntity<?> updateCart(@RequestBody List<Cart> cartList, HttpSession session, Model model) {
 	    Member member = SessionUtil.getLoginMember(session, model, "shop/login.jsp", "shop/common/loginFailAlert.jsp");
 
 	    if (member == null) {
 	        throw new ShopException("로그인이 필요합니다.");
 	    }
-
-	    for (Cart item : items) {
-	    	log.debug("아이디는?"+ item.getCartId());
-	    	log.debug("양은?"+ item.getQuantity());
-	        int result = cartService.updateQuantity(item.getCartId(), item.getQuantity());
-	        log.debug("지금 업데이트 구문을 잘 타고 있는지도 모르겠다...." + result);
+	    
+	    for (Cart cart : cartList) {
+	    	log.debug("item의 사이즈는요" + cartList.size());
+	    	log.debug("status가 무엇이냐면요" +cart.getStatus());
+	    	log.debug("Quantity가 무엇이냐면요" +cart.getQuantity());
+	    	log.debug("CartId가 무엇이냐면요" +cart.getCartId());
+	    	
+	        cartService.updateQuantity(cart);
 	    }
 
 	    return ResponseEntity.ok("장바구니가 업데이트되었습니다.");

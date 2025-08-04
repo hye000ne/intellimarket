@@ -12,7 +12,7 @@ import lombok.Data;
 @Data
 @Alias("Order")
 public class Order {
-	private int ordersId;
+	private int orderId;
 	
 	private String merchantUid;
 	

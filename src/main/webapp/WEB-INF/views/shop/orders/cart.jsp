@@ -270,14 +270,22 @@ function requestPay() {
     const cartItems = [];
 
     $('.product-card').each(function () {
+        const checked = $(this).find('.product-checkbox').is(':checked');
+
         const cartId = $(this).attr('data-id');
         const quantity = $(this).find('.qty-value').text();
 
         cartItems.push({
-        	cartId: parseInt(cartId),
-            quantity: parseInt(quantity)
+            cartId: parseInt(cartId),
+            quantity: parseInt(quantity),
+            status: checked ? 1 : 0
         });
     });
+
+    if (cartItems.length === 0) {
+        alert("선택된 상품이 없습니다.");
+        return;
+    }
 
     // 서버에 Cart 업데이트 요청
     $.ajax({

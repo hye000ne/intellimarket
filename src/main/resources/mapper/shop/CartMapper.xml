@@ -46,9 +46,10 @@
 	</insert>
 	
 	<!-- 장바구니 수량 수정 -->
-	<update id="updateQuantity" parameterType="int">
+	<update id="updateQuantity" parameterType="Cart">
 		update cart
-			 set quantity = #{quantity}
+			 set quantity = #{quantity},
+			 	  status = #{status}
 		 where cart_id   = #{cartId} 
 	</update>
 	
