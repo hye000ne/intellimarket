@@ -18,5 +18,7 @@ public interface OrderDAO {
 	
 	void update(Order order);
 	
+	void updateStatus(Order order);
+	
 	void delete(int orderId);
 }

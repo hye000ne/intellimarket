@@ -15,7 +15,7 @@ public interface CartService {
 	
 	void insert(Cart cart);
 	
-	int updateQuantity(@Param("cartId") int cartId, @Param("quantity") int quantity);
+	int updateQuantity(Cart cart);
 
 	int delete(int cart_id);
 }

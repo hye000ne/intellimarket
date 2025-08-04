@@ -12,31 +12,37 @@ import com.intellimarket.shop.domain.Order;
 public class OrderServiceImpl implements OrderService{
 
 	@Autowired
-	private OrderDAO ordersDAO;
+	private OrderDAO orderDAO;
 	
 	@Override
 	public List<Order> selectAll() {
-		return ordersDAO.selectAll();
+		return orderDAO.selectAll();
 	}
 
 	@Override
 	public Order selectById(int orderId) {
-		return ordersDAO.selectById(orderId);
+
+		return orderDAO.selectById(orderId);
 	}
 
 	@Override
 	public List<Order> selectByStoreInfoId(int storeInfoId) {
-		return ordersDAO.selectByStoreInfoId(storeInfoId);
+		return orderDAO.selectByStoreInfoId(storeInfoId);
 	}
 
 	@Override
 	public void insert(Order order) {
-		ordersDAO.insert(order);
+		orderDAO.insert(order);
 	}
 
 	@Override
 	public void update(Order order) {
-		ordersDAO.update(order);		
+		orderDAO.update(order);		
+	}
+
+	@Override
+	public void updateStatus(Order order) {
+		orderDAO.updateStatus(order);
 	}
 
 	@Override

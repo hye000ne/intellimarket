@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.intellimarket.shop.dao.OrderDAO">
 	<resultMap type="com.intellimarket.shop.domain.Order" id="joinMap">
-		<id 		column="order_id" 			property="orderId"/>
+		<id 		column="orders_id" 			property="ordersId"/>
 		<result 	column="merchant_uid" 	property="merchantUid"/>
 		<result 	column="quantity" 			property="quantity"/>
 		<result 	column="zip_code" 			property="zipCode"/>
