@@ -40,6 +40,17 @@ lang="ko">
 	href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css"
 	rel="stylesheet">
 </head>
+<style>
+.wrapper {
+  max-width: 1196px;
+  margin: 0 auto;
+  padding-left: 15px;
+  padding-right: 15px;
+  box-sizing: border-box;
+  overflow-x: hidden; /* 너비 초과 요소 넘어감을 숨김 */
+  position: relative; /* 절대 위치 자식 기준을 위해 */
+}
+</style>
 <body>
 <div class="wrapper">
 	<!-- 헤더 include -->

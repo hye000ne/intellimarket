@@ -48,7 +48,7 @@
     </div>
 </div>
 <!-- 스토어 로고/소개 -->
-<div class="container" style="max-width: 1196px; background: #fff;">
+<div>
   <div class="row align-items-center py-4">
     <div class="col-auto">
       <a href="${ctx}/store/${storeInfo.engName}">
