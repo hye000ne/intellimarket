@@ -152,6 +152,30 @@
 	font-weight: bold;
 	color: #333;
 }
+
+.scrollable-list {
+    max-height: 400px; /* 원하는 높이로 조절 가능 */
+    overflow-y: auto;
+    padding-right: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: #fff;
+  }
+
+  /* 스크롤바 스타일 (선택사항) */
+  .scrollable-list::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  .scrollable-list::-webkit-scrollbar-thumb {
+    background-color: #ccc;
+    border-radius: 4px;
+  }
+
+  .scrollable-list::-webkit-scrollbar-track {
+    background-color: #f1f1f1;
+  }
 </style>
 <script>
   /* 집 주소 API */
@@ -180,8 +204,8 @@
     });
 
     
-    const shipping = productPrice >= 100000 ? 0 : 2500;
-    const discount = shipping == 0? 2500 : 0;
+    const shipping = 2500;
+    const discount = productPrice >= 100000 ? 2500 : 0;
     const total = productPrice - discount + shipping;
 
     $("#selectedAmount").text("₩ " + productPrice.toLocaleString());
@@ -263,11 +287,17 @@
         if (rsp.success) {
           const result = {
             merchant_uid: rsp.merchant_uid,
-            name: rsp.name,
+            quantity: 1,
+            zipcode: rsp.buyer_postcode,
+            address: buyerAddr,
+            detailAddress: buyerAddrAnd,
+            totalPrice: rsp.amount,
+            orderStatus: "주문완료",
+            product: { productId: selectItems}
           };
 
           $.ajax({
-            url: "/shop/orders/complete",
+            url: "/shop/order/complete",
             type: "POST",
             contentType: "application/json",
             data: JSON.stringify(result),
@@ -351,7 +381,7 @@
 			<!-- 상품 목록 -->
 			<div class="row justify-content-center ">
 				<div class="col-lg-8 col-md-10">
-					<div class="product-list">
+					<div class="product-list scrollable-list">
 					<%if(list != null && !list.isEmpty()){ 
 						Object first = list.get(0);
 						
@@ -379,7 +409,7 @@
 												</div>
 												<div class="product-details">
 													<div class="product-title"><%= product.getProductName() %></div>
-													<div class="product-quantity">3 개</div>
+													<div class="product-quantity">1 개</div>
 													<div class="product-price">₩<%= String.format("%,d", product.getPrice()) %></div>
 												</div>
 											</div>

@@ -43,7 +43,8 @@
 	<select id="selectAllByStatus" parameterType="int" resultMap="joinMap">
 		select * 
 		  from cart 
-		where status = #{status}
+		where status = 1
+		   and member_id = #{memberId}
 	</select>
 	
 	<!-- 장바구니 등록 -->

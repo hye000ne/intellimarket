@@ -186,7 +186,7 @@ h2 {
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 <script>
-const SHIPPING_FEE = 3000;
+const SHIPPING_FEE = 2500;
 
 function changeQuantity(button, delta) {
     const qtySpan = button.parentElement.querySelector('.qty-value');
@@ -294,7 +294,7 @@ function requestPay() {
         contentType: "application/json",
         data: JSON.stringify(cartItems),
         success: function () {
-            location.href = "/shop/orders?product_id=0";
+            location.href = "/shop/order?product_id=0";
         },
         error: function (xhr) {
             const errorResponse = xhr.responseJSON;
