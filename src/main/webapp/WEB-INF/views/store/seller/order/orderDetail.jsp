@@ -24,8 +24,6 @@
 				<div class="card-header">
 					<h3 class="card-title">주문 정보</h3>
 				</div>
-				<form id="updateForm">
-				<input type="hidden" id="orderId" name="orderId" value="${order.orderId}">
 					<div class="card-body">
 						<div class="form-group row">
 							<label class="col-sm-3 col-form-label">이메일</label>
@@ -81,6 +79,8 @@
 								<input type="text" class="form-control" id="updatedDate" name="updatedDate" value="${order.updatedDate}" readonly>
 							</div>
 						</div>
+						<form id="updateForm">
+						<input type="hidden" id="orderId" name="orderId" value="${order.orderId}">
 						<c:choose>
 							<c:when test="${isEditMode}">
 								<!-- 우편번호 -->
@@ -136,7 +136,15 @@
 								<button type="button" onclick="handleActionBtnClick('save')" class="btn btn-primary btn" id="editBtn">저장</button>
 							</c:when>
 							<c:otherwise>
-								<button type="button" onclick="handleActionBtnClick('edit')" class="btn btn-primary btn" id="editBtn">수정</button>
+								<c:choose>
+								<c:when test="${order.orderStatus.name() ne 'DELIVERED' 
+								               and order.orderStatus.name() ne 'CANCEL_COMPLETE'
+								               and order.orderStatus.name() ne 'CHANGE_COMPLETE'
+								               and order.orderStatus.name() ne 'RETURN_COMPLETE'
+								               and order.orderStatus.name() ne 'PURCHASE_CONFIRMED'}">
+										<button type="button" onclick="handleActionBtnClick('edit')" class="btn btn-primary btn" id="editBtn">수정</button>
+									</c:when>
+								</c:choose>
 							</c:otherwise>
 						</c:choose>
 						<button type="button" onclick="handleActionBtnClick('list')" class="btn btn-secondary btn">목록</button>

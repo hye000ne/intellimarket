@@ -76,17 +76,10 @@
 	<update id="update" parameterType="Order">
 		update orders
 		set 
-			merchant_uid = #{merchantUid}, 
-			quantity = #{quantity}, 
 			zip_code = #{zipCode}, 
 			address = #{address}, 
 			detail_address = #{detailAddress}, 
-			created_date = #{createdDate}, 
-			updated_date = #{updatedDate},
-			order_status = #{orderStatus}, 
-			member_id = #{memberId}, 
-			product_id = #{productId},
-			total_price =#{totalPrice}
+			updated_date = #{updatedDate}
 		
 		where order_id = #{orderId} 
 	</update>
@@ -99,12 +92,21 @@
 		where order_id = #{orderId}
 	</update>
 	
-	<!-- 주문 상태 변경 -->
+	<!-- 단건 주문 상태 변경 -->
 	<update id="updateStatus" parameterType="Order">
-		update orders
-		set 
-			order_status = #{orderStatus}
-		where order_id = #{orderId}
+	    update orders
+	    set order_status = #{orderStatus}
+	    where order_id = #{orderId}
+	</update>
+	
+	<!-- 복수 주문 상태 변경 -->
+	<update id="updateStatuses" parameterType="map">
+	  update orders
+	  set order_status = #{status}
+	  where order_id in
+	    <foreach item="id" index="index" collection="orderIds" open="(" separator="," close=")">
+	      #{id}
+	    </foreach>
 	</update>
 
 	<!-- 주문 삭제 -->
