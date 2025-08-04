@@ -67,11 +67,6 @@
                 <p>주문 목록</p>
               </a>
             </li>
-            <li class="nav-item">
-              <a href="#" class="nav-link">
-                <p>취소/교환/환불</p>
-              </a>
-            </li>
           </ul>
         </li>
 
