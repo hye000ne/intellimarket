@@ -19,6 +19,8 @@ import com.intellimarket.store.service.ProductService;
 import com.intellimarket.store.service.StoreCategoryService;
 import com.intellimarket.store.service.StoreInfoService;
 
+import lombok.extern.slf4j.Slf4j;
+@Slf4j
 @Controller	
 @RequestMapping("/store")
 public class StoreMainController {
@@ -106,20 +108,65 @@ public class StoreMainController {
 	 */
 	@GetMapping("/{engName}/products/{productId}")
 	public String getDetailFrag(@PathVariable("engName") String engName, @PathVariable("productId") String productId, Model model) {
+		log.debug("넘어온 eng값 : "+engName +" 넘어온 상품값 : " + productId);
 	    StoreInfo storeInfo = new StoreInfo();
 	    storeInfo.setEngName(engName);
 	    storeInfo = storeInfoService.selectByName(storeInfo);
 	    
 	    Map<TopCategory, List<SubCategory>> groupedCategories = storeCategoryService.getAllCategory(storeInfo);
-	    Product product = productService.select(storeInfo.getSeller().getSellerId());
+	    Product product = productService.select(Integer.parseInt(productId));
 
 	    model.addAttribute("storeInfo", storeInfo);
 	    model.addAttribute("groupedCategories", groupedCategories);
 	    model.addAttribute("product", product);
 	    model.addAttribute("contentPage", "store/intelli/detail.jsp");
 	    
+	    log.warn("반환 아이디 : " + product.getProductId());
 	    return "layout/intelliStore";
 	}
+	
+	@GetMapping("/{engName}/top/{topId}/page")
+	public String topCategoryPage(@PathVariable String engName, 
+	                              @PathVariable String topId, 
+	                              Model model) {
+	    // storeInfo, groupedCategories 등 공통 데이터 넣기
+	    StoreInfo storeInfo = new StoreInfo();
+	    storeInfo.setEngName(engName);
+	    storeInfo = storeInfoService.selectByName(storeInfo);
+	    Map<TopCategory, List<SubCategory>> groupedCategories = storeCategoryService.getAllCategory(storeInfo);
+
+	    // 원하는 상품 데이터(원본 또는 일부) 모델에 넣기
+	    List<Product> products = productService.getTopProduct(storeInfo, topId);
+
+	    model.addAttribute("storeInfo", storeInfo);
+	    model.addAttribute("groupedCategories", groupedCategories);
+	    model.addAttribute("products", products);
+	    model.addAttribute("contentPage", "store/intelli/main.jsp");
+	    return "layout/intelliStore";  // JSP 뷰페이지 반환
+	}
+	
+	@GetMapping("/{engName}/sub/{subId}/page")
+	public String subCategoryPage(@PathVariable String engName,
+	                              @PathVariable String subId,
+	                              Model model) {
+	    StoreInfo storeInfo = new StoreInfo();
+	    storeInfo.setEngName(engName);
+	    storeInfo = storeInfoService.selectByName(storeInfo);
+
+	    Map<TopCategory, List<SubCategory>> groupedCategories = storeCategoryService.getAllCategory(storeInfo);
+
+	    // 서브카테고리 상품 리스트 조회
+	    List<Product> products = productService.getSubProduct(storeInfo, subId);
+
+	    model.addAttribute("storeInfo", storeInfo);
+	    model.addAttribute("groupedCategories", groupedCategories);
+	    model.addAttribute("products", products);
+	    model.addAttribute("contentPage", "store/intelli/main.jsp");
+
+	    return "layout/intelliStore";
+	}
+
+
 	
 	
 	/**

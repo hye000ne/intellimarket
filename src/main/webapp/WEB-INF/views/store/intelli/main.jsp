@@ -9,7 +9,7 @@
 	console.log(ctx);
 </script>
 <c:set var="ctx" value="${pageContext.request.contextPath}" />
-<a href="/store/ggmk/products/1/frag">이동</a>
+<a href="/store/${engName}/products/${productId}/">이동</a>
 <!-- 상품 리스트 -->
 <div class="container py-4" style="max-width: 1196px; background: #fff;">
 	<div class="row row-cols-2 row-cols-md-5 g-4 mb-2">
@@ -20,20 +20,13 @@
 						<div class="card border-0">
 							<div style="padding: 14px 14px 0 14px;">
 								<c:choose>
-									<c:when test="${not empty productImages and fn:length(productImages) > 0}">
-										<c:forEach var="image" items="${productImages}" varStatus="status">
-											<div class="carousel-item ${status.first ? 'active' : ''}">
-												<img src="${image.url}" alt="상품 이미지" class="d-block w-100 product-image" />
-											</div>
-										</c:forEach>
+									<c:when test="${not empty product.imgList and fn:length(product.imgList) > 0}">
+										<img src="${product.imgList[0].filename}" alt="${product.productName}" class="product-image" />
 									</c:when>
 									<c:otherwise>
-										<div class="carousel-item active">
-											<img src="${ctx}/resources/common/img/default_product.png" alt="기본 상품 이미지" class="d-block w-100 product-image" />
-										</div>
+										<img src="${ctx}/resources/common/img/default_product.png" alt="기본 상품 이미지" class="product-image" />
 									</c:otherwise>
 								</c:choose>
-
 							</div>
 							<div class="card-body pt-3 pb-2 px-2">
 								<div class="mb-1 product-name">${product.productName}</div>
@@ -48,14 +41,14 @@
 										</c:when>
 										<c:otherwise>
 											<fmt:formatNumber value="${product.price}" type="number" />원
-  </c:otherwise>
+            </c:otherwise>
 									</c:choose>
-
 								</div>
 							</div>
 						</div>
 					</div>
 				</c:forEach>
+
 			</c:when>
 			<c:otherwise>
 				<div class="col-12 text-center text-muted py-5 no-products">등록된 상품이 없습니다.</div>
@@ -145,12 +138,12 @@
 						priceHtml = product.price + '원';
 					}
 
-					var imageSrc = product.imagePath
-							|| (ctx + "/store/img/p_" + product.productId + "/" + (product.imgList
-									&& product.imgList.length > 0 ? product.imgList[0].filename
-									: ""));
-					if (!imageSrc || imageSrc.endsWith("/")) {
-						imageSrc = '/resources/common/img/default_product.png';
+					var imageSrc = '';
+					if (product.imgList && product.imgList.length > 0) {
+					  imageSrc = product.imgList[0].url || product.imgList[0].filename; // 실제 필드명 확인 필요
+					}
+					if (!imageSrc) {
+					  imageSrc = '/resources/common/img/default_product.png';
 					}
 
 					// 상품 아이디를 data-product-id 속성으로 추가
