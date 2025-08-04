@@ -150,7 +150,7 @@
           </a>
           <ul class="nav nav-treeview">
             <li class="nav-item">
-              <a href="#" class="nav-link">
+              <a href="/store/seller/manage/settlement/summery" class="nav-link">
                 <p>정산정보 관리</p>
               </a>
             </li>

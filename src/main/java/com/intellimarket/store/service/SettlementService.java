@@ -24,4 +24,20 @@ public interface SettlementService {
 	
 	//정산 상태 변경
 	void updateStatus(int settlementId , SettlementStatus settlementStatus);
+	
+	//status가 READY인 건 일괄 REQUESTED 요청 (단, yearMonth / storeInfoId 입력 필요)
+	int updateStatusToRequested(int storeInfoId, String yearMonth);
+	
+	//스토어 및 상태별 정산 건수
+    int countByStatusAndId(String settlementStatus, int storeInfoId, String yearMonth);
+
+    //스토어 및 상태별 정산 금액 합계
+    int sumAmountByStatusAndId(String settlementStatus, int storeInfoId, String yearMonth);
+    
+    //상태별 정산 건수
+    int countByStatus(String settlementStatus, String yearMonth);
+
+    //상태별 정산 금액 합계
+    int sumAmountByStatus(String settlementStatus, String yearMonth);
+    
 }
