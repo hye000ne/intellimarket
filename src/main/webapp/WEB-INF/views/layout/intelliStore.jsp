@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/views/common/init.jsp" %>
+<c:set var="ctx" value="${pageContext.request.contextPath}" />
 
 <!DOCTYPE html>
 <html lang="ko">
@@ -21,6 +22,7 @@
     <link rel="stylesheet" href="${ctx}/resources/shop/assets/css/slick.css" />
     <link rel="stylesheet" href="${ctx}/resources/shop/assets/css/nice-select.css" />
     <link rel="stylesheet" href="${ctx}/resources/shop/assets/css/style.css" />
+    <link rel="stylesheet" href="${ctx}/resources/store/assets/css/main.css" />
     <link rel="stylesheet" href="${ctx}/resources/common/css/override.css" />
 
     <!-- jQuery -->

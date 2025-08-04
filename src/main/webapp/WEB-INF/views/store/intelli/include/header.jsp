@@ -7,7 +7,7 @@
         <!-- 왼쪽: intelli 로고 -->
         <div class="d-flex align-items-center">
             <a href="${ctx}/shop/main" style="display:block;padding-left:10px;">
-                <img src="${ctx}/resources/common/img/logo/intelli_logo.png" alt="intelli" style="height:27px; vertical-align:middle;">
+                <img src="${ctx}/resources/common/img/logo/logo05.png" alt="intelli" style="height:27px; vertical-align:middle;">
             </a>
         </div>
         <!-- 오른쪽: 상태별 텍스트 메뉴 -->

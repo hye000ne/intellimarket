@@ -34,14 +34,18 @@ public class StoreInfoServiceImpl implements StoreInfoService {
 	public StoreInfo selectById(Seller seller) {
 		return storeInfoDAO.selectById(seller.getSellerId());
 	}
-	
+		
+	@Override
+	public StoreInfo selectByName(StoreInfo storeInfo) {
+		return storeInfoDAO.selectByName(storeInfo.getEngName());
+	}
+  
 	@Override
 	public List<StoreInfo> selectRecentByCount(int count){
 		return storeInfoDAO.selectRecentByCount(count);
 	}
-		
-	
-	@Override
+
+  @Override
 	public void insert(StoreInfo storeInfo) {
 		storeInfoDAO.insert(storeInfo);
 	}
@@ -66,5 +70,6 @@ public class StoreInfoServiceImpl implements StoreInfoService {
 			throw new AdminException("배너 이미지 저장에 실패했습니다.", e);
 		}
 	}
+
 
 }
