@@ -48,6 +48,31 @@ public class SettlementServiceImpl implements SettlementService{
 		settlement.setSettlementStatus(settlementStatus);
 		settlementDAO.updateStatus(settlement);
 	}
+	
+	@Override
+	public int updateStatusToRequested(int storeInfoId, String yearMonth) {
+		return settlementDAO.updateStatusToRequested(storeInfoId, yearMonth);
+	}
+
+	@Override
+	public int countByStatusAndId(String settlementStatus, int storeInfoId, String yearMonth) {
+		return settlementDAO.countByStatusAndId(settlementStatus, storeInfoId, yearMonth);
+	}
+
+	@Override
+	public int sumAmountByStatusAndId(String settlementStatus, int storeInfoId, String yearMonth) {
+		return settlementDAO.sumAmountByStatusAndId(settlementStatus, storeInfoId, yearMonth);
+	}
+
+	@Override
+	public int countByStatus(String settlementStatus, String yearMonth) {
+		return settlementDAO.countByStatus(settlementStatus, yearMonth);
+	}
+
+	@Override
+	public int sumAmountByStatus(String settlementStatus, String yearMonth) {
+		return settlementDAO.sumAmountByStatus(settlementStatus, yearMonth);
+	}
 
 
 
