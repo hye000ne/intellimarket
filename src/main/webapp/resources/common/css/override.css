@@ -127,3 +127,15 @@
   text-align: right;
 }
 
+/* ===================== 신규입점 로고 이미지 ===================== */
+.recent-store-logo {
+  width: 140px;
+  height: 140px;
+  object-fit: contain;
+  background: #fafcfd;
+  border-radius: 18px;
+  padding: 10px;
+  margin: 0 auto;
+  display: block;
+}
+

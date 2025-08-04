@@ -22,6 +22,13 @@
 		<select id="selectById" parameterType="int" resultMap="storeInfoMap">
 			SELECT * FROM store_info WHERE seller_id = #{sellerId}
 		</select>
+		
+		<!-- 스토어 목록 최신 등록순 조회 -->
+		<select id="selectRecentByCount" parameterType="int" resultMap="storeInfoMap">
+			SELECT * FROM store_info 
+			ORDER BY store_info_id DESC
+			LIMIT #{count}
+		</select>
 
 		<insert id="insert" parameterType="StoreInfo">
 			INSERT INTO
