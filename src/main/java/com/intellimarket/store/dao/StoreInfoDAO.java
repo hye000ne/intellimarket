@@ -16,6 +16,9 @@ public interface StoreInfoDAO {
 	
 	// 스토어 영문명으로 조회
 	public StoreInfo selectByName(String engName);
+  
+  // 스토어 목록 최신 등록순 조회
+	public List<StoreInfo> selectRecentByCount(int count);
 	
 	// 스토어 정보 등록
 	public void insert(StoreInfo storeInfo);
