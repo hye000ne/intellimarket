@@ -48,22 +48,34 @@
 		WHERE s.store_info_id = #{storeInfoId}
 	</select>
 	
+	<!-- 주문 조회 (구매ID 기반) -->
+	<select id="selectByMerchantUid" parameterType="map" resultMap="joinMap">
+		select * from orders
+		where merchant_uid = #{merchantUid}
+		   and member_id = #{memberId} 
+	</select>
+	
+	<!-- 주문 조회 (멤버ID 기반) -->
+	<select id="selectByMemberId" parameterType="int" resultMap="joinMap">
+		select * from orders
+		where member_id = #{memberId} 
+	</select>
+	
+	
 	<!-- 주문 입력-->
 	<insert id="insert" parameterType="Order">
 		insert into orders (
 			merchant_uid, quantity, 
 			zip_code, address, 
-			detail_address, created_date, 
-			updated_date, order_status, 
+			detail_address,  order_status, 
 			member_id, product_id,
 			total_price
 		)
 		values (
 			#{merchantUid}, #{quantity}, 
 			#{zipCode}, #{address}, 
-			#{detailAddress}, #{createdDate}, 
-			#{updatedDate}, #{orderStatus}, 
-			#{memberId}, #{productId},
+			#{detailAddress}, #{orderStatus},
+			#{member.memberId}, #{product.productId},
 			#{totalPrice}
 		)
 	</insert>
