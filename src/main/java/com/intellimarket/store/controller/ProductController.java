@@ -150,7 +150,7 @@ public class ProductController {
 	public Map<String, Object> updateProduct(@ModelAttribute Product product, HttpSession session, HttpServletRequest request){
 		Seller loginSeller = (Seller) session.getAttribute("loginSeller");
 		String prefix="p";
-		String savePath = request.getServletContext().getRealPath("/resources/store/img");
+		String savePath = request.getServletContext().getRealPath("/resources/common/img/product");
 		
 		Map<String, Object> res = new HashMap<>();
 		
