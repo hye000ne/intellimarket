@@ -63,7 +63,7 @@
           </a>
           <ul class="nav nav-treeview">
             <li class="nav-item">
-              <a href="#" class="nav-link">
+              <a href="${ctx}/store/seller/manage/order/list" class="nav-link">
                 <p>주문 목록</p>
               </a>
             </li>

@@ -2,6 +2,7 @@ package com.intellimarket.shop.dao;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import com.intellimarket.shop.domain.Cart;
@@ -18,7 +19,7 @@ public interface CartDAO {
 	
 	void insert(Cart cart);
 	
-	void updateQuantity(int quantity);
+	int updateQuantity(Cart cart);
 	
-	void delete(int cart_id);
+	int delete(int cart_id);
 }

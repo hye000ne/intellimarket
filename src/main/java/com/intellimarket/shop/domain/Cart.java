@@ -18,4 +18,6 @@ public class Cart {
 	private Member member;
 	
 	private Product product;
+	
+	private int status; // 0 : 선택 안됨, 1 : 선택 됨
 }
