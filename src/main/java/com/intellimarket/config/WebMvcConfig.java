@@ -49,9 +49,8 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter {
         
         // 임시 배포 폴더 물리 경로 추가 매핑
         registry.addResourceHandler("/store/**")
-                .addResourceLocations("file:///C:/work_space/project_wroksapce2/.metadata/.plugins/org.eclipse.wst.server.core/tmp0/wtpwebapps/intellimarket/resources/store/");
+                .addResourceLocations("file:///C:/lecture_workspace/project_wroksapce2/.metadata/.plugins/org.eclipse.wst.server.core/tmp0/wtpwebapps/intellimarket/resources/store/");
     }
-    
     /**
      * JSON 변환기 등록
      * - @ResponseBody 사용 시 객체를 JSON으로 자동 변환

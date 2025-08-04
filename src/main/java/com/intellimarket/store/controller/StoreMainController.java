@@ -105,7 +105,7 @@ public class StoreMainController {
 	/**
 	 * 상품 디테일 페이지 반환
 	 */
-	@GetMapping("/{engName}/products/{productId}/frag")
+	@GetMapping("/{engName}/products/{productId}")
 	public String getDetailFrag(@PathVariable("engName") String engName, @PathVariable("productId") String productId, Model model) {
 		
 	    model.addAttribute("contentPage", "store/intelli/detail.jsp");

@@ -5,10 +5,10 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <script>
   var ctx = "${pageContext.request.contextPath}";
-</script>
+  console.log(ctx);
+</script> 
 <c:set var="ctx" value="${pageContext.request.contextPath}" />
-
-<
+<a href="/store/ggmk/products/1/frag">이동</a>
 <!-- 상품 리스트 -->
 <div class="container py-4" style="max-width: 1196px; background: #fff;">
   <div class="row row-cols-2 row-cols-md-5 g-4 mb-2">
@@ -88,7 +88,7 @@ $(document).ready(function() {
 	    });
 	  });
 	  
-	  // 서브 카테고리 이벤트도 위임으로 처리하셨죠?
+	  // 서브 카테고리 이벤트도 위임으로 처리
 	  $(document).on('click', '.dropdown-item', function(e) {
 	    e.preventDefault();
 	    const subId = $(this).data('subid');
@@ -173,16 +173,10 @@ $(document).on('click', '.product-item', function() {
         console.warn('productId is missing');
         return;
     }
-    var url = '/store/' + engName + '/products/' + productId + '/frag';
+    var url = '/store/' + engName + '/products/' + productId;
 
-    $.get(url, function(html) {
-        // 응답받은 HTML로 특정 영역(html fragment) 교체
-        $('#contentPage').html(html);
-
-        // 필요하면 스크립트 초기화 등 추가 실행
-    }).fail(function() {
-        alert('상품 정보 로드 실패');
-    });
+    // 완전한 전체 페이지 전환
+    window.location.href = url;
 });
 
 </script>

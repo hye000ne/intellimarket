@@ -1,17 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/views/common/init.jsp"%>
-<c:set var="ctx" value="${pageContext.request.contextPath}" />
 
 <!DOCTYPE html>
-<html lang="ko">
+<html 
+lang="ko">
 <head>
-<meta charset="UTF-8">
-<title><c:out
-		value="${pageTitle != null ? pageTitle : '판매자페이지'}" /></title>
-<meta name="description"
-	content="${pageDescription != null ? pageDescription : ''}">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta charset="UTF-8">
+		<title>${storeInfo.storeName}</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1">
 
 <!-- CSS -->
 <link rel="stylesheet"
@@ -36,24 +33,22 @@
 <link rel="stylesheet" href="${ctx}/resources/shop/assets/css/style.css" />
 <link rel="stylesheet" href="${ctx}/resources/store/assets/css/main.css" />
 <link rel="stylesheet" href="${ctx}/resources/common/css/override.css" />
-
+<script src="${ctx}/resources/admin/assets/plugins/jquery/jquery.min.js"></script>
 <!-- jQuery -->
-<script
-	src="${ctx}/resources/shop/assets/js/vendor/jquery-1.12.4.min.js"></script>
+
 <link
 	href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css"
 	rel="stylesheet">
 </head>
 <body>
-
+<div class="wrapper">
 	<!-- 헤더 include -->
 	<jsp:include page="/WEB-INF/views/store/intelli/include/header.jsp" />
-
 	<!-- 메인 컨텐츠 영역 동적 include -->
 	<jsp:include page="/WEB-INF/views/${contentPage}" />
-
 	<!-- 푸터 include -->
 	<jsp:include page="/WEB-INF/views/shop/include/footer.jsp" />
+</div>
 
 	<!-- Core JS -->
 	<script
@@ -85,8 +80,7 @@
 
 	<!-- intellimarket 공용 js -->
 	<script src="${ctx}/resources/common/js/common.js"></script>
-	<!-- head 태그 내에 CSS 추가 -->
-
+	
 
 	<!-- body 닫기 전에 JS 추가 (기존 jQuery, Bootstrap 스크립트 뒤에 위치) -->
 	<script
