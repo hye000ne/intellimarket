@@ -32,8 +32,13 @@ public class SettlementServiceImpl implements SettlementService{
 	}
 
 	@Override
-	public List selectByStatus(Map<String, Object> paramMap) {
-		return settlementDAO.selectByStatus(paramMap);
+	public List selectByStatusAndStoreInfoId(Map<String, Object> paramMap) {
+		return settlementDAO.selectByStatusAndStoreInfoId(paramMap);
+	}
+	
+	@Override
+	public List<Settlement> selectByStatus(SettlementStatus status) {
+		return settlementDAO.selectByStatus(status);
 	}
 
 	@Override
@@ -43,5 +48,7 @@ public class SettlementServiceImpl implements SettlementService{
 		settlement.setSettlementStatus(settlementStatus);
 		settlementDAO.updateStatus(settlement);
 	}
+
+
 
 }
