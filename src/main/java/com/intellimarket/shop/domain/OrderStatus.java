@@ -1,7 +1,8 @@
 package com.intellimarket.shop.domain;
 
 public enum OrderStatus {
-	ORDER_CONFIRMED("주문확인중"),       
+	ORDER_WATING("결제대기중"),
+	ORDER_CONFIRMED("주문완료"),       
     PREPARING_SHIPMENT("배송준비중"),    
     IN_TRANSIT("배송중"),            
     DELIVERED("배송완료"),              

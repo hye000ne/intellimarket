@@ -30,13 +30,13 @@ public class CartServiceImpl implements CartService{
 	}
 	
 	@Override
-	public List<Cart> selectAllByStatus(int status) {
-		return cartDAO.selectAllByStatus(status);
+	public List<Cart> selectAllByStatus(int member_id) {
+		return cartDAO.selectAllByStatus(member_id);
 	}
 
 	@Override
-	public void insert(Cart cart) {
-		cartDAO.insert(cart);
+	public int insert(Cart cart) {
+		return cartDAO.insert(cart);
 	}
 
 	@Override
