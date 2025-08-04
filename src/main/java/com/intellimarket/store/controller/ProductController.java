@@ -124,7 +124,7 @@ public class ProductController {
 		String prefix="p";
 		product.setSeller(loginSeller);
 		// 파일이 저장될 경로 지정
-		String savePath = request.getServletContext().getRealPath("/resources/store/img");
+		String savePath = request.getServletContext().getRealPath("/resources/common/img/product");
 		
 		Map<String, Object> res = new HashMap<>();
 		

@@ -5,6 +5,7 @@
 <link rel="stylesheet" href="${ctx}/resources/admin/assets/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
 <link rel="stylesheet" href="${ctx}/resources/admin/assets/plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
 <link rel="stylesheet" href="${ctx}/resources/admin/assets/plugins/datatables-buttons/css/buttons.bootstrap4.min.css">
+<link rel="stylesheet" href="${ctx}/resources/admin/assets/plugins/bootstrap/bootstrap.min.css">
 <c:if test="${not empty msg}">
 	<script>
 		alert('${msg}');
@@ -59,8 +60,8 @@
 				                    		<td>${order.quantity}</td>
 				                    		<td>${order.totalPrice}</td>
 				                    		<td>${order.orderStatus.label}</td>
-				                    		<td>${order.createDate}</td>
-				                    		<td>${order.updateDate}</td>
+				                    		<td>${order.createdDate}</td>
+				                    		<td>${order.updatedDate}</td>
 				                    		<td><button type="button" class="btn btn-block btn-info btn-sm" onclick="goToDetail(${order.orderId})">상세</button></td>
 				                    		<td>
 											  <button 
@@ -68,7 +69,7 @@
 											    class="btn btn-block btn-primary btn-sm"
 											    data-toggle="modal" 
 											    data-target="#orderStatusModal"
-											    onclick="setOrderStatus(${order.orderId}, '${order.status}')">
+											    onclick="setOrderStatus(${order.orderId}, '${order.orderStatus}')">
 											    상태변경
 											  </button>
 											</td>

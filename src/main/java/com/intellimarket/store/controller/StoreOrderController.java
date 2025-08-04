@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.intellimarket.shop.service.OrderService;
 import com.intellimarket.store.domain.Seller;
 import com.intellimarket.store.domain.StoreInfo;
 import com.intellimarket.store.service.ProductService;
@@ -23,7 +24,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @Controller
 @RequestMapping("/store/seller/manage/order")
-public class OrderController {
+public class StoreOrderController {
 	@Autowired ProductService productService;
 	@Autowired OrderService orderService;
 	/**
@@ -43,8 +44,8 @@ public class OrderController {
 	 * 판매자 주문 상세 / 수정 페이지
 	 * */
 	@GetMapping("/detail")
-	public String memberDetailPage(/*@RequestParam int orderId,*/ @RequestParam(required = false, defaultValue = "detail") String mode, Model model) {
-		//model.addAttribute("order", memberService.selectById(memberId));
+	public String memberDetailPage(@RequestParam int orderId, @RequestParam(required = false, defaultValue = "detail") String mode, Model model) {
+		model.addAttribute("order", orderService.selectById(orderId));
 		model.addAttribute("mode", mode); // detail, edit
 		model.addAttribute("contentPage", "store/seller/order/orderDetail.jsp");
 		return "layout/store";

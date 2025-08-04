@@ -20,8 +20,8 @@ public class OrderServiceImpl implements OrderService{
 	}
 
 	@Override
-	public List<Order> selectById(int ordersId) {
-		return ordersDAO.selectById(ordersId);
+	public Order selectById(int orderId) {
+		return ordersDAO.selectById(orderId);
 	}
 
 	@Override
@@ -30,17 +30,17 @@ public class OrderServiceImpl implements OrderService{
 	}
 
 	@Override
-	public void insert(Order orders) {
-		ordersDAO.insert(orders);
+	public void insert(Order order) {
+		ordersDAO.insert(order);
 	}
 
 	@Override
-	public void update(Order orders) {
-		ordersDAO.update(orders);		
+	public void update(Order order) {
+		ordersDAO.update(order);		
 	}
 
 	@Override
-	public void delete(int ordersId) {
-		ordersDAO.delete(ordersId);
+	public void delete(int orderId) {
+		ordersDAO.delete(orderId);
 	}
 }

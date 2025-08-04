@@ -7,13 +7,13 @@ import com.intellimarket.shop.domain.Order;
 public interface OrderService {
 	List<Order> selectAll();
 	
-	List<Order> selectById(int ordersId);
+	Order selectById(int orderId);
 
 	List<Order> selectByStoreInfoId(int storeInfoId);
 	
-	void insert(Order orders);
+	void insert(Order order);
 	
-	void update(Order orders);
+	void update(Order order);
 	
-	void delete(int ordersId);
+	void delete(int orderId);
 }
