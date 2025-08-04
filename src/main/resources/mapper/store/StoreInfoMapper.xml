@@ -24,7 +24,7 @@
 			SELECT * FROM store_info WHERE seller_id = #{sellerId}
 		</select>
   
-    <select id="selectByName" parameterType="String" resultMap="storeInfoMap">
+		<select id="selectByName" parameterType="String" resultMap="storeInfoMap">
 			SELECT * FROM store_info WHERE eng_Name = #{engName}
 		</select>
 		
@@ -33,7 +33,7 @@
 			SELECT * FROM store_info 
 			ORDER BY store_info_id DESC
 			LIMIT #{count}
-    </select>
+    		</select>
 
 		<insert id="insert" parameterType="StoreInfo">
 			INSERT INTO
