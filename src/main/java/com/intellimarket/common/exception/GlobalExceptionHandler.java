@@ -12,12 +12,15 @@ import com.intellimarket.admin.exception.AdminException;
 import com.intellimarket.shop.exception.ShopException;
 import com.intellimarket.store.exception.SellerException;
 
+import lombok.extern.slf4j.Slf4j;
+
 /**
  * 전역 예외 처리 클래스
  * - 모든 컨트롤러에서 발생하는 예외를 일괄 처리
  * - API 응답(JSON)과 페이지 응답(JSP)을 구분해서 처리
  * @author 혜원
  */
+@Slf4j
 @ControllerAdvice
 public class GlobalExceptionHandler {
 
@@ -26,7 +29,8 @@ public class GlobalExceptionHandler {
      * - 존재하지 않는 URL 요청 시 404.jsp로 포워딩
      */
     @ExceptionHandler(NoHandlerFoundException.class)
-    public String handle404(NoHandlerFoundException ex) {
+    public String handle404(NoHandlerFoundException e) {
+    	e.printStackTrace();
         return "common/error/404";
     }
 
@@ -35,7 +39,8 @@ public class GlobalExceptionHandler {
      * - 정의되지 않은 예외는 500.jsp로 포워딩
      */
     @ExceptionHandler(Exception.class)
-    public String handleException(Exception ex) {
+    public String handleException(Exception e) {
+    	e.printStackTrace();
         return "common/error/500";
     }
     
