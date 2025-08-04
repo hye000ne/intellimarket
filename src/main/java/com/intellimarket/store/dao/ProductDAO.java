@@ -5,7 +5,6 @@ import java.util.List;
 import org.springframework.stereotype.Repository;
 
 import com.intellimarket.store.domain.Product;
-import com.intellimarket.store.domain.ProductStatus;
 
 @Repository
 public interface ProductDAO {

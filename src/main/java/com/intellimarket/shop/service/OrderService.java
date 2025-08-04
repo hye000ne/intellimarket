@@ -2,7 +2,10 @@ package com.intellimarket.shop.service;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
+
 import com.intellimarket.shop.domain.Order;
+import com.intellimarket.shop.domain.OrderStatus;
 
 public interface OrderService {
 	List<Order> selectAll();
@@ -15,7 +18,9 @@ public interface OrderService {
 	
 	void update(Order order);
 	
-	void updateStatus(Order order);
+    void updateStatus(int orderId, OrderStatus status);
+    
+    void updateStatuses(List<Integer> orderIds, OrderStatus status);
 	
 	void delete(int orderId);
 }

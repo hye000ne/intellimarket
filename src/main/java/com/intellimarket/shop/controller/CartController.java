@@ -54,18 +54,13 @@ public class CartController {
 	@Transactional
 	@ResponseBody
 	public ResponseEntity<?> updateCart(@RequestBody List<Cart> cartList, HttpSession session, Model model) {
-	    Member member = SessionUtil.getLoginMember(session, model, "shop/login.jsp", "shop/common/loginFailAlert.jsp");
+	    Member member = SessionUtil.getLoginMember(session, model, "shop/common/loginFailAlert.jsp", Member.Role.USER);
 
 	    if (member == null) {
 	        throw new ShopException("로그인이 필요합니다.");
 	    }
 	    
-	    for (Cart cart : cartList) {
-	    	log.debug("item의 사이즈는요" + cartList.size());
-	    	log.debug("status가 무엇이냐면요" +cart.getStatus());
-	    	log.debug("Quantity가 무엇이냐면요" +cart.getQuantity());
-	    	log.debug("CartId가 무엇이냐면요" +cart.getCartId());
-	    	
+	    for (Cart cart : cartList) {   	
 	        cartService.updateQuantity(cart);
 	    }
 
