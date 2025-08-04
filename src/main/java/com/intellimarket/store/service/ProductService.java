@@ -37,4 +37,8 @@ public interface ProductService {
 	
 	// 프론트에서 넘어온 product 추가 유효성 검사
 	void validateProduct(Product product);
+	
+	List<Product> getTopProduct(StoreInfo storeInfo, String topId);
+	
+	List<Product> getSubProduct(StoreInfo storeInfo, String subId);
 }

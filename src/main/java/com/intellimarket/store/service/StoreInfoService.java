@@ -11,6 +11,12 @@ public interface StoreInfoService {
 	
 	// 판매자 ID로 조회
 	StoreInfo selectById(Seller seller);
+
+	// 스토어 영문명으로 조회
+	StoreInfo selectByName(StoreInfo storeInfo);
+	
+	// 스토어 목록 최신 등록순 조회
+	List<StoreInfo> selectRecentByCount(int count);
 	
 	// 스토어 정보 등록
 	void insert(StoreInfo storeInfo);

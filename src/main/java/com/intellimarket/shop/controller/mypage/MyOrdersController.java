@@ -20,7 +20,7 @@ public class MyOrdersController {
 	@GetMapping
 	public String showMyOrdersPage(Model model, HttpSession session) {
 		// 로그인 사용자 세션 확인
-		Member member = SessionUtil.getLoginMember(session, model, "shop/member/login.jsp", "shop/common/loginFailAlert.jsp");
+		Member member = SessionUtil.getLoginMember(session, model, "shop/common/loginFailAlert.jsp", Member.Role.USER);
 
 	    if (member == null) {
 	        return "layout/shop";

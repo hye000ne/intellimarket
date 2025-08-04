@@ -5,7 +5,7 @@
 <head>
     <meta charset="UTF-8">
     <title>페이지를 찾을 수 없습니다</title>
-    <link rel="stylesheet" href="/resources/bootstrap4/css/bootstrap.min.css">
+    <link rel="stylesheet" href="${ctx}/resources/shop/assets/css/bootstrap.min.css">
     <style>
         body {
             background-color: #f4f6f9;

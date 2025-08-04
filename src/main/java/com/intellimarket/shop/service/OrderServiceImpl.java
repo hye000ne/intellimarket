@@ -21,6 +21,7 @@ public class OrderServiceImpl implements OrderService{
 
 	@Override
 	public Order selectById(int orderId) {
+
 		return orderDAO.selectById(orderId);
 	}
 
@@ -46,6 +47,6 @@ public class OrderServiceImpl implements OrderService{
 
 	@Override
 	public void delete(int orderId) {
-		orderDAO.delete(orderId);
+		ordersDAO.delete(orderId);
 	}
 }

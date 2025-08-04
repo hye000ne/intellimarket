@@ -7,10 +7,10 @@
 	        <div class="row mb-2">
 	            <div class="col-sm-12">
 	                <ol class="breadcrumb float-sm-right">
-	                    <li class="breadcrumb-item">회원 관리</li>
+	                    <li class="breadcrumb-item">주문 관리</li>
 	                    <c:choose>
-	                    	<c:when test="${isEditMode }"><li class="breadcrumb-item active">회원 수정</li></c:when>
-	                    	<c:otherwise><li class="breadcrumb-item active">회원 상세</li></c:otherwise>
+	                    	<c:when test="${isEditMode }"><li class="breadcrumb-item active">주문 수정</li></c:when>
+	                    	<c:otherwise><li class="breadcrumb-item active">주문 상세</li></c:otherwise>
 	                    </c:choose>
 	                </ol>
 	            </div>
@@ -22,60 +22,63 @@
 		<div class="container-fluid d-flex justify-content-center">
 			<div class="card card-outline card-primary" style="width: 800px;">
 				<div class="card-header">
-					<h3 class="card-title">회원 정보</h3>
+					<h3 class="card-title">주문 정보</h3>
 				</div>
 				<form id="updateForm">
-					 <input type="hidden" id="memberId" name="memberId" value="${member.memberId}">
-					 
+				<input type="hidden" id="orderId" name="orderId" value="${order.orderId}">
 					<div class="card-body">
 						<div class="form-group row">
 							<label class="col-sm-3 col-form-label">이메일</label>
 							<div class="col-sm-9">
-								<input type="email" class="form-control" id="email" name="email" value="${member.email}" readonly>
+								<input type="email" class="form-control" id="email" name="email" value="${order.member.email}" readonly>
 							</div>
-						</div>
+						</div>						
 						<div class="form-group row">
 							<label class="col-sm-3 col-form-label">이름</label>
 							<div class="col-sm-9">
-								<input type="text" class="form-control" id="name" name="name" value="${member.name}" readonly>
+								<input type="text" class="form-control" id="name" name="name" value="${order.member.name}" readonly>
 							</div>
 						</div>
 						<div class="form-group row">
-							<label class="col-sm-3 col-form-label">생년월일</label>
+							<label class="col-sm-3 col-form-label">주문 상품 카테고리</label>
 							<div class="col-sm-9">
-								<input type="date" class="form-control" id="birth" name="birth" value="${member.birth}" readonly>
+								<input type="text" class="form-control" id="categoryName" name="categoryName" value="${order.product.subCategory.categoryName}" readonly>
 							</div>
 						</div>
 						<div class="form-group row">
-							<label class="col-sm-3 col-form-label">휴대폰 번호 (숫자만 입력)</label>
+							<label class="col-sm-3 col-form-label">주문 상품</label>
 							<div class="col-sm-9">
-								<input type="text" class="form-control" id="phone" name="phone" value="${member.phone}" readonly>
+								<input type="text" class="form-control" id="productName" name="productName" value="${order.product.productName}" readonly>
 							</div>
 						</div>
 						<div class="form-group row">
-							<label class="col-sm-3 col-form-label">성별</label>
+							<label class="col-sm-3 col-form-label">주문 개수</label>
 							<div class="col-sm-9">
-								<c:choose>
-									<c:when test="${isEditMode}">
-										<div class="form-check form-check-inline">
-								        	<input class="form-check-input" type="radio" name="gender" id="genderM" value="M" <c:if test="${member.gender eq 'M'}">checked</c:if>>
-								        	<label class="form-check-label" for="genderM">남자</label>
-								      	</div>
-								      	<div class="form-check form-check-inline">
-								        	<input class="form-check-input" type="radio" name="gender" id="genderF" value="F" <c:if test="${member.gender eq 'F'}">checked</c:if>>
-								        	<label class="form-check-label" for="genderF">여자</label>
-							     		</div>
-									</c:when>
-									<c:otherwise>
-										<input type="text" class="form-control" id="gender" name="gender" value="${member.gender eq 'M' ? '남자':'여자'}" readonly>
-									</c:otherwise>
-								</c:choose>
+								<input type="text" class="form-control" id="quantity" name="quantity" value="${order.quantity}" readonly>
 							</div>
 						</div>
 						<div class="form-group row">
-							<label class="col-sm-3 col-form-label">상태</label>
+							<label class="col-sm-3 col-form-label">주문 금액</label>
 							<div class="col-sm-9">
-								<input type="text" class="form-control" id="status" name="status" value="${member.status}" readonly>
+								<input type="text" class="form-control" id="totalPrice" name="totalPrice" value="${order.totalPrice}" readonly>
+							</div>
+						</div>
+						<div class="form-group row">
+							<label class="col-sm-3 col-form-label">주문 상태</label>
+							<div class="col-sm-9">
+								<input type="text" class="form-control" id="orderStatus" name="orderStatus" value="${order.orderStatus.label}" readonly>
+							</div>
+						</div>
+						<div class="form-group row">
+							<label class="col-sm-3 col-form-label">주문 시간</label>
+							<div class="col-sm-9">
+								<input type="text" class="form-control" id="createdDate" name="createdDate" value="${order.createdDate}" readonly>
+							</div>
+						</div>
+						<div class="form-group row">
+							<label class="col-sm-3 col-form-label">주문 처리 시간</label>
+							<div class="col-sm-9">
+								<input type="text" class="form-control" id="updatedDate" name="updatedDate" value="${order.updatedDate}" readonly>
 							</div>
 						</div>
 						<c:choose>
@@ -84,16 +87,16 @@
 							    <div class="form-group row">
 							        <label class="col-sm-3 col-form-label">우편번호</label>
 							        <div class="col-sm-9 d-flex">
-							            <input type="text" id="zipCode" name="zipCode" class="form-control mr-2" value="${member.zipCode}" readonly style="max-width: 200px;">
+							            <input type="text" id="zipCode" name="zipCode" class="form-control mr-2" value="${order.zipCode}" readonly style="max-width: 200px;">
 							            <button type="button" class="btn btn-outline-secondary" onclick="findZipCode()">우편번호 찾기</button>
 							        </div>
 							    </div>
 							
 							    <!-- 기본주소 -->
 							    <div class="form-group row">
-							        <label class="col-sm-3 col-form-label">주소</label>
+							        <label class="col-sm-3 col-form-label">배송받을 주소</label>
 							        <div class="col-sm-9">
-							            <input type="text" id="address" name="address" class="form-control" value="${member.address}" readonly>
+							            <input type="text" id="address" name="address" class="form-control" value="${order.address}" readonly>
 							        </div>
 							    </div>
 							
@@ -101,7 +104,7 @@
 							    <div class="form-group row">
 							        <label class="col-sm-3 col-form-label">상세주소</label>
 							        <div class="col-sm-9">
-							            <input type="text" id="detailAddress" name="detailAddress" class="form-control" value="${member.detailAddress}">
+							            <input type="text" id="detailAddress" name="detailAddress" class="form-control" value="${order.detailAddress}">
 							        </div>
 							    </div>
 							</c:when>
@@ -109,19 +112,19 @@
 								<div class="form-group row">
 									<label class="col-sm-3 col-form-label">우편번호</label>
 									<div class="col-sm-9">
-										<input type="text" class="form-control" id="zipCode" name="zipCode" value="${member.zipCode}" readonly>
+										<input type="text" class="form-control" id="zipCode" name="zipCode" value="${order.zipCode}" readonly>
 									</div>
 								</div>
 								<div class="form-group row">
-									<label class="col-sm-3 col-form-label">주소</label>
+									<label class="col-sm-3 col-form-label">배송받을 주소</label>
 									<div class="col-sm-9">
-										<input type="text" class="form-control" id="address" name="address" value="${member.address}" readonly>
+										<input type="text" class="form-control" id="address" name="address" value="${order.address}" readonly>
 									</div>
 								</div>
 								<div class="form-group row">
 									<label class="col-sm-3 col-form-label">상세주소</label>
 									<div class="col-sm-9">
-										<input type="text" class="form-control" id="detailAddress" name="detailAddress" value="${member.detailAddress}" readonly>
+										<input type="text" class="form-control" id="detailAddress" name="detailAddress" value="${order.detailAddress}" readonly>
 									</div>
 								</div>
 							</c:otherwise>						  	
@@ -149,14 +152,14 @@
 <script>
 	function handleActionBtnClick(action){
 		if(action === 'edit') {
-			location.href = '/admin/member/detail?memberId=' + $("#memberId").val() + '&mode=edit';
+			location.href='/store/seller/manage/order/detail?orderId='+$("#orderId").val() + '&mode=edit';
 
 		} else if(action === 'save') {
 			// 저장
 			submitUpdateForm();
 		} else if(action === 'list') {
 			// 목록
-			location.href = '/admin/member/list';
+			location.href = '/store/seller/manage/order/list';
 		}
 	}
 	
@@ -165,12 +168,12 @@
 		
 		$.ajax({
 			type: 'POST',
-			url: '/shop/member/update',
+			url: '/store/seller/manage/order/update',
 			data: $("#updateForm").serialize(),
 			success: function(res) {
 				if(res.status === 'ok') {
 					alert(res.msg);
-					location.href='/admin/member/detail?memberId='+$("#memberId").val();
+					location.href='/store/seller/manage/order/detail?orderId='+$("#orderId").val();
 				} 
 			},
 			error: function() {
@@ -181,36 +184,13 @@
 	
 	// 수정 폼 유효성 검사
 	function validateUpdateForm() {
-		const name = $('#name').val();
-		const birth = $('#birth').val();
-		const phone = $('#phone').val();
 		const zipCode = $('#zipCode').val();
 		const address = $('#address').val();
 		const detailAddress = $('#detailAddress').val();
 		
-		if (!name || !/^[가-힣]{2,}$/.test(name)) {
-		  	alert('이름을 한글 2자 이상으로 입력하세요.');
-		  	return false;
-		}
-		
-		if (!birth) {
-		  	alert('생년월일을 입력하세요.');
-		  	return false;
-		}
-		
-		if (!phone || !/^\d{10,11}$/.test(phone)) {
-		  	alert('휴대폰 번호를 숫자만 입력하세요.');
-		  	return false;
-		}
-		
 		if (!zipCode || !address || !detailAddress) {
 		  	alert('주소를 모두 입력해주세요.');
 		 	return false;
-		}
-		
-		if (!$('[name="gender"]').is(':checked')) {
-		  	alert('성별을 선택해주세요.');
-		  	return false;
 		}
 		
 		return true;
@@ -232,25 +212,11 @@
 	}
 	
 	$(function(){
-<<<<<<< HEAD
-	      const isEditMode = ${isEditMode};
-	      if (isEditMode) {
-	          $('#name').prop('readonly', false);
-	          $('#birth').prop('readonly', false);
-	          $('#phone').prop('readonly', false);
-	          $('#detailAddress').prop('readonly', false);
-	          $('#zipCode').click(findZipCode);
-	      }
-	   });
-=======
 		const isEditMode = ${isEditMode};
 		if (isEditMode) {
-		    $('#name').prop('readonly', false);
-		    $('#birth').prop('readonly', false);
-		    $('#phone').prop('readonly', false);
 		    $('#detailAddress').prop('readonly', false);
-		    $('#zipCode').click(findZipCode);
+	    	$('#zipCode').click(findZipCode);
 		}
+		
 	});
->>>>>>> main
 </script>

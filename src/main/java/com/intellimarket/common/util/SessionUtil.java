@@ -8,14 +8,20 @@ import com.intellimarket.shop.domain.Member;
 import com.intellimarket.shop.service.MemberService;
 
 public class SessionUtil {
-	public static Member getLoginMember(HttpSession session, Model model, String redirectUrl, String contentPage) {
+	public static Member getLoginMember(HttpSession session, Model model, String contentPage, Member.Role requiredRole) {
 	    Member member = (Member) session.getAttribute("loginMember");
 
 	    if (member == null) {
 	        model.addAttribute("alertMessage", "로그인 이후 사용 가능합니다.");
-	        model.addAttribute("redirectUrl", redirectUrl);
-	        model.addAttribute("contentPage", contentPage);
-	        return null;
+	        model.addAttribute("redirectUrl", "/shop/login");
+	    } else if(requiredRole != null && member.getRole() != requiredRole) {
+	    	model.addAttribute("alertMessage", "접근 권한이 없습니다.");
+	    	model.addAttribute("redirectUrl", "/shop/main");
+	    }
+	    
+	    if(model.containsAttribute("alertMessage")) {
+	    	model.addAttribute("contentPage", contentPage);
+	    	return null;
 	    }
 
 	    return member;

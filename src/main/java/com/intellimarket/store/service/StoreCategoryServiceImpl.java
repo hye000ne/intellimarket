@@ -1,7 +1,7 @@
 package com.intellimarket.store.service;
 
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -77,10 +77,23 @@ public class StoreCategoryServiceImpl implements StoreCategoryService {
 	}
 
 	@Override
-	public List<StoreCategory> getAllCategoryById(Seller seller) {
-		StoreInfo storeInfo = storeInfoDAO.selectById(seller.getSellerId());
-		return storeCategoryDAO.selectRootById(storeInfo.getStoreInfoId());
+	public Map<TopCategory, List<SubCategory>> getAllCategory(StoreInfo storeInfo) {
+	    List<StoreCategory> storeCategoriesFull = storeCategoryDAO.selectRootById(storeInfo.getStoreInfoId());
+
+	    Map<TopCategory, List<SubCategory>> groupedCategories = new LinkedHashMap<>();
+
+	    for(StoreCategory sc : storeCategoriesFull){
+	        TopCategory top = sc.getSubCategory().getTopCategory();
+	        List<SubCategory> subList = groupedCategories.get(top);
+	        if(subList == null) {
+	            subList = new ArrayList<>();
+	            groupedCategories.put(top, subList);
+	        }
+	        subList.add(sc.getSubCategory());
+	    }
+	    return groupedCategories;
 	}
+
 
 	@Override
 	public void delete(int storeCategoryId, Seller seller) throws StoreCategoryException{
@@ -120,6 +133,12 @@ public class StoreCategoryServiceImpl implements StoreCategoryService {
 	    }
 
 	    storeCategoryDAO.delete(storeCategoryId);
+	}
+	
+	@Override
+	public List<StoreCategory> getAllCategoryById(Seller seller) {
+		StoreInfo storeInfo = storeInfoDAO.selectById(seller.getSellerId());
+		return storeCategoryDAO.selectRootById(storeInfo.getStoreInfoId());
 	}
 
 

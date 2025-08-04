@@ -17,13 +17,16 @@ import com.intellimarket.store.domain.SellerStatus;
 import com.intellimarket.store.domain.StoreInfo;
 import com.intellimarket.store.exception.SellerException;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 @Service
 public class SellerServiceImpl implements SellerService {
 
 	@Autowired
 	SellerDAO sellerDAO;
-	
-	@Autowired	
+
+	@Autowired
 	StoreInfoDAO storeInfoDAO;
 
 	// 전체 목록 조회
@@ -71,26 +74,26 @@ public class SellerServiceImpl implements SellerService {
 		return sellerDAO.updateSeller(seller);
 	}
 
-	// 판매자 정보 수정
-	@Override
-	public int updateStatus(Seller seller) {
-		return sellerDAO.updateStatus(seller);
-	}
-	
-	
-	// 가입 승인 및 스토어 생성
+	// 판매자 상태 수정
 	@Transactional
-	public void approveAndCreateStore(Seller seller) {
-		sellerDAO.updateStatus(seller);
+	public void updateStatus(Seller reqSeller) {
 		
-		StoreInfo storeInfo = new StoreInfo();
-		storeInfo.setStoreName(seller.getName()+" 님의 스토어");
-		storeInfo.setStoreTel(seller.getTel());
-		storeInfo.setLogoPath("");
-		storeInfo.setStoreIntroduce(seller.getName()+" 님의 인텔리한 상점입니다");
-		storeInfo.setSeller(seller);
+		// 승인일 경우, storeInfo도 생성
+		if(reqSeller.getStatus().equals(SellerStatus.APPROVED)) {
+			Seller seller = sellerDAO.selectById(reqSeller.getSellerId());
+			
+			StoreInfo storeInfo = new StoreInfo();
+			storeInfo.setSeller(seller);
+			storeInfo.setStoreName(seller.getName() + " 님의 스토어");
+			storeInfo.setStoreTel(seller.getTel());
+			storeInfo.setLogoPath("");
+			storeInfo.setStoreIntroduce(seller.getName() + " 님의 인텔리한 상점입니다.");
+			storeInfoDAO.insert(storeInfo);
+		} 
 		
-		storeInfoDAO.insert(storeInfo);
+		// 반려일 경우, reject Msg와 status만 변경
+		sellerDAO.updateStatus(reqSeller);
+
 	}
 
 	// 로그인
@@ -122,13 +125,13 @@ public class SellerServiceImpl implements SellerService {
 		String encodedPassword = PasswordEncryptor.encode(password);
 		seller.setPassword(password);
 
-		return sellerDAO.updatePassword(seller) > 0;  
+		return sellerDAO.updatePassword(seller) > 0;
 	}
 
 	/**
 	 * 임시 비밀번호 생성 메서드 - 영문 대소문자 + 숫자 조합 10자리
 	 */
-	@Override
+	@Transactional
 	public String generateTempPassword() {
 		int len = 10;
 		String chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
@@ -151,7 +154,5 @@ public class SellerServiceImpl implements SellerService {
 	public boolean isBusinessNumExists(String businessNum) {
 		return sellerDAO.existByBusinessNum(businessNum) > 0;
 	}
-
-
 
 }

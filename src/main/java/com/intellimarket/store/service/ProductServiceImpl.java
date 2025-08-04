@@ -1,5 +1,6 @@
 package com.intellimarket.store.service;
 
+import java.util.Iterator;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -172,6 +173,48 @@ public class ProductServiceImpl implements ProductService{
 	        throw new ProductException("상세 설명을 입력해주세요.");
 	    }
 		
+	}
+
+	/**
+	 * 스토이 engName으로 상품 목록을 받아온 후 topCategory 단위로 반환
+	 * @author 재환
+	 */
+	@Override
+	public List<Product> getTopProduct(StoreInfo storeInfo, String topId) {
+		storeInfo = storeInfoDAO.selectByName(storeInfo.getEngName());
+		List<Product> products = productDAO.selectById(storeInfo.getSeller().getSellerId());
+		int key = Integer.parseInt(topId);
+		
+		Iterator<Product> it = products.iterator();
+		while (it.hasNext()) {
+		    Product product = it.next();
+		    if (product.getSubCategory().getTopCategory().getTopCategoryId() != key) {
+		        it.remove(); 
+		    }
+		}
+		
+		return products;
+	}
+
+	/**
+	 * 스토이 engName으로 상품 목록을 받아온 후 subCategory 단위로 반환
+	 * @author 재환
+	 */
+	@Override
+	public List<Product> getSubProduct(StoreInfo storeInfo,  String subId) {
+		storeInfo = storeInfoDAO.selectByName(storeInfo.getEngName());
+		List<Product> products = productDAO.selectById(storeInfo.getSeller().getSellerId());
+		int key = Integer.parseInt(subId);
+		
+		Iterator<Product> it = products.iterator();
+		while (it.hasNext()) {
+		    Product product = it.next();
+		    if (product.getSubCategory().getSubCategoryId() != key) {
+		        it.remove();  
+		    }
+		}
+		
+		return products;
 	}
 
 }
