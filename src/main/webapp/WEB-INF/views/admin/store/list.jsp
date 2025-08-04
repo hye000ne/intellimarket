@@ -29,10 +29,10 @@
 		                	<table id="storeListTable" class="table table-bordered table-hover text-center">
 		                  		<thead class="align-middle">
 			                  		<tr>
-					                    <th>이름</th>
-					                    <th>연락처</th>
+					                    <th>스토어명</th>
+					                    <th>스토어 연락처</th>
 <!-- 					                    <th>등급</th> -->
-					                    <th>판매자 이름</th>
+					                    <th>판매자명</th>
 					                    <th>판매자 연락처</th>
 					                    <th>상세</th>
 			                  		</tr>
