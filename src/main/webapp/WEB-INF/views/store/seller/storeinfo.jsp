@@ -48,10 +48,15 @@
 											class="form-control" id="storeTel" name="storeTel"
 											value="${storeInfo.storeTel}" placeholder="스토어 연락처를 입력하세요" />
 									</div>
-									<div class="form-group col-12">
+									<div class="form-group col-6">
 										<label for="storeIntroduce">스토어 간단소개</label>
 										<textarea class="form-control" id="storeIntroduce"
 											name="storeIntroduce" rows="2" placeholder="50자 이내로 입력해주세요">${storeInfo.storeIntroduce}</textarea>
+									</div>
+									<div class="form-group col-md-6">
+										<label for="engName">스토어 영문명('-' 사용가능 / 소문자로만 입력 / 공백없이)</label>
+										<input type="text" class="form-control" id="engName"
+										 	name="engName" value="${storeInfo.engName}" placeholder="스토어 영문명을 입력하세요(최대 10자)" />
 									</div>
 								</div>
 								<div class="form-group text-right">

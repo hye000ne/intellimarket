@@ -14,6 +14,9 @@ public interface StoreInfoDAO {
 	// 판매자 Id로 조회
 	public StoreInfo selectById(int sellerId);
 	
+	// 스토어 영문명으로 조회
+	public StoreInfo selectByName(String engName);
+	
 	// 스토어 정보 등록
 	public void insert(StoreInfo storeInfo);
 	

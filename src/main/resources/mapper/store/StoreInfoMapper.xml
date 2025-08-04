@@ -8,6 +8,7 @@
 		<result column="store_tel" property="storeTel" />
 		<result column="logo_path" property="logoPath" />
 		<result column="store_introduce" property="storeIntroduce" />
+		<result column="eng_name" property="engName" />
 		<!-- Seller id로 association -->
 		<association property="seller" javaType="Seller"
 			column="seller_id"
@@ -22,22 +23,25 @@
 		<select id="selectById" parameterType="int" resultMap="storeInfoMap">
 			SELECT * FROM store_info WHERE seller_id = #{sellerId}
 		</select>
+		
+		<select id="selectByName" parameterType="String" resultMap="storeInfoMap">
+			SELECT * FROM store_info WHERE eng_Name = #{engName}
+		</select>
 
 		<insert id="insert" parameterType="StoreInfo">
 			INSERT INTO
-			store_info(store_name, store_tel, logo_path, seller_id,
-			store_introduce)
+			store_info(store_name, store_tel, logo_path, seller_id, eng_name, store_introduce)
 			values (#{storeName}, #{storeTel}, #{logoPath}, #{seller.sellerId},
-			#{storeIntroduce})
+			#{storeIntroduce}. #{engName})
 		</insert>
 
 		<update id="update" parameterType="StoreInfo">
 			UPDATE store_info SET
 			store_name = #{storeName},
 			store_tel = #{storeTel},
-			store_introduce = #{storeIntroduce}
-			Where seller_id =
-			#{seller.sellerId}
+			store_introduce = #{storeIntroduce},
+			eng_name = #{engName}
+			Where seller_id = #{seller.sellerId}
 		</update>
 
 		<!-- 변경 -->
