@@ -49,12 +49,12 @@ public class FileManager {
 					e.printStackTrace();
 				}
 				//상품명 + i+1 . 확장자 로 파일명 지정
-				//Ex) 개껌 썸네일 3개 저장 : 개껌_1.png / 개껌_2.png / 개껌_3.png 
-				String firstname = product.getProductName() + "_" + (i + 1);
-				String filename = firstname+"."+ext;
-				
+				//Ex) 개껌 썸네일 3개 저장 : 개껌_1.png / 개껌_2.png / 개껌_3.png
+				long time = System.currentTimeMillis();
+				String filename = time+"."+ext;
+				String webPath = "/resources/common/img/product/" + prefix + "_" + product.getProductId() + "/" + filename;
 				ProductImage productImage = new ProductImage();
-				productImage.setFilename(filename);
+				productImage.setFilename(webPath);
 				imgList.add(productImage);
 				product.setImgList(imgList);
 				//realPath를 사용하려면 , 앱의 전반적인 전역적 정보를 가진 객체인 ServletContext가 필요함 ! 
