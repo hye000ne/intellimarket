@@ -27,58 +27,33 @@
 		</a>
 	</div>
 		
-	<!-- 카테고리 -->
+	<!-- 신규 입점 스토어 -->
 	<section class="category-area section-padding30">
 	    <div class="container-fluid">
 	        <div class="row">
 	            <div class="col-lg-12">
-	                <div class="section-tittle text-center mb-85">
-	                    <h2>카테고리 목록</h2>
-	                </div>
+					<div class="text-center mb-5">
+					  	<h2 class="section-title">신규 입점 스토어</h2>
+					</div>
 	            </div>
 	        </div>
+	        
 	        <div class="row">
-	            <div class="col-xl-4 col-lg-6">
-	                <div class="single-category mb-30">
-	                    <div class="category-img">
-	                        <img src="${ctx}/resources/shop/assets/img/categori/cat1.jpg" alt="">
-	                        <div class="category-caption">
-	                            <h2>Owmen`s</h2>
-	                            <span class="best"><a href="#">Best New Deals</a></span>
-	                            <span class="collection">New Collection</span>
-	                        </div>
-	                    </div>
-	                </div>
-	            </div>
-	             <div class="col-xl-4 col-lg-6">
-	                <div class="single-category mb-30">
-	                    <div class="category-img text-center">
-	                        <img src="${ctx}/resources/shop/assets/img/categori/cat2.jpg" alt="">
-	                        <div class="category-caption">
-	                            <span class="collection">Discount!</span>
-	                            <h2>Winter Cloth</h2>
-	                           <p>New Collection</p>
-	                        </div>
-	                    </div>
-	                </div>
-	            </div>
-	            <div class="col-xl-4 col-lg-6">
-	                <div class="single-category mb-30">
-	                    <div class="category-img">
-	                        <img src="${ctx}/resources/shop/assets/img/categori/cat3.jpg" alt="">
-	                        <div class="category-caption">
-	                            <h2>Man`s Cloth</h2>
-	                            <span class="best"><a href="#">Best New Deals</a></span>
-	                            <span class="collection">New Collection</span>
-	                        </div>
-	                    </div>
-	                </div>
-	            </div>
-	        </div>
-	    </div>
+			  	<c:forEach var="store" items="${recentStoreList}">
+			    	<div class="col-md-4 mb-4">
+						<div class="card h-100 text-center py-4">
+				        	<img src="${ctx}${store.logoPath != null ? store.logoPath : '/resources/common/img/logo/default.png'}" alt="스토어 로고" class="recent-store-logo">
+				        	<div class="card-body">
+					          	<h5 class="card-title">${store.storeName}</h5>
+					          	<p class="card-text">${store.storeIntroduce}</p>
+				        	</div>
+				      	</div>
+			    	</div>
+			  	</c:forEach>
+			</div>
+		</div>
 	</section>
 	
-	<!-- 신상품 -->
 	<section class="latest-product-area padding-bottom">
 	    <div class="container">
 	        <div class="row product-btn d-flex justify-content-end align-items-end">

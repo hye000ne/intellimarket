@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.intellimarket.common.util.SessionUtil;
-import com.intellimarket.shop.domain.Cart;
 import com.intellimarket.shop.domain.Member;
 import com.intellimarket.shop.domain.Orders;
 import com.intellimarket.shop.service.CartService;
@@ -48,7 +47,7 @@ public class OrdersController {
 	public String orders(@RequestParam(required = false)Integer product_id, Model model, HttpSession session) {
 		
 		// 로그인 사용자 세션 확인
-		Member member = SessionUtil.getLoginMember(session, model, "shop/login.jsp", "shop/loginFailAlert.jsp");
+		Member member = SessionUtil.getLoginMember(session, model, "shop/loginFailAlert.jsp", Member.Role.USER);
 
 	    if (member == null) {
 	        return "layout/shop";

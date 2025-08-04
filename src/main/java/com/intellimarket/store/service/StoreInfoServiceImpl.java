@@ -34,14 +34,18 @@ public class StoreInfoServiceImpl implements StoreInfoService {
 	public StoreInfo selectById(Seller seller) {
 		return storeInfoDAO.selectById(seller.getSellerId());
 	}
-	
-
+		
 	@Override
 	public StoreInfo selectByName(StoreInfo storeInfo) {
 		return storeInfoDAO.selectByName(storeInfo.getEngName());
 	}
-
+  
 	@Override
+	public List<StoreInfo> selectRecentByCount(int count){
+		return storeInfoDAO.selectRecentByCount(count);
+	}
+
+  	@Override
 	public void insert(StoreInfo storeInfo) {
 		storeInfoDAO.insert(storeInfo);
 	}

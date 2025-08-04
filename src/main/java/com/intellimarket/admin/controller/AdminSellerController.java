@@ -1,5 +1,7 @@
 package com.intellimarket.admin.controller;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -9,6 +11,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.intellimarket.common.util.SessionUtil;
+import com.intellimarket.shop.domain.Member;
 import com.intellimarket.store.domain.Seller;
 import com.intellimarket.store.domain.SellerStatus;
 import com.intellimarket.store.service.SellerService;
@@ -26,7 +30,11 @@ public class AdminSellerController {
 	 * 판매자 가입 승인 페이지
 	 */
 	@GetMapping("/approval")
-	public String approvalPage(Model model) {
+	public String approvalPage(Model model, HttpSession session) {
+		// 로그인 사용자 세션 확인
+		Member member = SessionUtil.getLoginMember(session, model, "shop/common/loginFailAlert.jsp", Member.Role.ADMIN);
+		if (member == null) return "layout/shop";
+		
 		SellerStatus status = SellerStatus.valueOf("PENDING"); // 판매자 상태 : 대기
 		model.addAttribute("list", sellerService.selectByStatus(status));
 		model.addAttribute("contentPage", "admin/seller/approval.jsp");
@@ -64,7 +72,11 @@ public class AdminSellerController {
 	 * 판매자 목록 페이지
 	 */
 	@GetMapping("/list")
-	public String sellerListPage(Model model) {
+	public String sellerListPage(Model model, HttpSession session) {
+		// 로그인 사용자 세션 확인
+		Member member = SessionUtil.getLoginMember(session, model, "shop/common/loginFailAlert.jsp", Member.Role.ADMIN);
+		if (member == null) return "layout/shop";
+		
 		SellerStatus status = SellerStatus.valueOf("APPROVED"); // 판매자 상태 : 승인
 		model.addAttribute("list", sellerService.selectByStatus(status));
 		model.addAttribute("contentPage", "admin/seller/list.jsp");
@@ -77,7 +89,11 @@ public class AdminSellerController {
 	 * 판매자 상세 페이지 
 	 */
 	@GetMapping("/detail")
-	public String sellerDetailPage(@RequestParam int sellerId, Model model) {
+	public String sellerDetailPage(@RequestParam int sellerId, Model model, HttpSession session) {
+		// 로그인 사용자 세션 확인
+		Member member = SessionUtil.getLoginMember(session, model, "shop/common/loginFailAlert.jsp", Member.Role.ADMIN);
+		if (member == null) return "layout/shop";
+		
 		model.addAttribute("seller", sellerService.selectById(sellerId));
 		model.addAttribute("contentPage", "admin/seller/detail.jsp");
 		model.addAttribute("menuGroup", "seller");

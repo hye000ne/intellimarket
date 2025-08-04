@@ -75,7 +75,7 @@ public class MemberController {
 		res.put("status", "ok");
 		res.put("msg", loginMember.getName()+"님, 안녕하세요.");
 		
-		if(loginMember.getRole() == Role.ADMIN) {
+		if(loginMember.getRole() == Member.Role.ADMIN) {
 			res.put("url", "/admin/main");
 		} else {
 			res.put("url", "/shop/main");
