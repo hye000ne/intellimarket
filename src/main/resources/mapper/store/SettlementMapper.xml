@@ -52,11 +52,50 @@
 		set settlement_status = #{settlementStatus}
 		where settlement_id = #{settlementId}
 	</update>
+	
+    <!-- 스토어 및 상태별 정산 건수 -->
+    <select id="countByStatusAndId" resultType="int">
+        SELECT COUNT(*)
+        FROM settlement
+        WHERE settlement_status = #{settlementStatus}
+          AND store_info_id = #{storeInfoId}
+          AND DATE_FORMAT(created_at, '%Y-%m') = #{yearMonth}
+    </select>
 
-	<select id="sumRequestAmount">
-		select sum(total_price) as total_settlement_amount
-		from orders
-		where order_status = 'PURCHASE_CONFIRMED';
-	</select>
+    <!-- 스토어 및 상태별 정산 금액 합계 -->
+    <select id="sumAmountByStatusAndId" resultType="int">
+        SELECT IFNULL(SUM(requested_amount), 0)
+        FROM settlement
+        WHERE settlement_status = #{settlementStatus}
+          AND store_info_id = #{storeInfoId}
+          AND DATE_FORMAT(created_at, '%Y-%m') = #{yearMonth}
+    </select>
+    
+    <!-- 상태별 정산 건수 -->
+    <select id="countByStatus" resultType="int">
+        SELECT COUNT(*)
+        FROM settlement
+        WHERE settlement_status = #{settlementStatus}
+          AND DATE_FORMAT(created_at, '%Y-%m') = #{yearMonth}
+    </select>
+    
+    <!-- 상태별 정산 금액 합계 -->
+    <select id="sumAmountByStatus" resultType="int">
+        SELECT IFNULL(SUM(requested_amount), 0)
+        FROM settlement
+        WHERE settlement_status = #{settlementStatus}
+          AND DATE_FORMAT(created_at, '%Y-%m') = #{yearMonth}
+    </select>
+    
+    <!-- status가 READY인 건 일괄 REQUESTED 요청 (단, yearMonth / storeInfoId 입력 필요) -->
+    <update id="updateStatusToRequested">
+	  UPDATE settlement
+	  SET 
+	    settlement_status = 'REQUESTED',
+	    settlement_requested_at = NOW()
+	  WHERE store_info_id = #{storeInfoId}
+	    AND settlement_status = 'READY'
+	    AND DATE_FORMAT(created_at, '%Y-%m') = #{yearMonth}
+	</update>
 	
 </mapper>
