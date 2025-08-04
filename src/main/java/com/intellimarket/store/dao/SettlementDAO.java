@@ -6,6 +6,7 @@ import java.util.Map;
 import org.springframework.stereotype.Repository;
 
 import com.intellimarket.store.domain.Settlement;
+import com.intellimarket.store.domain.SettlementStatus;
 
 @Repository
 public interface SettlementDAO {
@@ -20,7 +21,10 @@ public interface SettlementDAO {
 	List<Settlement> selectByStoreInfoId(int storeInfoId);
 	
 	//스토어별 , status 별 List 조회
-	List<Settlement> selectByStatus(Map<String, Object> paramMap);
+	List<Settlement> selectByStatusAndStoreInfoId(Map<String, Object> paramMap);
+	
+	//스토어별 , status 별 List 조회
+	List<Settlement> selectByStatus(SettlementStatus status);
 	
 	//정산 상태 변경
 	void updateStatus(Settlement settlement);
