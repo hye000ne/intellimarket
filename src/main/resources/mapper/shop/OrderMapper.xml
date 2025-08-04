@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.intellimarket.shop.dao.OrderDAO">
+	<resultMap type="com.intellimarket.shop.domain.Order" id="joinMap">
+		<id 		column="orders_id" 			property="ordersId"/>
+		<result 	column="merchant_uid" 	property="merchantUid"/>
+		<result 	column="quantity" 			property="quantity"/>
+		<result 	column="zip_code" 			property="zipCode"/>
+		<result 	column="address" 			property="address"/>
+		<result 	column="detail_address" 	property="detailAddress"/>
+		<result 	column="total_price" 		property="totalPrice"/>		
+		<result 	column="created_date" 	property="createdDate"/>
+		<result 	column="updated_date" 	property="updatedDate"/>
+		<result 	column="order_status" 		property="orderStatus"/>
+		
+		<association 
+			column="member_id" 
+			property="member" 
+			javaType="Member"
+			select="com.intellimarket.shop.dao.MemberDAO.selectById"
+		/>
+		
+		<association 
+			column="product_id" 
+			property="product" 
+			javaType="Product"
+			select="com.intellimarket.store.dao.ProductDAO.select"
+		/>
+		
+		<association 
+			column="store_info_id" 
+			property="storeInfo" 
+			javaType="StoreInfo"
+			select="com.intellimarket.store.dao.StoreInfoDAO.selectById"
+		/>
+	</resultMap>
+	
+	<!-- 전체 목록 조회 -->
+	<select id="selectAll" resultMap="joinMap">
+		select * from orders
+	</select>
+	
+	<!-- 주문 단 건 조회 (ID 기반) -->
+	<select id="selectById" parameterType="int" resultMap="joinMap">
+		select * from orders
+		where order_id = #{orderId}
+	</select>
+	
+	<!-- 주문 단 건 조회 (ID 기반) -->
+	<select id="selectByStoreInfoId" parameterType="int" resultMap="joinMap">
+		select * from orders
+		where store_info_id = #{storeInfoId}
+	</select>
+	
+	<!-- 주문 입력-->
+	<insert id="insert" parameterType="Order">
+		insert into orders (
+			merchant_uid, quantity, 
+			zip_code, address, 
+			detail_address, created_date, 
+			updated_date, order_status, 
+			member_id, product_id,
+			total_price
+		)
+		values (
+			#{merchantUid}, #{quantity}, 
+			#{zipCode}, #{address}, 
+			#{detailAddress}, #{createdDate}, 
+			#{updatedDate}, #{orderStatus}, 
+			#{memberId}, #{productId},
+			#{totalPrice}
+		)
+	</insert>
+	
+	<!-- 주문 정보 변경 -->
+	<update id="update" parameterType="Order">
+		update orders
+		set 
+			zip_code = #{zipCode}, 
+			address = #{address}, 
+			detail_address = #{detailAddress}, 
+			updated_date = #{updatedDate}
+		
+		where order_id = #{orderId} 
+	</update>
+	
+	<!-- 주문 개수 변경 -->
+	<update id="updateQuantity" parameterType="Order">
+		update orders
+		set 
+			quantity = #{quantity}
+		where order_id = #{orderId}
+	</update>
+	
+	<!-- 단건 주문 상태 변경 -->
+	<update id="updateStatus" parameterType="Order">
+	    update orders
+	    set order_status = #{orderStatus}
+	    where order_id = #{orderId}
+	</update>
+	
+	<!-- 복수 주문 상태 변경 -->
+	<update id="updateStatuses" parameterType="map">
+	  update orders
+	  set order_status = #{status}
+	  where order_id in
+	    <foreach item="id" index="index" collection="orderIds" open="(" separator="," close=")">
+	      #{id}
+	    </foreach>
+	</update>
+
+	<!-- 주문 삭제 -->
+	<delete id="delete" parameterType="int">
+		delete from orders
+		where order_id = #{orderId}
+	</delete>
+</mapper>

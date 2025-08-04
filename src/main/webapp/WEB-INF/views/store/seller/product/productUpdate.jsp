@@ -116,7 +116,7 @@
 		<div id="main-thumbnail-preview" class="border rounded mb-3" 
 		     style="min-height:550px; display:flex; justify-content:center; align-items:center;">
 		  <img id="main-preview" style="max-width: 100%; max-height: 550px;" 
-		       src="${ctx}/resources/store/img/p_${product.productId}/${product.imgList[0].filename}?v=${System.currentTimeMillis()}" 
+		       src="${product.imgList[0].filename}?v=${System.currentTimeMillis()}" 
 		       alt="선택된 이미지">
 		</div>
 	
@@ -124,7 +124,7 @@
 		<div id="thumbnail-list" class="d-flex flex-wrap border rounded" 
 		     style="gap:10px; padding:10px; min-height:100px; justify-content:center; overflow-y:auto;">
 		  <c:forEach var="img" items="${product.imgList}">
-		    <img src="${ctx}/resources/store/img/p_${product.productId}/${img.filename}?v=${System.currentTimeMillis()}" 
+		    <img src="${img.filename}?v=${System.currentTimeMillis()}"  
 		         style="width:80px; height:80px; object-fit:cover; cursor:pointer;" 
 		         class="border rounded thumbnail-img" />
 		  </c:forEach>
