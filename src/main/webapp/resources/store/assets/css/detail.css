@@ -46,6 +46,7 @@
   font-size: 2.4rem;
   font-weight: 900;
 }
+
 .carousel-control-next:hover .carousel-control-next-icon::before {
   content: ">";
   color: #fff;
@@ -90,7 +91,7 @@
   cursor: pointer;
   border: 2px solid transparent;
   border-radius: 4px;
-  transition: border-color 0.3s ease;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
 .thumbnail-image:hover,
@@ -136,32 +137,215 @@
 /* 상품 정보 컨테이너(버튼 바닥 붙이기용) */
 .product-info-container {
   position: relative;
-  padding-bottom: 80px;
+  /* 기존 padding-bottom 삭제하고 아래 padding으로 조절 */
+  padding-bottom: 0;
 }
 
-/* 버튼 영역 바닥 고정 */
+/* product-action-bar는 기존 absolute 고정이므로 margin-top 0 */
 .product-action-bar {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
   display: flex;
   gap: 18px;
   margin: 0;
-  padding: 0 10px;
-  box-sizing: border-box;
+  padding: 0;
+  flex-wrap: nowrap;
+}
+/* bottom-fixed-area를 바닥 고정 */
+.bottom-fixed-area {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
   background: white;
+  padding: 15px 10px;
+  box-sizing: border-box;
+  border-top: 1px solid #ececec;
   z-index: 10;
+  display: flex;
+  flex-direction: column;
+  gap: 12px; /* 내부 요소 간 간격 */
 }
 
+/* 각 form이 버튼 100% 너비 차지하도록 */
 .product-action-bar form {
   flex: 1;
   margin: 0;
 }
 
+/* 수량 선택, 상품명, 가격 한 줄 */
+/* 수량 선택 영역 - 아래 여백 없애기 */
+.product-qty-row {
+  border-bottom: none;
+  padding-bottom: 0;
+  margin-bottom: 0;
+  display: flex;
+  align-items: center;
+}
+
+
+.product-qty-row .product-name {
+  font-size: 16px;
+  font-weight: 600;
+  flex-grow: 1;
+  color: #303960;
+  /* 텍스트 줄임말 처리 */
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.qty-selector {
+  display: flex;
+  flex-direction: row; /* 기본이긴 하지만 명확히 */
+  align-items: center;
+  justify-content: center;
+  gap: 6px; /* 버튼과 입력공간 사이 간격 부드럽게 */
+  width: fit-content; /* 내부 콘텐츠에 맞게 너비 조절 */
+}
+
+/* 수량 조절 버튼 */
+.btn-qty {
+  flex: none; /* 크기 고정 */
+  width: 32px;
+  height: 32px;
+  line-height: 32px;
+  padding: 0;
+  font-size: 18px;
+  border: 1px solid #ccc;
+  background-color: white;
+  color: #333;
+  cursor: pointer;
+  user-select: none;
+  border-radius: 4px;
+  box-sizing: border-box;
+  /* display: inline-flex 로 맞춤 정렬도 가능 */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.qty-selector input[type="text"] {
+  width: 45px !important;
+  height: 32px;
+  text-align: center;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  padding: 0;
+  margin: 0;
+  font-size: 16px;
+  box-sizing: border-box;
+}
+상품명과 수량 선택 영역 전체 가로 배치 점검
+
+.product-qty-row 가 flex container인데, 내부 product-name과 qty-selector 사이 공간이 좁으면 줄 바꿈 발생 가능.
+
+css
+.product-qty-row {
+  display: flex;
+  align-items: center;
+  gap: 12px; /* 요소간 간격 */
+  flex-wrap: nowrap; /* 줄 바꿈 방지 */
+}
+요약
+CSS에 다음 코드를 추가하거나 수정해 보시면 상품명 - 버튼(-) - 수량(input) - 버튼(+) 이 한 줄로 정렬됩니다.
+
+css
+.product-qty-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: nowrap;
+}
+
+.qty-selector {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  width: fit-content;
+}
+
+.btn-qty {
+  flex: none; /* 크기 고정 */
+  width: 32px;
+  height: 32px;
+  line-height: 32px;
+  padding: 0;
+  font-size: 18px;
+  border: 1px solid #ccc;
+  background-color: white;
+  color: #333;
+  cursor: pointer;
+  user-select: none;
+  border-radius: 4px;
+  box-sizing: border-box;
+  /* display: inline-flex 로 맞춤 정렬도 가능 */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.qty-selector input[type="text"] {
+  width: 45px !important;
+  height: 32px;
+  text-align: center;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  padding: 0;
+  margin: 0;
+  font-size: 16px;
+  box-sizing: border-box;
+}
+.btn-qty:hover {
+  background-color: #4db6ac;
+  color: white;
+  border-color: #4db6ac;
+}
+
+/* 수량 입력 박스 */
+.qty-selector input[type="text"] {
+  width: 45px !important;
+  height: 32px;
+  text-align: center;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  padding: 0;
+  margin: 0;
+  font-size: 16px;
+  box-sizing: border-box;
+}
+
+/* 총 상품 금액 영역 - 위쪽 패딩, 마진 제거하고 아래 마진은 버튼과 간격 조절용 */
+.total-amount-row {
+  background: #fafafa;
+  padding: 8px 14px;      /* 위아래 패딩 적당히 유지 */
+  border-radius: 5px;
+  border: 1px solid #ececec;
+  margin-bottom: 4px;      /* 하단 마진 최소화 */
+  margin-top: 0;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 16px;
+  font-weight: 600;
+  color: #303960;
+}
+
+.total-amount-row #totalAmount {
+  font-size: 20px;
+  font-weight: bold;
+  color: #d32f2f;
+  margin-left: auto;
+}
+
+/* 총 수량 텍스트 스타일 */
+.total-amount-row span[title="총 선택 수량"] {
+  color: #666;
+  font-size: 14px;
+}
+
 /* 버튼 공통 스타일 */
 .btn-action {
-  width: 100%;
   padding: 1.2rem 0;
   font-size: 1.25rem;
   border-radius: 8px;
@@ -170,6 +354,10 @@
   cursor: pointer;
   display: block;
   text-align: center;
+  width: 100%;
+  margin-top: 3px;
+  margin-bottom: 12px;
+  transition: background-color 0.2s;
 }
 
 /* 구매하기 버튼 (민트색) */
@@ -177,7 +365,6 @@
   background-color: #4db6ac;
   color: white;
   border: none;
-  transition: background 0.2s;
 }
 
 .btn-buy:hover {
@@ -186,13 +373,14 @@
 
 /* 장바구니 버튼 (부트스트랩 기본 스타일+) */
 .btn-secondary {
-  padding: 1.2rem 0;
-  font-size: 1.25rem;
+  background-color: #e0e0e0;
+  color: #333;
+  border: none;
   font-weight: 600;
-  cursor: pointer;
-  border-radius: 8px;
-  width: 100%;
-  display: block;
+}
+
+.btn-secondary:hover {
+  background-color: #cacaca;
 }
 
 /* 탭 네비게이션 버튼 전체 너비 100% */
@@ -243,7 +431,8 @@
 }
 
 /* row, 탭 내용 너비 100% 강조 */
-.row.mt-5, #detailTabsContent {
+.row.mt-5,
+#detailTabsContent {
   width: 100% !important;
   max-width: none !important;
   margin-left: 0 !important;
@@ -283,10 +472,12 @@
 .delivery-desc {
   font-size: 1.15rem;
 }
+
 .bold-red {
   color: #e53935;
   font-weight: bold;
 }
+
 .info-small {
   color: #888;
   font-size: 0.95rem;
@@ -299,11 +490,13 @@
   align-items: center;
   margin-top: 18px;
 }
+
 .delivery-bar-label {
   width: 84px;
   color: #333;
   font-size: 1rem;
 }
+
 .delivery-bar-graph {
   flex: 1;
   height: 10px;
@@ -314,11 +507,13 @@
   align-items: center;
   position: relative;
 }
+
 .delivery-bar-graph .bar {
   height: 100%;
   background: #e53935;
   border-radius: 4px;
 }
+
 .delivery-bar-graph span {
   font-size: 1rem;
   margin-left: 7px;
@@ -331,6 +526,7 @@
   background: #fff;
   border: 1.5px solid #eee;
   border-radius: 10px;
+  margin-bottom: 20px;
 }
 
 /* 상품정보 테이블 */
@@ -349,12 +545,14 @@
   vertical-align: middle;
   text-align: left;
 }
+
 .product-info-table th {
   background-color: #fafafa;
   font-weight: 600;
   width: 150px;
   color: #222;
 }
+
 .product-info-table td {
   color: #222;
   vertical-align: middle;
