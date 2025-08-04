@@ -6,6 +6,7 @@ import java.util.List;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
@@ -19,9 +20,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.intellimarket.common.util.SessionUtil;
 import com.intellimarket.shop.domain.Member;
 import com.intellimarket.shop.domain.Order;
+import com.intellimarket.shop.exception.ShopException;
 import com.intellimarket.shop.service.CartService;
 import com.intellimarket.shop.service.MemberService;
 import com.intellimarket.shop.service.OrderService;
+import com.intellimarket.store.domain.Product;
 import com.intellimarket.store.service.ProductService;
 
 import lombok.extern.slf4j.Slf4j;
@@ -33,7 +36,7 @@ import lombok.extern.slf4j.Slf4j;
 public class OrderController {
 	
 	@Autowired
-	private OrderService paymentService;
+	private OrderService orderService;
 	
 	@Autowired
 	private MemberService memberService;
@@ -72,12 +75,71 @@ public class OrderController {
 	@PostMapping("/complete")
 	@Transactional
 	@ResponseBody
-	public String complete(@RequestBody Order order, Model model) {
+	 public ResponseEntity<?> complete(@RequestBody List<Order> orders, HttpSession session, Model model) {
+       
+		Member member = SessionUtil.getLoginMember(session, model, "shop/loginFailAlert.jsp", Member.Role.USER);
+
+        if (member == null) {
+            throw new ShopException("로그인이 필요합니다.");
+        }
 		
+		for (Order order : orders) {
+            order.setMember(member);
+            
+            if(orderService.insert(order) < 1) {
+            	throw new ShopException("결제에 실패하였습니다.");
+            }
+        }
 		
+		return ResponseEntity.ok("결제가 완료되었습니다.");
+	}
+	
+	/* 결제 테이블 등록 완료 이후*/
+	
+	@PostMapping("/success")
+	public String success(@RequestParam("merchantUid") String merchantUid, @RequestParam("totalAmount") int totalAmount, Model model, HttpSession session) {
 		
-		model.addAttribute("contentPage", "shop/main.jsp");
+		// 로그인 사용자 세션 확인
+		Member member = SessionUtil.getLoginMember(session, model, "shop/loginFailAlert.jsp", Member.Role.USER);
 		
+		if (member == null) {
+	        return "layout/shop";
+	    }
+		
+		List<Order> orderList = orderService.selectByMerchantUid(merchantUid, member.getMemberId());
+		
+		log.info(""+totalAmount+"원");
+		
+		for (Order order : orderList) {
+		    log.info("===== 주문 정보 =====");
+		    log.info("Order ID: {}", order.getOrderId());
+		    log.info("Merchant UID: {}", order.getMerchantUid());
+		    log.info("Quantity: {}", order.getQuantity());
+		    log.info("Zip Code: {}", order.getZipCode());
+		    log.info("Address: {} {}", order.getAddress(), order.getDetailAddress());
+		    log.info("Created Date: {}", order.getCreatedDate());
+		    log.info("Updated Date: {}", order.getUpdatedDate());
+		    log.info("Total Price: {}", order.getTotalPrice());
+		    log.info("Order Status: {}", order.getOrderStatus());
+
+		    if (order.getMember() != null) {
+		        log.info("Member ID: {}", order.getMember().getMemberId());
+		        log.info("Member Name: {}", order.getMember().getName());
+		    }
+
+		    if (order.getProduct() != null) {
+		        log.info("Product ID: {}", order.getProduct().getProductId());
+		        log.info("Product Name: {}", order.getProduct().getProductName());
+		    }
+
+		    log.info("=====================");
+		}
+
+		
+		model.addAttribute("totalPrice", totalAmount);
+		model.addAttribute("address", orderList.get(0).getAddress() + " " +orderList.get(0).getDetailAddress());
+		model.addAttribute("memberId", member.getName());
+		model.addAttribute("contentPage", "shop/orders/ordersuccess.jsp");
 		return "layout/shop";
 	}
 	

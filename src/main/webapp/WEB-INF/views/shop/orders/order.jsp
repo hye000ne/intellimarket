@@ -9,7 +9,7 @@
 <%
 	List<?> list = (List<?>)request.getAttribute("list");
 
-	Member member = (Member)session.getAttribute("loginMember");
+	Member member = (Member)request.getAttribute("loginMember");
 %>
 <!DOCTYPE html>
 <html>
@@ -215,105 +215,109 @@
   }
 
   /* 결제 요청 */
-  function requestPay() {
-    let selectedItems = [];
-    let totalAmount = parseInt(
-      $("#finalAmount").text().replace("₩", "").replace(/,/g, "")
-    );
+function requestPay() {
+	let selectedItems = [];
+	
+	$(".product-card").each(function () {
+	  const productId = $(this).data("product-id");
+	  const quantity = parseInt($(this).find(".product-quantity").text());
+	  const price = parseInt($(this).find(".product-price").text().replace("₩", "").replace(/,/g, ""));
+	
+	  selectedItems.push({
+	    quantity,
+	    totalPrice: price * quantity,
+	    product: { productId }
+	  });
+	});
+	
+	if (selectedItems.length === 0) {
+	  alert("주문할 상품이 없습니다.");
+	  return;
+	}
 
-    $(".product-card").each(function () {
-      const name = $(this).find(".product-title").text().trim();
-      selectedItems.push(name);
-    });
+	const totalAmount = parseInt($("#finalAmount").text().replace("₩", "").replace(/,/g, ""));
+	const buyerEmail = $("#buyer_email").val();
+	const buyerName = $("#buyer_name").val();
+	const buyerTel = $("#buyer_tel").val();
+	const buyerPostcode = $("#buyer_postcode").val();
+	const buyerAddr = $("#buyer_address").val();
+	const buyerAddrAnd = $("#buyer_address_detail").val().trim();
+	
+	if (!buyerName || !buyerEmail || !buyerTel || !buyerAddr || !buyerAddrAnd) {
+	  alert("모든 구매자 정보를 입력해주세요.");
+	  return;
+	}
+	
+	const IMP = window.IMP;
+	IMP.init("imp61000270");
+	
+	IMP.request_pay({
+	  channelKey: "channel-key-8ddc4b6b-44a7-4f92-9205-3b9a452a0cd3",
+	  pay_method: "card",
+	  merchant_uid: "payment-" + new Date().getTime(),
+	  name: "상품 결제",
+	  amount: totalAmount,
+	  buyer_email: buyerEmail,
+	  buyer_name: buyerName,
+	  buyer_tel: buyerTel,
+	  buyer_addr: buyerAddr + " " + buyerAddrAnd,
+	  buyer_postcode: buyerPostcode,
+	  display: {
+	    card_quota: [0, 2, 3, 4, 5, 6],
+	  }
+	}, function (rsp) {
+	  if (rsp.success) {
+	    const merchantUid = rsp.merchant_uid;
+	
+	    const orders = selectedItems.map(item => ({
+	      merchantUid,
+	      quantity: item.quantity,
+	      zipCode: buyerPostcode,
+	      address: buyerAddr,
+	      detailAddress: buyerAddrAnd,
+	      totalPrice: item.totalPrice,
+	      orderStatus: "ORDER_CONFIRMED",
+	      product: item.product
+	    }));
+	
+	    $.ajax({
+	      url: "/shop/order/complete",
+	      type: "POST",
+	      contentType: "application/json",
+	      data: JSON.stringify(orders),
+	      success: function (res) {
+	    	  const form = document.createElement("form");
+	    	  form.method = "POST";
+	    	  form.action = "/shop/order/success";
 
-    if (selectedItems.length === 0) {
-      alert("결제할 상품을 선택해주세요.");
-      return;
-    }
+	    	  // merchantUid
+	    	  const inputUid = document.createElement("input");
+	    	  inputUid.type = "hidden";
+	    	  inputUid.name = "merchantUid";
+	    	  inputUid.value = merchantUid;
+	    	  form.appendChild(inputUid);
 
-    const itemSummary = selectedItems.join(", ");
-    const buyerEmail = $("#buyer_email").val();
-    const buyerName = $("#buyer_name").val();
-    const buyerTel = $("#buyer_tel").val();
-    const buyerPostcode = $("#buyer_postcode").val();
-    const buyerAddr = $("#buyer_address").val();
-    const buyerAddrAnd = $("#buyer_address_detail").val().trim();
+	    	  // totalAmount (전체 결제 금액)
+	    	  const inputAmount = document.createElement("input");
+	    	  inputAmount.type = "hidden";
+	    	  inputAmount.name = "totalAmount";
+	    	  inputAmount.value = totalAmount;
+	    	  form.appendChild(inputAmount);
 
-    // 값 체크
-    if (!buyerName) {
-      alert("이름을 입력하세요.");
-      return;
-    }
-    if (!buyerEmail) {
-      alert("이메일을 입력하세요.");
-      return;
-    }
-    if (!buyerTel) {
-      alert("전화번호를 입력하세요.");
-      return;
-    }
-    if (!buyerAddr) {
-      alert("주소를 입력하세요.");
-      return;
-    }
-    if (!buyerAddrAnd) {
-      alert("상세 주소를 입력하세요.");
-      return;
-    }
+	    	  document.body.appendChild(form);
+	    	  form.submit();
+	      },
+	      error: function (err) {
+	        console.error("주문 저장 실패:", err);
+	        alert("주문 처리 중 오류가 발생했습니다.");
+	      }
+	    });
+	  } else {
+	    alert("❌ 결제 실패\n에러내용 : " + rsp.error_msg);
+	  }
+	});
+}
 
-    // showLoading(); ← 원래 함수가 있다면 주석 해제해도 좋아
-
-    const IMP = window.IMP;
-    IMP.init("imp61000270");
-
-    IMP.request_pay(
-      {
-        channelKey: "channel-key-8ddc4b6b-44a7-4f92-9205-3b9a452a0cd3",
-        pay_method: "card",
-        merchant_uid: "payment-" + new Date().getTime(),
-        name: itemSummary,
-        amount: totalAmount,
-        buyer_email: buyerEmail,
-        buyer_name: buyerName,
-        buyer_tel: buyerTel,
-        buyer_addr: buyerAddr + " " + buyerAddrAnd,
-        buyer_postcode: buyerPostcode,
-        display: {
-          card_quota: [0, 2, 3, 4, 5, 6],
-        },
-        // hideLoading(); ← 필요 시 사용
-      },
-      function (rsp) {
-        if (rsp.success) {
-          const result = {
-            merchant_uid: rsp.merchant_uid,
-            quantity: 1,
-            zipcode: rsp.buyer_postcode,
-            address: buyerAddr,
-            detailAddress: buyerAddrAnd,
-            totalPrice: rsp.amount,
-            orderStatus: "주문완료",
-            product: { productId: selectItems}
-          };
-
-          $.ajax({
-            url: "/shop/order/complete",
-            type: "POST",
-            contentType: "application/json",
-            data: JSON.stringify(result),
-            success: function (res) {
-              location.href = res;
-            },
-            error: function (err) {
-              console.log(err);
-            },
-          });
-        } else {
-          alert("❌ 결제 실패\n에러내용 : " + rsp.error_msg);
-        }
-      }
-    );
-  }
 
   /* 체크박스 확인 */
   function confirmCheckBox() {
@@ -387,7 +391,7 @@
 						
 						if(first instanceof Cart){
 							for(Cart cart : (List<Cart>) list){ %>
-								<div class="product-card">
+								<div class="product-card" data-product-id="<%= cart.getProduct().getProductId() %>">
 									<div class="product-wrapper">
 										<div class="product-thumbnail">
 											<img src="${ctx}/resources/shop/assets/img/product/product_list_1.png" alt="<%= cart.getProduct().getProductName() %>" />

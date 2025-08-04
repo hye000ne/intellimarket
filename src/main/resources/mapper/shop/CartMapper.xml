@@ -50,7 +50,7 @@
 	<!-- 장바구니 등록 -->
 	<insert id="insert" parameterType="Cart">
 		insert into cart(quantity, product_id, member_id)
-		values(#{quantity}, #{productId}, #{memberId})
+		values(#{quantity}, #{product.productId}, #{member.memberId})
 	</insert>
 	
 	<!-- 장바구니 수량 수정 -->

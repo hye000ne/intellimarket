@@ -32,8 +32,18 @@ public class OrderServiceImpl implements OrderService{
 	}
 
 	@Override
-	public void insert(Order order) {
-		orderDAO.insert(order);
+	public List<Order> selectByMerchantUid(String merchantUid, int memberId) {
+		return orderDAO.selectByMerchantUid(merchantUid, memberId);
+	}
+
+	@Override
+	public List<Order> selectByMemberId(int memberId) {
+		return orderDAO.selectByMemberId(memberId);
+	}
+
+	@Override
+	public int insert(Order order) {
+		return orderDAO.insert(order);
 	}
 
 	@Override
