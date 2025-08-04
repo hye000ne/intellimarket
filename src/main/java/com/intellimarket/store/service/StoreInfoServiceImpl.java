@@ -45,7 +45,7 @@ public class StoreInfoServiceImpl implements StoreInfoService {
 		return storeInfoDAO.selectRecentByCount(count);
 	}
 
-  @Override
+  	@Override
 	public void insert(StoreInfo storeInfo) {
 		storeInfoDAO.insert(storeInfo);
 	}
