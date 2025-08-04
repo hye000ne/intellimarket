@@ -157,11 +157,6 @@
 </div>
 
 <script>
-// 기존에 작성하신 JS 코드 재사용 (변경 불필요)
-</script>
-
-
-<script>
 // 전역 변수 선언
 let selectedCategories = []; // 선택된 카테고리들을 저장하는 배열
 
