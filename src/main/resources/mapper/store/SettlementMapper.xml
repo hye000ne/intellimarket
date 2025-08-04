@@ -28,15 +28,15 @@
 		select * from settlement 
 	</select>
 	
-	<select id="selectById" resultMap="joinMap">
+	<select id="selectById" parameterType="int" resultMap="joinMap">
 		select * from settlement where settlement_id = #{settlementId}
 	</select>
 	
-	<select id="selectByStoreInfoId" resultMap="joinMap">
+	<select id="selectByStoreInfoId" parameterType="int" resultMap="joinMap">
 		select * from settlement where store_info_id = #{storeInfoId}
 	</select>
 	
-	<select id="selectByStatus" resultMap="joinMap">
+	<select id="selectByStatus" parameterType="map" resultMap="joinMap">
 		select * from settlement 
 		where store_info_id = #{storeInfoId} 
 		and settlement_status = #{settlementStatus} 

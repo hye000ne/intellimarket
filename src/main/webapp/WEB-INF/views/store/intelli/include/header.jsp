@@ -51,9 +51,11 @@
 <div class="container" style="max-width: 1196px; background: #fff;">
   <div class="row align-items-center py-4">
     <div class="col-auto">
+      <a href="${ctx}/store/${storeInfo.engName}">
       <img src="${ctx}${storeInfo.logoPath != null ? storeInfo.logoPath : '/resources/common/img/logo/default.png'}"
            alt="스토어 로고"
            style="width: 108px; height: 108px; border-radius: 18px; border: 2.5px solid #16cab2; background: #fafcfd; object-fit: contain;">
+           </a>
     </div>
     <div class="col">
       <h1 class="fw-bold mb-2" style="color: #21bcaa;">${storeInfo.storeName}</h1>
@@ -69,15 +71,15 @@
   <div class="container container-categories">
     <ul class="nav nav-pills mb-0 py-2 px-1" style="gap: 9px;">
       <li class="nav-item" style="position: relative;">
-        <a href="#" class="nav-link" id="allProducts" data-all="true">전체상품</a>
+        <a href="${ctx}/store/${storeInfo.engName}" class="nav-link" id="allProducts" data-all="true">전체상품</a>
       </li>
       <c:forEach var="entry" items="${groupedCategories}">
         <li class="nav-item dropdown" style="position: relative;">
-          <a href="#" class="nav-link dropdown-toggle" data-topid="${entry.key.topCategoryId}">${entry.key.categoryName}</a>
+          <a href="${ctx}/store/${storeInfo.engName}/top/${entry.key.topCategoryId}/page" class="nav-link dropdown-toggle" data-topid="${entry.key.topCategoryId}">${entry.key.categoryName}</a>
           <ul class="dropdown-menu">
             <c:forEach var="subCat" items="${entry.value}">
               <li>
-                <a class="dropdown-item" href="#" data-subid="${subCat.subCategoryId}">${subCat.categoryName}</a>
+                <a class="dropdown-item" href="${ctx}/store/${storeInfo.engName}/sub/${subCat.subCategoryId}/page" data-subid="${subCat.subCategoryId}">${subCat.categoryName}</a>
               </li>
             </c:forEach>
           </ul>
