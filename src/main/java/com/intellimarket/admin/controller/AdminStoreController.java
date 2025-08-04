@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.intellimarket.common.util.SessionUtil;
 import com.intellimarket.shop.domain.Member;
 import com.intellimarket.store.domain.Seller;
+import com.intellimarket.store.domain.SettlementStatus;
+import com.intellimarket.store.service.SettlementService;
 import com.intellimarket.store.service.StoreInfoService;
 
 /**
@@ -22,11 +24,13 @@ import com.intellimarket.store.service.StoreInfoService;
 @RequestMapping("/admin/store")
 public class AdminStoreController {
 	@Autowired StoreInfoService storeInfoService;
+	@Autowired SettlementService settlementService;
+
 	/**
 	 * 스토어 목록 페이지
 	 */
 	@GetMapping("/list")
-	public String memberListPage(Model model, HttpSession session) {
+	public String storeListPage(Model model, HttpSession session) {
 		// 로그인 사용자 세션 확인
 		Member member = SessionUtil.getLoginMember(session, model, "shop/common/loginFailAlert.jsp", Member.Role.ADMIN);
 		if (member == null) return "layout/shop";
@@ -42,7 +46,7 @@ public class AdminStoreController {
 	 * 스토어 상세 페이지 
 	 */
 	@GetMapping("/detail")
-	public String memberDetailPage(@RequestParam int sellerId, Model model, HttpSession session) {
+	public String storeDetailPage(@RequestParam int sellerId, Model model, HttpSession session) {
 		// 로그인 사용자 세션 확인
 		Member member = SessionUtil.getLoginMember(session, model, "shop/common/loginFailAlert.jsp", Member.Role.ADMIN);
 		if (member == null) return "layout/shop";
@@ -54,6 +58,35 @@ public class AdminStoreController {
 		model.addAttribute("contentPage", "admin/store/detail.jsp");
 		model.addAttribute("menuGroup", "store");
 		model.addAttribute("subMenu", "storeList");
+		return "layout/admin";
+	}
+	
+	/**
+	 * 스토어 정산관리 페이지
+	 */
+	@GetMapping("/settlement")
+	public String storeSettlementPage(Model model, HttpSession session) {
+		// 로그인 사용자 세션 확인
+		Member member = SessionUtil.getLoginMember(session, model, "shop/common/loginFailAlert.jsp", Member.Role.ADMIN);
+		if (member == null) return "layout/shop";
+		
+		SettlementStatus status = SettlementStatus.valueOf("REQUESTED"); // 정산 상태: 요청
+		
+		model.addAttribute("list", settlementService.selectByStatus(status));
+		model.addAttribute("contentPage", "admin/store/settlement.jsp");
+		model.addAttribute("menuGroup", "store");
+		model.addAttribute("subMenu", "storeSettlement");
+		return "layout/admin";
+	}
+	
+	@GetMapping("/settlement")
+	public String storeSettlement(Model model, HttpSession session) {
+		SettlementStatus status = SettlementStatus.valueOf("REQUESTED"); // 정산 상태: 요청
+		
+		model.addAttribute("list", settlementService.selectByStatus(status));
+		model.addAttribute("contentPage", "admin/store/settlement.jsp");
+		model.addAttribute("menuGroup", "store");
+		model.addAttribute("subMenu", "storeSettlement");
 		return "layout/admin";
 	}
 }

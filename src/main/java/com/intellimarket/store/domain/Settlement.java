@@ -14,7 +14,6 @@ public class Settlement {
 	private int settlementId;
 	private StoreInfo storeInfo;
 	private int requestedAmount;
-	private int feeAmount;
 	private int netAmount;
 	private SettlementStatus settlementStatus;
 	
