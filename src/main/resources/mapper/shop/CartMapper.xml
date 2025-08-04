@@ -33,10 +33,17 @@
 	</select>
 	
 	<!-- 멤버 ID별 전체 목록 조회 -->
-	<select id="selectAllByMemberId" parameterType="Cart" resultMap="joinMap">
+	<select id="selectAllByMemberId" parameterType="int" resultMap="joinMap">
 		select * 
 		  from cart 
 		where member_id = #{memberId}
+	</select>
+	
+	<!-- 상태별 전체 목록 조회 -->
+	<select id="selectAllByStatus" parameterType="int" resultMap="joinMap">
+		select * 
+		  from cart 
+		where status = #{status}
 	</select>
 	
 	<!-- 장바구니 등록 -->
