@@ -10,7 +10,7 @@
         property="storeInfo" 
         column="store_info_id"
         javaType="StoreInfo"
-        select="com.intellimarket.store.dao.StoreInfoDAO.select"
+        select="com.intellimarket.store.dao.StoreInfoDAO.selectById"
     	/>
         
         <association 
@@ -25,7 +25,7 @@
 	<resultMap id="storeCategoryFullMap" type="StoreCategory">
 		<id column="store_category_id" property="storeCategoryId" />
 		<association property="storeInfo" column="store_info_id"
-			javaType="StoreInfo" select="com.intellimarket.store.dao.StoreInfoDAO.select" />
+			javaType="StoreInfo" select="com.intellimarket.store.dao.StoreInfoDAO.selectById" />
 		<association property="subCategory" javaType="SubCategory">
 			<id column="sub_category_id" property="subCategoryId" />
 			<result column="sub_category_name" property="categoryName" />

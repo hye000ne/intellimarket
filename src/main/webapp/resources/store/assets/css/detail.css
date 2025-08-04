@@ -1,0 +1,15 @@
+.product-image {
+	max-width: 100%;
+	max-height: 500px;
+	object-fit: contain;
+}
+
+.price-original {
+	text-decoration: line-through;
+	color: gray;
+}
+
+.price-discount {
+	color: red;
+	font-weight: bold;
+}

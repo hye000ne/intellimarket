@@ -1,0 +1,208 @@
+/* 기본 페이지 배경색 */
+body {
+  background: #f9fcfd !important; /* 전체 민트 계열 배경 */
+}
+
+.container-categories {
+  background: #fff;                /* 카테고리 배경 흰색 유지 */
+  max-width: 1196px;
+  margin: 0 auto;
+  padding-top: 2px;               /* 위쪽 패딩 축소 */
+  padding-bottom: 5px;            /* 아래쪽 패딩 축소 */
+  height: auto;                   /* 높이 자동 조절 (내용에 맞게) */
+  border-radius: 0;
+  box-sizing: border-box;
+}
+
+.category-divider {
+  border: 0;
+  border-top: 1px solid #eef3f9;
+  margin: 0 auto;
+  max-width: 1196px;
+  box-sizing: border-box;
+  padding: 0 15px;
+  height: 1px;
+  margin-top: 4px;                /* 위쪽 마진을 줄여 hr과 컨테이너 간격 축소 */
+  margin-bottom: 0;              /* 아래 마진 제거 */
+}
+
+
+/* 탑 네비게이션 기본 스타일 */
+.nav-pills {
+  list-style: none;
+  display: flex;
+  gap: 16px;
+  padding: 0;
+  margin: 0;
+  background: none;
+}
+
+.nav-pills .nav-item {
+  position: relative;
+  padding: 0;
+}
+
+.nav-pills .nav-link {
+  color: #000000 !important;
+  background: transparent !important;
+  transition: color 0.3s;
+}
+
+.nav-pills .nav-link:hover,
+.nav-pills .nav-link:focus {
+  color: #1abc9c !important;
+  background: transparent !important;
+  text-decoration: none;
+}
+
+.nav-pills .nav-link.active,
+.nav-pills .nav-link:active {
+  color: #f2f2f2 !important;
+  background: transparent !important;
+}
+
+/* 드롭다운 메뉴 스타일 */
+.dropdown-menu {
+  display: none;
+  position: absolute;
+  left: 0;
+  top: calc(100% - 2px) !important;
+  background: white;
+  border: 1px solid #ececec;
+  border-radius: 6px;
+  box-shadow: 0 4px 16px rgba(0, 189, 175, 0.15);
+  padding: 7px 0;
+  min-width: 162px;
+  z-index: 1000;
+  margin-top: 0px !important;
+  transition: opacity 0.3s ease;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.nav-item.dropdown:hover > .dropdown-menu,
+.dropdown-menu:hover {
+  display: block;
+  opacity: 1;
+  pointer-events: auto;
+  transition-delay: 0s;
+}
+
+.nav-item.dropdown:not(:hover) > .dropdown-menu {
+  opacity: 0;
+  pointer-events: none;
+  transition-delay: 0.3s;
+}
+
+.dropdown-menu li {
+  padding: 0;
+}
+
+/* 드롭다운 아이템 스타일 */
+.dropdown-menu .dropdown-item {
+  padding: 10px 20px;
+  font-size: 14px;
+  color: #000000 !important;
+  background: none !important;
+  text-decoration: none;
+  border: none !important;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.dropdown-menu .dropdown-item:hover {
+  background-color: #f2f2f2 !important;
+  color: #000000 !important;
+  font-weight: bold;
+}
+
+.nav-item.dropdown {
+  padding-bottom: 0 !important;
+  margin-bottom: 0 !important;
+}
+
+.nav-pills .nav-link.dropdown-toggle {
+  margin-bottom: 0 !important;
+  padding-bottom: 0 !important;
+}
+
+
+/* 탑 메뉴 보더 및 그림자 제거 (심플한 디자인) */
+.nav-pills,
+.nav-pills .nav-link,
+.nav-pills .nav-link.active {
+  border: none !important;
+  box-shadow: none !important;
+}
+
+
+/* 상품 이미지 스타일 */
+.product-image {
+  width: 100%;
+  height: 160px;
+  object-fit: cover;
+}
+
+/* 상품명 스타일 */
+.product-name {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #000000;
+  margin-bottom: 0.3rem;
+}
+
+/* 상품 소개 스타일 */
+.product-intro {
+  color: #7a7e7e;
+  font-size: 0.8rem;
+  /* 기존 max-height 늘리기 (예: 60px, 2~3줄 분량) */
+  height: 60px;  
+  margin-bottom: 0.3rem;
+}
+
+/* 가격 스타일 */
+.product-price {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #000000;
+}
+
+
+/* 할인된 가격 빨간색, 굵게, 좌측 정렬 */
+.discounted-price {
+  color: #e74c3c;           /* 빨간색 */
+  font-weight: bold;        /* 굵게 */
+  margin-right: 0.5rem;     /* 오른쪽 여백 */
+  font-size: 1rem;       /* 조금 더 큼 */
+}
+
+/* 원래 가격 흐리게, 취소선 처리 */
+.original-price {
+  color: #999999;                 /* 연한 회색 */
+  text-decoration: line-through;  /* 취소선 */
+  font-size: 0.8rem;
+}
+
+@media (min-width: 768px) {
+  .row.row-cols-md-5 > .col {
+    flex: 0 0 20% !important;   /* 한 줄 5개 (100% ÷ 5) */
+    max-width: 20% !important;
+  }
+}
+.card {
+  max-width: 240px; /* 필요시 약간 넓힘 */
+  width: 100%;
+  margin: auto;
+}
+
+.category-divider {
+  border: 0;
+  border-top: 1px solid #dfe1e4; /* 기존 구분선 컬러 */
+  margin: 0 auto;                 /* 중앙 정렬 */
+  max-width: 1196px;              /* 컨테이너와 똑같은 최대 너비 */
+  box-sizing: border-box;
+  padding: 0 15px;                /* 좌우 살짝 여유 */
+}
+
+
+
+

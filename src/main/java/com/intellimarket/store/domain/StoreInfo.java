@@ -13,6 +13,7 @@ public class StoreInfo {
 	private String storeTel;
 	private String logoPath;
 	private String storeIntroduce;
+	private String engName;
 
 	private Seller seller;
 	

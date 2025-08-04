@@ -232,6 +232,7 @@
 	}
 	
 	$(function(){
+<<<<<<< HEAD
 	      const isEditMode = ${isEditMode};
 	      if (isEditMode) {
 	          $('#name').prop('readonly', false);
@@ -241,4 +242,15 @@
 	          $('#zipCode').click(findZipCode);
 	      }
 	   });
+=======
+		const isEditMode = ${isEditMode};
+		if (isEditMode) {
+		    $('#name').prop('readonly', false);
+		    $('#birth').prop('readonly', false);
+		    $('#phone').prop('readonly', false);
+		    $('#detailAddress').prop('readonly', false);
+		    $('#zipCode').click(findZipCode);
+		}
+	});
+>>>>>>> main
 </script>
