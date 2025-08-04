@@ -1,5 +1,5 @@
 .product-image {
-	max-width: 100%;
+	max-width: 500px;
 	max-height: 500px;
 	object-fit: contain;
 }
@@ -13,3 +13,52 @@
 	color: red;
 	font-weight: bold;
 }
+
+/* detail.css */
+
+.container.mt-4 {
+  margin-top: 1.5rem; /* 24px */
+}
+
+/* Carousel 버튼 아이콘 크기 및 위치 */
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+  background-size: 2rem 2rem;
+}
+
+/* 상품 가격 영역 */
+.price-original {
+  font-weight: normal;
+  color: #999;
+  text-decoration: line-through;
+  margin-right: 10px;
+}
+
+.price-discount {
+  font-weight: bold;
+  color: #e53935; /* 할인가는 빨간색 등 */
+  margin-left: 10px;
+}
+
+/* 탭 영역 스타일 */
+.nav-tabs .nav-link {
+  cursor: pointer;
+  padding: 0.5rem 1rem;
+  font-weight: 500;
+  color: #333;
+}
+
+.nav-tabs .nav-link.active {
+  color: #0d6efd;
+  border-color: #0d6efd #0d6efd #fff;
+  background-color: #fff;
+}
+
+/* 탭 컨텐츠 */
+.tab-content {
+  padding: 1rem;
+  border: 1px solid #dee2e6;
+  border-top: none;
+}
+
+/* 리뷰

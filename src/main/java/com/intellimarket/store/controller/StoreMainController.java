@@ -101,14 +101,23 @@ public class StoreMainController {
 		
 		return products;
 	}
-	
 	/**
 	 * 상품 디테일 페이지 반환
 	 */
 	@GetMapping("/{engName}/products/{productId}")
 	public String getDetailFrag(@PathVariable("engName") String engName, @PathVariable("productId") String productId, Model model) {
-		
+	    StoreInfo storeInfo = new StoreInfo();
+	    storeInfo.setEngName(engName);
+	    storeInfo = storeInfoService.selectByName(storeInfo);
+	    
+	    Map<TopCategory, List<SubCategory>> groupedCategories = storeCategoryService.getAllCategory(storeInfo);
+	    Product product = productService.select(storeInfo.getSeller().getSellerId());
+
+	    model.addAttribute("storeInfo", storeInfo);
+	    model.addAttribute("groupedCategories", groupedCategories);
+	    model.addAttribute("product", product);
 	    model.addAttribute("contentPage", "store/intelli/detail.jsp");
+	    
 	    return "layout/intelliStore";
 	}
 	
