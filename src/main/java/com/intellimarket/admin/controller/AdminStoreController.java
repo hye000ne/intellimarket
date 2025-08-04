@@ -6,12 +6,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.intellimarket.common.util.SessionUtil;
 import com.intellimarket.shop.domain.Member;
 import com.intellimarket.store.domain.Seller;
+import com.intellimarket.store.domain.Settlement;
 import com.intellimarket.store.domain.SettlementStatus;
 import com.intellimarket.store.service.SettlementService;
 import com.intellimarket.store.service.StoreInfoService;
@@ -79,14 +82,28 @@ public class AdminStoreController {
 		return "layout/admin";
 	}
 	
-	@GetMapping("/settlement")
-	public String storeSettlement(Model model, HttpSession session) {
-		SettlementStatus status = SettlementStatus.valueOf("REQUESTED"); // 정산 상태: 요청
+	/**
+	 * 스토어 정산처리
+	 */
+	@PostMapping("/settlement")
+	public String storeSettlement(
+				@RequestParam int settlementId,
+				@RequestParam int netAmount,
+				RedirectAttributes redirectAttr) {
+		SettlementStatus status = SettlementStatus.valueOf("COMPLETED"); // 정산 상태: 완료
 		
-		model.addAttribute("list", settlementService.selectByStatus(status));
-		model.addAttribute("contentPage", "admin/store/settlement.jsp");
-		model.addAttribute("menuGroup", "store");
-		model.addAttribute("subMenu", "storeSettlement");
-		return "layout/admin";
+		Settlement settlement = new Settlement();
+		settlement.setSettlementId(settlementId);
+		settlement.setNetAmount(netAmount);
+		settlement.setSettlementStatus(status);
+		
+		try {
+			settlementService.updateStatus(settlement);
+			redirectAttr.addFlashAttribute("msg", "정산 승인 처리가 완료되었습니다.");
+		} catch (Exception e) {
+			redirectAttr.addFlashAttribute("msg", e.getMessage());
+			e.printStackTrace();
+		}
+		return "redirect:/admin/store/settlement";
 	}
 }

@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/views/common/init.jsp"%>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!-- DataTables -->
 <link rel="stylesheet" href="${ctx}/resources/admin/assets/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
 <link rel="stylesheet" href="${ctx}/resources/admin/assets/plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
@@ -36,8 +35,8 @@
 		                  		<thead class="align-middle">
 			                  		<tr>
 					                    <th>스토어명</th>
-<!-- 					                    <th>판매자명</th> -->
-<!-- 					                    <th>계좌정보</th> -->
+					                    <th>판매자명</th>
+					                    <th>계좌정보</th>
 					                    <th>요청 금액</th>
 					                    <th>확정 금액</th>
 					                    <th>상태</th>
@@ -48,12 +47,12 @@
 									<c:forEach var="settlement" items="${list}">
 				                  		<tr>
 				                    		<td>${settlement.storeInfo.storeName}</td>
-<%-- 				                    		<td>${settlement.storeInfo.seller.name}</td> --%>
-<%-- 				                    		<td>${settlement.storeInfo.seller.bank} / ${settlement.seller.accountNum}</td> --%>
+				                    		<td>${settlement.storeInfo.seller.name}</td>
+				                    		<td>[${settlement.storeInfo.seller.bank}] ${settlement.storeInfo.seller.accountNum}</td>
 				                    		<td><fmt:formatNumber value="${settlement.requestedAmount}" type="number" maxFractionDigits="0" /></td>
 											<td><fmt:formatNumber value="${settlement.requestedAmount * 0.9}" type="number" maxFractionDigits="0" /></td>
 				                    		<td>${settlement.settlementStatus.label}</td>
-				                    		<td><button type="button" class="btn btn-block btn-primary btn-sm" onclick="requestSettlement('${settlement.settlementId}')">승인</button></td>
+				                    		<td><button type="button" class="btn btn-block btn-primary btn-sm" onclick="requestSettlement('${settlement.settlementId}', ${settlement.requestedAmount * 0.9})">승인</button></td>
 				                  		</tr>
 									</c:forEach>
 			               		</tbody>
@@ -65,6 +64,12 @@
 		</div>
     </div>
 </div>
+
+<!-- 정산 승인 form  -->
+<form id="settlementRequestForm" method="POST" action="/admin/store/settlement">
+	<input type="hidden" id="settlementId" name="settlementId"/>
+	<input type="hidden" id="netAmount" name="netAmount"/>
+</form>
 
 <!-- DataTables  & Plugins -->
 <script src="${ctx}/resources/admin/assets/plugins/datatables/jquery.dataTables.min.js"></script>
@@ -81,8 +86,14 @@
 <script src="${ctx}/resources/admin/assets/plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
 
 <script>
-	function requestSettlement(settlementId) {
-		
+	// 정산 승인 처리
+	function requestSettlement(settlementId, netAmount) {
+		if(confirm("정말 승인하시겠습니까?")) {
+			const finalAmount = Math.round(netAmount);
+			$("#settlementId").val(settlementId);
+			$("#netAmount").val(finalAmount);
+// 			$("#settlementRequestForm").submit();
+		}
 	}
 
 	$(function() {
