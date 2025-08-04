@@ -3,10 +3,10 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ include file="/WEB-INF/views/common/init.jsp"%>
 <link rel="stylesheet" href="${ctx}/resources/store/assets/css/detail.css" />
-<div class="container mt-4">
+<div>
 	<div class="row">
 		<!-- 상품 사진 영역 -->
-		<div class="col-md-6">
+  <div class="col-md-6">
 			<div id="productImagesCarousel" class="carousel slide" data-bs-ride="carousel">
 				<div class="carousel-inner">
 					<c:choose>
@@ -27,10 +27,10 @@
 
 				<!-- 좌우 버튼 -->
 				<button class="carousel-control-prev" type="button" data-bs-target="#productImagesCarousel" data-bs-slide="prev">
-					<span class="carousel-control-prev-icon" aria-hidden="true"></span> <span class="visually-hidden">Previous</span>
+					<span class="carousel-control-prev-icon" aria-hidden="true"></span> <span class="visually-hidden"></span>
 				</button>
 				<button class="carousel-control-next" type="button" data-bs-target="#productImagesCarousel" data-bs-slide="next">
-					<span class="carousel-control-next-icon" aria-hidden="true"></span> <span class="visually-hidden">Next</span>
+					<span class="carousel-control-next-icon" aria-hidden="true"></span> <span class="visually-hidden"></span>
 				</button>
 
 				<!-- 썸네일 리스트 -->
@@ -44,10 +44,36 @@
 		</div>
 
 		<!-- 상품 정보 영역 -->
-		<div class="col-md-6 product-info-container">
+  <div class="col-md-6 product-info-container">
 			<h2 class="product-name">${product.productName}</h2>
 			<p class="product-price-area"><span class="price-original">${product.price}원</span> <span class="discounted-price">${product.price - product.discount}원</span></p>
+			
 
+					<!-- 배송기간 안내 박스 -->
+					<div class="delivery-info-box mb-4 p-4 border rounded">
+						<div class="delivery-title mb-2">
+							<img src="/resources/icons/truck.png" alt="배송아이콘" style="height: 18px; margin-right: 6px;" />
+							이 상품의 배송기간
+						</div>
+						<div class="delivery-desc mb-3">
+							<b class="text-danger">평균 배송기간 1일 이내 상품입니다.</b> <br /> <small class="text-muted">배송기간은 주말/공휴일을 제외한 영업일 기준</small>
+						</div>
+						<div class="delivery-bar d-flex align-items-center gap-3">
+							<div style="width: 80px;">1일 이내</div>
+							<div class="progress flex-grow-1" style="height: 12px;">
+								<div class="progress-bar bg-danger" role="progressbar" style="width: 100%;"></div>
+							</div>
+							<div>100%</div>
+						</div>
+						<div class="delivery-bar d-flex align-items-center gap-3 mt-2">
+							<div style="width: 80px;">2일 이내</div>
+							<div class="progress flex-grow-1" style="height: 12px;">
+								<div class="progress-bar bg-secondary" role="progressbar" style="width: 0%;"></div>
+							</div>
+							<div>0%</div>
+						</div>
+						<!-- 3일 이내, 4일 이상 등 필요시 추가 -->
+					</div>
 			<!-- 바닥 고정 컨테이너 -->
 			<div class="bottom-fixed-area">
 				<!-- 상품명, 수량선택 -->
@@ -87,7 +113,7 @@
 	</div>
 
 	<!-- 탭 영역 -->
-	<div class="row mt-5">
+	<div class="row">
 		<div class="col-12">
 			<ul class="nav nav-tabs" id="detailTabs" role="tablist">
 				<li class="nav-item" role="presentation">
@@ -107,67 +133,45 @@
 
 				<!-- 상세정보 탭 패널 -->
 				<div class="tab-pane fade show active" id="info" role="tabpanel" aria-labelledby="info-tab">
-
-					<!-- 배송기간 안내 박스 -->
-					<div class="delivery-info-box mb-4 p-4 border rounded">
-						<div class="delivery-title mb-2">
-							<img src="/resources/icons/truck.png" alt="배송아이콘" style="height: 18px; margin-right: 6px;" />
-							이 상품의 배송기간
-						</div>
-						<div class="delivery-desc mb-3">
-							<b class="text-danger">평균 배송기간 1일 이내 상품입니다.</b> <br /> <small class="text-muted">배송기간은 주말/공휴일을 제외한 영업일 기준</small>
-						</div>
-						<div class="delivery-bar d-flex align-items-center gap-3">
-							<div style="width: 80px;">1일 이내</div>
-							<div class="progress flex-grow-1" style="height: 12px;">
-								<div class="progress-bar bg-danger" role="progressbar" style="width: 100%;"></div>
-							</div>
-							<div>100%</div>
-						</div>
-						<div class="delivery-bar d-flex align-items-center gap-3 mt-2">
-							<div style="width: 80px;">2일 이내</div>
-							<div class="progress flex-grow-1" style="height: 12px;">
-								<div class="progress-bar bg-secondary" role="progressbar" style="width: 0%;"></div>
-							</div>
-							<div>0%</div>
-						</div>
-						<!-- 3일 이내, 4일 이상 등 필요시 추가 -->
-					</div>
 					<!-- 상품정보 박스 -->
 					<div class="product-info-box p-4 border rounded mb-4">
 						<table class="product-info-table table table-bordered mb-3">
 							<tbody>
+							
+							
 								<tr>
 									<th>모델번호</th>
-									<td>${product.modelCode}</td>
+									<td colspan="5">${product.modelCode}</td>
 								</tr>
 								<tr>
 									<th>브랜드</th>
-									<td>${product.brandName}</td>
+									<td colspan="5">${product.brandName}</td>
 								</tr>
 								<tr>
 									<th>원산지</th>
-									<td>${product.origin}</td>
+									<td colspan="5">${product.origin}</td>
 								</tr>
 								<tr>
 									<th>A/S 안내</th>
-									<td colspan="3">
-										<a href="#">상세정보 확인</a>
-									</td>
+									<td><a>${storeInfo.storeTel}</a></td>
+									<th>반품/교환</th>
+									<td>상품 수령 후 7일 이내</td>
+								</tr>
+								<tr>
+									<th>배송업체</th>
+									<td>SSG로지스</td>
+									<th>배송요금</th>
+									<td>무료 (오픈 이벤트)</td>
+								</td>
 								</tr>
 							</tbody>
 						</table>
-						<div class="product-info-qna text-muted">
-							상품정보 관련 문의사항은
-							<a href="#qa-tab" class="text-primary">Q&amp;A</a>
-							에 남겨주세요.
-						</div>
 					</div>
+					<hr/>
 					<!-- 써머노트 제품 상세 설명 -->
-					<div id="summernote" style="min-height: 300px; margin-bottom: 30px;">
-						<c:out value="${product.productDetail}" escapeXml="false" />
-					</div>
-
+<div id="summernote" style="min-height: 300px; margin-bottom: 30px;">
+  <c:out value="${product.productDetail}" escapeXml="false" />
+</div>
 
 
 				</div>
@@ -203,20 +207,15 @@
 </div>
 
 <script>
-	$(document).ready(function() {
-		$('#summernote').summernote({
-			toolbar : false,
-			airMode : true,
-			disableDragAndDrop : true
-		});
+$(document).ready(function() {
+	  $('#summernote').summernote({
+	    toolbar: false,          // 툴바 숨김
+	    airMode: false,          // airMode 비활성화 (읽기전용에 일반 모드 권장)
+	    disableDragAndDrop: true,
+	    minHeight: 300           // 최소 높이 지정
+	  });
+	  $('#summernote').summernote('disable');  // 읽기전용으로 에디터 비활성화
 	});
-
-	// 가격 -> (원가 - 할인가)
-	let unitPrice = $
-	{
-		product.price - product.discount
-	};
-
 	// 수량 입력 요소
 	let $quantityInput = $('#quantity');
 
@@ -226,23 +225,6 @@
 	// 구매, 장바구니 hidden 수량 필드
 	let $buyQuantity = $('#buyQuantity');
 	let $cartQuantity = $('#cartQuantity');
-
-	// 수량 변경시 이벤트
-	$quantityInput.on('input change', function() {
-		let qty = parseInt($(this).val());
-		if (isNaN(qty) || qty < 1) {
-			qty = 1;
-			$(this).val(qty);
-		}
-
-		// 총 금액 계산
-		let total = unitPrice * qty;
-		$totalAmount.text(`총 상품 금액 : ${total.toLocaleString()}원`);
-
-		// hidden 필드에 수량 반영
-		$buyQuantity.val(qty);
-		$cartQuantity.val(qty);
-	});
 
 	// 장바구니 추가
 	$(document).ready(function() {
@@ -275,36 +257,47 @@
 		});
 	});
 	
-	$quantityInput.on('input change', function() {
-		  let qty = parseInt($(this).val());
-		  if (isNaN(qty) || qty < 1) {
-		    qty = 1;
-		    $(this).val(qty);
-		  }
+	  $(document).ready(function() {
+	    // 수량 입력 요소
+	    let $quantityInput = $('#quantity');
+	    let $totalAmount = $('#totalAmount');
+	    let $buyQuantity = $('#buyQuantity');
+	    let $cartQuantity = $('#cartQuantity');
 
-		  // 총 금액 계산
-		  let total = unitPrice * qty;
-		  $totalAmount.text(`총 상품 금액 : ${total.toLocaleString()}원`);
+	    // 단위 가격을 숫자 타입으로 JSP에서 직접 숫자값 출력하기
+	    let unitPrice = ${product.price - product.discount}; // 문자열 아니어야 함
 
-		  // 총 수량 표시 업데이트
-		  $('#displayQty').text(qty);
+	    function updateQuantity(qty) {
+	      if (isNaN(qty) || qty < 1) {
+	        qty = 1;
+	      }
+	      $quantityInput.val(qty);
 
-		  // hidden 필드에 수량 반영
-		  $buyQuantity.val(qty);
-		  $cartQuantity.val(qty);
-		});
-	
-	$('#btn-plus').click(function() {
-		  let currentQty = parseInt($quantityInput.val());
-		  $quantityInput.val(currentQty + 1).trigger('change');
-		});
+	      let total = unitPrice * qty;
+	      $totalAmount.text(total.toLocaleString()+'원');
+	      $('#displayQty').text(qty);
+	      $buyQuantity.val(qty);
+	      $cartQuantity.val(qty);
+	    }
 
-		$('#btn-minus').click(function() {
-		  let currentQty = parseInt($quantityInput.val());
-		  if (currentQty > 1) {
-		    $quantityInput.val(currentQty - 1).trigger('change');
-		  }
-		});
+	    $quantityInput.on('input change', function() {
+	      let qty = parseInt($(this).val());
+	      updateQuantity(qty);
+	    });
 
+	    $('#btn-minus').click(function() {
+	      let currentQty = parseInt($quantityInput.val());
+	      if (currentQty > 1) {
+	        updateQuantity(currentQty - 1);
+	      }
+	    });
+
+	    $('#btn-plus').click(function() {
+	      let currentQty = parseInt($quantityInput.val());
+	      updateQuantity(currentQty + 1);
+	    });
+
+	    updateQuantity(parseInt($quantityInput.val()) || 1);
+	  });
 
 </script>
