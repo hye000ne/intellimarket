@@ -92,7 +92,7 @@
 			const finalAmount = Math.round(netAmount);
 			$("#settlementId").val(settlementId);
 			$("#netAmount").val(finalAmount);
-// 			$("#settlementRequestForm").submit();
+			$("#settlementRequestForm").submit();
 		}
 	}
 
