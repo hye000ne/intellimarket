@@ -11,12 +11,12 @@ import lombok.Data;
 @Alias("Settlement")
 public class Settlement {
 
-	private int settelementId;
+	private int settlementId;
 	private StoreInfo storeInfo;
 	private int requestedAmount;
 	private int feeAmount;
 	private int netAmount;
-	private SettlementStatus status;
+	private SettlementStatus settlementStatus;
 	
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private LocalDate settlementRequestedAt;
