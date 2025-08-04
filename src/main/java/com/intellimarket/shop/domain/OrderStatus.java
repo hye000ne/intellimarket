@@ -10,7 +10,8 @@ public enum OrderStatus {
     RETURN("환불"),
     CANCEL_COMPLETE("취소완료"),     
     CHANGE_COMPLETE("교환완료"),
-    RETURN_COMPLETE("환불완료");
+    RETURN_COMPLETE("환불완료"),
+    PURCHASE_CONFIRMED("구매확정");
     
     private final String label;
 

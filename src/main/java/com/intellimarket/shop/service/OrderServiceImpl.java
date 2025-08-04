@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.intellimarket.shop.dao.OrderDAO;
 import com.intellimarket.shop.domain.Order;
+import com.intellimarket.shop.domain.OrderStatus;
 
 @Service
 public class OrderServiceImpl implements OrderService{
@@ -40,13 +41,23 @@ public class OrderServiceImpl implements OrderService{
 		orderDAO.update(order);		
 	}
 
-	@Override
-	public void updateStatus(Order order) {
-		orderDAO.updateStatus(order);
-	}
+    // 단건
+    @Override
+    public void updateStatus(int orderId, OrderStatus status) {
+        Order order = new Order();
+        order.setOrderId(orderId);
+        order.setOrderStatus(status);
+        orderDAO.updateStatus(order);
+    }
+
+    // 복수건
+    @Override
+    public void updateStatuses(List<Integer> orderIds, OrderStatus status) {
+    	orderDAO.updateStatuses(orderIds, status);
+    }
 
 	@Override
 	public void delete(int orderId) {
-		ordersDAO.delete(orderId);
+		orderDAO.delete(orderId);
 	}
 }

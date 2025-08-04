@@ -63,17 +63,43 @@
 				                    		<td>${order.createdDate}</td>
 				                    		<td>${order.updatedDate}</td>
 				                    		<td><button type="button" class="btn btn-block btn-info btn-sm" onclick="goToDetail(${order.orderId})">상세</button></td>
-				                    		<td>
-											  <button 
-											    type="button" 
-											    class="btn btn-block btn-primary btn-sm"
-											    data-toggle="modal" 
-											    data-target="#orderStatusModal"
-											    onclick="setOrderStatus(${order.orderId}, '${order.orderStatus}')">
-											    상태변경
-											  </button>
+											<td>
+											  <c:choose>
+											    <c:when test="${order.orderStatus == 'DELIVERED' 
+											                    || order.orderStatus == 'CANCEL_COMPLETE' 
+											                    || order.orderStatus == 'RETURN_COMPLETE' 
+											                    || order.orderStatus == 'CHANGE_COMPLETE'}">
+											      <button 
+											        type="button" 
+											        class="btn btn-block btn-secondary btn-sm" 
+											        disabled>변경불가</button>
+											    </c:when>
+											    <c:otherwise>
+											      <button 
+											        type="button" 
+											        class="btn btn-block btn-primary btn-sm"
+											        data-toggle="modal" 
+											        data-target="#orderStatusModal"
+											        onclick="setOrderStatus(${order.orderId}, '${order.orderStatus}')">
+											        상태변경
+											      </button>
+											    </c:otherwise>
+											  </c:choose>
 											</td>
-											<td><input type="checkbox" class="orderCheckbox" value="${order.orderId}"></td>
+											
+											<td>
+											  <c:choose>
+											    <c:when test="${order.orderStatus == 'DELIVERED' 
+											                    || order.orderStatus == 'CANCEL_COMPLETE' 
+											                    || order.orderStatus == 'RETURN_COMPLETE' 
+											                    || order.orderStatus == 'CHANGE_COMPLETE'}">
+											      <!-- 체크박스 출력 안함 -->
+											    </c:when>
+											    <c:otherwise>
+											      <input type="checkbox" class="orderCheckbox" value="${order.orderId}">
+											    </c:otherwise>
+											  </c:choose>
+											</td>
 				                  		</tr>
 									</c:forEach>
 			               		</tbody>
