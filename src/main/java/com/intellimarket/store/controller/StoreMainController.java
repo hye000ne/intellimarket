@@ -10,10 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-
-import com.intellimarket.store.dao.ProductDAO;
 import com.intellimarket.store.domain.Product;
-import com.intellimarket.store.domain.Seller;
 import com.intellimarket.store.domain.StoreInfo;
 import com.intellimarket.store.domain.SubCategory;
 import com.intellimarket.store.domain.TopCategory;
