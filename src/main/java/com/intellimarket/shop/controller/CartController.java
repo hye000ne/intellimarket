@@ -60,6 +60,8 @@ public class CartController {
 	        throw new ShopException("로그인이 필요합니다.");
 	    }
 	    
+	    cart.getMember().setMemberId(member.getMemberId());
+	    
 	    if(cartService.insert(cart) < 1) {
 	    	throw new ShopException("장바구니 등록에 실패하셨습니다.");
 	    }

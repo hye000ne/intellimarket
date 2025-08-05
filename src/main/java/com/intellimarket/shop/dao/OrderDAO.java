@@ -16,7 +16,11 @@ public interface OrderDAO {
 	
 	List<Order> selectByStoreInfoId(int storeInfoId);
 	
-	void insert(Order order);
+	List<Order> selectByMerchantUid(@Param("merchantUid") String merchantUid, @Param("memberId") int memberId);
+	
+	List<Order> selectByMemberId(int memberId);
+	
+	int insert(Order order);
 	
 	void update(Order order);
 	

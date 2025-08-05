@@ -43,12 +43,22 @@
 
 	<select id="selectByStatus" parameterType="String" resultMap="joinMap">
 		select * from settlement 
-		where  settlement_status = #{settlementStatus} 
+		where  settlement_status = #{settlementStatus}
+		order by settlement_id desc 
 	</select>
 	
+	<!-- 쇼핑몰 관리자 정산 상태 업데이트 -->
 	<update id="updateStatus" parameterType="Settlement">
 		update settlement
-		set settlement_status = #{settlementStatus}
+		set 
+			settlement_status = #{settlementStatus},
+			net_amount = #{netAmount}
+		<if test="settlementStatus != null and settlementStatus.name() == 'REQUESTED'">
+			, settlement_requested_at = NOW() 
+		</if>
+		<if test="settlementStatus != null and settlementStatus.name() == 'COMPLETED'">
+			, settlement_completed_at = NOW() 
+		</if>
 		where settlement_id = #{settlementId}
 	</update>
 	

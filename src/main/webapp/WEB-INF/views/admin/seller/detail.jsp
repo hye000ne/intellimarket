@@ -39,7 +39,8 @@
 						<div class="form-group row">
 							<label class="col-sm-3 col-form-label">연락처</label>
 							<div class="col-sm-9">
-								<input type="text" class="form-control" id="tel" name="tel" value="${seller.tel}" readonly>
+								<c:set var="tel" value="${seller.tel}" />
+								<input type="text" class="form-control" id="tel" name="tel" value="${fn:substring(tel, 0, 3)}-${fn:substring(tel, 3, 7)}-${fn:substring(tel, 7, 11)}" readonly>
 							</div>
 						</div>
 						<div class="form-group row">

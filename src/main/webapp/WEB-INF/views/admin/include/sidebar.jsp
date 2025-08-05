@@ -58,7 +58,6 @@
                         	</a>
                         	
                        	</li>
-                        <li class="nav-item"><a href="#" class="nav-link"><p>정산 관리</p></a></li>
                     </ul>
                 </li>
 				
@@ -74,6 +73,11 @@
                         		<p>스토어 목록</p>
                         	</a>
                        	</li>
+	                    <li class="nav-item">
+	                    	<a href="${ctx}/admin/store/settlement" class="nav-link ${subMenu eq 'storeSettlement' ? 'active' : ''}">
+	                    		<p>정산 관리</p>
+                    		</a>
+                   		</li>
                     </ul>
                 </li>
 				

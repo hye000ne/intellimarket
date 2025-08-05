@@ -17,8 +17,8 @@
 	        <div class="row mb-2">
 	          	<div class="col-sm-12">
 	            	<ol class="breadcrumb float-sm-right">
-	              		<li class="breadcrumb-item">판매자 관리</li>
-	              		<li class="breadcrumb-item active">가입 승인</li>
+	              		<li class="breadcrumb-item">스토어 관리</li>
+	              		<li class="breadcrumb-item active">정산 관리</li>
 	           		</ol>
 	          	</div>
 	       	</div>
@@ -31,33 +31,28 @@
 		        <div class="col-lg-12">
 		            <div class="card">
 		              	<div class="card-body">
-		                	<table id="approvalListTable" class="table table-bordered table-hover text-center">
+		                	<table id="storeSettlementListTable" class="table table-bordered table-hover text-center">
 		                  		<thead class="align-middle">
 			                  		<tr>
-					                    <th>이메일</th>
-					                    <th>이름</th>
-					                    <th>연락처</th>
-					                    <th>사업자등록번호</th>
-					                    <th>가입일</th>
+					                    <th>스토어명</th>
+					                    <th>판매자명</th>
+					                    <th>계좌정보</th>
+					                    <th>요청 금액</th>
+					                    <th>확정 금액</th>
+					                    <th>상태</th>
 					                    <th>승인</th>
-					                    <th>반려</th>
 			                  		</tr>
 			                  	</thead>
 			                  	<tbody>
-									<c:forEach var="seller" items="${list}">
+									<c:forEach var="settlement" items="${list}">
 				                  		<tr>
-				                    		<td>${seller.email}</td>
-				                    		<td>${seller.name}</td>
-				                    		<td>${fn:substring(seller.tel, 0, 3)}-${fn:substring(seller.tel, 3, 7)}-${fn:substring(seller.tel, 7, 11)}</td>
-				                    		<td>${seller.businessNum}</td>
-				                    		<td>${seller.createdDate}</td>
-				                    		<td><button type="button" class="btn btn-block btn-primary btn-sm" onclick="approve(${seller.sellerId})">승인</button></td>
-				                    		<td>
-				                  				<button type="button" class="btn btn-block btn-danger btn-sm" data-toggle="modal"
-									        	 	data-target="#rejectModal" onclick="setRejectSellerId(${seller.sellerId})">
-									            	반려
-									        	</button>
-											</td>
+				                    		<td>${settlement.storeInfo.storeName}</td>
+				                    		<td>${settlement.storeInfo.seller.name}</td>
+				                    		<td>[${settlement.storeInfo.seller.bank}] ${settlement.storeInfo.seller.accountNum}</td>
+				                    		<td><fmt:formatNumber value="${settlement.requestedAmount}" type="number" maxFractionDigits="0" /></td>
+											<td><fmt:formatNumber value="${settlement.requestedAmount * 0.9}" type="number" maxFractionDigits="0" /></td>
+				                    		<td>${settlement.settlementStatus.label}</td>
+				                    		<td><button type="button" class="btn btn-block btn-primary btn-sm" onclick="requestSettlement('${settlement.settlementId}', ${settlement.requestedAmount * 0.9})">승인</button></td>
 				                  		</tr>
 									</c:forEach>
 			               		</tbody>
@@ -70,41 +65,10 @@
     </div>
 </div>
 
-<!-- 반려 모달 -->
-<div class="modal fade" id="rejectModal" tabindex="-1" role="dialog" aria-labelledby="rejectModalLabel" aria-hidden="true">
-  	<div class="modal-dialog" role="document">
-    	<div class="modal-content">
-			<!-- 판매자 반려 form  -->
-      		<form id="sellerRejectForm" method="post" action="/admin/seller/changeSellerStatus">
-        		<div class="modal-header">
-	         		<h5 class="modal-title" id="rejectModalLabel">판매자 반려</h5>
-	          		<button type="button" class="close" data-dismiss="modal" aria-label="닫기">
-	            		<span aria-hidden="true">&times;</span>
-	          		</button>
-        		</div>
-
-		        <div class="modal-body">
-		          	<input type="hidden" name="sellerId" id="rejectSellerId"/>
-		          	<input type="hidden" name="status" value="REJECTED"/>
-		          	<div class="form-group">
-		            	<label for="inactiveReason">반려 사유</label>
-		            	<textarea name="msg" id="msg" class="form-control" required></textarea>
-		          	</div>
-        		</div>
-
-        		<div class="modal-footer">
-          			<button type="button" class="btn btn-secondary" data-dismiss="modal">취소</button>
-          			<button type="button" class="btn btn-danger" onclick="submitSellerRejectForm()">확인</button>
-        		</div>
-      		</form>
-    	</div>
-  	</div>
-</div>
-
-<!-- 판매자 승인 form  -->
-<form id="sellerApproveForm" method="post" action="/admin/seller/changeSellerStatus">
-	<input type="hidden" id="approveSellerId" name="sellerId"/>
-	<input type="hidden" id="status" name="status" value="APPROVED"/>
+<!-- 정산 승인 form  -->
+<form id="settlementRequestForm" method="POST" action="/admin/store/settlement">
+	<input type="hidden" id="settlementId" name="settlementId"/>
+	<input type="hidden" id="netAmount" name="netAmount"/>
 </form>
 
 <!-- DataTables  & Plugins -->
@@ -122,27 +86,18 @@
 <script src="${ctx}/resources/admin/assets/plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
 
 <script>
-	// 승인 처리
-	function approve(sellerId) {
+	// 정산 승인 처리
+	function requestSettlement(settlementId, netAmount) {
 		if(confirm("정말 승인하시겠습니까?")) {
-			$("#approveSellerId").val(sellerId);
-			$("#sellerApproveForm").submit();
+			const finalAmount = Math.round(netAmount);
+			$("#settlementId").val(settlementId);
+			$("#netAmount").val(finalAmount);
+			$("#settlementRequestForm").submit();
 		}
 	}
-	
-	function setRejectSellerId(sellerId) {
-	    $('#rejectSellerId').val(sellerId);
-	}
-	
-	// 반려 처리
-	function submitSellerRejectForm() {
-		if (confirm('정말 반려 처리하시겠습니까?')) {
-	        $('#sellerRejectForm').submit();
-	    }
-	}
-	
+
 	$(function() {
-		$("#approvalListTable").DataTable({
+		$("#storeSettlementListTable").DataTable({
 			responsive: true,
 			lengthChange: false,
 			autoWidth: false,
@@ -169,6 +124,6 @@
 					colvis: "컬럼"
 				}
 			}
-		}).buttons().container().appendTo('#approvalListTable_wrapper .col-md-6:eq(0)');
+		}).buttons().container().appendTo('#storeSettlementListTable_wrapper .col-md-6:eq(0)');
 	});
 </script>

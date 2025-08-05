@@ -43,14 +43,11 @@ public class SettlementServiceImpl implements SettlementService{
 	
 	@Override
 	public List<Settlement> selectByStatus(SettlementStatus status) {
-		return settlementDAO.selectByStatus(status);
+		return settlementDAO.selectByStatus(status.name());
 	}
 
 	@Override
-	public void updateStatus(int settlementId , SettlementStatus settlementStatus) {
-		Settlement settlement = new Settlement();
-		settlement.setSettlementId(settlementId);
-		settlement.setSettlementStatus(settlementStatus);
+	public void updateStatus(Settlement settlement) {
 		settlementDAO.updateStatus(settlement);
 	}
 	
