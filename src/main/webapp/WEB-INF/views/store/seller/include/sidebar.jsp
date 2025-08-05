@@ -4,7 +4,7 @@
 <!-- Sidebar -->
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
   <!-- Logo -->
-  <a href="${ctx}/admin/main" class="brand-link">
+  <a href="${ctx}/store/seller/manage/product/list" class="brand-link">
     <img src="${ctx}/resources/common/img/logo/logo08.png" class="brand-image img-circle elevation-3" style="height: 35px;">
     <span class="brand-text font-weight-light">Intelli Seller</span>
   </a>

@@ -37,4 +37,6 @@ public interface ProductDAO {
 	
 	// 상품 삭제
 	int delete(int productId);
+	
+	int updateSalesCount(int productId);
 }
