@@ -35,13 +35,12 @@ public class GlobalExceptionHandler {
     }
 
     /**
-     * 그 외 모든 예외 처리 (500 에러)
-     * - 정의되지 않은 예외는 500.jsp로 포워딩
-     */
+	 * 그 외 모든 예외 처리 (500 에러) - 정의되지 않은 예외는 500.jsp로 포워딩
+	 */
     @ExceptionHandler(Exception.class)
-    public String handleException(Exception e) {
-    	e.printStackTrace();
-        return "common/error/500";
+   public String handleException(Exception e) {
+  	e.printStackTrace();
+       return "common/error/500";
     }
     
     /**
