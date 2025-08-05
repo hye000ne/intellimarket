@@ -52,5 +52,5 @@ public interface SettlementDAO {
     			@Param("yearMonth") String yearMonth);  
     
     //구매확정 시 , settlement insert
-    void insert (Settlement settlement);
+    int insert (Settlement settlement);
 }
