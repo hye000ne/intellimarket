@@ -33,7 +33,7 @@
 			SELECT * FROM store_info 
 			ORDER BY store_info_id DESC
 			LIMIT #{count}
-    		</select>
+   		</select>
 
 		<insert id="insert" parameterType="StoreInfo">
 			INSERT INTO
