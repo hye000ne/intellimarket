@@ -29,12 +29,10 @@
 		
 	<!-- 신규 입점 스토어 -->
 	<section class="category-area section-padding30">
-	    <div class="container-fluid">
-	        <div class="row">
-	            <div class="col-lg-12">
-					<div class="text-center mb-5">
-					  	<h2 class="section-title">신규 입점 스토어</h2>
-					</div>
+	    <div class="container">
+	        <div class="row justify-content-center mb-4">
+	            <div class="col-md-6 text-center">
+	                <h2 class="font-weight-bold">신규 입점 스토어</h2>
 	            </div>
 	        </div>
 	        
@@ -53,12 +51,12 @@
 			</div>
 		</div>
 	</section>
-	<!-- 추천 상품 -->
-	<section class="latest-product-area section-padding">
+	<!-- 신상품 -->
+	<section class="latest-product-area">
 	    <div class="container">
 	        <div class="row justify-content-center mb-4">
 	            <div class="col-md-6 text-center">
-	                <h2 class="font-weight-bold">신상품</h2>
+	                <h2 class="font-weight-bold">실시간 인기 아이템</h2>
 	            </div>
 	        </div>
 	
@@ -68,8 +66,7 @@
 	            </c:if>
 	
 	            <div class="col-xl-4 col-lg-4 col-md-6 mb-4">
-	                <div class="card h-100 text-center border-0 recent-store-card"
-	                	onclick="location.href='/store/products/${product.productId}'">
+	                <div class="card h-100 text-center border-0 recent-store-card" onclick="location.href='/store/products/${product.productId}'">
 	                    <div class="position-relative">
 	                        <c:choose>
 	                            <c:when test="${not empty product.imgList and fn:length(product.imgList) > 0}">
@@ -80,6 +77,7 @@
 	                            </c:otherwise>
 	                        </c:choose>
 	                        <span class="badge badge-danger position-absolute" style="top: 10px; left: 10px;">New</span>
+	                        <span class="badge badge-danger position-absolute" style="top: 10px; left: 50px;">Best</span>
 	                    </div>
 	                    <div class="card-body">
 	                        <h5 class="card-title">${product.productName}</h5>
