@@ -21,5 +21,7 @@ public interface CartService {
 
 	int delete(int cart_id);
 	
+	int deleteByMemberId(@Param("memberId")int memberId, @Param("productId")int productId);
+	
 	int deleteByMemberIdAndProductIds(int memberId, List<Integer> productIds);
 }

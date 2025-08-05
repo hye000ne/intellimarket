@@ -67,6 +67,13 @@
 		where cart_id = #{cartId}
 	</delete>
 	
+	<!-- 장바구니 삭제 -->
+	<delete id="deleteByMemberId" parameterType="map">
+		delete from cart
+		where member_id = #{memberId}
+		   and product_id = #{productId}
+	</delete>
+	
 	<delete id="deleteByMemberIdAndProductIds">
 	  	delete from cart
 	  	where member_id = #{memberId}

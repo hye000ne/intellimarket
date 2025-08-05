@@ -48,6 +48,11 @@ public class CartServiceImpl implements CartService{
 	public int delete(int cart_id) {
 		return cartDAO.delete(cart_id);
 	}
+	
+	@Override
+	public int deleteByMemberId(int memberId, int productId) {
+		return cartDAO.deleteByMemberId(memberId, productId);
+	}
 
 	@Override
 	public int deleteByMemberIdAndProductIds(int memberId, List<Integer> productIds) {

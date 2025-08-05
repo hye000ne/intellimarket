@@ -1,3 +1,5 @@
+<%@page import="com.intellimarket.store.domain.ProductImage"%>
+<%@page import="java.awt.Image"%>
 <%@page import="com.intellimarket.shop.domain.Member"%>
 <%@page import="com.intellimarket.store.domain.Product"%>
 <%@page import="com.intellimarket.shop.domain.Cart"%>
@@ -26,44 +28,53 @@
 	rel="stylesheet">
 
 <style>
+body {
+  margin: 0;
+  padding: 0;
+  background-color: #f9f9f9;
+  font-family: 'Segoe UI', sans-serif;
+}
+
 .product-list {
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 16px;
 }
 
 .product-card {
   border: 1px solid #ddd;
   border-radius: 12px;
-  padding: 12px;
+  padding: 8px 12px;
   width: 100%;
   box-sizing: border-box;
   transition: box-shadow 0.2s ease;
+  background-color: #fff;
 }
 
 .product-card:hover {
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
 }
 
 .product-wrapper {
   display: flex;
   align-items: center;
-  gap: 16px;
-  flex-wrap: wrap; /* 너비 줄어들면 줄바꿈 허용 */
+  gap: 8px;
+  flex-wrap: wrap;
 }
 
 .product-thumbnail {
   width: 80px;
+  height: 100px;
   min-width: 80px;
   flex-shrink: 0;
   display: flex;
   align-items: center;
 }
-
 .product-thumbnail img {
   width: 100%;
   height: auto;
   display: block;
+  border-radius: 8px;
 }
 
 .product-details {
@@ -73,8 +84,6 @@
   align-items: center;
   flex-wrap: wrap;
   min-width: 0;
-  height: 60px;
-  overflow: hidden;
 }
 
 .product-title,
@@ -86,96 +95,152 @@
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  height: 100%;
 }
 
 .product-title {
   flex: 2 1 0;
   min-width: 120px;
   max-width: 60%;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  direction: ltr;
-}
-
-.product-quantity,
-.product-price {
-  flex: 1 1 0;
-  min-width: 60px;
+  font-size: 16px;
+  font-weight: bold;
+  color: #333;
 }
 
 .product-quantity {
+  flex: 1 1 0;
+  min-width: 60px;
   font-size: 15px;
-  color: black;
+  color: #444;
   font-weight: bold;
 }
 
 .product-price {
+  flex: 1 1 0;
+  min-width: 60px;
   font-size: 15px;
   color: #0072c6;
   font-weight: bold;
 }
 
-.buyer-info input {
-	width: 100%;
-	padding: 8px;
-	margin-bottom: 12px;
+.scrollable-list {
+  max-height: 400px;
+  overflow-y: auto;
+  padding-right: 10px;
+  margin-bottom: 20px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background-color: #fff;
+}
+
+.scrollable-list::-webkit-scrollbar {
+  width: 8px;
+}
+.scrollable-list::-webkit-scrollbar-thumb {
+  background-color: #ccc;
+  border-radius: 4px;
+}
+.scrollable-list::-webkit-scrollbar-track {
+  background-color: #f1f1f1;
+}
+
+.buyer-info input,
+.form-control {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 12px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 14px;
+}
+
+.btn-check {
+  background-color: #0072c6;
+  color: white;
+  padding: 8px;
+  border: none;
+  border-radius: 6px;
+  font-size: 14px;
+  cursor: pointer;
+}
+.btn-check:hover {
+  background-color: #005fa3;
 }
 
 .summary-box {
-	margin-bottom: 20px;
-	padding: 14px;
-	border: 1px solid #e0e0e0;
-	border-radius: 8px;
-	background-color: #fefefe;
-	font-size: 15px;
-	color: #333;
+  margin-bottom: 20px;
+  padding: 16px;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  background-color: #fefefe;
+  font-size: 15px;
+  color: #333;
+}
+
+.summary-box p {
+  margin-bottom: 8px;
 }
 
 .summary-box strong {
-	display: inline-block;
-	width: 140px;
+  display: inline-block;
+  width: 140px;
 }
 
 .red-text {
-	color: #d10000;
-	font-weight: bold;
+  color: #d10000;
+  font-weight: bold;
 }
 
 .blue-text {
-	color: #0072c6;
+  color: #0072c6;
 }
 
 .final-text {
-	font-size: 40px;
-	font-weight: bold;
-	color: #333;
+  font-size: 32px;
+  font-weight: bold;
+  color: #333;
+  text-align: center;
+  margin-top: 12px;
 }
 
-.scrollable-list {
-    max-height: 400px; /* 원하는 높이로 조절 가능 */
-    overflow-y: auto;
-    padding-right: 10px;
-    margin-bottom: 20px;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    background-color: #fff;
+.btn_3 {
+  background-color: #0072c6;
+  color: white;
+  padding: 12px;
+  border: none;
+  border-radius: 6px;
+  font-size: 16px;
+  cursor: pointer;
+  width: 100%;
+  transition: background-color 0.2s ease;
+}
+.btn_3:hover {
+  background-color: #005fa3;
+}
+
+/* 반응형 대응 */
+@media (max-width: 768px) {
+  .product-wrapper {
+    flex-direction: column;
+    align-items: flex-start;
   }
 
-  /* 스크롤바 스타일 (선택사항) */
-  .scrollable-list::-webkit-scrollbar {
-    width: 8px;
+  .product-details {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 6px;
   }
 
-  .scrollable-list::-webkit-scrollbar-thumb {
-    background-color: #ccc;
-    border-radius: 4px;
+  .product-title,
+  .product-quantity,
+  .product-price {
+    justify-content: flex-start;
   }
 
-  .scrollable-list::-webkit-scrollbar-track {
-    background-color: #f1f1f1;
+  .btn-check {
+    margin-top: 8px;
   }
+}
+
 </style>
 <script>
   /* 집 주소 API */
@@ -401,41 +466,49 @@ function requestPay() {
 			<div class="row justify-content-center ">
 				<div class="col-lg-8 col-md-10">
 					<div class="product-list scrollable-list">
-					<%if(list != null && !list.isEmpty()){ 
-						Object first = list.get(0);
+					<% if (list != null && !list.isEmpty()) {
+						    Object first = list.get(0);
 						
-						if(first instanceof Cart){
-							for(Cart cart : (List<Cart>) list){ %>
-								<div class="product-card" data-product-id="<%= cart.getProduct().getProductId() %>">
-									<div class="product-wrapper">
-										<div class="product-thumbnail">
-											<img src="${ctx}/resources/shop/assets/img/product/product_list_1.png" alt="<%= cart.getProduct().getProductName() %>" />
-										</div>
-										<div class="product-details">
-											<div class="product-title"><%= cart.getProduct().getProductName() %></div>
-											<div class="product-quantity"><%=cart.getQuantity() %> 개</div>
-											<div class="product-price">₩<%= String.format("%,d", cart.getProduct().getPrice()) %></div>
-										</div>
-									</div>
-								</div>
-							<%} %>
-						<%}  else if(first instanceof Product){
-									for(Product product : (List<Product>) list){ %>
-										<div class="product-card">
-											<div class="product-wrapper">
-												<div class="product-thumbnail">
-													<img src="${ctx}/resources/shop/assets/img/product/product_list_1.png" alt="<%= product.getProductName() %>" />
-												</div>
-												<div class="product-details">
-													<div class="product-title"><%= product.getProductName() %></div>
-													<div class="product-quantity">1 개</div>
-													<div class="product-price">₩<%= String.format("%,d", product.getPrice()) %></div>
-												</div>
-											</div>
-										</div>
-									<%} %>
-						<%} %>
-					<%} %>
+						    if (first instanceof Cart) {
+						        for (Cart cart : (List<Cart>) list) {
+						            List<ProductImage> imgList = cart.getProduct().getImgList();
+						            String imageSrc = (imgList != null && !imgList.isEmpty()) ? imgList.get(0).getFilename() : "${ctx}/resources/shop/assets/img/default.jpg";
+						%>
+						            <div class="product-card" data-product-id="<%= cart.getProduct().getProductId() %>">
+						                <div class="product-wrapper">
+						                    <div class="product-thumbnail">
+						                        <img src="<%= imageSrc %>" alt="<%= cart.getProduct().getProductName() %>" />
+						                    </div>
+						                    <div class="product-details">
+						                        <div class="product-title"><%= cart.getProduct().getProductName() %></div>
+						                        <div class="product-quantity"><%= cart.getQuantity() %> 개</div>
+						                        <div class="product-price">₩<%= String.format("%,d", cart.getProduct().getPrice() * cart.getQuantity()) %></div>
+						                    </div>
+						                </div>
+						            </div>
+						<%
+						        }
+						    } else if (first instanceof Product) {
+						        Product product = (Product) first;
+						        List<ProductImage> imgList = product.getImgList();
+						        String imageSrc = (imgList != null && !imgList.isEmpty()) ? imgList.get(0).getFilename() : "${ctx}/resources/shop/assets/img/default.jpg";
+						        int qty = (request.getAttribute("quantity") != null) ? (Integer) request.getAttribute("quantity") : 1;
+						%>
+						        <div class="product-card">
+						            <div class="product-wrapper">
+						                <div class="product-thumbnail">
+						                    <img src="<%= imageSrc %>"/>
+						                </div>
+						                <div class="product-details">
+						                    <div class="product-title"><%= product.getProductName() %></div>
+						                    <div class="product-quantity"><%= qty %> 개</div>
+						                    <div class="product-price">₩<%= String.format("%,d", product.getPrice() * qty) %></div>
+						                </div>
+						            </div>
+						        </div>
+						<%
+						    }
+						} %>
 					</div>
 				</div>
 			</div>

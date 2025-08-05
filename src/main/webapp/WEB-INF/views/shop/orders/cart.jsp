@@ -11,173 +11,192 @@
 <title>장바구니</title>
 <style>
 body {
-    margin: 0;
-    padding: 0;
-    background-color: white;
+  margin: 0;
+  padding: 0;
+  background-color: #f9f9f9;
+  font-family: 'Segoe UI', sans-serif;
 }
 
 .cart-container {
-    max-width: 1200px;
-    margin: 60px auto;
-    background: #fff;
-    padding: 40px;
-    border-radius: 12px;
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
-    display: flex;
-    gap: 40px;
+  max-width: 1200px;
+  margin: 60px auto;
+  background: #fff;
+  padding: 40px;
+  border-radius: 12px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+  display: flex;
+  gap: 40px;
 }
 
 .cart-items {
-    flex: 2;
-    max-height: 600px; /* 원하는 높이로 조절 가능 */
-    overflow-y: auto; 
-    padding-right: 10px; /* 스크롤바 공간 확보 */
+  flex: 2;
+  max-height: 600px;
+  overflow-y: auto;
+  padding-right: 10px;
 }
 
+.cart-items::-webkit-scrollbar {
+  width: 8px;
+}
 .cart-items::-webkit-scrollbar-thumb {
-    background-color: #ccc;
-    border-radius: 3px;
+  background-color: #ccc;
+  border-radius: 4px;
+}
+.cart-items::-webkit-scrollbar-track {
+  background-color: #f1f1f1;
 }
 
 .summary-section {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 h2 {
-    text-align: center;
-    font-size: 28px;
-    margin-bottom: 40px;
-    color: #333;
+  text-align: center;
+  font-size: 28px;
+  margin-bottom: 40px;
+  color: #333;
 }
 
 .product-card {
-    position: relative;
-    display: flex;
-    align-items: center;
-    border-bottom: 1px solid #eee;
-    padding: 20px 0;
-}
-.product-checkbox {
-    margin-right: 12px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 20px 0;
+  border-bottom: 1px solid #eee;
+  position: relative;
 }
 
+.product-checkbox {
+  flex-shrink: 0;
+  margin-left: 4px;
+}
+
+.product-thumbnail {
+  width: 80px;
+  height: 80px;
+  flex-shrink: 0;
+}
 .product-thumbnail img {
-    width: 80px;
-    height: 80px;
-    object-fit: cover;
-    border-radius: 10px;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 10px;
 }
 
 .product-details {
-    margin-left: 20px;
-    flex: 1;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  min-width: 0; /* 텍스트 줄바꿈 안정화 */
 }
 
 .product-title {
-    font-size: 18px;
-    font-weight: bold;
-    color: #222;
-    margin-bottom: 6px;
+  font-size: 18px;
+  font-weight: bold;
+  color: #222;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .product-quantity {
-    font-size: 14px;
-    color: #666;
-    margin-bottom: 4px;
-    display: flex;
-    align-items: center;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  color: #666;
 }
 
 .qty-btn {
-    background-color: #ddd;
-    border: none;
-    padding: 4px 10px;
-    font-size: 16px;
-    cursor: pointer;
-    border-radius: 4px;
-    margin: 0 6px;
+  background-color: #eee;
+  border: none;
+  padding: 4px 10px;
+  font-size: 14px;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: background-color 0.2s ease;
 }
-
 .qty-btn:hover {
-    background-color: #ccc;
+  background-color: #ddd;
 }
 
 .qty-value {
-    font-size: 16px;
-    font-weight: bold;
-    min-width: 24px;
-    display: inline-block;
-    text-align: center;
+  font-size: 15px;
+  font-weight: bold;
+  min-width: 24px;
+  text-align: center;
 }
 
 .product-price {
-    font-size: 16px;
-    color: #4CAF50;
-}
-
-.summary-box {
-    margin-bottom: 20px;
-    padding: 14px;
-    border: 1px solid #e0e0e0;
-    border-radius: 8px;
-    background-color: #fefefe;
-    font-size: 15px;
-    color: #333;
-}
-
-.summary-box strong {
-    display: inline-block;
-    width: 140px;
-}
-
-.red-text {
-    color: #d10000;
-    font-weight: bold;
-}
-
-.blue-text {
-    color: #0072c6;
-}
-
-.final-text {
-    font-size: 40px;
-    font-weight: bold;
-    color: #333;
-}
-
-.btn_3 {
-    background-color: #4CAF50;
-    color: white;
-    padding: 12px;
-    border: none;
-    border-radius: 6px;
-    font-size: 16px;
-    cursor: pointer;
-    width: 100%;
-}
-
-.btn_3:hover {
-    background-color: #45a049;
+  font-size: 16px;
+  color: #0072c6;
+  font-weight: bold;
 }
 
 .delete-btn {
-    position: absolute;
-    bottom: 10px;
-    right: 10px;
-    background: transparent;
-    border: none;
-    font-size: 20px;
-    color: #888;
-    cursor: pointer;
-    z-index: 10;
-    transition: color 0.2s ease;
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background: transparent;
+  border: none;
+  font-size: 18px;
+  color: #aaa;
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+.delete-btn:hover {
+  color: #e74c3c;
 }
 
-.delete-btn:hover {
-    color: #e74c3c;
+.summary-box {
+  margin-bottom: 20px;
+  padding: 14px;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  background-color: #fefefe;
+  font-size: 15px;
+  color: #333;
+}
+
+.summary-box strong {
+  display: inline-block;
+  width: 140px;
+}
+
+.red-text {
+  color: #d10000;
+  font-weight: bold;
+}
+
+.blue-text {
+  color: #0072c6;
+}
+
+.final-text {
+  font-size: 32px;
+  font-weight: bold;
+  color: #333;
+  text-align: center;
+  margin-top: 20px;
+}
+
+.btn_3 {
+  background-color: #0072c6;
+  color: white;
+  padding: 12px;
+  border: none;
+  border-radius: 6px;
+  font-size: 16px;
+  cursor: pointer;
+  width: 100%;
+  transition: background-color 0.2s ease;
+}
+.btn_3:hover {
+  background-color: #005fa3;
 }
 
 </style>
@@ -247,7 +266,7 @@ function removeItem(button) {
     }
 
     $.ajax({
-        url: "/shop/cart/delete",
+        url: "/shop/cart/deletebyproduct",
         type: "POST",
         contentType: "application/json",
         data: JSON.stringify({productId: productId}),

@@ -48,7 +48,7 @@ public class OrderController {
 	private ProductService productService;
 	
 	@GetMapping
-	public String orders(@RequestParam(required = false)Integer product_id, Model model, HttpSession session) {
+	public String orders(@RequestParam(required = false)Integer product_id, @RequestParam(required = false)Integer quantity, Model model, HttpSession session) {
 		
 		// 로그인 사용자 세션 확인
 		Member member = SessionUtil.getLoginMember(session, model, "shop/loginFailAlert.jsp", Member.Role.USER);
@@ -62,7 +62,9 @@ public class OrderController {
 		if(product_id == 0) {
 			list = cartService.selectAllByStatus(member.getMemberId());
 		}else { 
-			list = Arrays.asList(productService.select(product_id));
+			Product product = productService.select(product_id);
+			list = Arrays.asList(product);
+			model.addAttribute("quantity", quantity != null ? quantity : 1);
 		}
 		
 		model.addAttribute("loginMember", member);

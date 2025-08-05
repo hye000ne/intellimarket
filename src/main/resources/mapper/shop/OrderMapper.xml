@@ -59,6 +59,7 @@
 	<select id="selectByMemberId" parameterType="int" resultMap="joinMap">
 		select * from orders
 		where member_id = #{memberId} 
+		 order by updated_date desc
 	</select>
 	
 	

@@ -58,7 +58,7 @@
                                    		<li class="hot"><a href="#">베스트</a>
                                        	<li><a href="#">세일</a></li>
                                        	<li><a href="#">쿠폰</a>
-                                       	<li><a href="#">고객센터</a></li>
+                                       	<li><a href="${ctx}/shop/customerservice/faq">고객센터</a></li>
                                    	</ul>
                                	</nav>
                            	</div>
