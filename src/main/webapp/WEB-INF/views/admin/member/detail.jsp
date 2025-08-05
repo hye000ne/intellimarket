@@ -48,8 +48,7 @@
 						<div class="form-group row">
 							<label class="col-sm-3 col-form-label">휴대폰 번호 (숫자만 입력)</label>
 							<div class="col-sm-9">
-								<c:set var="phone" value="${member.phone}" />				 
-								<input type="text" class="form-control" id="phone" name="phone" value="${fn:substring(phone, 0, 3)}-${fn:substring(phone, 3, 7)}-${fn:substring(phone, 7, 11)}" readonly>
+								<input type="text" class="form-control" id="phone" name="phone" value="${member.phone}" readonly>
 							</div>
 						</div>
 						<div class="form-group row">
