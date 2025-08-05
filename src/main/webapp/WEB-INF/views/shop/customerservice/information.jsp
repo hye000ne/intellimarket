@@ -52,7 +52,7 @@
 
   <!-- Google Maps API 로드 -->
   <script async defer
-    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBRw-L3Gvpkh3LqL2YAKxv4CKnd5xakQwY&callback=initMap">
+    src="https://maps.googleapis.com/maps/api/js?key=MyKeyPlease&callback=initMap">
   </script>
   <script>
     function initMap() {

@@ -1,3 +1,4 @@
+<%@page import="com.intellimarket.store.domain.ProductImage"%>
 <%@page import="com.intellimarket.shop.domain.Cart"%>
 <%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"%>
@@ -225,7 +226,7 @@ function updateSummary() {
         if (checkbox.checked) {
             const price = parseInt(card.querySelector('.product-price').dataset.price);
             const qty = parseInt(card.querySelector('.qty-value').textContent);
-            total += price * qty;
+            total += price;
         }
     });
 
@@ -349,12 +350,15 @@ $(document).ready(function() {
     <!-- 장바구니 영역 -->
     <div class="cart-container">
         <div class="cart-items">
-            <% for (Cart cart : cartList) { %>
+            <% for (Cart cart : cartList) { 
+            List<ProductImage> imgList = cart.getProduct().getImgList();
+			String imageSrc = (imgList != null && !imgList.isEmpty()) ? imgList.get(0).getFilename() : "${ctx}/resources/shop/assets/img/default.jpg";
+			%>
             <div class="product-card" data-id="<%= cart.getCartId() %>">
                 <input type="checkbox" class="product-checkbox" checked onchange="updateSummary()" />
 
                 <div class="product-thumbnail">
-                    <img src="${ctx}/resources/shop/assets/img/product/product_list_1.png" alt="상품 이미지" />
+                    <img src="<%= imageSrc %>" />
                 </div>
 
                 <div class="product-details">

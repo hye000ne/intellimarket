@@ -477,7 +477,7 @@ function requestPay() {
 						            <div class="product-card" data-product-id="<%= cart.getProduct().getProductId() %>">
 						                <div class="product-wrapper">
 						                    <div class="product-thumbnail">
-						                        <img src="<%= imageSrc %>" alt="<%= cart.getProduct().getProductName() %>" />
+						                        <img src="<%= imageSrc %>" />
 						                    </div>
 						                    <div class="product-details">
 						                        <div class="product-title"><%= cart.getProduct().getProductName() %></div>
