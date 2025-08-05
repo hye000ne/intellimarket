@@ -3,13 +3,13 @@
 <%@ include file="/WEB-INF/views/common/init.jsp"%>
 <!-- 상단 배너 -->
 <div class="slider-area">
-	<div class="single-slider slider-height2 d-flex align-items-center"
+	<div class="single-slider d-flex align-items-center"
 		data-background="${ctx}/resources/shop/assets/img/hero/category.jpg">
 		<div class="container">
 			<div class="row">
 				<div class="col-xl-12">
 					<div class="hero-cap text-center">
-						<h2>회원가입</h2>
+						<h2>판매자 등록 신청</h2>
 					</div>
 				</div>
 			</div>
@@ -301,3 +301,15 @@
 		$('#zipCode').click(findZipCode);
 	});
 </script>
+<style>
+.login_part{
+	padding-top: 0px !important;
+	padding-bottom: 0px !important;
+}
+.login_part_form{
+	padding-top: 50px !important;
+}
+.single-slider{
+	height:100px !important;
+}
+</style>

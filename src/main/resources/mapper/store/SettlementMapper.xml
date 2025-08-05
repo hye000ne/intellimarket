@@ -7,7 +7,6 @@
 		<id column="settlement_id" property="settlementId"/>
 		
 		<result column="requested_amount" property="requestedAmount"/>
-		<result column="fee_amount" property="feeAmount"/>
 		<result column="net_amount" property="netAmount"/>
 		<result column="settlement_status" property="settlementStatus"/>
 		<result column="settlement_requested_at" property="settlementRequestedAt"/>
@@ -107,5 +106,11 @@
 	    AND settlement_status = 'READY'
 	    AND DATE_FORMAT(created_at, '%Y-%m') = #{yearMonth}
 	</update>
+	
+	<!-- 유저가 구매확정 누를 때 , 정산 Record 신규 insert -->
+	<insert id="insert" parameterType="Settlement">
+		insert into settlement(store_info_id,requested_amount) 
+			values(#{storeInfo.storeInfoId},#{requestedAmount});
+	</insert>
 	
 </mapper>

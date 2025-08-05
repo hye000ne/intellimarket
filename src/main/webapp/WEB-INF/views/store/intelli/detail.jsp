@@ -205,99 +205,123 @@
 		</div>
 	</div>
 </div>
+<!-- 장바구니 추가 성공 모달 -->
+<div class="modal fade" id="cartSuccessModal" tabindex="-1" aria-labelledby="cartSuccessModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="cartSuccessModalLabel">
+          <i class="bi bi-check-circle-fill text-success me-2"></i>장바구니 추가 완료
+        </h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body text-center">
+        <p class="mb-3">상품이 장바구니에 추가되었습니다.</p>
+        <p class="text-muted">장바구니를 확인하시겠습니까?</p>
+      </div>
+      <div class="modal-footer justify-content-center">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">계속 쇼핑</button>
+        <button type="button" class="btn btn-primary" id="goToCartBtn">장바구니 보기</button>
+      </div>
+    </div>
+  </div>
+</div>
 
 <script>
 $(document).ready(function() {
+	  
+	  // Summernote 초기화 - 읽기 전용
 	  $('#summernote').summernote({
-	    toolbar: false,          // 툴바 숨김
-	    airMode: false,          // airMode 비활성화 (읽기전용에 일반 모드 권장)
+	    toolbar: false,
+	    airMode: false,
 	    disableDragAndDrop: true,
-	    minHeight: 300           // 최소 높이 지정
+	    minHeight: 300
 	  });
-	  $('#summernote').summernote('disable');  // 읽기전용으로 에디터 비활성화
-	});
-	// 수량 입력 요소
-	let $quantityInput = $('#quantity');
+	  $('#summernote').summernote('disable');
 
-	// 총 상품 금액 보여주는 영역
-	let $totalAmount = $('#totalAmount');
+	  // 수량 및 금액 관련 변수
+	  var $quantityInput = $('#quantity');
+	  var $totalAmount = $('#totalAmount');
+	  var $buyQuantity = $('#buyQuantity');
+	  var $cartQuantity = $('#cartQuantity');
+	  
+	  var unitPrice = ${product.price - product.discount}; // JSP에서 숫자값 직접 출력
 
-	// 구매, 장바구니 hidden 수량 필드
-	let $buyQuantity = $('#buyQuantity');
-	let $cartQuantity = $('#cartQuantity');
-
-	// 장바구니 추가
-	$(document).ready(function() {
-
-		// 기존 장바구니 Ajax 코드 유지하면서 quantity 제대로 전달되도록 수정
-		$('form').on('submit', function(e) {
-			if ($(this).find('button.btn-secondary').length > 0) {
-				e.preventDefault();
-				let form = $(this);
-				let productId = form.find('input[name="productId"]').val();
-				let quantity = form.find('input[name="quantity"]').val();
-
-				$.ajax({
-					url : '/shop/cart/insert',
-					method : 'POST',
-					dataType : 'json',
-					data : {
-						productId : productId,
-						quantity : quantity
-					},
-					success : function(response) {
-						alert('장바구니에 상품이 추가되었습니다.');
-					},
-					error : function(xhr, status, error) {
-						alert('장바구니 추가 중 오류가 발생했습니다.');
-						console.error(error);
-					}
-				});
-			}
-		});
-	});
-	
-	  $(document).ready(function() {
-	    // 수량 입력 요소
-	    let $quantityInput = $('#quantity');
-	    let $totalAmount = $('#totalAmount');
-	    let $buyQuantity = $('#buyQuantity');
-	    let $cartQuantity = $('#cartQuantity');
-
-	    // 단위 가격을 숫자 타입으로 JSP에서 직접 숫자값 출력하기
-	    let unitPrice = ${product.price - product.discount}; // 문자열 아니어야 함
-
-	    function updateQuantity(qty) {
-	      if (isNaN(qty) || qty < 1) {
-	        qty = 1;
-	      }
-	      $quantityInput.val(qty);
-
-	      let total = unitPrice * qty;
-	      $totalAmount.text(total.toLocaleString()+'원');
-	      $('#displayQty').text(qty);
-	      $buyQuantity.val(qty);
-	      $cartQuantity.val(qty);
+	  function updateQuantity(qty) {
+	    if (isNaN(qty) || qty < 1) {
+	      qty = 1;
 	    }
+	    $quantityInput.val(qty);
 
-	    $quantityInput.on('input change', function() {
-	      let qty = parseInt($(this).val());
-	      updateQuantity(qty);
-	    });
+	    var total = unitPrice * qty;
+	    $totalAmount.text(total.toLocaleString() + '원');
+	    $('#displayQty').text(qty);
+	    $buyQuantity.val(qty);
+	    $cartQuantity.val(qty);
+	  }
 
-	    $('#btn-minus').click(function() {
-	      let currentQty = parseInt($quantityInput.val());
-	      if (currentQty > 1) {
-	        updateQuantity(currentQty - 1);
+	  // 수량 입력 이벤트
+	  $quantityInput.on('input change', function() {
+	    var qty = parseInt($(this).val(), 10);
+	    updateQuantity(qty);
+	  });
+
+	  // +- 버튼 클릭 이벤트
+	  $('#btn-minus').click(function() {
+	    var currentQty = parseInt($quantityInput.val(), 10);
+	    if (currentQty > 1) {
+	      updateQuantity(currentQty - 1);
+	    }
+	  });
+	  
+	  $('#btn-plus').click(function() {
+	    var currentQty = parseInt($quantityInput.val(), 10);
+	    updateQuantity(currentQty + 1);
+	  });
+
+	  updateQuantity(parseInt($quantityInput.val(), 10) || 1);
+
+	// 장바구니 추가 Ajax
+	  $('form[action="cart"]').on('submit', function(e) {
+	    console.log("장바구니 폼 제출 감지");
+	    e.preventDefault();
+	    
+	    var form = $(this);
+	    var productId = form.find('input[name="productId"]').val();
+	    var quantity = $('#quantity').val();
+	    
+	    console.log("AJAX 요청 URL: /shop/cart/insert");
+	    console.log("productId:", productId, "quantity:", quantity);
+	    
+	    $.ajax({
+	        url: '/shop/cart/insert',
+	        method: 'POST',
+	        contentType: 'application/json',
+	        dataType: 'json',
+	        data: JSON.stringify({
+	          quantity: quantity,        
+	          product: {
+	            productId: productId     
+	          }
+	        }),
+	      success: function(response) {
+	        // Bootstrap 모달 표시
+	        $('#cartSuccessModal').modal('show');
+	        
+	        // 장바구니 보기 버튼 이벤트 (중복 방지를 위해 off 후 on)
+	        $('#goToCartBtn').off('click').on('click', function() {
+	          window.location.href = '/shop/cart';
+	        });
+	      },
+	      error: function(xhr, status, error) {
+	        console.error('AJAX 에러:', xhr.responseText);
+	        alert('장바구니 추가 중 오류가 발생했습니다.');
 	      }
 	    });
-
-	    $('#btn-plus').click(function() {
-	      let currentQty = parseInt($quantityInput.val());
-	      updateQuantity(currentQty + 1);
-	    });
-
-	    updateQuantity(parseInt($quantityInput.val()) || 1);
 	  });
+
+
+
+	});
 
 </script>

@@ -28,5 +28,5 @@ public interface OrderDAO {
     
     void updateStatuses(@Param("orderIds") List<Integer> orderIds, @Param("status") OrderStatus status);
 	
-	void delete(int orderId);
+	int delete(int orderId);
 }
