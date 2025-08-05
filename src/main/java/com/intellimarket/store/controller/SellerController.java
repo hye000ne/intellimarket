@@ -65,7 +65,7 @@ public class SellerController {
 		sellerService.insert(seller);
 		Map<String, Object> res = new HashMap<>();
 		res.put("status", "ok");
-		res.put("msg", "회원가입이 완료되었습니다");
+		res.put("msg", "판매자 등록 신청이 완료되었습니다");
 		return res;
 	}
 	

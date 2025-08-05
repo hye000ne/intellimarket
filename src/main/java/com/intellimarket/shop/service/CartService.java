@@ -20,4 +20,6 @@ public interface CartService {
 	int updateQuantity(Cart cart);
 
 	int delete(int cart_id);
+	
+	int deleteByMemberIdAndProductIds(int memberId, List<Integer> productIds);
 }

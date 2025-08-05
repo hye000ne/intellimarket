@@ -66,4 +66,13 @@
 		delete from cart
 		where cart_id = #{cartId}
 	</delete>
+	
+	<delete id="deleteByMemberIdAndProductIds">
+	  	delete from cart
+	  	where member_id = #{memberId}
+	    and product_id IN
+    <foreach item="id" collection="productIds" open="(" separator="," close=")">
+      #{id}
+    </foreach>
+</delete>
 </mapper>

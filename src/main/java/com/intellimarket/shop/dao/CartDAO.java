@@ -24,4 +24,6 @@ public interface CartDAO {
 	int updateQuantity(Cart cart);
 	
 	int delete(int cart_id);
+	
+	int deleteByMemberIdAndProductIds(@Param("memberId") int memberId, @Param("productIds") List<Integer> productIds);
 }

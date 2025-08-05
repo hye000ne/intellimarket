@@ -26,5 +26,5 @@ public interface OrderService {
     
     void updateStatuses(List<Integer> orderIds, OrderStatus status);
 	
-	void delete(int orderId);
+	int delete(int orderId);
 }
