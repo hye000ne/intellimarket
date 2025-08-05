@@ -24,7 +24,7 @@
                     <div class="login_part_text_iner">
                         <h2>아직 인텔리마켓 판매자가 아니신가요?</h2>
                         <p>판매자 등록을 하여 인텔리 마켓의 똑똑한 비즈니스를 시작해보세요.</p>
-                        <a href="${ctx}/shop/join" class="btn_3">판매자 가입</a>
+                        <a href="${ctx}/store/seller/join" class="btn_3">판매자 가입</a>
                     </div>
                 </div>
             </div>

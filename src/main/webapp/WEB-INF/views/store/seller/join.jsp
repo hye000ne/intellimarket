@@ -80,7 +80,11 @@
 									<option value="신한은행">신한은행</option>
 									<option value="하나은행">하나은행</option>
 									<option value="우리은행">우리은행</option>
-									<option value="농협은행">농협</option>
+									<option value="농협은행">농협은행</option>
+									<option value="농협은행">기업은행</option>
+									<option value="농협은행">우체국</option>
+									<option value="농협은행">카카오뱅크</option>
+									<option value="농협은행">토스뱅크</option>
 								</select>
 							</div>
 

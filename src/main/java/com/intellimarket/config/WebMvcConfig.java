@@ -50,6 +50,14 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter {
         // 임시 배포 폴더 물리 경로 추가 매핑
         registry.addResourceHandler("/store/**")
                 .addResourceLocations("file:///C:/workspace/project_wroksapce2/.metadata/.plugins/org.eclipse.wst.server.core/tmp0/wtpwebapps/intellimarket/resources/");
+        
+        // 크롬 개발자 도구 자동요청 무시
+        registry.addResourceHandler("/.well-known/**")
+        .addResourceLocations("classpath:/static/.well-known/");
+        
+        // favicon 요청 매핑
+        registry.addResourceHandler("/favicon.ico").addResourceLocations("classpath:/static/favicon.ico");
+
     }
     /**
      * JSON 변환기 등록
