@@ -108,34 +108,6 @@ public class OrderController {
 		
 		List<Order> orderList = orderService.selectByMerchantUid(merchantUid, member.getMemberId());
 		
-		log.info(""+totalAmount+"원");
-		
-		for (Order order : orderList) {
-		    log.info("===== 주문 정보 =====");
-		    log.info("Order ID: {}", order.getOrderId());
-		    log.info("Merchant UID: {}", order.getMerchantUid());
-		    log.info("Quantity: {}", order.getQuantity());
-		    log.info("Zip Code: {}", order.getZipCode());
-		    log.info("Address: {} {}", order.getAddress(), order.getDetailAddress());
-		    log.info("Created Date: {}", order.getCreatedDate());
-		    log.info("Updated Date: {}", order.getUpdatedDate());
-		    log.info("Total Price: {}", order.getTotalPrice());
-		    log.info("Order Status: {}", order.getOrderStatus());
-
-		    if (order.getMember() != null) {
-		        log.info("Member ID: {}", order.getMember().getMemberId());
-		        log.info("Member Name: {}", order.getMember().getName());
-		    }
-
-		    if (order.getProduct() != null) {
-		        log.info("Product ID: {}", order.getProduct().getProductId());
-		        log.info("Product Name: {}", order.getProduct().getProductName());
-		    }
-
-		    log.info("=====================");
-		}
-
-		
 		model.addAttribute("totalPrice", totalAmount);
 		model.addAttribute("address", orderList.get(0).getAddress() + " " +orderList.get(0).getDetailAddress());
 		model.addAttribute("memberId", member.getName());
