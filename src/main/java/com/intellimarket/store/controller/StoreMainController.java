@@ -11,7 +11,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.intellimarket.store.dao.ProductDAO;
 import com.intellimarket.store.domain.Product;
+import com.intellimarket.store.domain.Seller;
 import com.intellimarket.store.domain.StoreInfo;
 import com.intellimarket.store.domain.SubCategory;
 import com.intellimarket.store.domain.TopCategory;
@@ -33,6 +35,24 @@ public class StoreMainController {
 
 	@Autowired
 	ProductService productService;
+	
+	/**
+	 * 마켓에서
+	 * 디테일 페이지로 접근하는 용도
+	 */
+	@GetMapping("/products/{productId}")
+	public String toDetail(@PathVariable("productId") String productId, Model model) {
+		
+		Product product = productService.select(Integer.parseInt(productId));
+		
+		Seller seller = product.getSeller();
+		
+	    StoreInfo storeInfo = storeInfoService.selectById(seller);
+
+	    return "redirect:/store/" + storeInfo.getEngName() + "/products/" + productId;
+	}
+	
+	
 	
 	/**
 	 * 판메자 메인 페이지 반환
