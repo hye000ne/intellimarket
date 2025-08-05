@@ -175,3 +175,17 @@ footer {
 	}
 	
 }
+.h2-hero {
+  color: #0000a0;              /* 진한 파랑 */
+  font-weight: 700;            /* 굵게 */
+  text-transform: uppercase;   /* 대문자 (선택사항) */
+  text-shadow: 0 0 5px rgba(36, 228, 171, 0.7); /* 은은한 민트빛 그림자 */
+  transition: transform 0.3s ease;
+  cursor: pointer;
+}
+
+.h2-hero:hover {
+  transform: scale(1.1);
+  color: #18c7b6;              /* 밝은 민트색으로 변경 */
+  text-shadow: 0 0 10px rgba(24, 199, 182, 0.9);
+}

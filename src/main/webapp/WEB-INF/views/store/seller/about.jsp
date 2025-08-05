@@ -19,7 +19,7 @@
     <div class="hero-text">
         <h1>판매를 시작하는 가장 똑똑한 방법</h1>
         <p>Intelli Market은 간단하지만 강력한 스토어 관리, 편리한 상품 등록/판매가 가능합니다.<br> 또한, 빠른 정산 시스템과 낮은 수수료를 통해 안정적인 비즈니스 운영을 지원합니다!</p>
-        
+        <a href="${ctx}/store/seller/join"><h2 class="h2-hero">판매자 등록</h2></a>
         </div>
 </section>
 
