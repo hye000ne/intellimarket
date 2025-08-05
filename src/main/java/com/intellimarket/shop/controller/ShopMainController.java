@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.intellimarket.admin.service.BannerService;
 import com.intellimarket.common.util.CookieUtil;
+import com.intellimarket.store.service.ProductService;
 import com.intellimarket.store.service.StoreInfoService;
 
 /**
@@ -21,6 +22,7 @@ import com.intellimarket.store.service.StoreInfoService;
 public class ShopMainController {
 	@Autowired BannerService bannerService;
 	@Autowired StoreInfoService storeInfoService;
+	@Autowired ProductService productService;
 	
 	/**
 	 * 쇼핑몰 메인 페이지
@@ -29,7 +31,9 @@ public class ShopMainController {
 	public String main(Model model) {
 		model.addAttribute("bannerList", bannerService.selectByStatus("Y"));
 		model.addAttribute("recentStoreList", storeInfoService.selectRecentByCount(3));
+		model.addAttribute("recentProductList", productService.selectRecentByCount(3));
 		model.addAttribute("contentPage", "shop/main.jsp");
+		
         return "layout/shop";
     }
 	
