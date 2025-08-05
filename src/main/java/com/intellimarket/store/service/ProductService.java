@@ -50,4 +50,7 @@ public interface ProductService {
 	List<Product> getTopProduct(StoreInfo storeInfo, String topId);
 	
 	List<Product> getSubProduct(StoreInfo storeInfo, String subId);
+	
+	//상품 결제시 구매수량 1 증가
+	int updateSalesCount(int productId);
 }

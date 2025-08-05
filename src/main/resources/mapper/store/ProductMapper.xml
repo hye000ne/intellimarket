@@ -134,6 +134,13 @@
 		delete from products
 		where product_id = #{productId}
 	</delete>
+	
+	<!-- 결제완료 시  , sales_count 1 증가 -->
+	<update id="updateSalesCount" parameterType="int">
+		UPDATE products
+		SET sales_count = sales_count + 1
+		WHERE product_id = #{productId};
+	</update>
 
 </mapper>
 

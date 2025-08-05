@@ -232,4 +232,10 @@ public class ProductServiceImpl implements ProductService{
 		return products;
 	}
 
+	@Override
+	public int updateSalesCount(int productId) {
+		
+		return productDAO.updateSalesCount(productId);
+	}
+
 }
