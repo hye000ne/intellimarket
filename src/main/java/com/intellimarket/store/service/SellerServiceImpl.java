@@ -86,8 +86,9 @@ public class SellerServiceImpl implements SellerService {
 			storeInfo.setSeller(seller);
 			storeInfo.setStoreName(seller.getName() + " 님의 스토어");
 			storeInfo.setStoreTel(seller.getTel());
-			storeInfo.setLogoPath("");
+			storeInfo.setLogoPath("/resources/common/img/logo/log05.png");
 			storeInfo.setStoreIntroduce(seller.getName() + " 님의 인텔리한 상점입니다.");
+			storeInfo.setEngName("tmp"+System.currentTimeMillis());
 			storeInfoDAO.insert(storeInfo);
 		}
 

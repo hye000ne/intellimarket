@@ -4,9 +4,8 @@
 <!-- Sidebar -->
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
   <!-- Logo -->
-  <a href="${ctx}/store/seller/manage/product/list" class="brand-link">
-    <img src="${ctx}/resources/common/img/logo/logo08.png" class="brand-image img-circle elevation-3" style="height: 35px;">
-    <span class="brand-text font-weight-light">Intelli Seller</span>
+  <a href="${ctx}/store/${sessionScope.loginStoreInfo.engName}" class="brand-link">
+    <span class="brand-text font-weight-light">내 스토어</span>
   </a>
 
   <!-- sidebar -->
@@ -17,11 +16,9 @@
         <img src="${ctx}/resources/admin/assets/img/user2-160x160.jpg" class="img-circle elevation-2">
       </div>
       <div class="info">
-        <a href="#" class="d-block">
           <c:if test="${not empty sessionScope.loginSeller}">
-            <span>${sessionScope.loginSeller.name} 판매자</span>
+            <span>${sessionScope.loginSeller.name}님</span>
           </c:if>
-        </a>
       </div>
     </div>
 
@@ -169,3 +166,16 @@
     </nav>
   </div>
 </aside>
+
+<style>
+  .brand-link .brand-text {
+    font-size: 1.2rem; /* 로고 영역 글자 약간 작게 */
+  }
+  .sidebar .user-panel .info span {
+    color: white;        /* 프로필 이름 흰색 */
+    font-size: 1.1rem;   /* 약간 크게 */
+  }
+</style>
+
+
+
