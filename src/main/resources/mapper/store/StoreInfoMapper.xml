@@ -38,8 +38,8 @@
 		<insert id="insert" parameterType="StoreInfo">
 			INSERT INTO
 			store_info(store_name, store_tel, logo_path, seller_id, eng_name, store_introduce)
-			values (#{storeName}, #{storeTel}, #{logoPath}, #{seller.sellerId},
-			#{storeIntroduce}. #{engName})
+			values (#{storeName}, #{storeTel}, #{logoPath}, #{seller.sellerId}, #{engName}, #{storeIntroduce})
+			
 		</insert>
 
 		<update id="update" parameterType="StoreInfo">

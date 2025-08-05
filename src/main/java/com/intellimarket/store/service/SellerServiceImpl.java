@@ -77,11 +77,11 @@ public class SellerServiceImpl implements SellerService {
 	// 판매자 상태 수정
 	@Transactional
 	public void updateStatus(Seller reqSeller) {
-		
+
 		// 승인일 경우, storeInfo도 생성
-		if(reqSeller.getStatus().equals(SellerStatus.APPROVED)) {
+		if (reqSeller.getStatus().equals(SellerStatus.APPROVED)) {
 			Seller seller = sellerDAO.selectById(reqSeller.getSellerId());
-			
+
 			StoreInfo storeInfo = new StoreInfo();
 			storeInfo.setSeller(seller);
 			storeInfo.setStoreName(seller.getName() + " 님의 스토어");
@@ -89,8 +89,8 @@ public class SellerServiceImpl implements SellerService {
 			storeInfo.setLogoPath("");
 			storeInfo.setStoreIntroduce(seller.getName() + " 님의 인텔리한 상점입니다.");
 			storeInfoDAO.insert(storeInfo);
-		} 
-		
+		}
+
 		// 반려일 경우, reject Msg와 status만 변경
 		sellerDAO.updateStatus(reqSeller);
 
