@@ -63,6 +63,7 @@ public class ProductServiceImpl implements ProductService{
 
 	// 상품 등록
 	@Override
+	@Transactional
 	public void insert(Product product,String savePath, String prefix) throws CommonException{
 		validateProduct(product);
 		// 1. 상품정보 저장

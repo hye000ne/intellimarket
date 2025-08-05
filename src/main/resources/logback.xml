@@ -5,9 +5,9 @@
 			<pattern>%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n</pattern>
 		</encoder>
 	</appender>
-	<logger name="org.mybatis" level="WARN" />
-	<logger name="org.apache.ibatis" level="WARN" />
-	<root level="WARN">
+	<logger name="org.mybatis" level="debug" />
+	<logger name="org.apache.ibatis" level="debug" />
+	<root level="debug">
 		<appender-ref ref="CONSOLE" />
 	</root>
 </configuration>

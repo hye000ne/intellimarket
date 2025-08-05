@@ -101,7 +101,7 @@
 						<input type="hidden" name="productId" value="${product.productId}" /> <input type="hidden" name="quantity" id="buyQuantity" value="1" />
 						<button type="submit" class="btn btn-success btn-action px-4 fw-bold">구매하기</button>
 					</form>
-					<form action="cart" method="post" class="d-inline">
+					<form action="cart" class="d-inline">
 						<input type="hidden" name="productId" value="${product.productId}" /> <input type="hidden" name="quantity" id="cartQuantity" value="1" />
 						<button type="submit" class="btn btn-outline-secondary btn-action px-4 fw-bold">장바구니</button>
 					</form>
@@ -290,9 +290,6 @@ $(document).ready(function() {
 	    var productId = form.find('input[name="productId"]').val();
 	    var quantity = $('#quantity').val();
 	    
-	    console.log("AJAX 요청 URL: /shop/cart/insert");
-	    console.log("productId:", productId, "quantity:", quantity);
-	    
 	    $.ajax({
 	        url: '/shop/cart/insert',
 	        method: 'POST',
@@ -319,8 +316,33 @@ $(document).ready(function() {
 	      }
 	    });
 	  });
+	// 주문 Ajax (GET)
+	  $('form[action="buy"]').on('submit', function(e) {
+	    e.preventDefault();
 
+	    var form = $(this);
+	    var productId = form.find('input[name="productId"]').val();
+	    var quantity = $('#quantity').val();
 
+	    // GET 요청으로 주문 처리
+	    var requestUrl = '/shop/order?product_id=' + encodeURIComponent(productId) +
+	                     '&quantity=' + encodeURIComponent(quantity);
+
+	    $.ajax({
+	      url: requestUrl,
+	      method: 'GET',
+	      dataType: 'json',
+	      success: function(response) {
+	        alert('주문이 완료되었습니다.');
+	        // 주문 완료 후 확인 페이지로 이동
+	        window.location.href = '/shop/order/confirm/' + response.orderId;
+	      },
+	      error: function(xhr, status, error) {
+	        console.error('주문 실패:', xhr.responseText);
+	        alert('주문 처리 중 오류가 발생했습니다.');
+	      }
+	    });
+	  });
 
 	});
 
