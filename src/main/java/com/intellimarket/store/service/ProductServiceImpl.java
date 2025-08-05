@@ -39,6 +39,21 @@ public class ProductServiceImpl implements ProductService{
 	public List<Product> selectById(int sellerId) {
 		return productDAO.selectById(sellerId);
 	}
+	
+	// 베스트 상품 목록 조회
+	public List<Product> selectBestByCount(int count) {
+		return productDAO.selectBestByCount(count);
+	}
+		
+	// 상품 목록 최신 등록순 조회
+	public List<Product> selectRecentByCount(int count){
+		return productDAO.selectRecentByCount(count);
+	}
+		
+	// 추천 목록 최신 등록순 조회
+	public List<Product> selectRecommandByCount(int count){
+		return productDAO.selectRecommandByCount(count);
+	}
 
 	// 상품 단 건 조회
 	@Override
@@ -215,6 +230,12 @@ public class ProductServiceImpl implements ProductService{
 		}
 		
 		return products;
+	}
+
+	@Override
+	public int updateSalesCount(int productId) {
+		
+		return productDAO.updateSalesCount(productId);
 	}
 
 }

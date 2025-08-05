@@ -14,6 +14,15 @@ public interface ProductDAO {
 	// 판매자별 상품 전체 목록 조회
 	List<Product> selectById(int sellerId);
 	
+	// 베스트 상품 목록 조회
+	List<Product> selectBestByCount(int count);
+	
+	// 상품 목록 최신 등록순 조회
+	List<Product> selectRecentByCount(int count);
+	
+	// 추천 목록 최신 등록순 조회
+	List<Product> selectRecommandByCount(int count);
+
 	// 상품 단 건 조회
 	Product select(int productId);
 	
@@ -28,4 +37,7 @@ public interface ProductDAO {
 	
 	// 상품 삭제
 	int delete(int productId);
+	
+	//상품 결제시 구매수량 1 증가
+	int updateSalesCount(int productId);
 }

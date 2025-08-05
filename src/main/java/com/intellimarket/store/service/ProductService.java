@@ -17,6 +17,15 @@ public interface ProductService {
 	// 판매자별 상품 목록 조회
 	List<Product> selectById(int sellerId);
 	
+	// 베스트 상품 목록 조회
+	List<Product> selectBestByCount(int count);
+	
+	// 상품 목록 최신 등록순 조회
+	List<Product> selectRecentByCount(int count);
+	
+	// 추천 목록 최신 등록순 조회
+	List<Product> selectRecommandByCount(int count);
+	
 	// 상품 등록
 	void insert(Product product,String savePath, String prefix);
 	
@@ -41,4 +50,7 @@ public interface ProductService {
 	List<Product> getTopProduct(StoreInfo storeInfo, String topId);
 	
 	List<Product> getSubProduct(StoreInfo storeInfo, String subId);
+	
+	//상품 결제시 구매수량 1 증가
+	int updateSalesCount(int productId);
 }

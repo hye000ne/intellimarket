@@ -28,7 +28,7 @@
 	                           	<ul>
 	                              	<c:if test="${not empty sessionScope.loginMember}">
 										<li><a href="${ctx}/shop/member/logout">로그아웃</a></li>
-										<li><a href="${ctx}/shop/mypage">마이페이지</a></li>
+										<li><a href="${ctx}/shop/mypage/editprofile">마이페이지</a></li>
 									</c:if>
 									<c:if test="${empty sessionScope.loginMember}">
 										<li><a href="${ctx}/shop/login">로그인</a></li>
@@ -77,7 +77,7 @@
                                 <!-- 마이 페이지 -->
 								<li>
 									<div class="favorit-items">
-                                       		<a href="${ctx}/shop/mypage"><i class="far fa-user"></i></a>
+                                       		<a href="${ctx}/shop/mypage/editprofile"><i class="far fa-user"></i></a>
 									</div>
 								</li>
                                	<!-- 장바구니 -->

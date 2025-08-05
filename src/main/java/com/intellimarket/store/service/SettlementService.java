@@ -42,5 +42,5 @@ public interface SettlementService {
     int sumAmountByStatus(String settlementStatus, String yearMonth);
     
     // 상품 구매 확정 시 , settlement insert
-    void insert(Product product,int requestedAmount);
+    int insert(Product product,int requestedAmount);
 }
