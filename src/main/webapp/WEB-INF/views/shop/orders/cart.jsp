@@ -226,7 +226,8 @@ function updateSummary() {
         if (checkbox.checked) {
             const price = parseInt(card.querySelector('.product-price').dataset.price);
             const qty = parseInt(card.querySelector('.qty-value').textContent);
-            total += price;
+            
+            total += price * qty;
         }
     });
 
@@ -260,7 +261,7 @@ function showToast(message) {
 
 function removeItem(button) {
     const card = $(button).closest('.product-card');
-    const productId = card.attr('data-id'); // attr로 직접 읽기
+    const productId = card.attr('data-product'); // attr로 직접 읽기
 
     if (!confirm("정말 이 상품을 장바구니에서 삭제하시겠습니까?")) {
         return;
@@ -292,7 +293,7 @@ function requestPay() {
     $('.product-card').each(function () {
         const checked = $(this).find('.product-checkbox').is(':checked');
 
-        const cartId = $(this).attr('data-id');
+        const cartId = $(this).attr('data-cart');
         const quantity = $(this).find('.qty-value').text();
 
         cartItems.push({
@@ -354,7 +355,7 @@ $(document).ready(function() {
             List<ProductImage> imgList = cart.getProduct().getImgList();
 			String imageSrc = (imgList != null && !imgList.isEmpty()) ? imgList.get(0).getFilename() : "${ctx}/resources/shop/assets/img/default.jpg";
 			%>
-            <div class="product-card" data-id="<%= cart.getCartId() %>">
+            <div class="product-card" data-product="<%= cart.getProduct().getProductId() %>" data-cart="<%= cart.getCartId() %>">
                 <input type="checkbox" class="product-checkbox" checked onchange="updateSummary()" />
 
                 <div class="product-thumbnail">

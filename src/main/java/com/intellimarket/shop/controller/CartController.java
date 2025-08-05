@@ -1,11 +1,10 @@
 package com.intellimarket.shop.controller;
 
 import java.util.List;
-import java.util.Map;
 
+import javax.mail.Session;
 import javax.servlet.http.HttpSession;
 
-import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -49,6 +48,19 @@ public class CartController {
 
 		model.addAttribute("contentPage", "shop/orders/cart.jsp");
 		return "layout/shop";
+	}
+	
+	@GetMapping("/select")
+	@ResponseBody
+	public int selectCnt(Model model, HttpSession session){
+		Member member = (Member) session.getAttribute("loginMember");
+		
+		if (member == null) {
+			return 0;
+		}
+		
+		int cnt = cartService.selectCnt(member.getMemberId());
+		return cnt;
 	}
 	
 	@PostMapping("/insert")

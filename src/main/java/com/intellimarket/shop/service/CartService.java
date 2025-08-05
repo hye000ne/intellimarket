@@ -7,6 +7,8 @@ import org.apache.ibatis.annotations.Param;
 import com.intellimarket.shop.domain.Cart;
 
 public interface CartService {
+	int selectCnt(int memberId);
+	
 	Cart selectById(int cart_id);
 	
 	List<Cart> selectAll();

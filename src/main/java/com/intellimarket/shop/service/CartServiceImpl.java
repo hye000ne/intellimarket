@@ -15,6 +15,11 @@ public class CartServiceImpl implements CartService{
 	private CartDAO cartDAO;
 	
 	@Override
+	public int selectCnt(int memberId) {
+		return cartDAO.selectCnt(memberId);
+	}
+
+	@Override
 	public Cart selectById(int cart_id) {
 		return cartDAO.selectById(cart_id);
 	}

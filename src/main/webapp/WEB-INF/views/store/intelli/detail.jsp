@@ -320,6 +320,36 @@ $(document).ready(function() {
 	    });
 	  });
 
+	
+	  // 구매하기 버튼 클릭 시 장바구니에 넣은 후GET 방식으로 주문 페이지 이동
+	  $('form[action="buy"]').on('submit', function(e) {
+	    e.preventDefault(); // 기존 form submit 막기
+
+	    var productId = $(this).find('input[name="productId"]').val();
+	    var quantity = $('#quantity').val();
+
+	    $.ajax({
+	        url: '/shop/cart/insert',
+	        method: 'POST',
+	        contentType: 'application/json',
+	        dataType: 'json',
+	        data: JSON.stringify({
+	          quantity: quantity,        
+	          product: {
+	            productId: productId     
+	          }
+	        }),
+	      success: function(response) {
+	  	    var url = '/shop/order?product_id=' + productId + '&quantity=' + quantity;
+		    window.location.href = url;
+	      },
+	      error: function(xhr, status, error) {
+	        console.error('AJAX 에러:', xhr.responseText);
+	        alert('장바구니 추가 중 오류가 발생했습니다.');
+	      }
+	    });
+	    
+	  });
 
 
 	});

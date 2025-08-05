@@ -265,7 +265,10 @@ body {
     $(".product-card").each(function () {
       const price	   = parseInt( $(this).find(".product-price").text().replace("₩", "").replace(/,/g, ""));
       const quantity = parseInt( $(this).find(".product-quantity").text());
-      productPrice += price * quantity;
+      
+      console.log("${price}");
+      
+      productPrice += price;
     });
 
     
@@ -494,7 +497,7 @@ function requestPay() {
 						        String imageSrc = (imgList != null && !imgList.isEmpty()) ? imgList.get(0).getFilename() : "${ctx}/resources/shop/assets/img/default.jpg";
 						        int qty = (request.getAttribute("quantity") != null) ? (Integer) request.getAttribute("quantity") : 1;
 						%>
-						        <div class="product-card">
+						        <div class="product-card "data-product-id="<%= product.getProductId() %>">
 						            <div class="product-wrapper">
 						                <div class="product-thumbnail">
 						                    <img src="<%= imageSrc %>"/>

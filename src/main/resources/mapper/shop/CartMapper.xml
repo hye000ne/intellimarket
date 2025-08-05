@@ -20,6 +20,13 @@
 		/>
 	</resultMap>
 	
+	<!-- 장바구니 개수 조회 (ID 기반) -->
+	<select id="selectCnt" parameterType="int" resultType="int">
+		select count(*) 
+		  from cart 
+		where member_id = #{memberId}
+	</select>
+	
 	<!-- 회원 단 건 조회 (ID 기반) -->
 	<select id="selectById" parameterType="Cart" resultMap="joinMap">
 		select * 

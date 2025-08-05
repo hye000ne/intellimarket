@@ -11,6 +11,8 @@ import lombok.Data;
 
 @Repository
 public interface CartDAO {
+	int selectCnt(int memberId);
+	
 	Cart selectById(int cart_id);
 	
 	List<Cart> selectAll();

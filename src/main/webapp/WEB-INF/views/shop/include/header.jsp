@@ -83,8 +83,23 @@
                                	<!-- 장바구니 -->
                                	<li>
                                    	<div class="shopping-card">
-                                       		<a href="${ctx}/shop/cart"><i class="fas fa-shopping-cart"></i><span class="cart-count">3</span></a>
+                                       		<a href="${ctx}/shop/cart"><i class="fas fa-shopping-cart"></i><span class="cart-count">0</span></a>
                                    	</div>
+                                   	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+									<script>
+									$(document).ready(function() {
+									    $.ajax({
+									        url: "/shop/cart/select", // 백엔드에서 정의한 @GetMapping("/select")
+									        type: "GET",
+									        success: function(cnt) {
+									            $(".cart-count").text(cnt); // 응답받은 숫자로 업데이트
+									        },
+									        error: function() {
+									            console.error("장바구니 개수 조회 실패");
+									        }
+									    });
+									});
+									</script>
                                	</li>
                            	</ul>
                        	</div>
