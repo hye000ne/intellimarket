@@ -3,6 +3,7 @@ package com.intellimarket.store.service;
 import java.util.List;
 import java.util.Map;
 
+import com.intellimarket.store.domain.Product;
 import com.intellimarket.store.domain.Settlement;
 import com.intellimarket.store.domain.SettlementStatus;
 
@@ -40,4 +41,6 @@ public interface SettlementService {
     //상태별 정산 금액 합계
     int sumAmountByStatus(String settlementStatus, String yearMonth);
     
+    // 상품 구매 확정 시 , settlement insert
+    void insert(Product product,int requestedAmount);
 }
