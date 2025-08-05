@@ -49,5 +49,8 @@ public interface SettlementDAO {
 
     //상태별 정산 금액 합계
     int sumAmountByStatus(@Param("settlementStatus") String settlementStatus, 
-    			@Param("yearMonth") String yearMonth);   
+    			@Param("yearMonth") String yearMonth);  
+    
+    //구매확정 시 , settlement insert
+    void insert (Settlement settlement);
 }
