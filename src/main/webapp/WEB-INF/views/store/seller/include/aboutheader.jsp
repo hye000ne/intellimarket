@@ -3,6 +3,7 @@
 
 <!-- Header -->
 <header>
+
 	<div class="header-area">
 		<div class="main-header">
 			<div class="header-top top-bg d-none d-lg-block">
@@ -26,7 +27,7 @@
 											<a href="${ctx}/store/seller/logout">로그아웃</a>
 										</li>
 										<li>
-											<a href="${ctx}/store/seller/manage/">스토어 관리</a>
+											<a href="${ctx}/store/seller/manage">스토어 관리</a>
 										</li>
 									</c:if>
 									<c:if test="${empty sessionScope.loginSeller}">
@@ -34,8 +35,9 @@
 											<a href="${ctx}/store/seller/login">로그인</a>
 										</li>
 										<li>
-											<a href="${ctx}/store/seller/join">판매자 등록</a>
+											<a href="${ctx}/store/seller/manage" id="storeManageLink">스토어 관리</a>
 										</li>
+
 									</c:if>
 								</ul>
 							</div>
@@ -46,3 +48,21 @@
 		</div>
 	</div>
 </header>
+<script>
+var isLoggedIn = "${not empty sessionScope.loginSeller}";
+  
+  document.addEventListener('DOMContentLoaded', function () {
+	  var link = document.getElementById('storeManageLink');
+	  if (!link) return;
+
+	  link.addEventListener('click', function(event) {
+	    if (isLoggedIn !== 'true') {
+	      event.preventDefault();
+	      alert('로그인이 필요합니다.');
+	      window.location.href = '${ctx}/store/seller/login';
+	    }
+	  });
+	});
+
+</script>
+
