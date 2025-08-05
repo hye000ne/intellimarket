@@ -66,6 +66,7 @@
 											<td>
 											  <c:choose>
 											    <c:when test="${order.orderStatus == 'DELIVERED' 
+											    				|| order.orderStatus == 'IN_TRANSIT' 
 											                    || order.orderStatus == 'CANCEL_COMPLETE' 
 											                    || order.orderStatus == 'RETURN_COMPLETE' 
 											                    || order.orderStatus == 'CHANGE_COMPLETE'}">
