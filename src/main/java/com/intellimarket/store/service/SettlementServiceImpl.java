@@ -77,7 +77,7 @@ public class SettlementServiceImpl implements SettlementService{
 	}
 
 	@Override
-	public void insert(Product product , int requestedAmount) {
+	public int insert(Product product , int requestedAmount) {
 
 		// Product에서 seller_id 를 뽑아낸 다음 store_info_id 조회
 		int storeInfoId = storeInfoDAO
@@ -92,7 +92,7 @@ public class SettlementServiceImpl implements SettlementService{
 		//요청 금액 셋팅
 		settlement.setRequestedAmount(requestedAmount);
 		
-		settlementDAO.insert(settlement);
+		return settlementDAO.insert(settlement);
 	}
 
 
