@@ -43,11 +43,7 @@ public class StoreMainController {
 	@GetMapping("/products/{productId}")
 	public String toDetail(@PathVariable("productId") String productId, Model model) {
 		
-		Product product = productService.select(Integer.parseInt(productId));
-		
-		Seller seller = product.getSeller();
-		
-	    StoreInfo storeInfo = storeInfoService.selectById(seller);
+	    StoreInfo storeInfo = storeInfoService.selectById(productService.select(Integer.parseInt(productId)).getSeller());
 
 	    return "redirect:/store/" + storeInfo.getEngName() + "/products/" + productId;
 	}
