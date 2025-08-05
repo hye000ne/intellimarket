@@ -38,5 +38,6 @@ public interface ProductDAO {
 	// 상품 삭제
 	int delete(int productId);
 	
+	//상품 결제시 구매수량 1 증가
 	int updateSalesCount(int productId);
 }
