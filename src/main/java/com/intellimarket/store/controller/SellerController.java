@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-
+import com.intellimarket.common.service.MailService;
 import com.intellimarket.common.util.CookieUtil;
 import com.intellimarket.shop.exception.ShopException;
 import com.intellimarket.store.domain.Seller;
@@ -32,9 +32,13 @@ import lombok.extern.slf4j.Slf4j;
 @Controller
 @RequestMapping("/store/seller")
 public class SellerController {
+	
+	@Autowired
+    MailService mailService;
+	
 	@Autowired
 	SellerService sellerService;
-
+	
 	/**
 	 * 회원가입 폼 페이지
 	 */
@@ -58,6 +62,7 @@ public class SellerController {
 
 	/**
 	 * 회원 가입 처리 - 이메일, 사업자번호 중복 검증 후 DB 등록
+	 * 신청시 메일 전송
 	 */
 	@PostMapping("/join")
 	@ResponseBody
@@ -65,7 +70,14 @@ public class SellerController {
 		sellerService.insert(seller);
 		Map<String, Object> res = new HashMap<>();
 		res.put("status", "ok");
-		res.put("msg", "판매자 등록 신청이 완료되었습니다");
+		res.put("msg", "판매자 등록 신청이 완료되었습니다. 신청 결과는 가입하신 이메일로 발송됩니다.");
+		
+		String toEmail = seller.getEmail();
+		String subject = "[IntelliMarket] 인텔리마켓 판매자 신청이 정상 접수되었습니다!";
+		String text = "인텔리마켓에 오신것을 진심으로 환영합니다. 내부적으로 간단한 심사(유효한 사업자 여부)이후 승인처리가 완료됩니다."
+		+ "심사 결과는 빠른 시일내에 메일로 발송 예정입니다. 감사합니다";
+		mailService.sendMail(toEmail, subject, text);
+		
 		return res;
 	}
 	
