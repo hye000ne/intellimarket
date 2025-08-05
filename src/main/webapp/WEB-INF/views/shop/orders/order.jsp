@@ -234,7 +234,7 @@ function requestPay() {
 	  alert("주문할 상품이 없습니다.");
 	  return;
 	}
-
+	
 	const totalAmount = parseInt($("#finalAmount").text().replace("₩", "").replace(/,/g, ""));
 	const buyerEmail = $("#buyer_email").val();
 	const buyerName = $("#buyer_name").val();
@@ -286,26 +286,40 @@ function requestPay() {
 	      contentType: "application/json",
 	      data: JSON.stringify(orders),
 	      success: function (res) {
-	    	  const form = document.createElement("form");
-	    	  form.method = "POST";
-	    	  form.action = "/shop/order/success";
-
-	    	  // merchantUid
-	    	  const inputUid = document.createElement("input");
-	    	  inputUid.type = "hidden";
-	    	  inputUid.name = "merchantUid";
-	    	  inputUid.value = merchantUid;
-	    	  form.appendChild(inputUid);
-
-	    	  // totalAmount (전체 결제 금액)
-	    	  const inputAmount = document.createElement("input");
-	    	  inputAmount.type = "hidden";
-	    	  inputAmount.name = "totalAmount";
-	    	  inputAmount.value = totalAmount;
-	    	  form.appendChild(inputAmount);
-
-	    	  document.body.appendChild(form);
-	    	  form.submit();
+	        // ✅ 주문 저장 성공 후 장바구니 삭제
+	        const productIdsToDelete = selectedItems.map(item => item.product.productId);
+	
+	        $.ajax({
+	          url: "/shop/cart/delete",
+	          type: "POST",
+	          contentType: "application/json",
+	          data: JSON.stringify(productIdsToDelete),
+	          success: function () {
+	            // ✅ 장바구니 삭제 후 주문 성공 페이지로 이동
+	            const form = document.createElement("form");
+	            form.method = "POST";
+	            form.action = "/shop/order/success";
+	
+	            const inputUid = document.createElement("input");
+	            inputUid.type = "hidden";
+	            inputUid.name = "merchantUid";
+	            inputUid.value = merchantUid;
+	            form.appendChild(inputUid);
+	
+	            const inputAmount = document.createElement("input");
+	            inputAmount.type = "hidden";
+	            inputAmount.name = "totalAmount";
+	            inputAmount.value = totalAmount;
+	            form.appendChild(inputAmount);
+	
+	            document.body.appendChild(form);
+	            form.submit();
+	          },
+	          error: function (err) {
+	            console.error("장바구니 삭제 실패:", err);
+	            alert("장바구니 삭제 중 오류가 발생했습니다.");
+	          }
+	        });
 	      },
 	      error: function (err) {
 	        console.error("주문 저장 실패:", err);
@@ -317,6 +331,7 @@ function requestPay() {
 	  }
 	});
 }
+
 
 
   /* 체크박스 확인 */

@@ -60,7 +60,7 @@ public class CartController {
 	        throw new ShopException("로그인이 필요합니다.");
 	    }
 	    
-	    cart.getMember().setMemberId(member.getMemberId());
+	    cart.setMember(member);
 	    
 	    if(cartService.insert(cart) < 1) {
 	    	throw new ShopException("장바구니 등록에 실패하셨습니다.");
@@ -91,17 +91,18 @@ public class CartController {
 	@ResponseBody
 	@Transactional
 	@PostMapping("/delete")
-	public ResponseEntity<?> delete(@RequestBody Map<String, Object> payload){
-		int productId = Integer.parseInt(payload.get("productId").toString());
-		
-		int result = cartService.delete(productId);
+	public ResponseEntity<?> delete(@RequestBody List<Integer> productIds, HttpSession session, Model model) {
+	    Member member = SessionUtil.getLoginMember(session, model, "shop/loginFailAlert.jsp", Member.Role.USER);
+	    if (member == null) {
+	        throw new ShopException("로그인이 필요합니다.");
+	    }
 
-		log.debug("result입니다....." + result);
-		
-        if (result == 0) {
-            throw new ShopException("해당 상품을 장바구니에서 찾을 수 없습니다.");
-        }
+	    if (productIds == null || productIds.isEmpty()) {
+	        throw new ShopException("삭제할 상품이 없습니다.");
+	    }
 
-        return ResponseEntity.ok("상품이 삭제되었습니다.");
+	    cartService.deleteByMemberIdAndProductIds(member.getMemberId(), productIds);
+
+	    return ResponseEntity.ok("장바구니에서 삭제되었습니다.");
 	}
 }
