@@ -83,7 +83,7 @@
                                	<!-- 장바구니 -->
                                	<li>
                                    	<div class="shopping-card">
-                                       		<a href="${ctx}/shop/cart"><i class="fas fa-shopping-cart"></i></a>
+                                       		<a href="${ctx}/shop/cart"><i class="fas fa-shopping-cart"></i><span class="cart-count">0</span></a>
                                    	</div>
                                    	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 									<script>
