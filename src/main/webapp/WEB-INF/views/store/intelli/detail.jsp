@@ -52,8 +52,9 @@
 					<!-- 배송기간 안내 박스 -->
 					<div class="delivery-info-box mb-4 p-4 border rounded">
 						<div class="delivery-title mb-2">
-							<img src="/resources/icons/truck.png" alt="배송아이콘" style="height: 18px; margin-right: 6px;" />
+							<i class="fas fa-truck">
 							이 상품의 배송기간
+							</i>
 						</div>
 						<div class="delivery-desc mb-3">
 							<b class="text-danger">평균 배송기간 1일 이내 상품입니다.</b> <br /> <small class="text-muted">배송기간은 주말/공휴일을 제외한 영업일 기준</small>
@@ -95,18 +96,26 @@
 					<div id="totalAmount" class="fw-bold" style="color: #D32F2F; font-size: 20px;">${product.price - product.discount}원</div>
 				</div>
 
-				<div class="product-action-bar border-top pt-3">
-					<!-- 구매/장바구니 버튼 -->
-					<form action="buy" method="post" class="d-inline">
-						<input type="hidden" name="productId" value="${product.productId}" /> <input type="hidden" name="quantity" id="buyQuantity" value="1" />
-						<button type="submit" class="btn btn-success btn-action px-4 fw-bold">구매하기</button>
-					</form>
-					<form action="cart" method="post" class="d-inline">
-						<input type="hidden" name="productId" value="${product.productId}" /> <input type="hidden" name="quantity" id="cartQuantity" value="1" />
-						<button type="submit" class="btn btn-outline-secondary btn-action px-4 fw-bold">장바구니</button>
-					</form>
-				</div>
-
+				<!-- 기존 구매 버튼 영역을 다음과 같이 수정 -->
+<div class="product-action-bar border-top pt-3">
+  <!-- 구매 버튼 -->
+  <div class="d-inline" style="flex: 1; margin-right: 9px;">
+    <a id="buyButton" class="btn btn-success btn-action px-4 fw-bold" 
+       href="${ctx}/shop/order?product_id=${product.productId}&quantity=1" 
+       style="width: 100%; display: block; text-align: center; text-decoration: none;">
+      구매하기
+    </a>
+  </div>
+  
+  <!-- 장바구니 버튼 -->
+  <form action="cart" method="post" class="d-inline" style="flex: 1; margin-left: 9px;">
+    <input type="hidden" name="productId" value="${product.productId}" />
+    <input type="hidden" name="quantity" id="cartQuantity" value="1" />
+    <button type="submit" class="btn btn-mint btn-action px-4 fw-bold" style="width: 100%;">
+      장바구니
+    </button>
+  </form>
+</div>
 			</div>
 		</div>
 
@@ -319,6 +328,34 @@ $(document).ready(function() {
 	      }
 	    });
 	  });
+	
+	// 구매 버튼 href 업데이트 함수 추가
+	  function updateBuyHref(qty) {
+	    if (isNaN(qty) || qty < 1) qty = 1;
+	    var productId = '${product.productId}';
+	    $('#buyButton').attr('href', 
+	      '${ctx}/shop/order?product_id=' + encodeURIComponent(productId) + 
+	      '&quantity=' + encodeURIComponent(qty)
+	    );
+	  }
+
+	  // updateQuantity 함수에 구매 버튼 업데이트 추가
+	  function updateQuantity(qty) {
+	    if (isNaN(qty) || qty < 1) {
+	      qty = 1;
+	    }
+	    $quantityInput.val(qty);
+
+	    var total = unitPrice * qty;
+	    $totalAmount.text(total.toLocaleString() + '원');
+	    $('#displayQty').text(qty);
+	    $buyQuantity.val(qty);
+	    $cartQuantity.val(qty);
+	    
+	    // 구매 버튼 href 업데이트 추가
+	    updateBuyHref(qty);
+	  }
+
 
 	
 	  // 구매하기 버튼 클릭 시 장바구니에 넣은 후GET 방식으로 주문 페이지 이동
