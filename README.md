@@ -101,10 +101,11 @@
 -
 
 ---
-
-## 💻 ERD
-
+## 💻 기획안
+[기획안.pdf](https://github.com/user-attachments/files/21618776/default.pdf)
+## 💻 ERD / 테이블
 <img width="2170" height="2462" alt="Intelli Market (3)" src="https://github.com/user-attachments/assets/ec4ff1bf-403b-4b39-b8ed-9075568637a5" />
+<img width="397" height="814" alt="image" src="https://github.com/user-attachments/assets/fe58f126-fb07-4ca0-b5bd-8581e0cd47df" />
 
 
 ---
@@ -112,4 +113,5 @@
 ## 🖥️ 실행 화면 캡쳐
 
 ## 🔗기타 참고 링크
+
 
