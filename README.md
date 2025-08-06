@@ -1,4 +1,5 @@
-![alt text](logo01.png)
+<img width="983" height="241" alt="logo07" src="https://github.com/user-attachments/assets/70e8888d-378d-48a9-ae85-aaf393165f8c" />
+
 # 🛍️  Intelli Market (온라인 마켓플레이스)
 
 > 인텔리마켓은 다수의 판매자와 소비자가 온라인상에서 상거래를 할 수 있도록 중개 역할을 수행하는 플랫폼 입니다.
@@ -111,3 +112,4 @@
 ## 🖥️ 실행 화면 캡쳐
 
 ## 🔗기타 참고 링크
+
