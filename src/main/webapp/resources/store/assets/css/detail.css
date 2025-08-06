@@ -356,3 +356,52 @@
 .note-btn-group {
   display: none !important;           /* 툴바 완전 숨김 */
 }
+/* 연한 민트색 장바구니 버튼 */
+.btn-mint {
+  background-color: #a8edea !important; /* 연한 민트 */
+  border-color: #a8edea !important;
+  color: #205072 !important; /* 진한 텍스트로 대비 */
+}
+
+.btn-mint:hover {
+  background-color: #8de0dc !important; /* 호버 시 조금 더 진하게 */
+  border-color: #8de0dc !important;
+  color: #205072 !important;
+}
+
+.btn-mint:focus, .btn-mint:active {
+  background-color: #8de0dc !important;
+  border-color: #8de0dc !important;
+  color: #205072 !important;
+  box-shadow: 0 0 0 0.2rem rgba(168, 237, 234, 0.5) !important;
+}
+
+
+/* 버튼 5:5 비율 조정 */
+.product-action-bar {
+  display: flex;
+  gap: 18px;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  align-items: stretch; /* 높이 맞춤 */
+}
+
+.product-action-bar .d-inline,
+.product-action-bar form {
+  flex: 1;
+  margin: 0;
+  width: 100%;
+}
+
+.product-action-bar button,
+.product-action-bar a {
+  width: 100%;
+  height: 48px; /* 동일한 높이 */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  text-decoration: none;
+}
+
