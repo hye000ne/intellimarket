@@ -40,7 +40,8 @@ public class StoreManageController {
 	    if(storeInfo.getEngName()==null) {
 	    	model.addAttribute("contentPage", "store/seller/storeinfo.jsp");
 	    } else {
-	    	model.addAttribute("contentPage", "store/seller/settlement/settlementSummery.jsp");
+	    	model.addAttribute("list", productService.selectById(loginSeller.getSellerId()));
+	    	model.addAttribute("contentPage", "store/seller/product/productList.jsp");
 	    }
 	    
 	    session.setAttribute("loginSeller", sellerService.selectById(loginSeller.getSellerId()));

@@ -141,6 +141,13 @@
 		SET sales_count = sales_count + 1
 		WHERE product_id = #{productId};
 	</update>
-
+	
+	<!-- 결제 완료 시 , 재고수량 1 감소 -->
+	<update id="updateProductStock" parameterType="int">
+		UPDATE products
+		SET product_stock = product_stock - 1
+		WHERE product_id = #{productId};
+	</update>
+	
 </mapper>
 
