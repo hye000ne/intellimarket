@@ -52,7 +52,15 @@
 				                    		<td><fmt:formatNumber value="${settlement.requestedAmount}" type="number" maxFractionDigits="0" /></td>
 											<td><fmt:formatNumber value="${settlement.requestedAmount * 0.9}" type="number" maxFractionDigits="0" /></td>
 				                    		<td>${settlement.settlementStatus.label}</td>
-				                    		<td><button type="button" class="btn btn-block btn-primary btn-sm" onclick="requestSettlement('${settlement.settlementId}', ${settlement.requestedAmount * 0.9})">승인</button></td>
+			                    			<td>
+											    <c:if test="${settlement.settlementStatus eq 'REQUESTED'}">
+											        <button type="button"
+											                class="btn btn-block btn-primary btn-sm"
+											                onclick="requestSettlement('${settlement.settlementId}', ${settlement.requestedAmount * 0.9})">
+											            승인
+											        </button>
+											    </c:if>
+											</td>
 				                  		</tr>
 									</c:forEach>
 			               		</tbody>

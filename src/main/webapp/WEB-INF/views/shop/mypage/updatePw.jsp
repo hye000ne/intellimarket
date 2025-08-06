@@ -75,7 +75,7 @@
 		}
 		
 		const pwReg = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[!@#$%^&*()_+=\-{}\[\]:;"'<>,.?/~`|\\]).{8,16}$/;
-		if (!pwReg.test(pw)) {
+		if (!pwReg.test(newPw)) {
 			alert('비밀번호는 영문, 숫자, 특수문자를 포함해 8~16자로 입력하세요.');
 		  	return;
 		}
@@ -87,7 +87,7 @@
 			success: function(res) {
 				if (res.status === 'ok') {
 					alert(res.msg);
-					location.href = '/shop/mypage';
+					location.href = '/shop/member/logout';
 				} else {
 					alert(res.msg);
 				}
