@@ -58,7 +58,7 @@
                                    		<li class="hot"><a href="#">베스트</a>
                                        	<li><a href="#">세일</a></li>
                                        	<li><a href="#">쿠폰</a>
-                                       	<li><a href="#">고객센터</a></li>
+                                       	<li><a href="${ctx}/shop/customerservice/faq">고객센터</a></li>
                                    	</ul>
                                	</nav>
                            	</div>
@@ -85,6 +85,21 @@
                                    	<div class="shopping-card">
                                        		<a href="${ctx}/shop/cart"><i class="fas fa-shopping-cart"></i></a>
                                    	</div>
+                                   	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+									<script>
+									$(document).ready(function() {
+									    $.ajax({
+									        url: "/shop/cart/select", // 백엔드에서 정의한 @GetMapping("/select")
+									        type: "GET",
+									        success: function(cnt) {
+									            $(".cart-count").text(cnt); // 응답받은 숫자로 업데이트
+									        },
+									        error: function() {
+									            console.error("장바구니 개수 조회 실패");
+									        }
+									    });
+									});
+									</script>
                                	</li>
                            	</ul>
                        	</div>

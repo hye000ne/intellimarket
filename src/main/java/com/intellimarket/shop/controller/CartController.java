@@ -1,11 +1,10 @@
 package com.intellimarket.shop.controller;
 
 import java.util.List;
-import java.util.Map;
 
+import javax.mail.Session;
 import javax.servlet.http.HttpSession;
 
-import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -22,6 +21,7 @@ import com.intellimarket.shop.domain.Cart;
 import com.intellimarket.shop.domain.Member;
 import com.intellimarket.shop.exception.ShopException;
 import com.intellimarket.shop.service.CartService;
+import com.intellimarket.store.domain.Product;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -48,6 +48,19 @@ public class CartController {
 
 		model.addAttribute("contentPage", "shop/orders/cart.jsp");
 		return "layout/shop";
+	}
+	
+	@GetMapping("/select")
+	@ResponseBody
+	public int selectCnt(Model model, HttpSession session){
+		Member member = (Member) session.getAttribute("loginMember");
+		
+		if (member == null) {
+			return 0;
+		}
+		
+		int cnt = cartService.selectCnt(member.getMemberId());
+		return cnt;
 	}
 	
 	@PostMapping("/insert")
@@ -90,18 +103,34 @@ public class CartController {
 	
 	@ResponseBody
 	@Transactional
-	@PostMapping("/delete")
-	public ResponseEntity<?> delete(@RequestBody List<Integer> productIds, HttpSession session, Model model) {
+	@PostMapping("/deletebyproduct")
+	public ResponseEntity<?> deleteByProduct(@RequestBody Product product, HttpSession session, Model model) {
 	    Member member = SessionUtil.getLoginMember(session, model, "shop/loginFailAlert.jsp", Member.Role.USER);
 	    if (member == null) {
 	        throw new ShopException("로그인이 필요합니다.");
 	    }
 
-	    if (productIds == null || productIds.isEmpty()) {
+	    if(cartService.deleteByMemberId(member.getMemberId(), product.getProductId()) < 1) {
+	    	throw new ShopException("장바구니 삭제에 실패했습니다.");
+	    }
+	    
+	    return ResponseEntity.ok("장바구니에서 삭제되었습니다.");
+	}
+	
+	@ResponseBody
+	@Transactional
+	@PostMapping("/delete")
+	public ResponseEntity<?> delete(@RequestBody List<Integer> productId, HttpSession session, Model model) {
+	    Member member = SessionUtil.getLoginMember(session, model, "shop/loginFailAlert.jsp", Member.Role.USER);
+	    if (member == null) {
+	        throw new ShopException("로그인이 필요합니다.");
+	    }
+
+	    if (productId == null || productId.isEmpty()) {
 	        throw new ShopException("삭제할 상품이 없습니다.");
 	    }
 
-	    cartService.deleteByMemberIdAndProductIds(member.getMemberId(), productIds);
+	    cartService.deleteByMemberIdAndProductIds(member.getMemberId(), productId);
 
 	    return ResponseEntity.ok("장바구니에서 삭제되었습니다.");
 	}

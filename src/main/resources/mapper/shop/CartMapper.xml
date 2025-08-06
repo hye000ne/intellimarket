@@ -20,6 +20,13 @@
 		/>
 	</resultMap>
 	
+	<!-- 장바구니 개수 조회 (ID 기반) -->
+	<select id="selectCnt" parameterType="int" resultType="int">
+		select count(*) 
+		  from cart 
+		where member_id = #{memberId}
+	</select>
+	
 	<!-- 회원 단 건 조회 (ID 기반) -->
 	<select id="selectById" parameterType="Cart" resultMap="joinMap">
 		select * 
@@ -65,6 +72,13 @@
 	<delete id="delete" parameterType="int">
 		delete from cart
 		where cart_id = #{cartId}
+	</delete>
+	
+	<!-- 장바구니 삭제 -->
+	<delete id="deleteByMemberId" parameterType="map">
+		delete from cart
+		where member_id = #{memberId}
+		   and product_id = #{productId}
 	</delete>
 	
 	<delete id="deleteByMemberIdAndProductIds">

@@ -11,6 +11,8 @@ import lombok.Data;
 
 @Repository
 public interface CartDAO {
+	int selectCnt(int memberId);
+	
 	Cart selectById(int cart_id);
 	
 	List<Cart> selectAll();
@@ -26,4 +28,6 @@ public interface CartDAO {
 	int delete(int cart_id);
 	
 	int deleteByMemberIdAndProductIds(@Param("memberId") int memberId, @Param("productIds") List<Integer> productIds);
+	
+	int deleteByMemberId(@Param("memberId")int memberId, @Param("productId")int productId);
 }

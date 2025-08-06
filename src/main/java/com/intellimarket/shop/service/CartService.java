@@ -7,6 +7,8 @@ import org.apache.ibatis.annotations.Param;
 import com.intellimarket.shop.domain.Cart;
 
 public interface CartService {
+	int selectCnt(int memberId);
+	
 	Cart selectById(int cart_id);
 	
 	List<Cart> selectAll();
@@ -20,6 +22,8 @@ public interface CartService {
 	int updateQuantity(Cart cart);
 
 	int delete(int cart_id);
+	
+	int deleteByMemberId(@Param("memberId")int memberId, @Param("productId")int productId);
 	
 	int deleteByMemberIdAndProductIds(int memberId, List<Integer> productIds);
 }
