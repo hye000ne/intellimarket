@@ -31,7 +31,7 @@ public class ShopMainController {
 	public String main(Model model) {
 		model.addAttribute("bannerList", bannerService.selectByStatus("Y"));
 		model.addAttribute("recentStoreList", storeInfoService.selectRecentByCount(3));
-		model.addAttribute("recentProductList", productService.selectRecentByCount(3));
+		model.addAttribute("recentProductList", productService.selectRecommandByCount(3));
 		model.addAttribute("contentPage", "shop/main.jsp");
 		
         return "layout/shop";

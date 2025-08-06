@@ -75,7 +75,8 @@ public class AdminStoreController {
 		
 		SettlementStatus status = SettlementStatus.valueOf("REQUESTED"); // 정산 상태: 요청
 		
-		model.addAttribute("list", settlementService.selectByStatus(status));
+//		model.addAttribute("list", settlementService.selectByStatus(status));
+		model.addAttribute("list", settlementService.selectAll());
 		model.addAttribute("contentPage", "admin/store/settlement.jsp");
 		model.addAttribute("menuGroup", "store");
 		model.addAttribute("subMenu", "storeSettlement");
