@@ -85,20 +85,17 @@
 ## ⚙️ 주요 기능별 요약
 
 ### 🌐 플랫폼(마켓)
-
-- 
+- 메인페이지 : 회원가입, 로그인, 로그아웃, 비밀번호 찾기(메일 인증), 상품 리스트 출력, 배너 출력,
+  마이페이지, 장바구니, 주문(결제)
 
 ### 🛍️ 스토어
+- 카테고리별 상품 리스트 출력, 상품 상세 페이지 출력, 장바구니 담기, 장바구니, 주문(결제)
 
--
-
-### 🛠 판매자
-
-- 
+### 🧾 판매자
+- 상품관리, 주문관리, 스토어 관리, 정산 확인
 
 ### 🛠 관리자
-
--
+- 회원관리, 스토어 관리, 판매자 관리, 마켓관리, 정산관리 등
 
 ---
 ## 💻 기획안
@@ -107,11 +104,21 @@
 <img width="2170" height="2462" alt="Intelli Market (3)" src="https://github.com/user-attachments/assets/ec4ff1bf-403b-4b39-b8ed-9075568637a5" />
 <img width="397" height="814" alt="image" src="https://github.com/user-attachments/assets/fe58f126-fb07-4ca0-b5bd-8581e0cd47df" />
 
-
 ---
-
 ## 🖥️ 실행 화면 캡쳐
+<img width="1139" height="674" alt="마켓 메인" src="https://github.com/user-attachments/assets/fbded539-c623-4f12-92c6-c953b881b3d2" />
 
-## 🔗기타 참고 링크
+<img width="875" height="707" alt="스토어 메인 페이지" src="https://github.com/user-attachments/assets/df44d45d-6ebc-4ac0-8a30-e71d5c95ca99" />
 
+<img width="670" height="695" alt="상품 상세" src="https://github.com/user-attachments/assets/00268b3d-d890-4c9f-93b5-0970ded9d91d" />
+
+<img width="1070" height="707" alt="장바구니" src="https://github.com/user-attachments/assets/ea377d80-3de5-4552-b25c-2460fab2dcd1" />
+
+<img width="1065" height="705" alt="결제" src="https://github.com/user-attachments/assets/97d7270c-cbee-449c-b295-dd3ea0ce32c4" />
+
+<img width="1259" height="705" alt="마이페이지" src="https://github.com/user-attachments/assets/c066566c-5991-4cc5-a23e-75342edd87b0" />
+
+<img width="1279" height="704" alt="판매자 스토어관리 페이지" src="https://github.com/user-attachments/assets/a3b86a0d-226c-4b5f-836d-c48a3c1aa4f2" />
+
+<img width="1278" height="702" alt="어드민 페이지" src="https://github.com/user-attachments/assets/7a116b00-4cbf-4bfc-b619-d95203dd6cc2" />
 
