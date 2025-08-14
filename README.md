@@ -106,19 +106,26 @@
 
 ---
 ## 🖥️ 실행 화면 캡쳐
+- 마켓 메인 페이지
 <img width="1139" height="674" alt="마켓 메인" src="https://github.com/user-attachments/assets/fbded539-c623-4f12-92c6-c953b881b3d2" />
 
+- 스토어 메인 페이지
 <img width="875" height="707" alt="스토어 메인 페이지" src="https://github.com/user-attachments/assets/df44d45d-6ebc-4ac0-8a30-e71d5c95ca99" />
 
+- 상품 상세 페이지
 <img width="670" height="695" alt="상품 상세" src="https://github.com/user-attachments/assets/00268b3d-d890-4c9f-93b5-0970ded9d91d" />
 
+- 장바구니 페이지
 <img width="1070" height="707" alt="장바구니" src="https://github.com/user-attachments/assets/ea377d80-3de5-4552-b25c-2460fab2dcd1" />
 
+- 주문/결제 페이지
 <img width="1065" height="705" alt="결제" src="https://github.com/user-attachments/assets/97d7270c-cbee-449c-b295-dd3ea0ce32c4" />
 
+- 마이페이지
 <img width="1259" height="705" alt="마이페이지" src="https://github.com/user-attachments/assets/c066566c-5991-4cc5-a23e-75342edd87b0" />
 
+- 스토어 관리 페이지(판매자)
 <img width="1279" height="704" alt="판매자 스토어관리 페이지" src="https://github.com/user-attachments/assets/a3b86a0d-226c-4b5f-836d-c48a3c1aa4f2" />
 
+- 마켓 관리 페이지(어드민)
 <img width="1278" height="702" alt="어드민 페이지" src="https://github.com/user-attachments/assets/7a116b00-4cbf-4bfc-b619-d95203dd6cc2" />
-
